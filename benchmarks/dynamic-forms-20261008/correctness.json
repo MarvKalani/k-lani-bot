@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "startingCommit": "614f6d097f3df58e98ea00ff7a74f88220d6dad0",
+  "implementation": "completed",
+  "route": "Use/Forms via existing cartridge routing tools",
+  "correctness": {
+    "desktopUiCasesPassed": 69,
+    "uiEfficiencyCasesPassed": 86,
+    "optionalJsCasesSkipped": 1,
+    "pythonCasesPassed": 37,
+    "defaultLiveCasesSkipped": 3,
+    "explicitLiveWorkerCasesPassed": 3,
+    "typedDoorModelChecksPassed": 29,
+    "existingTypedFixtureChecksPassed": 24,
+    "nativeDoorChecksPassed": 25,
+    "nativeInputChecksPassed": 15,
+    "fullRepositoryCheck": "All executed steps passed except existing dispatcher characterization; schema export subsequently refreshed and checked",
+    "startingCommitDispatcherCharacterization": "Same failure reproduced from unmodified starting-commit source in isolation",
+    "format": "passed",
+    "buildWarningsAsErrors": "passed",
+    "schemaExport": "passed"
+  },
+  "nativeMcp": {
+    "functionsVerified": 4,
+    "savedCasesVerified": 3,
+    "applications": [
+      "Native GTK door configurator (labelled synthetic)",
+      "Converseen installed application dropdown"
+    ],
+    "coordinatesUsed": false,
+    "openingChangedSelection": false,
+    "image": "sha256:fdada6121566cf96ac095c0bf0a3e564fed47896856fe3c7d9a29228ac8e62a8",
+    "imageTreatment": "Existing pinned desktop image; current node/fixture directories mounted read-only for deterministic correctness",
+    "productionImageAcceptance": "pending updated preparation; not a scored model run"
+  },
+  "binaryFingerprints": {
+    "node": "2e813dd016adbb982f71370d573a2a1f0827b70efbbff7d73307935b8450a952",
+    "fixture": "9571c890ac7ac14cc24fec305f7886d9b88b664fc88a68cf56f6437a0d503c8d"
+  },
+  "invariants": [
+    "Fresh instance/type/context/options checks before input",
+    "Opaque node/app/form refs; no literal runtime values in definitions",
+    "Unknown constraints remain unknown",
+    "Actual full postcondition verification; unconfirmed input is never automatically retried",
+    "Metadata/dependency provenance is explicit; no temporal causal inference",
+    "Unsupported native form routes on other backends"
+  ],
+  "performance": "pending",
+  "modelRuns": 0,
+  "modelUsage": null,
+  "savingsClaim": null,
+  "remainingAcceptance": [
+    "Updated accepted Docker image for model profiles",
+    "Reviewed shared model adapter and explicit private run budget",
+    "Native Windows/macOS backend implementation/qualification; new capabilities currently unsupported"
+  ]
+}

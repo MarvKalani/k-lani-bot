@@ -1,0 +1,13 @@
+{
+  "id": "synthetic-windows-target",
+  "description": "Synthetisches Windows-Zielprofil; keine Herstellerfreigabe",
+  "osFamily": "windows",
+  "osVersion": "synthetic-build",
+  "architecture": "X64",
+  "requiredInventorySources": [
+    "LocalMachine/Registry64",
+    "LocalMachine/Registry32",
+    "CurrentUser/Registry64",
+    "CurrentUser/Registry32"
+  ]
+}

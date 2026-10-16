@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "name": "outlook_api_types",
+  "description": "Read one page of object types from the installed Outlook type library; no methods are executed.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 20
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Api",
+        "offset": "{{offset}}",
+        "limit": "{{limit}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

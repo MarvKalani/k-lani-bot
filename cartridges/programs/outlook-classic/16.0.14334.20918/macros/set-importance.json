@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "name": "outlook_set_importance",
+  "description": "Set, save and verify Importance on an identified mail. Native enum values are validated.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "entry_id",
+      "type": "string",
+      "description": "Previously observed mail EntryID.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "Observed mailbox StoreID.",
+      "required": true
+    },
+    {
+      "name": "expected_folder_id",
+      "type": "string",
+      "description": "Expected current source folder EntryID.",
+      "required": true
+    },
+    {
+      "name": "value",
+      "type": "integer",
+      "description": "",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "operate_application",
+      "args": {
+        "pid": "{{pid}}",
+        "operation": "SetField",
+        "entry_id": "{{entry_id}}",
+        "store_id": "{{store_id}}",
+        "expected_folder_id": "{{expected_folder_id}}",
+        "field": "Importance",
+        "value": {
+          "integer": "{{value}}"
+        }
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "outlook_display",
+  "description": "Open the inspector of an identified saved mail.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "entry_id",
+      "type": "string",
+      "description": "Previously observed mail EntryID.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "Observed mailbox StoreID.",
+      "required": true
+    },
+    {
+      "name": "expected_folder_id",
+      "type": "string",
+      "description": "Expected current source folder EntryID.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "operate_application",
+      "args": {
+        "pid": "{{pid}}",
+        "operation": "Display",
+        "entry_id": "{{entry_id}}",
+        "store_id": "{{store_id}}",
+        "expected_folder_id": "{{expected_folder_id}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

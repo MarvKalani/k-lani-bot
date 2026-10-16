@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "kind": "result-format",
+  "cases": [
+    { "name": "legacy", "result": { "success": true, "outputs": { "text": "Größe😀" } }, "options": {} },
+    { "name": "summary", "result": { "success": true, "completed_steps": 1, "outputs": { "text": "Größe😀" }, "ui": {} }, "options": { "result_mode": "summary" }, "checks": { "text": { "verified": true, "matches_input": true } } },
+    { "name": "summary-large-changes", "result": { "success": true, "ui": { "kind": "delta", "changed": [1,2,3,4,5,6,7,8,9,10,11,12,13,14], "removed": [1,2,3,4,5], "visibility": [1,2] } }, "options": { "result_mode": "summary" } },
+    { "name": "short-values", "result": { "success": true, "outputs": { "text": "Größe😀", "other": "private" } }, "options": { "result_mode": "values", "fields": ["text"] } },
+    { "name": "long-values", "result": { "success": true, "outputs": { "text": "😀ä" } }, "repeat_outputs": 2600, "options": { "result_mode": "values" } },
+    { "name": "small-debug", "result": { "success": true, "completed_steps": 0 }, "options": { "result_mode": "debug" } },
+    { "name": "large-debug", "result": { "success": true, "outputs": { "text": "😀ä" }, "change": { "added": ["one", "two"] } }, "repeat_outputs": 2600, "options": { "result_mode": "debug" }, "scan": { "field_count": 2, "content_count": 1 } },
+    { "name": "oversized-evidence", "result": { "success": true, "completed_steps": 1, "outputs": { "text": "x" } }, "repeat_outputs": 600000, "options": { "result_mode": "values" } },
+    { "name": "invalid-mode", "result": { "success": true }, "options": { "result_mode": "invalid" } },
+    { "name": "null-mode", "result": { "success": true }, "options": { "result_mode": null } },
+    { "name": "invalid-fields", "result": { "success": true, "outputs": { "text": "value" } }, "options": { "result_mode": "summary", "fields": ["text"] } },
+    { "name": "duplicate-fields", "result": { "success": true, "outputs": { "text": "value" } }, "options": { "result_mode": "values", "fields": ["text", "text"] } },
+    { "name": "unknown-field", "result": { "success": true, "outputs": { "text": "value" } }, "options": { "result_mode": "values", "fields": ["missing"] } },
+    { "name": "numeric-debug", "result": { "success": true, "count": 1.0, "amount": 1e-7, "maximum": 1e21, "literal": "\\u😀\n\u0001" }, "options": { "result_mode": "debug" } }
+  ]
+}

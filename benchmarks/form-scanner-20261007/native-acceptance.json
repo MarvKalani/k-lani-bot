@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "freshBrowserProcess": true,
+  "frontendRestarted": true,
+  "firstUseAutomatic": true,
+  "readOnlyPreflight": {
+    "success": true,
+    "ready": true,
+    "function": "ui.editor.click.ada6d491",
+    "input_sent": false,
+    "targets": [
+      {
+        "step": 1,
+        "action": "click",
+        "role": "page tab",
+        "match": "name+role+window",
+        "name_changed": false
+      }
+    ]
+  },
+  "formScanner": {
+    "observedStates": 3,
+    "survivesRestartWithoutValues": true
+  },
+  "explicitLearningCalls": 0,
+  "hotDiscovery": [
+    "ui.editor.click.ada6d491",
+    "ui.html_text.write.1cd0684e"
+  ],
+  "directCall": {
+    "success": true,
+    "function": "ui.html_text.write.1cd0684e",
+    "completed_steps": 1,
+    "verified": true,
+    "outputs": {
+      "value": "Second access: direct MCP after restart."
+    }
+  },
+  "returnedBytes": 156,
+  "modelImages": 0,
+  "tokenUsage": null,
+  "scope": "Native MCP acceptance; no model token measurement performed."
+}

@@ -1,0 +1,21 @@
+{
+  "name": "list_available_mcps",
+  "description": "Lists enabled local modules; this does not grant rights to change them.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

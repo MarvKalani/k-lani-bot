@@ -1,0 +1,29 @@
+{
+  "kind": "role-families",
+  "cases": [
+    { "platform": "Windows", "role": "MenuItem", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Windows", "role": "ListItem", "family": "Interactive", "fieldKind": null, "formKind": "none", "plainTextEntry": false },
+    { "platform": "Windows", "role": "TreeItem", "family": "Interactive", "fieldKind": null, "formKind": "none", "plainTextEntry": false },
+    { "platform": "MacOs", "role": "TextField", "family": "Editable", "fieldKind": "text", "formKind": "text", "plainTextEntry": true },
+    { "platform": "MacOs", "role": "TextArea", "family": "Editable", "fieldKind": "text", "formKind": "text", "plainTextEntry": true },
+    { "platform": "MacOs", "role": "PopUpButton", "family": "Interactive", "fieldKind": "choice", "formKind": "choice", "plainTextEntry": false },
+    { "platform": "MacOs", "role": "MenuItem", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "MacOs", "role": "SecureTextField", "family": "Other", "fieldKind": null, "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "entry", "family": "Editable", "fieldKind": "text", "formKind": "text", "plainTextEntry": true },
+    { "platform": "Linux", "role": "push button", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "combo box", "family": "Interactive", "fieldKind": "choice", "formKind": "choice", "plainTextEntry": false },
+    { "platform": "Linux", "role": "menu item", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "list item", "family": "Interactive", "fieldKind": null, "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "check box", "family": "Interactive", "fieldKind": "toggle", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "page tab", "family": "Interactive", "fieldKind": "navigation", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "spin button", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "password text", "family": "Other", "fieldKind": null, "formKind": "none", "plainTextEntry": false },
+    { "platform": "Linux", "role": "label", "family": "Other", "fieldKind": null, "formKind": "none", "plainTextEntry": false },
+    { "platform": "Windows", "role": "Edit", "family": "Editable", "fieldKind": "text", "formKind": "text", "plainTextEntry": true },
+    { "platform": "Windows", "role": "Button", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Windows", "role": "CheckBox", "family": "Interactive", "fieldKind": "toggle", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Windows", "role": "ComboBox", "family": "Interactive", "fieldKind": "choice", "formKind": "choice", "plainTextEntry": false },
+    { "platform": "Windows", "role": "Hyperlink", "family": "Interactive", "fieldKind": "action", "formKind": "none", "plainTextEntry": false },
+    { "platform": "Windows", "role": "Document", "family": "Other", "fieldKind": null, "formKind": "none", "plainTextEntry": false }
+  ]
+}

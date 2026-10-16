@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "k-lani-bot proposed approval v1",
+  "description": "Proposed contract; not an active product/registry admission mechanism.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "package_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+    },
+    "package_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "package_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "publisher_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "rejected",
+        "suspended",
+        "revoked"
+      ]
+    },
+    "policy_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidence_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "dependency_lock_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "reviewer_ids": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+      }
+    },
+    "issued_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "expires_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "signatures": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "ecdsa-p256-sha256"
+            ]
+          },
+          "signature_base64": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "key_id",
+          "algorithm",
+          "signature_base64"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format",
+    "package_id",
+    "package_version",
+    "package_sha256",
+    "publisher_id",
+    "decision",
+    "policy_sha256",
+    "evidence_sha256",
+    "dependency_lock_sha256",
+    "reviewer_ids",
+    "issued_at",
+    "expires_at",
+    "signatures"
+  ]
+}

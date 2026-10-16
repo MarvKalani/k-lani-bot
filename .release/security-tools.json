@@ -1,0 +1,13 @@
+{
+  "format": 1,
+  "tools": {
+    "syft": {
+      "version": "1.52.0",
+      "sha256": "15a52d0122953081d16e6695f48055216a4de293bb005948663bb739a63880f9"
+    },
+    "grype": {
+      "version": "0.119.0",
+      "sha256": "e02ba25615668c6bae03473e3c6493b6dfffc2e4e419f65f9bd62555ac10cd0e"
+    }
+  }
+}

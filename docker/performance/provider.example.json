@@ -1,0 +1,25 @@
+{
+  "command": ["/absolute/path/to/reviewed-host-model-client"],
+  "client_version": "REPLACE_WITH_EXACT_CLIENT_VERSION",
+  "credential_environment": ["AUTHORIZED_PROVIDER_TOKEN"],
+  "budget": {
+    "max_tokens": 60000,
+    "max_calls": 60,
+    "max_reference_cost": "1.00",
+    "currency": "USD"
+  },
+  "supported": [
+    {"model": "REPLACE_WITH_SUPPORTED_MODEL", "reasoning": "REPLACE_WITH_SUPPORTED_EFFORT", "route": "compact-node"}
+  ],
+  "routes": {
+    "compact-node": {
+      "provider": "REPLACE_WITH_AUTHORIZED_PROVIDER",
+      "version": "REPLACE_WITH_OBSERVED_TOOL_VERSION",
+      "tool": "compact-node",
+      "actions": ["REPLACE_WITH_ACTUAL_AVAILABLE_ACTIONS"],
+      "schema_sha256": "REPLACE_WITH_OBSERVED_SCHEMA_SHA256",
+      "documentation": "https://k-lani.com",
+      "implementation": "native_node"
+    }
+  }
+}

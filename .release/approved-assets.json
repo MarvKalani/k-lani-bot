@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "assets": {
+    "assets/benchmarks/readme-comparison.png": "d50839e3fce982f3cb6fad7e20d211ee5647c5f1c53af0cf6dd6f154a285427e",
+    "assets/benchmarks/readme-comparison.svg": "79e3386c0d80a9320de51374a656e7afb3ea8f915a78df358f5a514e26441452",
+    "assets/branding/k-lani-bot-icon-24.png": "8410315efea625749a0dbe9b57dc0b9185daaa5d3df9bf4a81a8ec8173912685",
+    "assets/branding/k-lani-bot-icon-32.png": "7ab460e59fe5e2e99502e34ede1e0c525e125ae685732a20d4dd4294908796de",
+    "assets/branding/k-lani-bot-icon.svg": "7e7d715542212ddc1d5f120385054b5c6a2ed8fbbae137b096d36c903ba5ba17",
+    "assets/branding/k-lani-bot-logo-linux-panel.png": "c42a9afc99a392af578ed4c56a02c5632bb5e7f1e48914eb6909bfce6e2ccbb5",
+    "assets/branding/k-lani-bot-logo-macos-menubar.png": "6ffa2c44d207b93ce1bc37ea46306f3ca2d1d0d42cda58f621555dc47ad588ee",
+    "assets/branding/k-lani-bot-logo-windows-dialog.png": "517883ba2e50d3d1924b0d45736ca3582e2563e316c27f2377e0ad5f59271bae",
+    "assets/branding/k-lani-bot-logo.svg": "f9bfc31b1f5b07d7bc75327eab7eb081d97bdafcc93b7304e23140dc2494ef9a",
+    "assets/branding/k-lani-bot-octopus.webp": "f1bbf1085a037e5970ce640174854fbe4baee031be38f8d3cf1408de88aefdb3",
+    "assets/k-lani-bot.png": "a9a19fefc6ec35e60c0d08b4c98c1986517c37a0c2220ab189b2d2c9b2e546fa"
+  }
+}

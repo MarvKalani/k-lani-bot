@@ -1,0 +1,4 @@
+title = "k-lani-bot mandatory default secret detection"
+[extend]
+useDefault = true
+# No path exclusions, baseline, ignored fingerprints or model-based allowlist.

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "freshBrowserProcess": true,
+  "frontendRestarted": true,
+  "firstUseAutomatic": true,
+  "explicitLearningCalls": 0,
+  "hotDiscovery": [
+    "ui.editor.click.ada6d491",
+    "ui.html_text.write.1cd0684e"
+  ],
+  "directCall": {
+    "success": true,
+    "function": "ui.html_text.write.1cd0684e",
+    "completed_steps": 1,
+    "verified": true,
+    "outputs": {
+      "value": "Second access: direct MCP after restart."
+    }
+  },
+  "returnedBytes": 156,
+  "modelImages": 0,
+  "tokenUsage": null,
+  "scope": "Native MCP acceptance; no model token measurement performed."
+}

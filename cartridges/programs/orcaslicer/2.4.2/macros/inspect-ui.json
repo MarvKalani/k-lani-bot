@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "name": "k-lani-bot-orcaslicer-242_inspect_ui",
+  "description": "Observes the selected OrcaSlicer process. Reports only exposed accessibility data; does not infer hidden printer/profile state.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "get_ui_tree",
+      "args": {
+        "pid": "{{pid}}",
+        "max_depth": 12
+      },
+      "capture": "ui"
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

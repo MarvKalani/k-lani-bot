@@ -1,0 +1,88 @@
+{
+  "version": 2,
+  "status": "functional_demo_completed_token_acceptance_pending",
+  "fixture": "synthetic-browser-workbench/1.1.0",
+  "scope": "Browser calculator, editor and isolated real filesystem. Not Windows application acceptance.",
+  "task": "Add the five supplied amounts using the calculator, create an HTML report with all amounts and the sum, create a new folder in the test Desktop, save the report and reopen it to verify exact contents.",
+  "routes": {
+    "computer_use": "Authentic cua_repl browser interaction, including semantic elements, keyboard and screenshots when needed. No application APIs, WebMCP or shell for task execution.",
+    "mcp": "The workbench stdio MCP server or directly registered browser WebMCP tools. Load Info and relevant schemas; execute the installed recipe. No screenshots, DOM or coordinates for task execution. Identify WebMCP and stdio as separate transport variants."
+  },
+  "authoring": "In a separately metered model session, discover only relevant primitives and construct/install a parameterized recipe. This fixture demonstrates composition of existing APIs, not automatic discovery of every legacy application's interface.",
+  "fairness": {
+    "model": "Same model and reasoning effort for paired trials; record the resolved model identifier.",
+    "context": "Fresh equivalent model sessions, same task prompt and information scope; no authoring context in routine execution.",
+    "environment": "Fresh workbench per trial; identical initial application state, independent disposable output roots and filenames.",
+    "discovery": "Count initial tool descriptions, application Info, topic/schema discovery, result verification and all retries.",
+    "repetitions": 10,
+    "order": "Alternate route order for each dataset and repetition.",
+    "controls": "Computer Use may use semantic selectors and batch deterministic actions; no artificially forced screenshots or click frequency."
+  },
+  "datasets": [
+    {
+      "values": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "expectedCents": 10000
+    },
+    {
+      "values": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "expectedCents": 8600
+    },
+    {
+      "values": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "expectedCents": 150
+    }
+  ],
+  "oracle": "A separate verifier reads the saved file from disk, checks every amount, independently sums integer cents, checks the reopened document, and compares application traces for completed steps and unwanted effects. A declared success is insufficient.",
+  "metrics": [
+    "success",
+    "input_tokens",
+    "cached_input_tokens",
+    "output_tokens",
+    "image_tokens_if_reported",
+    "tool_schema_tokens_if_reported",
+    "tool_calls",
+    "tool_errors",
+    "retries",
+    "elapsed_ms",
+    "tool_description_bytes",
+    "result_bytes",
+    "image_count",
+    "image_bytes"
+  ],
+  "missingTelemetry": "Task-isolated model token usage for authentic Computer Use is not exposed by this chat. Report unknown values as null, never as zero or byte-derived token estimates. Do not compare this long conversation's usage to a fresh MCP model session.",
+  "acceptance": "Publish savings only after equally scoped successful paired trials with measured model usage. Include failures and authoring separately. No current percentage or amortization claim.",
+  "start": [
+    "node modules/efficiency-benchmark/browser-workbench/server.mjs .artifacts/browser-workbench/new-session",
+    "node modules/efficiency-benchmark/browser-workbench/server.mjs --stdio http://127.0.0.1:PORT/?session=mcp"
+  ],
+  "lifetime": "Installed recipes are currently held in the test server process. Dynamic discovery requires no restart; persistence and unrestricted application authoring are outside this prototype.",
+  "privacy": "Use synthetic data only. Raw records and generated HTML remain in ignored .artifacts or another disposable output root.",
+  "pairedFixture": {
+    "dashboard": "/comparison",
+    "computerUse": "/?session=computer-use",
+    "mcp": "/?session=mcp",
+    "states": "Separate calculator, editor, recipe library, event journal and actual filesystem roots; identical initial state.",
+    "task": "Same values, HTML template and relative target path in both sessions.",
+    "verifier": "/comparison/result",
+    "verificationMutatesApplication": false
+  },
+  "htmlTemplate": "<!doctype html><html lang=\"de\"><meta charset=\"utf-8\"><title>Rechnungsbericht</title><h1>Rechnungsbericht</h1><p>Beträge: {{amounts}} EUR</p><p>Summe: {{total}} EUR</p></html>"
+}

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "outlook_start",
+  "description": "Start the observed Outlook installation using the node's allowlisted program launcher. Requires process permission. Call cartridge_info afterward to verify its running identity; a dispatch is not proof of startup.",
+  "parameters": [],
+  "steps": [
+    {
+      "action": "launch_process",
+      "args": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+        "arguments": ["/recycle"]
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

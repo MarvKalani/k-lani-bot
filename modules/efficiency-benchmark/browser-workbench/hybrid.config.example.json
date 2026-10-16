@@ -1,0 +1,14 @@
+{
+  "codexExecutable": "/absolute/path/to/current/codex",
+  "nodeExecutable": "/absolute/path/to/k-lani-bot-node",
+  "chromeExecutable": "/absolute/path/to/google-chrome",
+  "computerUseManifest": "/absolute/path/to/unified-computer-use/.mcp.json",
+  "authoringDirectory": "/absolute/path/to/previous/private/authoring",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "medium",
+  "timeoutMs": 300000,
+  "repetitions": 3,
+  "maximumAttempts": 2,
+  "routes": ["bot-screenshots", "bot-hybrid"],
+  "resetPointer": true
+}

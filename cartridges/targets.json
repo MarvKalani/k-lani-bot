@@ -1,0 +1,95 @@
+{
+  "format": "k-lani-bot.app-targets.v1",
+  "targets": [
+    {
+      "id": "notepad-plus-plus",
+      "name": "Notepad++",
+      "aliases": [],
+      "windows": { "display_names": ["Notepad++"], "executables": ["notepad++.exe"] },
+      "linux": { "packages": ["notepad-plus-plus"] },
+      "routes": ["command_line", "file_format", "accessibility"],
+      "notes": "Texteditor, Windows. Als Editor- und Testziel (technischer Vorlauf) geeignet."
+    },
+    {
+      "id": "mousepad",
+      "name": "Mousepad",
+      "aliases": [],
+      "linux": { "packages": ["mousepad"], "desktop_ids": ["org.xfce.mousepad.desktop", "mousepad.desktop"] },
+      "routes": ["command_line", "file_format", "accessibility"],
+      "notes": "Texteditor, Linux. Wird in den Messungen der Dokumentation als Testziel benutzt."
+    },
+    {
+      "id": "microsoft-word",
+      "name": "Microsoft Word",
+      "aliases": ["Word"],
+      "windows": { "display_names": ["Microsoft Word"], "executables": ["WINWORD.EXE"] },
+      "macos": { "app_names": ["Microsoft Word.app"], "bundle_ids": ["com.microsoft.Word"] },
+      "routes": ["com", "applescript", "file_format", "accessibility"],
+      "notes": "Word ist meist nur Teil eines Office-Pakets und taucht nicht als eigene Installation auf; unter Windows wird es über den App-Paths-Eintrag erkannt."
+    },
+    {
+      "id": "microsoft-excel",
+      "name": "Microsoft Excel",
+      "aliases": ["Excel"],
+      "windows": { "display_names": ["Microsoft Excel"], "executables": ["EXCEL.EXE"] },
+      "macos": { "app_names": ["Microsoft Excel.app"], "bundle_ids": ["com.microsoft.Excel"] },
+      "routes": ["com", "applescript", "file_format", "accessibility"],
+      "notes": "Wie Word. Start der Cartridge-Reihe."
+    },
+    {
+      "id": "microsoft-outlook-classic",
+      "name": "Microsoft Outlook",
+      "aliases": ["Outlook", "Classic Outlook"],
+      "windows": { "display_names": ["Microsoft Outlook"], "executables": ["OUTLOOK.EXE"] },
+      "macos": { "app_names": ["Microsoft Outlook.app"], "bundle_ids": ["com.microsoft.Outlook"] },
+      "routes": ["com", "registry", "file_format", "accessibility"],
+      "notes": "Klassisches Outlook (OUTLOOK.EXE), nicht das neue Outlook für Windows. Signaturen und Vorlagen liegen teils als Dateien und Registry-Werte vor, Konten, Regeln und Ansichten meist nur in der Oberfläche."
+    },
+    {
+      "id": "libreoffice",
+      "name": "LibreOffice",
+      "aliases": ["LibreOffice Calc", "LibreOffice Writer", "LibreOffice Impress", "LibreOffice Draw"],
+      "windows": { "display_names": ["LibreOffice"], "executables": ["soffice.exe"] },
+      "linux": {
+        "packages": ["libreoffice-calc", "libreoffice-writer", "libreoffice-impress", "libreoffice-draw"],
+        "desktop_ids": ["libreoffice-calc.desktop", "libreoffice-writer.desktop", "libreoffice-impress.desktop", "libreoffice-draw.desktop"]
+      },
+      "macos": { "app_names": ["LibreOffice.app"] },
+      "routes": ["uno", "command_line", "file_format", "accessibility"],
+      "notes": "Alternative zu Excel/Word für die erste Tabellen-Cartridge."
+    },
+    {
+      "id": "claude-desktop",
+      "name": "Claude Desktop",
+      "aliases": ["Claude"],
+      "windows": { "display_names": ["Claude"] },
+      "linux": { "packages": ["claude-desktop"], "desktop_ids": ["claude-desktop.desktop"] },
+      "macos": { "app_names": ["Claude.app"] },
+      "routes": ["config_file", "accessibility"],
+      "notes": "MCP-Server werden in der Konfigurationsdatei der Anwendung eingetragen; darüber hinaus bleibt nur die Oberfläche."
+    },
+    {
+      "id": "orcaslicer",
+      "name": "OrcaSlicer",
+      "aliases": ["Orca Slicer", "orca-slicer"],
+      "windows": { "display_names": ["OrcaSlicer"], "executables": ["orca-slicer.exe"] },
+      "linux": {
+        "packages": ["orcaslicer", "orca-slicer"],
+        "desktop_ids": ["OrcaSlicer.desktop", "com.orcaslicer.OrcaSlicer.desktop", "io.github.softfever.OrcaSlicer.desktop"]
+      },
+      "macos": { "app_names": ["OrcaSlicer.app"] },
+      "routes": ["command_line", "file_format", "accessibility"],
+      "notes": "Vorhandene Cartridge unter cartridges/programs/orcaslicer. Die Kommandozeile ist laut Hersteller-Dokumentation zu prüfen."
+    },
+    {
+      "id": "blender",
+      "name": "Blender",
+      "aliases": [],
+      "windows": { "display_names": ["Blender"], "executables": ["blender.exe"] },
+      "linux": { "packages": ["blender"], "desktop_ids": ["blender.desktop", "org.blender.Blender.desktop"] },
+      "macos": { "app_names": ["Blender.app"], "bundle_ids": ["org.blenderfoundation.blender"] },
+      "routes": ["scripting_api", "command_line", "file_format", "accessibility"],
+      "notes": "Hat eine eigene Skript-API."
+    }
+  ]
+}

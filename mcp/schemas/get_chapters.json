@@ -1,0 +1,28 @@
+{
+  "name": "get_chapters",
+  "description": "Lists actual semantic sections with snapshot-bound chapter references.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pid": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "title": {
+        "type": "string"
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

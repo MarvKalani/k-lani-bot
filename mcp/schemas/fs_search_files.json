@@ -1,0 +1,32 @@
+{
+  "name": "fs_search_files",
+  "description": "Searches approved workspace files without following links.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      },
+      "pattern": {
+        "type": "string"
+      },
+      "max_results": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 200
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

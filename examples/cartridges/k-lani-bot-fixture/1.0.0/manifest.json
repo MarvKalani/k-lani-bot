@@ -1,0 +1,50 @@
+{
+  "format": 1,
+  "id": "k-lani-bot.fixture.write-example",
+  "publisher": "k-lani-bot",
+  "version": "1.0.0",
+  "kind": "automation",
+  "target": {
+    "platform": "linux",
+    "architecture": "x64",
+    "os_version": {
+      "scheme": "numeric_components",
+      "minimum": "24.04"
+    }
+  },
+  "locales": {
+    "base": "und",
+    "supported": [
+      "und"
+    ],
+    "fallback": "none"
+  },
+  "entrypoints": [
+    {
+      "name": "write-fixture",
+      "description": "Draft contract example writing synthetic workspace text; not a reviewed public automation.",
+      "recipe": "recipes/write-fixture.json"
+    }
+  ],
+  "permissions": {
+    "scopes": [
+      "observe",
+      "files.write"
+    ],
+    "effects": [
+      "write_workspace"
+    ],
+    "executables": [],
+    "network_origins": [],
+    "file_boundary": "workspace"
+  },
+  "dependencies": [],
+  "files": [
+    {
+      "path": "recipes/write-fixture.json",
+      "bytes": 276,
+      "sha256": "2286592c129b64e19ca47f609838b9ea3d90373fb5112effa7f6eedce717002b",
+      "media_type": "application/json"
+    }
+  ]
+}

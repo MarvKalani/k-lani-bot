@@ -1,0 +1,602 @@
+{
+  "format": "k-lani-bot.local-macro-bundle.v1",
+  "id": "k-lani-bot.outlook-classic",
+  "version": "2.3.0",
+  "target": {
+    "application": "Microsoft Outlook",
+    "process_name": "OUTLOOK",
+    "application_version": "16.0.14334.20918",
+    "tested_platform": "windows-x64",
+    "tested_os": "Windows 11",
+    "tested_locale": "de-DE",
+    "native_member_language": "invariant"
+  },
+  "entrypoints": [
+    {
+      "name": "identity",
+      "recipe": "macros/identity.json",
+      "topic": "Info/Identity",
+      "compatibility": "NativeProbe",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "api-types",
+      "recipe": "macros/api-types.json",
+      "topic": "Programming/API/Types",
+      "compatibility": "NativeProbe",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "api-members",
+      "recipe": "macros/api-members.json",
+      "topic": "Programming/API/Members",
+      "compatibility": "NativeProbe",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "read-selected",
+      "recipe": "macros/read-selected.json",
+      "topic": "Use/Mail/Read",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "mailboxes",
+      "recipe": "macros/mailboxes.json",
+      "topic": "Use/Mail/Folders",
+      "compatibility": "ExactBuild",
+      "validation": "real_app_observation_tested",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "folders",
+      "recipe": "macros/folders.json",
+      "topic": "Use/Mail/Folders",
+      "compatibility": "ExactBuild",
+      "validation": "real_app_observation_tested",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "create-draft",
+      "recipe": "macros/create-draft.json",
+      "topic": "Use/Mail/Create",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-subject",
+      "recipe": "macros/set-subject.json",
+      "topic": "Use/Mail/Edit/Text",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-body",
+      "recipe": "macros/set-body.json",
+      "topic": "Use/Mail/Edit/Text",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-htmlbody",
+      "recipe": "macros/set-htmlbody.json",
+      "topic": "Use/Mail/Edit/Text",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-to",
+      "recipe": "macros/set-to.json",
+      "topic": "Use/Mail/Edit/Text",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-cc",
+      "recipe": "macros/set-cc.json",
+      "topic": "Use/Mail/Edit/Text",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-bcc",
+      "recipe": "macros/set-bcc.json",
+      "topic": "Use/Mail/Edit/Text",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-importance",
+      "recipe": "macros/set-importance.json",
+      "topic": "Use/Mail/Edit/Options",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-sensitivity",
+      "recipe": "macros/set-sensitivity.json",
+      "topic": "Use/Mail/Edit/Options",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-read_receipt",
+      "recipe": "macros/set-read_receipt.json",
+      "topic": "Use/Mail/Edit/Options",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "set-delivery_receipt",
+      "recipe": "macros/set-delivery_receipt.json",
+      "topic": "Use/Mail/Edit/Options",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "save",
+      "recipe": "macros/save.json",
+      "topic": "Use/Mail/Edit",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "display",
+      "recipe": "macros/display.json",
+      "topic": "Use/Mail/Read",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "close",
+      "recipe": "macros/close.json",
+      "topic": "Use/Mail/Edit",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "delete",
+      "recipe": "macros/delete.json",
+      "topic": "Use/Mail/Organize",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "move",
+      "recipe": "macros/move.json",
+      "topic": "Use/Mail/Organize",
+      "compatibility": "ExactBuild",
+      "validation": "real_app_tested",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "window-maximized",
+      "recipe": "macros/window-maximized.json",
+      "topic": "Use/Window",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "window-minimized",
+      "recipe": "macros/window-minimized.json",
+      "topic": "Use/Window",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "window-normal",
+      "recipe": "macros/window-normal.json",
+      "topic": "Use/Window",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "window-close",
+      "recipe": "macros/window-close.json",
+      "topic": "Use/Window",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "inspect-ui",
+      "recipe": "macros/inspect-ui.json",
+      "topic": "Info/UI",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "find-controls",
+      "recipe": "macros/find-controls.json",
+      "topic": "Info/UI",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "start",
+      "recipe": "macros/start.json",
+      "topic": "Use/Program",
+      "compatibility": "ProgramLaunch",
+      "validation": "unreviewed",
+      "risk": "probably_harmful",
+      "scopes": [
+        "process"
+      ]
+    },
+    {
+      "name": "inbox",
+      "recipe": "macros/inbox.json",
+      "topic": "Use/Mail/Sort",
+      "compatibility": "ExactBuild",
+      "validation": "real_app_observation_tested",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "list-mail",
+      "recipe": "macros/list-mail.json",
+      "topic": "Use/Mail/Sort",
+      "compatibility": "ExactBuild",
+      "validation": "real_app_observation_tested",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "read-mail",
+      "recipe": "macros/read-mail.json",
+      "topic": "Use/Mail/Sort",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "classify-mail",
+      "recipe": "macros/classify-mail.json",
+      "topic": "Use/Mail/Sort",
+      "compatibility": "ExactBuild",
+      "validation": "unreviewed",
+      "risk": "secure",
+      "scopes": [
+        "eval"
+      ]
+    },
+    {
+      "name": "ensure-folder",
+      "recipe": "macros/ensure-folder.json",
+      "topic": "Use/Mail/Sort",
+      "compatibility": "ExactBuild",
+      "validation": "real_app_tested",
+      "risk": "probably_harmful",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    }
+  ],
+  "automatic_activation": false,
+  "release_approved": false,
+  "secured": false,
+  "effect_policy_enforced_by_node": false,
+  "limits": [
+    "Native reads inspect the actual installed object model; discovery alone is not execution acceptance.",
+    "Mutation and UI recipes retain the exact observed build until additional builds are accepted.",
+    "No message sending, arbitrary VBA execution, account reconfiguration or automatic classifier verdict is included.",
+    "Every exposed UI control can be inventoried; custom controls and individual workflows still require acceptance.",
+    "UI language is read from Outlook; no language switch is assumed or performed.",
+    "Program start uses the observed fixed executable path, requires the node program allow-list and process permission, and requires a fresh Info check afterward."
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "macros/identity.json",
+      "bytes": 486,
+      "sha256": "d38782ac7d0caef106e0f347c09442d401a6cfa474b4f80f77c1d35d8148ad3d"
+    },
+    {
+      "path": "macros/api-types.json",
+      "bytes": 824,
+      "sha256": "c03d8dc925637f3a84f911309e84b4d237ef8be7843771252ec225f9e03265e8"
+    },
+    {
+      "path": "macros/api-members.json",
+      "bytes": 987,
+      "sha256": "d4c74e6f12fe29d4313ba28e52e1b9cf5fffed0c5f59581274b0f7d1d432b651"
+    },
+    {
+      "path": "macros/read-selected.json",
+      "bytes": 717,
+      "sha256": "a9b6074a0c70e96c9e7dd69af559dea3349c54cd9d4e46490b46d39d7c6c4e66"
+    },
+    {
+      "path": "macros/mailboxes.json",
+      "bytes": 785,
+      "sha256": "823940093ead0af1bde4fd5671892aa5fd82814578ffb282ab2b48daf5653ea8"
+    },
+    {
+      "path": "macros/folders.json",
+      "bytes": 1122,
+      "sha256": "311faedf918a331903e81271ee8a933d5c45ec414f9cafcc6b5c7f358281ba07"
+    },
+    {
+      "path": "macros/create-draft.json",
+      "bytes": 796,
+      "sha256": "1ba2ad2a08115ac8ebd3fc624818f46f6c2eb9ec104420e12baba78cb8ca06c6"
+    },
+    {
+      "path": "macros/set-subject.json",
+      "bytes": 1281,
+      "sha256": "8bcda9ec46647094af1ebd1571b76dcd9d63fe141c839a0f0be90fb0112ea02c"
+    },
+    {
+      "path": "macros/set-body.json",
+      "bytes": 1272,
+      "sha256": "65ecd7cea12210a9bee3a018d51d6dadc29de3bba0e1a6f9ae89c678ea78b328"
+    },
+    {
+      "path": "macros/set-htmlbody.json",
+      "bytes": 1284,
+      "sha256": "cb10e507dbf426244fea5cd614bd73b6815f8b2c17129bf0dd2915808adb4f76"
+    },
+    {
+      "path": "macros/set-to.json",
+      "bytes": 1266,
+      "sha256": "ab0b326e3034b37996877164d31ba2876cab2d2ced833ebb603fee88b8b3132c"
+    },
+    {
+      "path": "macros/set-cc.json",
+      "bytes": 1266,
+      "sha256": "e6447b326df4a97b6423dde03bf79de7a913b0c09055edbee98f1e5640121241"
+    },
+    {
+      "path": "macros/set-bcc.json",
+      "bytes": 1269,
+      "sha256": "94c10fca84db2e7f1d3edecf0fbf3fc219f934e09fc2df9e10906974efc15f7b"
+    },
+    {
+      "path": "macros/set-importance.json",
+      "bytes": 1279,
+      "sha256": "6cc99b74052c6e400a5b330f3a6cc7169719f2c9efb012575c77d7221408d4c6"
+    },
+    {
+      "path": "macros/set-sensitivity.json",
+      "bytes": 1282,
+      "sha256": "534f60f98ba1633ed6cd9fa3db1652ffddc7e96d949826368e3cd6a3db6e7764"
+    },
+    {
+      "path": "macros/set-read_receipt.json",
+      "bytes": 1271,
+      "sha256": "bc5cdd106a267367c990efe15d454f54df15ba781fe2684fe0e9879b7825d3e9"
+    },
+    {
+      "path": "macros/set-delivery_receipt.json",
+      "bytes": 1301,
+      "sha256": "2e668d48dd899ba34e507fd0de5757f88ff89c77aa5e558ca5f1aab01710b7ae"
+    },
+    {
+      "path": "macros/save.json",
+      "bytes": 1025,
+      "sha256": "0c228637a1969d603b9e48a9122f4075ad878c18c245b6f73d207028566db80a"
+    },
+    {
+      "path": "macros/display.json",
+      "bytes": 1027,
+      "sha256": "7f1049f16ac8576715036b98ca79292748c567e562ca25b0ab044090b0ec54b2"
+    },
+    {
+      "path": "macros/close.json",
+      "bytes": 1022,
+      "sha256": "9e0afb06b21c6ce2eb6fc2acaca1bbe1eecdf750824f7caea0b501dd62119061"
+    },
+    {
+      "path": "macros/delete.json",
+      "bytes": 1055,
+      "sha256": "a9312351bcf0fe8616185f97826f0289a9a9fa4e6da4ac410978d9818bf5d593"
+    },
+    {
+      "path": "macros/move.json",
+      "bytes": 1521,
+      "sha256": "0ed9aec9d295532c959ab6d36aeb012500c3da71ac4e285e17532a2315b80dd5"
+    },
+    {
+      "path": "macros/window-maximized.json",
+      "bytes": 640,
+      "sha256": "974878e2e93f4fd20bad405ecce4cda85b8b0ede92f4ee7f357c517f7d2e1315"
+    },
+    {
+      "path": "macros/window-minimized.json",
+      "bytes": 640,
+      "sha256": "4d046c8f90dd71ed7451736acd8aa9a205425dda5da1b4bb4163cea1911a4599"
+    },
+    {
+      "path": "macros/window-normal.json",
+      "bytes": 631,
+      "sha256": "ce227f06890362c368412c1e81fa7de22e5e0758e6967a9bc73dce2a3896c2cc"
+    },
+    {
+      "path": "macros/window-close.json",
+      "bytes": 608,
+      "sha256": "7010e304dd46d6ad7aa26e6717c4580905205e16620bbf8e38aceaccaffd161b"
+    },
+    {
+      "path": "macros/inspect-ui.json",
+      "bytes": 952,
+      "sha256": "a6a0c981dcba9f12bbd869ba0ce5ba3c8ab20f428e4a35f665622d8cdded7a1f"
+    },
+    {
+      "path": "macros/find-controls.json",
+      "bytes": 1110,
+      "sha256": "a523ce0114cb603df9ad07735c6fb543542ce874053b4c2e52b47e51a7cb3708"
+    },
+    {
+      "path": "macros/start.json",
+      "bytes": 546,
+      "sha256": "65e4c08ed5ac2fb00a4405a925ae39868f213d412c0cf449c820246ddafa854c"
+    },
+    {
+      "path": "macros/inbox.json",
+      "bytes": 694,
+      "sha256": "bbd02542250dd00515bb8e4eeff02e1ae64ef86ccc4cc1c2ba7421cb1c4a98fd"
+    },
+    {
+      "path": "macros/list-mail.json",
+      "bytes": 1216,
+      "sha256": "dffb43c7492a056be8a2f7df9176fdd9f5b62b35976a738d400bdae1dfd3e061"
+    },
+    {
+      "path": "macros/read-mail.json",
+      "bytes": 1563,
+      "sha256": "d1edb2608e1cb36459fd9a8202a578958ce9be3af0b4dd063119af17d60625bf"
+    },
+    {
+      "path": "macros/classify-mail.json",
+      "bytes": 2151,
+      "sha256": "21d83ab9c0822026c62499342af722ea5f1a9164a84ff06a94bede5777bd3ae3"
+    },
+    {
+      "path": "coverage.json",
+      "bytes": 514792,
+      "sha256": "0769f2fc1160f8daf221811f9a934bcb94b6894b0905d586d5985fed33cbb742"
+    },
+    {
+      "path": "macros/ensure-folder.json",
+      "bytes": 1068,
+      "sha256": "d20f3ae0186c2b2ece22176660890d7d4430383729e7aafeb9d18dd6ca3157cd"
+    }
+  ],
+  "coverage": "coverage.json"
+}

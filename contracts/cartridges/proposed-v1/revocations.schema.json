@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "k-lani-bot proposed revocations v1",
+  "description": "Proposed contract; not an active product/registry admission mechanism.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "issued_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "expires_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "packages": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "suspended",
+              "revoked"
+            ]
+          },
+          "case_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          },
+          "reason_code": {
+            "type": "string",
+            "enum": [
+              "suspected_malware",
+              "confirmed_malware",
+              "policy_violation",
+              "key_compromise",
+              "unsafe_behavior",
+              "review_expired"
+            ]
+          }
+        },
+        "required": [
+          "sha256",
+          "status",
+          "case_id",
+          "reason_code"
+        ]
+      }
+    },
+    "publishers": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "suspended",
+              "banned"
+            ]
+          },
+          "case_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "case_id"
+        ]
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "key_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "ecdsa-p256-sha256"
+            ]
+          },
+          "signature_base64": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "key_id",
+          "algorithm",
+          "signature_base64"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format",
+    "sequence",
+    "issued_at",
+    "expires_at",
+    "packages",
+    "publishers",
+    "signatures"
+  ]
+}

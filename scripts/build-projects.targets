@@ -1,0 +1,16 @@
+<Project DefaultTargets="Build">
+  <ItemGroup>
+    <CheckProject Include="../tools/**/*.csproj;../tests/**/*.csproj"
+                  Exclude="../tools/**/bin/**/*.csproj;../tools/**/obj/**/*.csproj;../tests/**/bin/**/*.csproj;../tests/**/obj/**/*.csproj;../tests/WindowsDialogRegression/**/*.csproj" />
+  </ItemGroup>
+  <Target Name="Restore">
+    <MSBuild Projects="@(CheckProject)" Targets="Restore" BuildInParallel="false" StopOnFirstFailure="true" />
+  </Target>
+  <Target Name="Build">
+    <!-- One MSBuild process reuses evaluated projects and referenced builds.
+         Keep this sequential: several tests share the core project and assets. -->
+    <Error Condition="'@(CheckProject)' == ''" Text="No C# projects found; build validation must not pass an empty traversal." />
+    <Message Importance="high" Text="Building all @(CheckProject->Count()) test/tool projects with warnings as errors." />
+    <MSBuild Projects="@(CheckProject)" Targets="Build" BuildInParallel="false" StopOnFirstFailure="true" />
+  </Target>
+</Project>

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "platform": "linux/amd64",
+  "sdk": "mcr.microsoft.com/dotnet/sdk:10.0-noble@sha256:35d40304542c8689331f8cab17c65926cdf48fe711e289321d71924b230a7d29",
+  "base": "ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3",
+  "aptSnapshot": "20261007T000000Z",
+  "aptSuites": ["noble", "noble-updates", "noble-security"],
+  "acceptance": "Record complete dpkg versions, executable hashes and capability results in a private prepared-image lock. Installation alone is not acceptance.",
+  "greenmail": null
+}

@@ -1,0 +1,136 @@
+{
+  "format": "k-lani-bot-generated-ui-functions",
+  "version": 1,
+  "revision": 2,
+  "application": {
+    "key": "browser-testwerkstatt",
+    "version": "1.1.0",
+    "default_topic": "Use/Editor",
+    "identity_source": "controlled-test-fixture"
+  },
+  "functions": [
+    {
+      "name": "ui.editor.click.ada6d491",
+      "topic": "Use/Editor",
+      "steps": [
+        {
+          "action": "click",
+          "selector": {
+            "role": "page tab",
+            "name": "Editor",
+            "autoId": "",
+            "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+          },
+          "route": "semantic"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "page",
+          "selector": {
+            "role": "heading",
+            "name": "Editor",
+            "autoId": "",
+            "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+          },
+          "field": "name",
+          "check": {
+            "kind": "exists"
+          }
+        }
+      ],
+      "compatibility": {
+        "node_version": "0.2610.0609",
+        "platform": "linux-x11-atspi",
+        "application_version": "1.1.0"
+      },
+      "validation": "demonstrated_once; every execution verifies outputs",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "pid",
+          "parameters"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "ui.html_text.write.1cd0684e",
+      "topic": "Use/Editor",
+      "steps": [
+        {
+          "action": "write",
+          "selector": {
+            "role": "Edit",
+            "name": "HTML-Text",
+            "autoId": "",
+            "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+          },
+          "route": "semantic-focus+keyboard (native editable interface unavailable)",
+          "parameter": "text"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "value",
+          "selector": {
+            "role": "Edit",
+            "name": "HTML-Text",
+            "autoId": "",
+            "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+          },
+          "field": "value",
+          "check": {
+            "kind": "equals_parameter",
+            "parameter": "text"
+          }
+        }
+      ],
+      "compatibility": {
+        "node_version": "0.2610.0609",
+        "platform": "linux-x11-atspi",
+        "application_version": "1.1.0"
+      },
+      "validation": "demonstrated_once; every execution verifies outputs",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "maxLength": 16000
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "pid",
+          "parameters"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

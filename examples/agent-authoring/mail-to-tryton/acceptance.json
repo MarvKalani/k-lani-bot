@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-13",
+  "kind": "native_correctness_not_model_benchmark",
+  "function": "tryton_create_draft_sale",
+  "recipe_sha256": "171c63bb798fdba7c03234500a4119b056a200ef6c4df99c2d89c26718fae907",
+  "application": {
+    "name": "Tryton",
+    "build": "6.0.34-1",
+    "platform": "Ubuntu 24.04 / X11 / GTK3",
+    "locale": "en-US"
+  },
+  "mail_application": {
+    "name": "Thunderbird",
+    "build": "140.17.0"
+  },
+  "node_version": "0.2610.0609",
+  "native_binary_source": "57aba9da945aad0038e4669c69cf63073f6b47a7",
+  "compiled_line_count": 2,
+  "native_acceptance": "passed",
+  "restart_reuse": {
+    "fresh_gateway": true,
+    "new_inputs": true,
+    "unchanged_recipe": true,
+    "orders": 2,
+    "positions": 4,
+    "outer_mcp_calls_per_order": 1,
+    "internal_steps_per_order": 79,
+    "independent_database_check": "passed",
+    "state": "draft"
+  },
+  "negative_case": {
+    "missing_parameter": "quantity_2",
+    "refused_before_app_mutation": true,
+    "independent_state_unchanged": true
+  },
+  "other_line_counts": "compiler_tests_only",
+  "model_token_measurement": "not_run",
+  "token_savings_claim": null,
+  "authoring": "Two earlier incomplete verification attempts persisted drafts; inspected separately, never replayed as the same order."
+}

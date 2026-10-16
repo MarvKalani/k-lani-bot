@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "name": "outlook_open_mail",
+  "description": "Open a new Outlook message through its semantic New Email command and verify that its subject field exists.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Observed OUTLOOK process identifier.",
+      "required": true
+    },
+    {
+      "name": "window_title",
+      "type": "string",
+      "description": "Observed main Outlook window, not an existing message window.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}",
+        "role": "Button",
+        "visible": true,
+        "enabled": true,
+        "limit": 2,
+        "name": "Neue E-Mail"
+      },
+      "capture": "new_mail",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{new_mail.matches.0.Id}}",
+        "postcondition": {
+          "window_title": "Unbenannt - Nachricht (HTML)",
+          "auto_id": "4101",
+          "role": "Edit",
+          "expected_state": "visible",
+          "timeout_ms": 10000
+        }
+      }
+    }
+  ],
+  "postconditions": [
+    {
+      "pid": "{{pid}}",
+      "window_title": "Unbenannt - Nachricht (HTML)",
+      "auto_id": "4101",
+      "role": "Edit",
+      "expected_state": "visible",
+      "timeout_ms": 1000
+    }
+  ],
+  "sha256": ""
+}

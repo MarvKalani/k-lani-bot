@@ -1,0 +1,26 @@
+{
+  "name": "fs_get_metadata",
+  "description": "Reads metadata within the approved workspace.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

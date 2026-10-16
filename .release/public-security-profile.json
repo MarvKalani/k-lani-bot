@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "id": "core-linux-x11",
+  "product": "k-lani-bot",
+  "release_channel": "alpha",
+  "external_certification_required_by_release_gate": false,
+  "runtime": "linux-x64",
+  "validation_environment": "Controlled Linux/X11 sessions and ephemeral Ubuntu 24.04 Docker workers",
+  "administration_is_intended": true,
+  "community_cartridge_activation_approved": false,
+  "optional_model_images_included": false,
+  "other_platforms_approved": false,
+  "claim": "Authorization and execution controls within the declared profile; no guarantee against all damage or model error",
+  "review_kind": "maintainer_security_acceptance",
+  "independent_audit": false,
+  "approval_max_age_days": 30
+}

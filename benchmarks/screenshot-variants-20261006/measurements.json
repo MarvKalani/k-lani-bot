@@ -1,0 +1,822 @@
+{
+  "format": "k-lani-bot-screenshot-study",
+  "version": 1,
+  "model": "gpt-6-luna",
+  "reasoningEffort": "medium",
+  "groups": [
+    {
+      "variant": "pixel-original",
+      "successes": 2,
+      "attempts": 3,
+      "measuredAttempts": 3,
+      "medianImagesOnSuccess": 16,
+      "medianElapsedMsOnSuccess": 68358.79560849996,
+      "medianModelDecisionMsBeforeClick": 1357.0298029999976,
+      "medianBackendClickMs": 270.3851980000036,
+      "medianImageBytes": 52250,
+      "imageDimensions": [
+        "1280x720"
+      ],
+      "pngColorTypes": [
+        2
+      ],
+      "maximumPaletteColors": 0,
+      "identicalFrames": 1,
+      "totalUsdReference": 0.04418464,
+      "totalTokens": 2597508
+    },
+    {
+      "variant": "pixel-cursor",
+      "successes": 3,
+      "attempts": 3,
+      "measuredAttempts": 3,
+      "medianImagesOnSuccess": 17,
+      "medianElapsedMsOnSuccess": 53417.63503899984,
+      "medianModelDecisionMsBeforeClick": 1586.0721270000013,
+      "medianBackendClickMs": 270.6911194999975,
+      "medianImageBytes": 54126,
+      "imageDimensions": [
+        "1280x720"
+      ],
+      "pngColorTypes": [
+        2
+      ],
+      "maximumPaletteColors": 0,
+      "identicalFrames": 0,
+      "totalUsdReference": 0.03047726,
+      "totalTokens": 1625355
+    },
+    {
+      "variant": "pixel-half",
+      "successes": 2,
+      "attempts": 3,
+      "measuredAttempts": 2,
+      "medianImagesOnSuccess": 17.5,
+      "medianElapsedMsOnSuccess": 77132.41855200002,
+      "medianModelDecisionMsBeforeClick": 2737.190125000001,
+      "medianBackendClickMs": 272.13191650000044,
+      "medianImageBytes": 50212.5,
+      "imageDimensions": [
+        "640x360"
+      ],
+      "pngColorTypes": [
+        2
+      ],
+      "maximumPaletteColors": 0,
+      "identicalFrames": 1,
+      "totalUsdReference": null,
+      "totalTokens": null
+    },
+    {
+      "variant": "pixel-palette",
+      "successes": 3,
+      "attempts": 3,
+      "measuredAttempts": 3,
+      "medianImagesOnSuccess": 17,
+      "medianElapsedMsOnSuccess": 57973.241686999914,
+      "medianModelDecisionMsBeforeClick": 1898.7469899999996,
+      "medianBackendClickMs": 271.0621700000047,
+      "medianImageBytes": 23269,
+      "imageDimensions": [
+        "1280x720"
+      ],
+      "pngColorTypes": [
+        3
+      ],
+      "maximumPaletteColors": 256,
+      "identicalFrames": 0,
+      "totalUsdReference": 0.03255654,
+      "totalTokens": 1616919
+    },
+    {
+      "variant": "pixel-sparse",
+      "successes": 3,
+      "attempts": 3,
+      "measuredAttempts": 3,
+      "medianImagesOnSuccess": 17,
+      "medianElapsedMsOnSuccess": 85832.82957499998,
+      "medianModelDecisionMsBeforeClick": 1751.9022509999977,
+      "medianBackendClickMs": 271.57814300000064,
+      "medianImageBytes": 60311,
+      "imageDimensions": [
+        "1280x720"
+      ],
+      "pngColorTypes": [
+        2
+      ],
+      "maximumPaletteColors": 0,
+      "identicalFrames": 0,
+      "totalUsdReference": 0.038283080000000004,
+      "totalTokens": 2037166
+    }
+  ],
+  "limitations": [
+    "Three datasets per variant form an exploratory pilot, not a causal proof or statistical ranking.",
+    "Cursor positions were not reset in this pilot; the pointer observation is exploratory.",
+    "Image dimensions and PNG properties are observed at the tool boundary; provider preprocessing is not visible.",
+    "Unknown usage, including timed-out attempts, remains unknown rather than zero."
+  ],
+  "trials": [
+    {
+      "variant": "pixel-original",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "success": false,
+      "usage": {
+        "input_tokens": 686831,
+        "cached_input_tokens": 651776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1922,
+        "reasoning_output_tokens": 0
+      },
+      "elapsedMs": 45615.539708,
+      "oracle": {
+        "status": "pending",
+        "successful": false,
+        "completedOperations": 2
+      },
+      "measured": true,
+      "imageCount": 10,
+      "imageBytes": 632609,
+      "toolCalls": 30,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-cursor",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 606332,
+        "cached_input_tokens": 562816,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2373,
+        "reasoning_output_tokens": 296
+      },
+      "elapsedMs": 57695.834789,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 20,
+      "imageBytes": 1194727,
+      "toolCalls": 54,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-half",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "success": false,
+      "usage": null,
+      "elapsedMs": 300008.94423699996,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": false,
+      "imageCount": 17,
+      "imageBytes": 940880,
+      "toolCalls": 51,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-palette",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 518465,
+        "cached_input_tokens": 471808,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2149,
+        "reasoning_output_tokens": 309
+      },
+      "elapsedMs": 74489.88674399996,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "folder.create",
+          "editor.write",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 17,
+      "imageBytes": 419348,
+      "toolCalls": 49,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-sparse",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 630520,
+        "cached_input_tokens": 592640,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2252,
+        "reasoning_output_tokens": 96
+      },
+      "elapsedMs": 85832.82957499998,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 17,
+      "imageBytes": 1127190,
+      "toolCalls": 52,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-cursor",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 451749,
+        "cached_input_tokens": 409344,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1852,
+        "reasoning_output_tokens": 170
+      },
+      "elapsedMs": 42364.155638,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 14,
+      "imageBytes": 830673,
+      "toolCalls": 46,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-half",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 489752,
+        "cached_input_tokens": 450560,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2346,
+        "reasoning_output_tokens": 306
+      },
+      "elapsedMs": 95287.29792399995,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 20,
+      "imageBytes": 1125378,
+      "toolCalls": 53,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-palette",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 624660,
+        "cached_input_tokens": 572032,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2305,
+        "reasoning_output_tokens": 202
+      },
+      "elapsedMs": 57911.72170600004,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 20,
+      "imageBytes": 529210,
+      "toolCalls": 53,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-sparse",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 587249,
+        "cached_input_tokens": 522368,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2439,
+        "reasoning_output_tokens": 222
+      },
+      "elapsedMs": 53529.177088,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 18,
+      "imageBytes": 1133171,
+      "toolCalls": 52,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-original",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 930302,
+        "cached_input_tokens": 872064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2330,
+        "reasoning_output_tokens": 169
+      },
+      "elapsedMs": 60689.78830200003,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 17,
+      "imageBytes": 1039059,
+      "toolCalls": 49,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-half",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 492003,
+        "cached_input_tokens": 442624,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2137,
+        "reasoning_output_tokens": 222
+      },
+      "elapsedMs": 58977.53918000008,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 15,
+      "imageBytes": 886336,
+      "toolCalls": 47,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-palette",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 467218,
+        "cached_input_tokens": 420224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2122,
+        "reasoning_output_tokens": 246
+      },
+      "elapsedMs": 57973.241686999914,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 16,
+      "imageBytes": 421987,
+      "toolCalls": 49,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-sparse",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 812328,
+        "cached_input_tokens": 754560,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2378,
+        "reasoning_output_tokens": 289
+      },
+      "elapsedMs": 92573.52847300016,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 16,
+      "imageBytes": 991504,
+      "toolCalls": 49,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-original",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 973732,
+        "cached_input_tokens": 900864,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2391,
+        "reasoning_output_tokens": 235
+      },
+      "elapsedMs": 76027.80291499989,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "folder.create",
+          "editor.write",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 15,
+      "imageBytes": 858070,
+      "toolCalls": 46,
+      "rejectedCalls": 0
+    },
+    {
+      "variant": "pixel-cursor",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "success": true,
+      "usage": {
+        "input_tokens": 560690,
+        "cached_input_tokens": 524416,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2359,
+        "reasoning_output_tokens": 377
+      },
+      "elapsedMs": 53417.63503899984,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 8,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "measured": true,
+      "imageCount": 17,
+      "imageBytes": 1064598,
+      "toolCalls": 53,
+      "rejectedCalls": 0
+    }
+  ],
+  "previousImageAudit": [
+    {
+      "attempt": "0-bot-screenshots",
+      "frames": 13,
+      "identicalFrames": 1,
+      "lessThanPointOnePercentChange": 2
+    },
+    {
+      "attempt": "1-bot-screenshots",
+      "frames": 17,
+      "identicalFrames": 0,
+      "lessThanPointOnePercentChange": 0
+    },
+    {
+      "attempt": "2-bot-screenshots",
+      "frames": 16,
+      "identicalFrames": 0,
+      "lessThanPointOnePercentChange": 1
+    },
+    {
+      "attempt": "0-bot-screenshots-attempt-1",
+      "frames": 18,
+      "identicalFrames": 0,
+      "lessThanPointOnePercentChange": 0
+    }
+  ]
+}

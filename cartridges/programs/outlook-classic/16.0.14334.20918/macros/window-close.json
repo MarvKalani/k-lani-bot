@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "name": "outlook_window_close",
+  "description": "Close the explicitly selected Outlook window; observe any save/discard dialog.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "window_title",
+      "type": "string",
+      "description": "",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "close_window",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

@@ -1,0 +1,11 @@
+{
+  "name": "invoice_report",
+  "parameters": ["values", "folder", "file"],
+  "steps": [
+    {"call": "calculator.sum", "arguments": {"values": "$input.values"}, "saveAs": "sum"},
+    {"call": "editor.write", "arguments": {"text": "<!doctype html><html lang=\"de\"><meta charset=\"utf-8\"><title>Rechnungsbericht</title><h1>Rechnungsbericht</h1><p>Beträge: {{input.values}} EUR</p><p>Summe: {{sum.total}} EUR</p></html>"}, "saveAs": "document"},
+    {"call": "folder.create", "arguments": {"folder": "$input.folder"}, "saveAs": "folder"},
+    {"call": "file.save", "arguments": {"folder": "$input.folder", "file": "$input.file"}, "saveAs": "saved"},
+    {"call": "file.read", "arguments": {"folder": "$input.folder", "file": "$input.file"}, "saveAs": "verified"}
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "outlook_read_selected",
+  "description": "Read exactly one selected saved mail through COM, with stable IDs, full requested body and explicit truncation.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "max_characters",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 32768
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Selection",
+        "max_characters": "{{max_characters}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

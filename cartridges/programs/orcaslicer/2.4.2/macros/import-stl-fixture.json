@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "name": "k-lani-bot-orcaslicer-242_fixture_import_stl",
+  "description": "Native synthetic file-picker replay only. Does not prove OrcaSlicer selector compatibility.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "name": "model_path",
+      "type": "string",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Import 3MF/STL/STEP/SVG/OBJ/AMF..."
+      },
+      "capture": "import",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{import.matches.0.Id}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Synthetic model path",
+        "role": "Edit"
+      },
+      "capture": "path",
+      "expect_count": 1
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{path.matches.0.Id}}",
+        "text": "{{model_path}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Open",
+        "role": "Button"
+      },
+      "capture": "open",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{open.matches.0.Id}}"
+      }
+    }
+  ],
+  "postconditions": [
+    {
+      "pid": "{{pid}}",
+      "name": "Fixture result",
+      "expected_state": "visible",
+      "expected_text": "Imported model: {{model_path}}",
+      "timeout_ms": 3000
+    }
+  ],
+  "sha256": ""
+}

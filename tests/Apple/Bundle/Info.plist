@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+ <key>CFBundleIdentifier</key><string>com.k-lani.bot.node</string>
+ <key>CFBundleName</key><string>k-lani-bot</string>
+ <key>CFBundleDisplayName</key><string>k-lani-bot</string>
+ <key>CFBundleExecutable</key><string>k-lani-bot-node</string>
+ <key>CFBundlePackageType</key><string>APPL</string>
+ <key>CFBundleVersion</key><string>0.2610.0609</string>
+ <key>CFBundleShortVersionString</key><string>0.2610.0609</string>
+ <key>LSUIElement</key><true/>
+</dict></plist>

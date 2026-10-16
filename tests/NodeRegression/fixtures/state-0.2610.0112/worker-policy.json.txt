@@ -1,0 +1,29 @@
+{
+  "nodeId": "windows-node",
+  "workspaceRoot": "{WORKSPACE}",
+  "stateRoot": "{STATE}/actuator",
+  "principals": [
+    {
+      "id": "operator",
+      "tokenSha256": "{TOKEN_SHA256}",
+      "scopes": [
+        "observe",
+        "ui",
+        "inventory.read"
+      ],
+      "applications": [],
+      "expiresAt": "{EXPIRES}",
+      "uiGuard": {
+        "mode": "desktop",
+        "intent": "",
+        "rules": []
+      }
+    }
+  ],
+  "visibility": {
+    "screenBorder": true,
+    "consentMode": "ask",
+    "activityHoldMs": 750
+  },
+  "guardClassifierConfigFile": null
+}

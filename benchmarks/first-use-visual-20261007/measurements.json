@@ -1,0 +1,749 @@
+{
+  "format": "k-lani-bot-first-use-visual-study",
+  "version": 1,
+  "model": "gpt-6-luna",
+  "reasoningEffort": "medium",
+  "scope": "Same browser task and independent file oracle. Native marks/crops additionally create first-use MCP material automatically.",
+  "groups": [
+    {
+      "route": "bot-screenshots",
+      "successes": 3,
+      "attempts": 3,
+      "tokensPerSuccess": 675033.6666666666,
+      "usdPerSuccessReference": 0.013885313333333335,
+      "images": 44,
+      "modelCalls": 140,
+      "generatedFunctions": [
+        0,
+        0,
+        0
+      ],
+      "meanPixelFraction": null
+    },
+    {
+      "route": "bot-marked",
+      "successes": 3,
+      "attempts": 3,
+      "tokensPerSuccess": 812472,
+      "usdPerSuccessReference": 0.015697759999999998,
+      "images": 50,
+      "modelCalls": 102,
+      "generatedFunctions": [
+        6,
+        6,
+        6
+      ],
+      "meanPixelFraction": 1
+    },
+    {
+      "route": "bot-crops",
+      "successes": 3,
+      "attempts": 4,
+      "tokensPerSuccess": 1601689,
+      "usdPerSuccessReference": 0.028955913333333333,
+      "images": 69,
+      "modelCalls": 139,
+      "generatedFunctions": [
+        6,
+        6,
+        6
+      ],
+      "meanPixelFraction": 0.8148760892969877
+    }
+  ],
+  "trials": [
+    {
+      "route": "bot-screenshots",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "repetition": 0,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 827566,
+        "cached_input_tokens": 770432,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2403,
+        "reasoning_output_tokens": 302
+      },
+      "elapsedMs": 106220.098613,
+      "toolCalls": 49,
+      "toolServerVersion": "0.2610.0609",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 15,
+      "nativeUi": null,
+      "toolDescriptionsBytes": 2924,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1284052,
+      "images": 16,
+      "imageBytes": 955940,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 0,
+      "candidates": 0,
+      "croppedViews": 0,
+      "meanPixelFraction": null
+    },
+    {
+      "route": "bot-screenshots",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "repetition": 1,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 455744,
+        "cached_input_tokens": 391168,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2257,
+        "reasoning_output_tokens": 222
+      },
+      "elapsedMs": 78224.72686699999,
+      "toolCalls": 49,
+      "toolServerVersion": "0.2610.0609",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 15,
+      "nativeUi": null,
+      "toolDescriptionsBytes": 2924,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1261768,
+      "images": 15,
+      "imageBytes": 939301,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 0,
+      "candidates": 0,
+      "croppedViews": 0,
+      "meanPixelFraction": null
+    },
+    {
+      "route": "bot-screenshots",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "repetition": 2,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 734880,
+        "cached_input_tokens": 656384,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2251,
+        "reasoning_output_tokens": 219
+      },
+      "elapsedMs": 91220.22331999999,
+      "toolCalls": 42,
+      "toolServerVersion": "0.2610.0609",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 13,
+      "nativeUi": null,
+      "toolDescriptionsBytes": 2924,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1024156,
+      "images": 13,
+      "imageBytes": 762087,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "folder.create",
+          "editor.write",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 0,
+      "candidates": 0,
+      "croppedViews": 0,
+      "meanPixelFraction": null
+    },
+    {
+      "route": "bot-marked",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "repetition": 0,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 812447,
+        "cached_input_tokens": 727936,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3005,
+        "reasoning_output_tokens": 694
+      },
+      "elapsedMs": 121362.634715,
+      "toolCalls": 33,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 226,
+        "failures": 6,
+        "resultBytes": 3781036,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2610,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1500159,
+      "images": 16,
+      "imageBytes": 1112944,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 6,
+      "candidates": 12,
+      "croppedViews": 0,
+      "meanPixelFraction": 1
+    },
+    {
+      "route": "bot-marked",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "repetition": 1,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 745910,
+        "cached_input_tokens": 702592,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2686,
+        "reasoning_output_tokens": 454
+      },
+      "elapsedMs": 103904.26115,
+      "toolCalls": 32,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 211,
+        "failures": 5,
+        "resultBytes": 3637679,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2610,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1575339,
+      "images": 16,
+      "imageBytes": 1171199,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 6,
+      "candidates": 7,
+      "croppedViews": 0,
+      "meanPixelFraction": 1
+    },
+    {
+      "route": "bot-marked",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "repetition": 2,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 870395,
+        "cached_input_tokens": 792960,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2973,
+        "reasoning_output_tokens": 535
+      },
+      "elapsedMs": 150174.09532399997,
+      "toolCalls": 37,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 225,
+        "failures": 5,
+        "resultBytes": 3802693,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2610,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1618358,
+      "images": 18,
+      "imageBytes": 1202540,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "folder.create",
+          "editor.write",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 6,
+      "candidates": 7,
+      "croppedViews": 0,
+      "meanPixelFraction": 1
+    },
+    {
+      "route": "bot-crops",
+      "dataset": [
+        "12.40",
+        "7.60",
+        "19.99",
+        "5.01",
+        "55.00"
+      ],
+      "repetition": 0,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 1039303,
+        "cached_input_tokens": 952064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2916,
+        "reasoning_output_tokens": 183
+      },
+      "elapsedMs": 135983.107855,
+      "toolCalls": 41,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 279,
+        "failures": 5,
+        "resultBytes": 4860157,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2480,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1723419,
+      "images": 20,
+      "imageBytes": 1278615,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 192,
+        "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+        "completedOperations": 7,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 6,
+      "candidates": 12,
+      "croppedViews": 19,
+      "meanPixelFraction": 0.8037290039062499
+    },
+    {
+      "route": "bot-crops",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "repetition": 1,
+      "attempt": 0,
+      "success": false,
+      "usage": {
+        "input_tokens": 639573,
+        "cached_input_tokens": 540160,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1273,
+        "reasoning_output_tokens": 292
+      },
+      "elapsedMs": 71313.197976,
+      "toolCalls": 15,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 71,
+        "failures": 0,
+        "resultBytes": 1300025,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2480,
+      "functionSchemasBytes": 0,
+      "resultBytes": 610975,
+      "images": 7,
+      "imageBytes": 453849,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "pending",
+        "successful": false,
+        "completedOperations": 0
+      },
+      "generatedFunctions": 0,
+      "candidates": 2,
+      "croppedViews": 6,
+      "meanPixelFraction": 0.8474491567460317
+    },
+    {
+      "route": "bot-crops",
+      "dataset": [
+        "11.20",
+        "22.35",
+        "3.05",
+        "44.40",
+        "5.00"
+      ],
+      "repetition": 1,
+      "attempt": 1,
+      "success": true,
+      "usage": {
+        "input_tokens": 1009496,
+        "cached_input_tokens": 932864,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2969,
+        "reasoning_output_tokens": 268
+      },
+      "elapsedMs": 129704.43778099996,
+      "toolCalls": 40,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 277,
+        "failures": 5,
+        "resultBytes": 4824304,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2480,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1723571,
+      "images": 20,
+      "imageBytes": 1279132,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 191,
+        "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+        "completedOperations": 6,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 6,
+      "candidates": 11,
+      "croppedViews": 19,
+      "meanPixelFraction": 0.8037290039062499
+    },
+    {
+      "route": "bot-crops",
+      "dataset": [
+        "0.10",
+        "0.20",
+        "0.30",
+        "0.40",
+        "0.50"
+      ],
+      "repetition": 2,
+      "attempt": 0,
+      "success": true,
+      "usage": {
+        "input_tokens": 2106818,
+        "cached_input_tokens": 1992576,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2719,
+        "reasoning_output_tokens": 314
+      },
+      "elapsedMs": 167571.388913,
+      "toolCalls": 43,
+      "toolServerVersion": "1.1.0",
+      "semanticObservations": 0,
+      "semanticActionDispatches": 0,
+      "semanticActionFailures": 0,
+      "physicalClicks": 0,
+      "nativeUi": {
+        "calls": 285,
+        "failures": 5,
+        "resultBytes": 5049893,
+        "coordinateClicks": 0
+      },
+      "toolDescriptionsBytes": 2610,
+      "functionSchemasBytes": 0,
+      "resultBytes": 1933951,
+      "images": 22,
+      "imageBytes": 1437175,
+      "imageTokens": null,
+      "toolSchemaTokens": null,
+      "retries": null,
+      "oracle": {
+        "status": "passed",
+        "successful": true,
+        "checks": {
+          "calculation": true,
+          "fileContents": true,
+          "reopened": true,
+          "completedOperations": true,
+          "noOtherOutput": true
+        },
+        "bytes": 187,
+        "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+        "completedOperations": 8,
+        "operations": [
+          "calculator.sum",
+          "editor.write",
+          "editor.write",
+          "folder.create",
+          "editor.write",
+          "editor.write",
+          "file.save",
+          "file.read"
+        ]
+      },
+      "generatedFunctions": 6,
+      "candidates": 7,
+      "croppedViews": 21,
+      "meanPixelFraction": 0.8045971926294192
+    }
+  ],
+  "automaticAcceptance": {
+    "passed": true,
+    "freshBrowserProcess": true,
+    "frontendRestarted": true,
+    "firstUseAutomatic": true,
+    "explicitLearningCalls": 0,
+    "hotDiscovery": [
+      "ui.editor.click.ada6d491",
+      "ui.html_text.write.1cd0684e"
+    ],
+    "directCall": {
+      "success": true,
+      "function": "ui.html_text.write.1cd0684e",
+      "completed_steps": 1,
+      "verified": true,
+      "outputs": {
+        "value": "Second access: direct MCP after restart."
+      }
+    },
+    "returnedBytes": 156,
+    "modelImages": 0,
+    "tokenUsage": null,
+    "scope": "Native MCP acceptance; no model token measurement performed."
+  },
+  "rateCard": {
+    "model": "gpt-6-luna",
+    "verifiedOn": "2026-10-06",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+    "currency": "USD",
+    "perMillionTokens": {
+      "input": 0.1,
+      "cachedInput": 0.01,
+      "cacheWrite": 0.125,
+      "output": 0.5
+    },
+    "assumptions": [
+      "Standard API processing, short request context, no regional premium or other tool/infrastructure fees.",
+      "These are reference prices, not a Codex subscription invoice.",
+      "Aggregate trial usage cannot determine whether any individual request exceeded the long-context threshold."
+    ]
+  },
+  "limitations": [
+    "Three datasets only; not a statistical ranking. Runs were not all interleaved and diagnostics overlapped.",
+    "Native marks use the accessibility tree; this is not a pure image-based detector or Chrome DevTools.",
+    "Crop failures and retries are included. Authoring is part of these first-use tasks, not separated into a pure routine figure.",
+    "Pixel baseline creates no reusable functions. The treatments therefore differ in additional delivered material.",
+    "No separate image/schema token telemetry. Controller development usage is unknown, not zero.",
+    "Local Tesseract OCR recognized 102 words in a baseline screenshot; no pixel-only clickability benchmark was performed."
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "kind": "workflow-engine",
+  "description": "Synthetic engine adapters only; these cases make no real application or model-measurement claim.",
+  "cases": [
+    {
+      "name": "success",
+      "mode": "success",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "run",
+        "status"
+      ]
+    },
+    {
+      "name": "missing input",
+      "mode": "success",
+      "parameters": {},
+      "actions": [
+        "run",
+        "resume"
+      ],
+      "answers": {
+        "text": "supplied"
+      }
+    },
+    {
+      "name": "false decision",
+      "mode": "success",
+      "decision": true,
+      "parameters": {
+        "text": "new",
+        "approve": false
+      },
+      "actions": [
+        "run",
+        "resume"
+      ],
+      "answers": {
+        "approve": true
+      }
+    },
+    {
+      "name": "lost reply recovered",
+      "mode": "lost",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "restart",
+        "resume",
+        "status"
+      ]
+    },
+    {
+      "name": "unknown ledger",
+      "mode": "unknown",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume",
+        "resume"
+      ]
+    },
+    {
+      "name": "partial stage",
+      "mode": "prefix",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "permission refused",
+      "mode": "denied",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "appended text",
+      "mode": "append",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "empty field",
+      "mode": "empty",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "explicit clear",
+      "mode": "success",
+      "parameters": {
+        "text": ""
+      },
+      "actions": [
+        "run"
+      ]
+    },
+    {
+      "name": "long full value",
+      "mode": "success",
+      "parameters": {
+        "text": "x"
+      },
+      "repeat_text": 16000,
+      "actions": [
+        "run",
+        "status"
+      ]
+    },
+    {
+      "name": "later target absent",
+      "mode": "missing-target",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run"
+      ]
+    },
+    {
+      "name": "changed app instance",
+      "mode": "changed-instance",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "changed function",
+      "mode": "changed-function",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "replaced immutable input",
+      "mode": "lost",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ],
+      "answers": {
+        "text": "replaced"
+      }
+    },
+    {
+      "name": "stale revision",
+      "mode": "lost",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ],
+      "stale": true
+    },
+    {
+      "name": "safe predispatch recovery",
+      "mode": "prepared",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "inject-prepared",
+        "resume"
+      ]
+    },
+    {
+      "name": "verified recovery",
+      "mode": "lost",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "inject-verified",
+        "resume"
+      ]
+    },
+    {
+      "name": "ledger verified is insufficient",
+      "mode": "changed-value",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "mixed permission effects",
+      "mode": "mixed-denied",
+      "parameters": {
+        "text": "new"
+      },
+      "actions": [
+        "run",
+        "resume"
+      ]
+    },
+    {
+      "name": "invalid parameter",
+      "mode": "success",
+      "parameters": {
+        "text": false
+      },
+      "actions": [
+        "run"
+      ]
+    },
+    {
+      "name": "long identical prefix wrong tail",
+      "mode": "wrong-tail",
+      "parameters": {
+        "text": "x"
+      },
+      "repeat_text": 16000,
+      "actions": [
+        "run",
+        "resume"
+      ]
+    }
+  ]
+}

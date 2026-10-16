@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
+repo_root=$(git rev-parse --show-toplevel)
+frame_file=$(mktemp -t k-lani-bot-push-refs.XXXXXXXX)
+trap 'rm -f "$frame_file"' EXIT
+cat > "$frame_file"
+"$repo_root/scripts/repository-guard.sh" --mode pre-push < "$frame_file"
+while read -r local_ref local_sha remote_ref remote_sha; do
+    [[ "$local_sha" =~ ^0+$ ]] && continue
+    "$repo_root/scripts/format.sh" --check-ref "$local_sha"
+    "$repo_root/scripts/build.sh" --check-ref "$local_sha"
+    "$repo_root/scripts/gitleaks.sh" history "$local_sha"
+done < "$frame_file"

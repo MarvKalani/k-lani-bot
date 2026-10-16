@@ -1,0 +1,303 @@
+{
+  "format": "k-lani-bot-form-scan-extraction-study",
+  "version": 1,
+  "model": "gpt-6-luna",
+  "groups": [
+    {
+      "effort": "low",
+      "route": "compact",
+      "attempts": 3,
+      "successes": 0,
+      "unknownUsage": 0,
+      "tokensPerSuccess": null,
+      "totalTokens": 38283,
+      "usdReference": 0.00276582
+    },
+    {
+      "effort": "low",
+      "route": "scanned",
+      "attempts": 3,
+      "successes": 1,
+      "unknownUsage": 0,
+      "tokensPerSuccess": 107104,
+      "totalTokens": 107104,
+      "usdReference": 0.005506400000000001
+    },
+    {
+      "effort": "medium",
+      "route": "compact",
+      "attempts": 3,
+      "successes": 2,
+      "unknownUsage": 0,
+      "tokensPerSuccess": 46293.5,
+      "totalTokens": 92587,
+      "usdReference": 0.00527238
+    },
+    {
+      "effort": "medium",
+      "route": "scanned",
+      "attempts": 3,
+      "successes": 3,
+      "unknownUsage": 0,
+      "tokensPerSuccess": 41434.333333333336,
+      "totalTokens": 124303,
+      "usdReference": 0.0061339
+    }
+  ],
+  "trials": [
+    {
+      "capture": 0,
+      "route": "compact",
+      "effort": "low",
+      "success": false,
+      "usage": {
+        "input_tokens": 12744,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 17,
+        "reasoning_output_tokens": 0
+      },
+      "elapsedMs": 5263.956985,
+      "observationBytes": 2148,
+      "toolCalls": 0,
+      "images": 0,
+      "usdReference": 0.0012829,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 0,
+      "route": "scanned",
+      "effort": "low",
+      "success": false,
+      "usage": {
+        "input_tokens": 39729,
+        "cached_input_tokens": 12032,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 222,
+        "reasoning_output_tokens": 0
+      },
+      "elapsedMs": 9186.326561999998,
+      "observationBytes": 3898,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.0030010200000000005,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 0,
+      "route": "compact",
+      "effort": "medium",
+      "success": false,
+      "usage": {
+        "input_tokens": 12742,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 138,
+        "reasoning_output_tokens": 119
+      },
+      "elapsedMs": 5296.358679999998,
+      "observationBytes": 2148,
+      "toolCalls": 0,
+      "images": 0,
+      "usdReference": 0.0013432000000000001,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 0,
+      "route": "scanned",
+      "effort": "medium",
+      "success": true,
+      "usage": {
+        "input_tokens": 39871,
+        "cached_input_tokens": 24064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 270,
+        "reasoning_output_tokens": 147
+      },
+      "elapsedMs": 11363.636135,
+      "observationBytes": 3898,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.00195634,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 1,
+      "route": "scanned",
+      "effort": "medium",
+      "success": true,
+      "usage": {
+        "input_tokens": 43460,
+        "cached_input_tokens": 26112,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 339,
+        "reasoning_output_tokens": 162
+      },
+      "elapsedMs": 10015.672429000002,
+      "observationBytes": 4493,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.00216542,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 1,
+      "route": "compact",
+      "effort": "medium",
+      "success": true,
+      "usage": {
+        "input_tokens": 39473,
+        "cached_input_tokens": 24064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 355,
+        "reasoning_output_tokens": 178
+      },
+      "elapsedMs": 8345.943614000003,
+      "observationBytes": 2395,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.00195904,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 1,
+      "route": "scanned",
+      "effort": "low",
+      "success": false,
+      "usage": {
+        "input_tokens": 13898,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 17,
+        "reasoning_output_tokens": 0
+      },
+      "elapsedMs": 5381.540111999995,
+      "observationBytes": 4493,
+      "toolCalls": 0,
+      "images": 0,
+      "usdReference": 0.0013983,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 1,
+      "route": "compact",
+      "effort": "low",
+      "success": false,
+      "usage": {
+        "input_tokens": 12744,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 17,
+        "reasoning_output_tokens": 0
+      },
+      "elapsedMs": 4814.107999,
+      "observationBytes": 2395,
+      "toolCalls": 0,
+      "images": 0,
+      "usdReference": 0.0012829,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 2,
+      "route": "compact",
+      "effort": "low",
+      "success": false,
+      "usage": {
+        "input_tokens": 12744,
+        "cached_input_tokens": 12032,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 17,
+        "reasoning_output_tokens": 0
+      },
+      "elapsedMs": 7165.165431000001,
+      "observationBytes": 2395,
+      "toolCalls": 0,
+      "images": 0,
+      "usdReference": 0.00020002,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 2,
+      "route": "scanned",
+      "effort": "low",
+      "success": true,
+      "usage": {
+        "input_tokens": 52951,
+        "cached_input_tokens": 48128,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 287,
+        "reasoning_output_tokens": 71
+      },
+      "elapsedMs": 12182.292040999993,
+      "observationBytes": 4475,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.0011070799999999999,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 2,
+      "route": "compact",
+      "effort": "medium",
+      "success": true,
+      "usage": {
+        "input_tokens": 39509,
+        "cached_input_tokens": 24064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 370,
+        "reasoning_output_tokens": 175
+      },
+      "elapsedMs": 8946.854239000008,
+      "observationBytes": 2395,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.00197014,
+      "clientToolFailures": 0
+    },
+    {
+      "capture": 2,
+      "route": "scanned",
+      "effort": "medium",
+      "success": true,
+      "usage": {
+        "input_tokens": 40009,
+        "cached_input_tokens": 24064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 354,
+        "reasoning_output_tokens": 166
+      },
+      "elapsedMs": 15761.268349999998,
+      "observationBytes": 4475,
+      "toolCalls": 1,
+      "images": 0,
+      "usdReference": 0.00201214,
+      "clientToolFailures": 0
+    }
+  ],
+  "rateCard": {
+    "model": "gpt-6-luna",
+    "verifiedOn": "2026-10-06",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+    "currency": "USD",
+    "perMillionTokens": {
+      "input": 0.1,
+      "cachedInput": 0.01,
+      "cacheWrite": 0.125,
+      "output": 0.5
+    },
+    "assumptions": [
+      "Standard API processing, short request context, no regional premium or other tool/infrastructure fees.",
+      "These are reference prices, not a Codex subscription invoice.",
+      "Aggregate trial usage cannot determine whether any individual request exceeded the long-context threshold."
+    ]
+  },
+  "limitations": [
+    "Read-only model extraction from captured real native MCP states, not live operation or adapter code generation.",
+    "Three captures: initial page, editor page, edited value. No statistical quality or minimum-effort threshold established.",
+    "Capture/scanner development usage is not isolated; native capture uses no inference, but developer tokens are unknown.",
+    "Image and schema token breakdowns are unavailable. All measured attempts remain included.",
+    "This does not measure full-task routine reuse or prove end-to-end cartridge token savings."
+  ],
+  "delivery": "mcp",
+  "scope": "Diagnostic before Toggle-button typing correction; includes model retrieval and extraction, all attempts retained."
+}

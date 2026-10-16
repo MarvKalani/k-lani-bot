@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "name": "outlook_list_mail",
+  "description": "Read bounded headers newest first. Refresh offset after moves or arrivals; bodies are loaded separately.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "Observed source folder ID.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "Observed store ID.",
+      "required": true
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Collection offset.",
+      "required": false,
+      "default": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum 50 entries.",
+      "required": false,
+      "default": 10
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "MailPage",
+        "folder_id": "{{folder_id}}",
+        "store_id": "{{store_id}}",
+        "offset": "{{offset}}",
+        "limit": "{{limit}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

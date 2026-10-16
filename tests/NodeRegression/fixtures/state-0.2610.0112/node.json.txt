@@ -1,0 +1,12 @@
+{
+  "policy": "{STATE}/policy.json",
+  "worker": [
+    "{WORKER}",
+    "--stdio-worker",
+    "--policy",
+    "{STATE}/worker-policy.json"
+  ],
+  "bind": "127.0.0.1",
+  "httpsPort": 5443,
+  "actionTimeoutMs": 60000
+}

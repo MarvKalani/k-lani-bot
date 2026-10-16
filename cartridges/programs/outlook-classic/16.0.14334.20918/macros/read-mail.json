@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "name": "outlook_read_mail",
+  "description": "Read a mail body chunk by saved item ID; follow NextBodyOffset for complete content before classifying.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "entry_id",
+      "type": "string",
+      "description": "Observed saved mail ID.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "Observed store ID.",
+      "required": true
+    },
+    {
+      "name": "body_offset",
+      "type": "integer",
+      "description": "Body character offset.",
+      "required": false,
+      "default": 0
+    },
+    {
+      "name": "max_characters",
+      "type": "integer",
+      "description": "Maximum 32768 characters per chunk.",
+      "required": false,
+      "default": 12000
+    },
+    {
+      "name": "text_format",
+      "type": "string",
+      "description": "Readable uses HTML-to-text without styles, images or tracking targets; Raw/Compact remain explicit options.",
+      "required": false,
+      "default": "Readable"
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Mail",
+        "entry_id": "{{entry_id}}",
+        "store_id": "{{store_id}}",
+        "body_offset": "{{body_offset}}",
+        "max_characters": "{{max_characters}}",
+        "text_format": "{{text_format}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

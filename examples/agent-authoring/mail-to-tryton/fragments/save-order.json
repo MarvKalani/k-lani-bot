@@ -1,0 +1,74 @@
+{
+  "version": 2,
+  "name": "tryton_save_sale",
+  "description": "Saves the sale open in Tryton (it stays a draft) and verifies Tryton's 'Record saved.' notice.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Tryton process from ui_info.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Window",
+        "count": 1,
+        "timeout_ms": 2000
+      },
+      "expect_count": 1
+    },
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Button",
+        "name": "Save",
+        "visible": true
+      },
+      "capture": "save",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{save.matches.0.Id}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Edit",
+        "visible": true,
+        "limit": 20,
+        "timeout_ms": 1000
+      }
+    }
+  ],
+  "postconditions": [
+    {
+      "pid": "{{pid}}",
+      "role": "label",
+      "name": "Record saved.",
+      "expected_state": "visible",
+      "timeout_ms": 5000
+    },
+    {
+      "pid": "{{pid}}",
+      "role": "Button",
+      "name": "Save",
+      "expected_state": "disabled",
+      "timeout_ms": 3000
+    }
+  ]
+}

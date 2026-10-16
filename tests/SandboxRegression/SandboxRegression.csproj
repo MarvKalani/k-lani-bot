@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionErrorCode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionOutcome.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionResults.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Tool.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ToolFeature.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/WireNames.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/Scope.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiLanguage.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiTexts.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/Diagnostics.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/ProductIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/NodeTransportClient.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/ProtocolIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/TransportFailure.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/SessionPresentation.cs" />
+  </ItemGroup>
+</Project>

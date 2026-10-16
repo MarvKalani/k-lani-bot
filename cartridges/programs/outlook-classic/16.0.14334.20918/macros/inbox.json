@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "name": "outlook_inbox",
+  "description": "Identify the default inbox by native folder identity, optionally for one observed store.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "Empty selects the default mailbox.",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Inbox",
+        "store_id": "{{store_id}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

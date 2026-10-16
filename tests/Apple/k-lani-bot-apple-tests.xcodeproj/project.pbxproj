@@ -1,0 +1,32 @@
+// !$*UTF8*$!
+{
+ archiveVersion = 1; classes = {}; objectVersion = 56;
+ objects = {
+  000000000000000000000001 = {isa = PBXProject; attributes = { LastUpgradeCheck = 1600; }; buildConfigurationList = 000000000000000000000020; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; knownRegions = (en, Base); mainGroup = 000000000000000000000002; productRefGroup = 000000000000000000000003; projectDirPath = ""; projectRoot = ""; targets = (000000000000000000000010, 000000000000000000000011, 000000000000000000000012); };
+  000000000000000000000002 = {isa = PBXGroup; children = (000000000000000000000004, 000000000000000000000005, 000000000000000000000003); sourceTree = "<group>";};
+  000000000000000000000003 = {isa = PBXGroup; name = Products; children = (000000000000000000000006, 000000000000000000000007, 000000000000000000000008); sourceTree = "<group>";};
+  000000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = k-lani-bot-fixture/App.swift; sourceTree = "<group>";};
+  000000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = k-lani-bot-ios-bridge/Bridge.swift; sourceTree = "<group>";};
+  000000000000000000000006 = {isa = PBXFileReference; explicitFileType = wrapper.application; path = k-lani-bot-fixture.app; sourceTree = BUILT_PRODUCTS_DIR;};
+  000000000000000000000007 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = k-lani-bot-ios-bridge.xctest; sourceTree = BUILT_PRODUCTS_DIR;};
+  000000000000000000000008 = {isa = PBXFileReference; explicitFileType = wrapper.application; path = k-lani-bot-macos-fixture.app; sourceTree = BUILT_PRODUCTS_DIR;};
+  000000000000000000000010 = {isa = PBXNativeTarget; buildConfigurationList = 000000000000000000000021; buildPhases = (000000000000000000000040); buildRules = (); dependencies = (); name = "k-lani-bot-fixture"; productName = "k-lani-bot-fixture"; productReference = 000000000000000000000006; productType = "com.apple.product-type.application";};
+  000000000000000000000011 = {isa = PBXNativeTarget; buildConfigurationList = 000000000000000000000022; buildPhases = (000000000000000000000041); buildRules = (); dependencies = (); name = "k-lani-bot-ios-bridge"; productName = "k-lani-bot-ios-bridge"; productReference = 000000000000000000000007; productType = "com.apple.product-type.bundle.ui-testing";};
+  000000000000000000000012 = {isa = PBXNativeTarget; buildConfigurationList = 000000000000000000000023; buildPhases = (000000000000000000000042); buildRules = (); dependencies = (); name = "k-lani-bot-macos-fixture"; productName = "k-lani-bot-macos-fixture"; productReference = 000000000000000000000008; productType = "com.apple.product-type.application";};
+  000000000000000000000020 = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000030); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug;};
+  000000000000000000000021 = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000031); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug;};
+  000000000000000000000022 = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000032); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug;};
+  000000000000000000000023 = {isa = XCConfigurationList; buildConfigurations = (000000000000000000000033); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug;};
+  000000000000000000000030 = {isa = XCBuildConfiguration; name = Debug; buildSettings = {SWIFT_VERSION = 5.0;};};
+  000000000000000000000031 = {isa = XCBuildConfiguration; name = Debug; buildSettings = {PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.k-lani.bot.fixture; SDKROOT = iphoneos; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; IPHONEOS_DEPLOYMENT_TARGET = 18.0; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; TARGETED_DEVICE_FAMILY = "1,2"; CODE_SIGN_STYLE = Automatic;};};
+  000000000000000000000032 = {isa = XCBuildConfiguration; name = Debug; buildSettings = {PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.k-lani.bot.bridge; SDKROOT = iphoneos; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; IPHONEOS_DEPLOYMENT_TARGET = 18.0; GENERATE_INFOPLIST_FILE = YES; TARGETED_DEVICE_FAMILY = "1,2"; TEST_TARGET_NAME = "k-lani-bot-fixture"; CODE_SIGN_STYLE = Automatic;};};
+  000000000000000000000033 = {isa = XCBuildConfiguration; name = Debug; buildSettings = {PRODUCT_NAME = "$(TARGET_NAME)"; PRODUCT_BUNDLE_IDENTIFIER = com.k-lani.bot.macfixture; SDKROOT = macosx; SUPPORTED_PLATFORMS = macosx; MACOSX_DEPLOYMENT_TARGET = 14.0; GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic;};};
+  000000000000000000000040 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000050); runOnlyForDeploymentPostprocessing = 0;};
+  000000000000000000000041 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000051); runOnlyForDeploymentPostprocessing = 0;};
+  000000000000000000000042 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (000000000000000000000052); runOnlyForDeploymentPostprocessing = 0;};
+  000000000000000000000050 = {isa = PBXBuildFile; fileRef = 000000000000000000000004;};
+  000000000000000000000051 = {isa = PBXBuildFile; fileRef = 000000000000000000000005;};
+  000000000000000000000052 = {isa = PBXBuildFile; fileRef = 000000000000000000000004;};
+ };
+ rootObject = 000000000000000000000001;
+}

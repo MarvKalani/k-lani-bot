@@ -1,0 +1,31 @@
+{
+  "name": "get_macro",
+  "description": "Reads the explicitly pinned macro definition.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "maxLength": 80
+      },
+      "sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "node": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "sha256"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

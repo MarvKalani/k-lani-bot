@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <!-- The code standard analyzer runs in every project except itself. The removed global properties come from build.sh
+       and would otherwise retarget the netstandard2.0 analyzer to the platform being built. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'CodeStandardAnalyzer'">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)tools/CodeStandardAnalyzer/CodeStandardAnalyzer.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"
+                      GlobalPropertiesToRemove="TargetFrameworks;TargetFramework;RuntimeIdentifier;SelfContained" />
+  </ItemGroup>
+</Project>

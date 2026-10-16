@@ -1,0 +1,257 @@
+{
+  "kind": "stored-listing",
+  "cases": [
+    {
+      "name": "empty",
+      "functions": []
+    },
+    {
+      "name": "without-parameters",
+      "functions": [
+        {
+          "name": "close-tab"
+        }
+      ]
+    },
+    {
+      "name": "parameters-in-declared-order",
+      "functions": [
+        {
+          "name": "replace-text-and-save",
+          "parameters": [
+            "text",
+            "encoding"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ordinal-order",
+      "functions": [
+        {
+          "name": "b",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "B",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "a",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "_",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "a.b",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "a-b",
+          "parameters": [
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "description-and-steps",
+      "functions": [
+        {
+          "name": "uppercase-selection",
+          "description": "Turns the selected text into capital letters.",
+          "steps": [
+            "click Edit > Convert > To Uppercase"
+          ]
+        },
+        {
+          "name": "replace-text",
+          "parameters": [
+            "text"
+          ],
+          "steps": [
+            "click Edit > Select All",
+            "write Document"
+          ]
+        },
+        {
+          "name": "thirteen-steps",
+          "steps": [
+            "click Step 1",
+            "click Step 2",
+            "click Step 3",
+            "click Step 4",
+            "click Step 5",
+            "click Step 6",
+            "click Step 7",
+            "click Step 8",
+            "click Step 9",
+            "click Step 10",
+            "click Step 11",
+            "click Step 12",
+            "click Step 13"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "thirteen-reversed",
+      "functions": [
+        {
+          "name": "item-12",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-11",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-10",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-09",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-08",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-07",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-06",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-05",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-04",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-03",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-02",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-01",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-00",
+          "parameters": [
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "generated-hidden",
+      "functions": [
+        {
+          "name": "ui.element.write.c1b6dc7e",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "replace-text-and-save",
+          "parameters": [
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "generated-not-counted",
+      "functions": [
+        {
+          "name": "ui.element.write.c1b6dc7e",
+          "parameters": [
+            "text"
+          ]
+        },
+        {
+          "name": "item-00"
+        },
+        {
+          "name": "item-01"
+        },
+        {
+          "name": "item-02"
+        },
+        {
+          "name": "item-03"
+        },
+        {
+          "name": "item-04"
+        },
+        {
+          "name": "item-05"
+        },
+        {
+          "name": "item-06"
+        },
+        {
+          "name": "item-07"
+        },
+        {
+          "name": "item-08"
+        },
+        {
+          "name": "item-09"
+        },
+        {
+          "name": "item-10"
+        },
+        {
+          "name": "item-11"
+        }
+      ]
+    }
+  ]
+}

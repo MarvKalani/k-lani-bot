@@ -1,0 +1,13 @@
+{
+  "command": "/absolute/path/to/k-lani-bot-node",
+  "arguments": ["--mcp", "--nodes", "/absolute/path/to/private/nodes.json", "--default-node", "registered-node-id"],
+  "learning": {
+    "cartridgeRoot": "/absolute/path/to/private/cartridges",
+    "application": {
+      "key": "configured-application",
+      "version": "REPLACE_WITH_OBSERVED_BUILD",
+      "process_name": "REPLACE_WITH_OBSERVED_PROCESS_NAME",
+      "identity_source": "native-version"
+    }
+  }
+}

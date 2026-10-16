@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "name": "outlook_identity",
+  "description": "Read actual Outlook variant, version/build, UI language and native access routes.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Info"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

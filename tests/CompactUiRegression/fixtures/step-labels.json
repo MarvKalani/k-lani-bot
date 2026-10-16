@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "kind": "step-labels",
+  "cases": [
+    {
+      "name": "menu-path",
+      "steps": [
+        {
+          "action": "click",
+          "selector": {
+            "role": "menu item",
+            "name": "To Uppercase",
+            "containerPath": [
+              { "role": "menu item", "name": "Edit" },
+              { "role": "menu item", "name": "Convert" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "write-names-target-only",
+      "steps": [
+        {
+          "action": "write",
+          "selector": { "role": "Edit", "name": "Field", "containerPath": [] }
+        }
+      ]
+    },
+    {
+      "name": "unnamed-target-and-autoid-container",
+      "steps": [
+        {
+          "action": "click",
+          "selector": {
+            "role": "Button",
+            "name": "",
+            "autoId": "save",
+            "containerPath": [{ "role": "Window", "autoId": "frame" }, { "role": "Pane", "name": "  Toolbar  " }]
+          }
+        }
+      ]
+    }
+  ]
+}

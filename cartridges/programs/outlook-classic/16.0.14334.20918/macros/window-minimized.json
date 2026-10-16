@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "name": "outlook_window_minimized",
+  "description": "Request the minimized state for one uniquely selected Outlook window.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "window_title",
+      "type": "string",
+      "description": "",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "set_window_geometry",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}",
+        "state": "minimized"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

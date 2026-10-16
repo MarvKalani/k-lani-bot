@@ -1,0 +1,21 @@
+{
+  "name": "list_windows",
+  "description": "Lists windows available to this desktop session.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

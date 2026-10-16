@@ -1,0 +1,21 @@
+{
+  "name": "take_screenshot",
+  "description": "Returns image content from the controlled display; no arbitrary output path.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

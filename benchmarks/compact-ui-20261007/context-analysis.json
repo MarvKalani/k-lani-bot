@@ -1,0 +1,79 @@
+{
+  "format": "k-lani-bot-ui-context-analysis",
+  "version": 1,
+  "scope": "Serialized protocol fields and observed UI shapes; bytes are not converted to model tokens.",
+  "facts": [
+    "Browser Computer Use is page scoped and emits diffs. It includes noninteractive texts and results.",
+    "The original node route repeatedly requested full window observations including browser chrome and offscreen elements.",
+    "Compact UI preserves useful text, optional offscreen objects, clipping flags and modal dialogs. Node data is compacted on the controller.",
+    "All reported tokens come from model-client usage, including cached context. Authoring and prototypes remain separate."
+  ],
+  "trials": [
+    {
+      "case": 0,
+      "computerUse": {
+        "initialTreeEntries": 29,
+        "modelToolCalls": 12,
+        "schemaBytes": 3949,
+        "returnedContentAndStructuredBytes": 64677,
+        "protocolMetadataBytes": 996755
+      },
+      "originalNode": {
+        "modelToolCalls": 80,
+        "schemaBytes": 17597,
+        "fullTreeCalls": 2
+      },
+      "compactNode": {
+        "modelToolCalls": 16,
+        "schemaBytes": 2445,
+        "nativeCalls": 77,
+        "modelResultEnvelopeBytes": 11701,
+        "internalNativeResultBytes": 1057714
+      }
+    },
+    {
+      "case": 1,
+      "computerUse": {
+        "initialTreeEntries": 29,
+        "modelToolCalls": 12,
+        "schemaBytes": 3949,
+        "returnedContentAndStructuredBytes": 66312,
+        "protocolMetadataBytes": 913458
+      },
+      "originalNode": {
+        "modelToolCalls": 58,
+        "schemaBytes": 17597,
+        "fullTreeCalls": 24
+      },
+      "compactNode": {
+        "modelToolCalls": 13,
+        "schemaBytes": 2445,
+        "nativeCalls": 73,
+        "modelResultEnvelopeBytes": 22380,
+        "internalNativeResultBytes": 954829
+      }
+    },
+    {
+      "case": 2,
+      "computerUse": {
+        "initialTreeEntries": 29,
+        "modelToolCalls": 11,
+        "schemaBytes": 3949,
+        "returnedContentAndStructuredBytes": 61912,
+        "protocolMetadataBytes": 909280
+      },
+      "originalNode": {
+        "modelToolCalls": 73,
+        "schemaBytes": 17597,
+        "fullTreeCalls": 4
+      },
+      "compactNode": {
+        "modelToolCalls": 15,
+        "schemaBytes": 2445,
+        "nativeCalls": 76,
+        "modelResultEnvelopeBytes": 21403,
+        "internalNativeResultBytes": 1024147
+      }
+    }
+  ]
+}

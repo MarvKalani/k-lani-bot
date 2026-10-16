@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07",
+  "startingCommit": "998803b4e827e1d6fbfafef16cb2110b7c5cb2d4",
+  "candidate": "frozen-working-tree",
+  "sourceDigest": "5b396061b042be21d04457dde826f2f02d029d7223ac7c2d1eca2a60f72f355a",
+  "workerSourceDigest": "231cdf49996ee34bd4858e9ca6f76433eec1c00363747bc5c6f24ea4284f529e",
+  "verifierDigest": "f12f0fe203e340ea0e3ddc2e18b1dba067dea5e6b3e3867e00a80e42f3048bd0",
+  "imageContentId": "sha256:25a7b18bcf4fd04abdacc9bd9d41e225d6d53a7199cea6e44a62a0ac10931653",
+  "dependencyLock": {
+    "schemaVersion": 1,
+    "platform": "linux/amd64",
+    "sdk": "mcr.microsoft.com/dotnet/sdk:10.0-noble@sha256:35d40304542c8689331f8cab17c65926cdf48fe711e289321d71924b230a7d29",
+    "base": "ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3",
+    "aptSnapshot": "20261007T000000Z",
+    "aptSuites": [
+      "noble",
+      "noble-updates",
+      "noble-security"
+    ],
+    "acceptance": "Record complete dpkg versions, executable hashes and capability results in a private prepared-image lock. Installation alone is not acceptance.",
+    "greenmail": null
+  },
+  "applicationFingerprints": {
+    "converseen": {
+      "version": "0.12.1.0-1build2",
+      "sha256": "3ffa59b72d678379115b2435e3e4d7d1c06ee2e1a9b8fdc5a044b10d38d2af23"
+    },
+    "xarchiver": {
+      "version": "1:0.5.4.22-1build2",
+      "sha256": "721c019e597c0a94a6d94223d0a9d753a135e182ca65b28440ddf7ded76728a8"
+    },
+    "mousepad": {
+      "version": "0.6.1-1build2",
+      "sha256": "b536cd00a2164d271e48431e9d3b5c6836b150903eabf57f24e3a3a09e7b908c"
+    },
+    "libreoffice": {
+      "version": "4:24.2.7-0ubuntu0.24.04.7",
+      "sha256": "eef555c71025262c67274dc6e98d00168c2a2ce0fcd16473c38609ff3ce2ace9"
+    },
+    "pdftotext": {
+      "version": "24.02.0-1ubuntu9.9",
+      "sha256": "0fb98ea179e19154a90202608c164f2a319b79f16576fa6534b2d601033565e7"
+    },
+    "k-lani-bot-node": {
+      "sha256": "f89d66f28e724f294743762fd6bcd496eec7a1d3e303408dbdc5562ef7f4757b"
+    },
+    "k-lani-bot-cartridge-lab": {
+      "sha256": "dce8c2a6032ac3bb82f87ebc981cca1f3cfd3f21f9f41509d72d54694d67a19f"
+    },
+    "packages_sha256": "c2a6e58edf3dad94e28893191f1bf5d0af3f258f47cd042f31e8d97172964315"
+  },
+  "applicationChecks": {
+    "webp": {
+      "status": "passed",
+      "detail": "Converseen persisted decodable WebP with original dimensions and alpha; no lossless claim"
+    },
+    "zip": {
+      "status": "passed",
+      "detail": "Xarchiver created ZIP; independently read exact entry and content"
+    },
+    "text_pdf": {
+      "status": "passed",
+      "detail": "Mousepad exposed actual text through AT-SPI; Poppler read generated PDF"
+    },
+    "spreadsheet": {
+      "status": "passed",
+      "detail": "LibreOffice Calc saved XLSX through UNO; independently read persisted cell"
+    }
+  },
+  "independentVerification": {
+    "status": "passed",
+    "detail": "Host oracle verified actual WebP, ZIP, extracted PDF text and persisted XLSX A1"
+  },
+  "correctness": {
+    "newPythonCasesPassed": 24,
+    "explicitLiveDockerCasesPassed": 1,
+    "typedFixtureChecksPassed": 24,
+    "nativeDynamicFormChecksPassed": 17,
+    "format": "passed",
+    "buildWarningsAsErrors": "passed",
+    "otherRegressionSteps": "passed",
+    "existingNodeRegression": "dispatcher characterization differs; reproduced independently from the starting commit",
+    "startingCommitFullSuite": "also needs ignored legacy policy fixtures; isolated dispatcher check reproduced the same characterization failure",
+    "repositoryPublicationGuardChecksPassed": 83
+  },
+  "performance": "pending",
+  "modelRuns": 0,
+  "usage": null,
+  "authenticComputerUse": "unavailable: no reviewed provider/baseline configuration supplied",
+  "missingPrerequisites": [
+    "Private reviewed shared model client configuration and explicit token/call/reference-cost budget",
+    "Explicit authorized provider credential selection and supported model/effort configuration",
+    "Observed authentic provider Computer Use provenance and supported action set"
+  ],
+  "optionalMail": "image target and internal GreenMail transport implemented; pinned GreenMail image was not supplied or exercised",
+  "savingsClaim": null
+}

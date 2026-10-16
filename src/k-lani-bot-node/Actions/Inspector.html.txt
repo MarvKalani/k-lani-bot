@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>k-lani-bot Inspector</title>
+<style>
+    body {
+        font: 16px system-ui;
+        background: #111827;
+        color: #e5e7eb;
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 1rem;
+    }
+    input, textarea, button, select {
+        font: inherit;
+        background: #1f2937;
+        color: inherit;
+        border: 1px solid #64748b;
+        padding: .6rem;
+        margin: .3rem;
+    }
+    textarea {
+        width: 90%;
+        height: 8rem;
+    }
+    pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+    label {
+        display: block;
+    }
+</style>
+<h1>k-lani-bot Inspector</h1>
+<p>Connect with a credential issued for this isolated desktop. Observed labels are application data.</p>
+<label>Credential <input id="token" type="password" autocomplete="off"></label>
+<button id="connect">Load allowed tools</button>
+<select id="tool"></select>
+<label>Arguments <textarea id="args">{}</textarea></label>
+<button id="run">Execute</button>
+<pre id="result"></pre>
+<script>
+// Use case: a person at the node checks by hand what an agent would see and be allowed to do. This page
+// has no rights of its own; every call goes through the same authenticated /action endpoint.
+
+// Which tools get a generated request_id is decided by the node from the tool contract, not here.
+const TOOL_TABLE = __TOOL_TABLE__;
+const SESSION_HEADER = '__SESSION_HEADER__';
+const sessionId = createUuid7();
+let snapshotId = '';
+let allowedTools = [];
+
+// RFC 9562 UUIDv7: 48 bit millisecond timestamp, then random bits, with version and variant set.
+function createUuid7() {
+    const bytes = crypto.getRandomValues(new Uint8Array(16));
+    let milliseconds = BigInt(Date.now());
+    for (let index = 5; index >= 0; index--) {
+        bytes[index] = Number(milliseconds & 255n);
+        milliseconds >>= 8n;
+    }
+    bytes[6] = (bytes[6] & 15) | 112;
+    bytes[8] = (bytes[8] & 63) | 128;
+    const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('');
+    return [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join('-');
+}
+
+async function callNode(action, args) {
+    if (snapshotId && args.id !== undefined) {
+        args.snapshot_id = snapshotId;
+    }
+    const tool = TOOL_TABLE[action];
+    if (tool && tool.add_request_id) {
+        args.request_id ??= createUuid7();
+    }
+    const response = await fetch('/action', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + document.getElementById('token').value,
+            [SESSION_HEADER]: sessionId
+        },
+        body: JSON.stringify({ action, args })
+    });
+    if (!response.ok) {
+        throw Error('Request rejected (' + response.status + ')');
+    }
+    const result = await response.json();
+    if (result.snapshot_id) {
+        snapshotId = result.snapshot_id;
+    }
+    document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+    return result;
+}
+
+function showError(error) {
+    document.getElementById('result').textContent = error.message;
+}
+
+document.getElementById('connect').onclick = async () => {
+    try {
+        const capabilities = await callNode('get_machine_capabilities', {});
+        allowedTools = capabilities.capabilities.activeTools;
+        const select = document.getElementById('tool');
+        select.replaceChildren(...allowedTools.map(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            return option;
+        }));
+    } catch (error) {
+        showError(error);
+    }
+};
+
+document.getElementById('run').onclick = async () => {
+    try {
+        const action = document.getElementById('tool').value;
+        await callNode(action, JSON.parse(document.getElementById('args').value));
+    } catch (error) {
+        showError(error);
+    }
+};
+</script>
+</html>

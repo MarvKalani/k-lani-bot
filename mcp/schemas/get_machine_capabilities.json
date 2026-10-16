@@ -1,0 +1,31 @@
+{
+  "name": "get_machine_capabilities",
+  "description": "Reports actual backend capabilities, allowed tools and deployment limitations.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "action_schema_names": {
+        "type": "array",
+        "description": "Return actual permitted node schemas only for these selected action names; omitted requests retain the compact capability reply.",
+        "maxItems": 64,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

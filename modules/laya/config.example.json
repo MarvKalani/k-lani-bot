@@ -1,0 +1,13 @@
+{
+  "provider": "laya",
+  "version": 1,
+  "enabled": true,
+  "endpoint": "http://127.0.0.1:8099",
+  "allowLoopbackHttp": true,
+  "credentialFile": "/private/k-lani-bot-laya/credential",
+  "model": "multilingual",
+  "modelRevision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+  "timeoutMs": 10000,
+  "maxTokens": 8192,
+  "calibrationReportFile": null
+}

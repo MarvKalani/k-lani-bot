@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root=$(git rev-parse --show-toplevel)
+"$repo_root/scripts/repository-guard.sh" --mode index
+"$repo_root/scripts/format.sh" --check-index
+"$repo_root/scripts/build.sh" --check-index
+"$repo_root/scripts/gitleaks.sh" index

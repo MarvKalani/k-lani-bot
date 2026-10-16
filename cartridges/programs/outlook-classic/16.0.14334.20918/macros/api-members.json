@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "name": "outlook_api_members",
+  "description": "Read one page of native methods and properties for one object type; discovery is not execution acceptance.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "type_name",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 20
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Api",
+        "type_name": "{{type_name}}",
+        "offset": "{{offset}}",
+        "limit": "{{limit}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

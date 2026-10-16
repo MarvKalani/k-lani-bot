@@ -1,0 +1,183 @@
+{
+  "version": 2,
+  "name": "tryton_add_sale_line",
+  "description": "Adds one line (product code, quantity) to the sale open in Tryton and verifies that the line dialog closed.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Tryton process from ui_info.",
+      "required": true
+    },
+    {
+      "name": "product",
+      "type": "string",
+      "description": "Product code, e.g. M-550.",
+      "required": true
+    },
+    {
+      "name": "quantity",
+      "type": "string",
+      "description": "Quantity as a number.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Window",
+        "count": 1,
+        "timeout_ms": 2000
+      },
+      "expect_count": 1
+    },
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "table",
+        "visible": true
+      },
+      "capture": "lines",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{lines.matches.0.Id}}",
+        "focus_only": true
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "f3"
+        ]
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Sales › Lines",
+        "role": "Edit",
+        "visible": true,
+        "count": 11,
+        "timeout_ms": 5000
+      },
+      "capture": "line",
+      "expect_count": 11
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{line.matches.8.Id}}",
+        "text": "{{product}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{line.matches.8.Id}}",
+        "focus_only": true
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "tab"
+        ]
+      }
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{line.matches.7.Id}}",
+        "text": "{{quantity}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{line.matches.7.Id}}",
+        "focus_only": true
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "tab"
+        ]
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Sales › Lines",
+        "role": "Edit",
+        "visible": true,
+        "timeout_ms": 1000
+      },
+      "capture": "filled"
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Sales › Lines",
+        "role": "Button",
+        "name": "OK"
+      },
+      "capture": "ok",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{ok.matches.0.Id}}"
+      }
+    },
+    {
+      "action": "wait_element",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Product:",
+        "role": "label",
+        "state": "absent",
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "table cell",
+        "name_contains": "{{product}}",
+        "timeout_ms": 2000
+      }
+    }
+  ],
+  "postconditions": [
+    {
+      "pid": "{{pid}}",
+      "role": "Window",
+      "name": "Sales › Lines",
+      "expected_state": "absent",
+      "timeout_ms": 3000
+    }
+  ]
+}

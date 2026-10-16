@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "startingCommit": "a4d7f73d3808e19fcd7959feb474f9adadf0c3b3",
+  "implementation": "completed",
+  "gatewayVersion": "1.5.0",
+  "nativeContract": "unchanged",
+  "knownWrite": {
+    "characters": 16000,
+    "legacy_result_bytes": 32108,
+    "summary_result_bytes": 260,
+    "verified_utf8_bytes": 32000,
+    "fullEqualityVerified": true,
+    "reductionPercent": 99.19,
+    "measurement": "Deterministic result bytes, not model tokens"
+  },
+  "correctness": {
+    "desktopUiCasesPassed": 49,
+    "desktopUiAndEfficiencyCasesPassed": 66,
+    "combinedOptionalCasesSkipped": 1,
+    "pythonCasesPassed": 34,
+    "pythonLiveCasesSkippedByDefault": 2,
+    "explicitInstalledImageCasesPassed": 2,
+    "typedFixtureChecksPassed": 24,
+    "format": "passed",
+    "buildWarningsAsErrors": "passed",
+    "legacy": "Existing no-result-mode tests retained",
+    "overwrittenIgnoredWrite": "Rejected before the next step by a full fresh local read"
+  },
+  "independentLiveEvidence": {
+    "application": "Mousepad",
+    "platform": "linux/amd64, private Xvfb/AT-SPI",
+    "imageContentId": "sha256:fdada6121566cf96ac095c0bf0a3e564fed47896856fe3c7d9a29228ac8e62a8",
+    "completeUnknownUnicodeRead": "passed",
+    "clippedReadRejected": true,
+    "twoWorkerIsolationAndOutputTransport": "passed",
+    "scope": "Independent read-only oracle and isolation test; no model-driven write/save qualification"
+  },
+  "store": {
+    "ttlSeconds": 300,
+    "maximumEntries": 32,
+    "totalUtf8Bytes": 4194304,
+    "entryUtf8Bytes": 1048576,
+    "inlineValueCodepoints": 2000,
+    "maximumPageCodepoints": 8000,
+    "inlineDebugBytes": 8192,
+    "nodeAndSessionBound": true,
+    "oversizeRejected": true,
+    "rawDataPersistence": false
+  },
+  "performance": "pending",
+  "modelRuns": 0,
+  "modelUsage": null,
+  "savingsClaim": null,
+  "remainingAcceptance": [
+    "Separately requested matched model profile with reviewed adapter and explicit private budget",
+    "Actual compact known-write/save route in the chosen application; unnamed editors require an appropriate narrow route",
+    "Native Windows/macOS execution; C# result-contract parity is a separate implementation"
+  ],
+  "scope": "Correctness and response-byte evidence; no benchmark savings claim"
+}

@@ -1,0 +1,84 @@
+{
+  "name": "inspect_application",
+  "description": "Read native Outlook status, identity, API metadata, folder identities, compact mail pages or body chunks by item ID. Reads never select a message in the UI. No screenshots or shell execution.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pid": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Running application process. Required except when area is Status."
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      },
+      "area": {
+        "type": "string",
+        "enum": [
+          "Status",
+          "Info",
+          "Api",
+          "Selection",
+          "Folders",
+          "Inbox",
+          "MailPage",
+          "Mail"
+        ]
+      },
+      "type_name": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "folder_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "store_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100000
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 50
+      },
+      "max_characters": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 32768
+      },
+      "entry_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "body_offset": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 10000000
+      },
+      "text_format": {
+        "type": "string",
+        "enum": [
+          "Raw",
+          "Compact",
+          "Readable"
+        ],
+        "description": "Compact retains prose and link host/path, omitting query/fragment and invisible padding; request Raw for original targets. Chunk offsets refer to the chosen format."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

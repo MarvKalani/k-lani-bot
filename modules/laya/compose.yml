@@ -1,0 +1,30 @@
+name: k-lani-bot-laya
+services:
+  laya:
+    profiles: [laya]
+    build:
+      context: ../..
+      dockerfile: modules/laya/Dockerfile
+      additional_contexts:
+        laya-wheels: ${K_LANI_BOT_LAYA_WHEELHOUSE:?Supply the reviewed hash-locked CPU wheelhouse}
+    image: k-lani-bot-laya:6d942c9
+    read_only: true
+    user: '10001:10001'
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 4g
+    cpus: 2
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=256m,uid=10001,gid=10001
+    ports:
+      - '127.0.0.1:8099:8000'
+    networks: [inference]
+    secrets: [laya-api-key]
+    restart: 'no'
+networks:
+  inference:
+    internal: true
+secrets:
+  laya-api-key:
+    file: ${K_LANI_BOT_LAYA_CREDENTIAL_FILE:?Provide a private credential file outside the workspace}

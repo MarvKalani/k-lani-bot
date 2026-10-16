@@ -1,0 +1,642 @@
+{
+  "format": "k-lani-bot-observed-forms",
+  "version": 1,
+  "application": {
+    "key": "browser-testwerkstatt",
+    "version": "1.1.0",
+    "default_topic": "Use/Editor",
+    "identity_source": "controlled-test-fixture"
+  },
+  "forms": {
+    "workbench": {
+      "latest": "6d53cba295dfeb52",
+      "states": {
+        "a2f1103931a985f8": {
+          "fields": [
+            {
+              "key": "324ba47f7915737c",
+              "name": "HTML-Vorlage · in beiden Tests identisch",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "HTML-Vorlage · in beiden Tests identisch",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "43b9f955f4d992b0",
+              "name": "Taschenrechner",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Taschenrechner",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "ada6d491a03e8d9b",
+              "name": "Editor",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Editor",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "527d3097dc988635",
+              "name": "Dateien",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Dateien",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "a65c3b144a57224a",
+              "name": "Beträge, eine Zahl je Zeile · Dezimalpunkt",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "Beträge, eine Zahl je Zeile · Dezimalpunkt",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "e668298f1fb93e1c",
+              "name": "Addieren",
+              "name_truncated": false,
+              "type": "action",
+              "role": "button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "button",
+                "name": "Addieren",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "a92aa872081c66fd",
+              "name": "Abgeschlossene Schritte · kopierbar",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "Abgeschlossene Schritte · kopierbar",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "99eab2e1d56a8e54",
+              "name": "MCP-Fähigkeiten und Grenzen",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "MCP-Fähigkeiten und Grenzen",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            }
+          ],
+          "compatibility": {
+            "node_version": "0.2610.0609",
+            "platform": "linux-x11-atspi",
+            "application_version": "1.1.0"
+          }
+        },
+        "e82e2b49ddcb7cfe": {
+          "fields": [
+            {
+              "key": "324ba47f7915737c",
+              "name": "HTML-Vorlage · in beiden Tests identisch",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "HTML-Vorlage · in beiden Tests identisch",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "43b9f955f4d992b0",
+              "name": "Taschenrechner",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Taschenrechner",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "ada6d491a03e8d9b",
+              "name": "Editor",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Editor",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "527d3097dc988635",
+              "name": "Dateien",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Dateien",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "1cd0684e1c8c9943",
+              "name": "HTML-Text",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "HTML-Text",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "69f4cc6b4b61e445",
+              "name": "Text übernehmen",
+              "name_truncated": false,
+              "type": "action",
+              "role": "button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "button",
+                "name": "Text übernehmen",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "5da26e2ebb9d1794",
+              "name": "Ordner im Test-Desktop",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "Ordner im Test-Desktop",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "bf125c5e761c5af8",
+              "name": "HTML-Dateiname",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "HTML-Dateiname",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "dac309e13a0bdde2",
+              "name": "Datei speichern",
+              "name_truncated": false,
+              "type": "action",
+              "role": "button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "button",
+                "name": "Datei speichern",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "a92aa872081c66fd",
+              "name": "Abgeschlossene Schritte · kopierbar",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "Abgeschlossene Schritte · kopierbar",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "99eab2e1d56a8e54",
+              "name": "MCP-Fähigkeiten und Grenzen",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "MCP-Fähigkeiten und Grenzen",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            }
+          ],
+          "compatibility": {
+            "node_version": "0.2610.0609",
+            "platform": "linux-x11-atspi",
+            "application_version": "1.1.0"
+          }
+        },
+        "6d53cba295dfeb52": {
+          "fields": [
+            {
+              "key": "324ba47f7915737c",
+              "name": "HTML-Vorlage · in beiden Tests identisch",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "HTML-Vorlage · in beiden Tests identisch",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "43b9f955f4d992b0",
+              "name": "Taschenrechner",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Taschenrechner",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "ada6d491a03e8d9b",
+              "name": "Editor",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Editor",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "527d3097dc988635",
+              "name": "Dateien",
+              "name_truncated": false,
+              "type": "navigation",
+              "role": "page tab",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "page tab",
+                "name": "Dateien",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "1cd0684e1c8c9943",
+              "name": "HTML-Text",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "HTML-Text",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "69f4cc6b4b61e445",
+              "name": "Text übernehmen",
+              "name_truncated": false,
+              "type": "action",
+              "role": "button",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "button",
+                "name": "Text übernehmen",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "5da26e2ebb9d1794",
+              "name": "Ordner im Test-Desktop",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "Ordner im Test-Desktop",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "bf125c5e761c5af8",
+              "name": "HTML-Dateiname",
+              "name_truncated": false,
+              "type": "text",
+              "role": "Edit",
+              "enabled": true,
+              "offscreen": false,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "set_text"
+              ],
+              "selector": {
+                "role": "Edit",
+                "name": "HTML-Dateiname",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "dac309e13a0bdde2",
+              "name": "Datei speichern",
+              "name_truncated": false,
+              "type": "action",
+              "role": "button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "invoke"
+              ],
+              "selector": {
+                "role": "button",
+                "name": "Datei speichern",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "a92aa872081c66fd",
+              "name": "Abgeschlossene Schritte · kopierbar",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "Abgeschlossene Schritte · kopierbar",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            },
+            {
+              "key": "99eab2e1d56a8e54",
+              "name": "MCP-Fähigkeiten und Grenzen",
+              "name_truncated": false,
+              "type": "toggle",
+              "role": "toggle button",
+              "enabled": true,
+              "offscreen": true,
+              "target_ready": true,
+              "actions": [
+                "read",
+                "toggle"
+              ],
+              "selector": {
+                "role": "toggle button",
+                "name": "MCP-Fähigkeiten und Grenzen",
+                "autoId": "",
+                "windowTitle": "k-lani-bot · Browser-Testwerkstatt – Google Chrome Dev"
+              }
+            }
+          ],
+          "compatibility": {
+            "node_version": "0.2610.0609",
+            "platform": "linux-x11-atspi",
+            "application_version": "1.1.0"
+          }
+        }
+      },
+      "observed_transitions": [
+        {
+          "from": "a2f1103931a985f8",
+          "to": "e82e2b49ddcb7cfe",
+          "cause": "unknown; successive observations do not establish causality"
+        },
+        {
+          "from": "e82e2b49ddcb7cfe",
+          "to": "6d53cba295dfeb52",
+          "cause": "unknown; successive observations do not establish causality"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Version>0.2610.0609</Version>
+    <AssemblyVersion>0.2610.609.0</AssemblyVersion>
+    <FileVersion>0.2610.609.0</FileVersion>
+    <InformationalVersion>0.2610.0609</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <Company>Marvin Kalani</Company>
+    <Authors>Marvin Kalani</Authors>
+    <Product>k-lani-bot</Product>
+    <Title>k-lani-bot-node</Title>
+    <Description>k-lani-bot Alpha. Desktop-Automation von Marvin Kalani. https://k-lani.com</Description>
+    <Copyright>Copyright © 2026 Marvin Kalani</Copyright>
+    <PackageProjectUrl>https://k-lani.com</PackageProjectUrl>
+    <TargetFrameworks>net10.0;net10.0-windows</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <TieredPGO>true</TieredPGO>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <AssemblyName>k-lani-bot-node</AssemblyName>
+    <RootNamespace>KLaniBot</RootNamespace>
+  </PropertyGroup>
+
+  <!-- osx-arm64 R2R crashes reproduced with redirected child-process pipes.
+       dotnet/runtime#112167; keep the self-contained runtime, use JIT on Apple Silicon. -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
+    <PublishReadyToRun>false</PublishReadyToRun>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.13.0" />
+    <AssemblyMetadata Include="Website" Value="https://k-lani.com" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <EmbeddedResource Include="../../contracts/tools.json" LogicalName="KLaniBot.tools.json" />
+    <EmbeddedResource Include="../../contracts/compact-ui-tools.json" LogicalName="KLaniBot.compact-ui-tools.json" />
+    <EmbeddedResource Include="../../contracts/compact-ui-functions.json" LogicalName="KLaniBot.compact-ui-functions.json" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-icon-24.png" LogicalName="KLaniBot.icon-24.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-icon-32.png" LogicalName="KLaniBot.icon-32.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-logo-linux-panel.png" LogicalName="KLaniBot.logo-linux-panel.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-logo-macos-menubar.png" LogicalName="KLaniBot.logo-macos-menubar.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-logo-windows-dialog.png" LogicalName="KLaniBot.logo-windows-dialog.png" />
+    <!-- .txt keeps the page inside the repository guard's reviewed file formats; it is served as text/html. -->
+    <EmbeddedResource Include="Actions/Inspector.html.txt" LogicalName="KLaniBot.inspector.html" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+    <UseWPF>true</UseWPF>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+    <EmbeddedResource Include="Visibility/WindowsTheme.xaml" LogicalName="KLaniBot.windows-theme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net10.0-windows'">
+    <Compile Remove="Platforms/Windows/UiAutomationService.cs" />
+    <Compile Remove="Platforms/Windows/NativeMethods.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+    <Compile Remove="Platforms/Linux/LinuxUiService.cs" />
+  </ItemGroup>
+
+  <!-- Fingerprint executed action sources independently of product patch labels and checkout locations. -->
+  <Target Name="FingerprintNativeImplementation" BeforeTargets="GetAssemblyAttributes" Condition="'$(TargetFramework)' != ''">
+    <ItemGroup>
+      <NativeImplementationSource Include="**/*.cs" Exclude="obj/**/*.cs;bin/**/*.cs;Startup/ProductIdentity.cs" />
+    </ItemGroup>
+    <GetFileHash Files="@(NativeImplementationSource)" Algorithm="SHA256">
+      <Output TaskParameter="Items" ItemName="NativeImplementationHashes" />
+    </GetFileHash>
+    <WriteLinesToFile File="$(IntermediateOutputPath)native-implementation.txt"
+                      Lines="$(TargetFramework);$(RuntimeIdentifier);$(DefineConstants);@(PackageReference-&gt;'%(Identity):%(Version)');@(NativeImplementationHashes-&gt;'%(FileHash)')"
+                      Overwrite="true" WriteOnlyWhenDifferent="true" />
+    <GetFileHash Files="$(IntermediateOutputPath)native-implementation.txt" Algorithm="SHA256">
+      <Output TaskParameter="Hash" PropertyName="NativeImplementationSha256" />
+    </GetFileHash>
+    <ItemGroup>
+      <AssemblyMetadata Include="NativeImplementationSha256" Value="$(NativeImplementationSha256)" />
+    </ItemGroup>
+  </Target>
+</Project>

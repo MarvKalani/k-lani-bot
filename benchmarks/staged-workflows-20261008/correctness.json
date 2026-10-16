@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "startingCommit": "9fca72fd28a56c13aede2e6d4ad6e902fc94fe97",
+  "implementation": "completed",
+  "route": "Use/Workflows through compact gateway cartridge routing",
+  "correctness": {
+    "desktopUiCasesPassed": 95,
+    "combinedJsCasesPassed": 122,
+    "optionalJsCasesSkipped": 1,
+    "pythonCasesPassed": 40,
+    "defaultLiveCasesSkipped": 3,
+    "repositoryStepsPassed": 18,
+    "repositoryStepExceptions": [
+      "existing dispatcher characterization"
+    ],
+    "startingCommitCharacterization": "Same failure reproduced from isolated unmodified starting-commit source",
+    "operationLedger": "Existing ledger cases execute before the unrelated characterization failure",
+    "format": "passed",
+    "buildWarningsAsErrors": "passed"
+  },
+  "nativeAcceptance": {
+    "authoringVerified": true,
+    "restartReuseCasesVerified": 2,
+    "stagesPerDeliveryCase": 6,
+    "definitionUnchanged": true,
+    "crossApplicationBindingVerified": true,
+    "applications": [
+      "Native GTK delivery fixture (labelled synthetic)",
+      "Installed Mousepad 0.6.1-1build2"
+    ],
+    "independentOracles": [
+      "Saved application JSON read by host",
+      "Actual Mousepad text read through worker AT-SPI"
+    ],
+    "dialogPolicy": "Explicit isolated test policy allows synthetic confirmation; production policy unchanged",
+    "coordinatesUsed": false,
+    "image": "sha256:fdada6121566cf96ac095c0bf0a3e564fed47896856fe3c7d9a29228ac8e62a8",
+    "imageTreatment": "Pinned desktop with readonly current node/fixture binary overlays; correctness only"
+  },
+  "binaryFingerprints": {
+    "nodeAssembly": "fe960a607ff5375235163d358dfc5ce7d4aee253a730c40b32b32c2f5fc56254",
+    "fixtureExecutable": "47ee29902d64b791b7734e07b4b8785463a10e1a79277fdb8642f6d32207ea50"
+  },
+  "negativeCoverage": [
+    "Later stage target absent: no native input for that stage",
+    "Lost response: original node operation IDs reconciled without replay",
+    "Unknown ledger and partial stage prefix remain unconfirmed",
+    "Changed source digest and replaced target instance prevent target input",
+    "Missing decision pauses; used inputs cannot be replaced",
+    "Concurrent resume revision checks serialize; duplicate requests do not create another job",
+    "Foreign jobs, full store, symbolic files and unsupported definition fields rejected",
+    "Exited process locks recovered only with proved process lifetime"
+  ],
+  "performance": "pending",
+  "modelRuns": 0,
+  "modelUsage": null,
+  "savingsClaim": null,
+  "measurementPrerequisites": {
+    "infrastructure": "Docker reachable",
+    "applications": "No accepted prepared image for updated frozen worker source",
+    "modelBaseline": "Reviewed compatible authorized model adapter and explicit private run budget unavailable"
+  },
+  "remainingAcceptance": [
+    "Updated accepted measurement image",
+    "Bounded matched model comparison",
+    "Native Windows/macOS qualification"
+  ]
+}

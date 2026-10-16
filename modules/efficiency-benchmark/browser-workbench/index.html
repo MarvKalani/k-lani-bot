@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>k-lani-bot · Browser-Testwerkstatt</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;color:#edf5ff;background:#101b2b}
+body{margin:0}main{max-width:1050px;margin:auto;padding:32px 24px}h1{font-size:30px;margin:8px 0}
+p{line-height:1.6;color:#bfcde0}.badge{color:#78dfc9}nav{display:flex;gap:12px;margin:24px 0;flex-wrap:wrap}
+button,input,textarea{font:inherit;border:1px solid #5c708a;border-radius:8px;padding:12px;background:#203249;color:inherit}
+button{cursor:pointer}button:hover,button[aria-selected=true]{background:#325c69;border-color:#78dfc9}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #ffd18d}
+section{background:#1a2a40;border:1px solid #3c506a;border-radius:16px;padding:24px;margin:20px 0}
+label{display:block;margin:16px 0 8px}input,textarea{box-sizing:border-box;width:100%}textarea{min-height:240px;line-height:1.5}
+output{display:block;font-size:24px;color:#78dfc9;padding:18px 0}.row{display:flex;gap:16px}.row>div{flex:1}
+.small{font-size:14px}li{margin:12px 0}details{margin:20px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
+[hidden]{display:none}#notice{white-space:pre-wrap;color:#ffd18d;min-height:24px}
+.comparison-page main{max-width:1550px}.comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(340px,1fr));gap:20px;overflow:auto}
+.comparison-grid article{background:#1a2a40;border:1px solid #536781;border-radius:16px;overflow:hidden}
+.comparison-grid h2,.comparison-grid p{margin:16px 20px}.comparison-grid iframe{width:100%;height:880px;border:0;background:#101b2b}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid #536781}
+.passed{color:#78dfc9}.failed{color:#ffd18d}.result-box{padding:16px 20px;border-top:1px solid #536781;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.embedded main{padding:20px}.embedded #application>p{display:none}.embedded h1{font-size:22px}
+.embedded section{padding:16px;margin:12px 0}.embedded #task h2{display:none}.embedded textarea{min-height:140px}
+.embedded #task{padding:0;border:0;background:none}.embedded #task p{font-size:14px;line-height:1.4}
+</style>
+<main>
+<div id="comparison" hidden>
+<span class="badge">Gleiche Anwendung · getrennte Testsitzungen</span>
+<h1>Computer Use und MCP vergleichen</h1>
+<p id="comparison-task"></p>
+<p>Beide Seiten starten mit leerem Rechner, leerem Editor und eigenem Test-Desktop. Die Oberfläche und die Programmfunktionen
+sind identisch. Computer Use bedient die Oberfläche; MCP führt die Cartridge-Funktion aus.</p>
+<div class="comparison-grid">
+<article><h2>Computer Use</h2><p>Bedienung über Elemente und Tastatur; Bilder bei Bedarf.</p>
+<iframe id="computer-use-frame" title="Computer Use" src="about:blank"></iframe>
+<div class="result-box" id="computer-use-result">Noch nicht durchgeführt.</div></article>
+<article><h2>MCP</h2><p>Bedienung über Programmfunktionen und einen wiederverwendbaren Ablauf.</p>
+<iframe id="mcp-frame" title="MCP" src="about:blank"></iframe>
+<div class="result-box" id="mcp-result">Noch nicht durchgeführt.</div></article>
+</div>
+<section><h2>Gemeinsame Ergebnisprüfung</h2>
+<output id="comparison-verdict" aria-live="polite">Beide Ergebnisse stehen noch aus.</output>
+<button id="verify-comparison">Ergebnisse prüfen</button>
+<p>Der Prüfer liest die gespeicherten Dateien unabhängig von den Rückmeldungen der Bedienwege. Er prüft Rechnung,
+HTML-Inhalt, erneutes Öffnen, ausgeführte Schritte und zusätzliche Ausgabedateien.</p>
+<p>Tokenmessung: noch ausstehend. Hier werden Funktionsgleichheit und Ergebnisgleichheit geprüft.</p>
+<details><summary>Prüfdetails · kopierbar</summary><pre id="comparison-details"></pre></details></section>
+<details><summary>Vergleichbare Bedienelemente und MCP-Funktionen</summary>
+<table><thead><tr><th>Oberfläche</th><th>MCP-Funktion</th><th>Gemeinsames Ergebnis</th></tr></thead><tbody>
+<tr><td>Betragsfeld und Addieren</td><td>calculator.sum</td><td>Exakte Summe in Cent</td></tr>
+<tr><td>HTML-Text und Text übernehmen</td><td>editor.write</td><td>Editorinhalt</td></tr>
+<tr><td>Ordnername und Ordner anlegen</td><td>folder.create</td><td>Ordner im jeweiligen Test-Desktop</td></tr>
+<tr><td>Zielordner, Dateiname und Datei speichern</td><td>file.save</td><td>Gespeicherte HTML-Datei</td></tr>
+<tr><td>Datei öffnen</td><td>file.read</td><td>Zurückgelesener Inhalt, Bytes und SHA-256</td></tr>
+</tbody></table></details>
+</div>
+<div id="application">
+<span class="badge">Isolierte Testsitzung · synthetische Daten</span>
+<h1>Rechner → Editor → HTML-Datei</h1>
+<p>Auftrag: Addiere fünf Beträge im Rechner, erstelle einen HTML-Bericht mit Einzelbeträgen und Summe,
+speichere ihn in einem neuen Ordner und öffne die gespeicherte Datei erneut.</p>
+<p class="small">Die Dateiansicht „Desktop“ gehört ausschließlich zur Testwerkstatt. Sie ist kein Zugriff auf deinen echten Desktop.
+Beide Bedienwege verwenden dieselbe Anwendung und dieselben Funktionen.</p>
+<section id="task" hidden><h2>Vorgegebene Testaufgabe</h2>
+<p id="task-values"></p><p id="task-file"></p>
+<details><summary>HTML-Vorlage · in beiden Tests identisch</summary><pre id="task-template"></pre></details></section>
+<nav aria-label="Programme">
+<button role="tab" aria-selected="true" data-panel="calculator">Taschenrechner</button>
+<button role="tab" aria-selected="false" data-panel="editor">Editor</button>
+<button role="tab" aria-selected="false" data-panel="files">Dateien</button>
+</nav>
+<section id="calculator"><h2>Taschenrechner</h2>
+<label for="amounts">Beträge, eine Zahl je Zeile · Dezimalpunkt</label>
+<textarea id="amounts" placeholder="12.40&#10;7.60&#10;19.99&#10;5.01&#10;55.00"></textarea>
+<button id="calculate">Addieren</button><output id="total" aria-live="polite">Noch keine Berechnung</output></section>
+<section id="editor" hidden><h2>Editor</h2>
+<label for="document">HTML-Text</label><textarea id="document" spellcheck="false"></textarea>
+<button id="write">Text übernehmen</button>
+<div class="row"><div><label for="save-folder">Ordner im Test-Desktop</label><input id="save-folder"></div>
+<div><label for="save-file">HTML-Dateiname</label><input id="save-file"></div></div>
+<button id="save">Datei speichern</button><output id="saved" aria-live="polite"></output></section>
+<section id="files" hidden><h2>Test-Desktop</h2>
+<label for="new-folder">Neuer Ordner</label><input id="new-folder"><button id="create-folder">Ordner anlegen</button>
+<ul id="file-list"></ul><pre id="file-content"></pre></section>
+<div id="notice" role="status"></div>
+<details><summary>Abgeschlossene Schritte · kopierbar</summary><pre id="events"></pre></details>
+<details><summary>MCP-Fähigkeiten und Grenzen</summary>
+<p id="mcp-status">WebMCP wird geprüft.</p>
+<p>Info identifiziert Version 1.1.0. Use enthält getrennte Themen für Rechner, Editor, Dateien und Abläufe.
+Programming installiert neue Abläufe ohne Neustart. Administration enthält noch keine Einstellungen.
+Ein Ablauf kann vorhandene Funktionen kombinieren, aber keinen beliebigen Code ausführen.</p>
+<p>Hier werden noch keine Token-Einsparungen behauptet. Ein Demonstrationslauf ersetzt keine Messreihe mit frischen Modellsitzungen.</p>
+</details>
+</div>
+</main>
+<script type="module" src="/app.mjs"></script>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "inspect_section",
+  "description": "Loads a snapshot-bound semantic section.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "chapter_id": {
+        "type": "string"
+      },
+      "max_depth": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 32
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      },
+      "snapshot_id": {
+        "type": "string",
+        "description": "Snapshot returned by observation. Required for cached element or chapter references."
+      }
+    },
+    "required": [
+      "chapter_id",
+      "snapshot_id"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

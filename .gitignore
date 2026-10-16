@@ -1,0 +1,102 @@
+# .NET & C# Build Artifacts
+**/[Bb]in/
+**/[Oo]bj/
+dist/
+dist-*/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+.vs/
+.vscode/
+.idea/
+
+# Python Caches & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# OS & Editor temporary files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+*.log
+*.tmp
+
+# Internal working notes (handover, task plans, dated evidence). They stay on the developer machine and are never
+# published with the source.
+.internal/
+
+# Isolated runtime state and evaluation artifacts
+.artifacts/
+.k-lani-bot-state/
+*.pem
+*.key
+*.signature
+
+# Private machine config and publication audit state
+.env
+.env.*
+**/credentials.json
+**/nodes.json
+**/policy.json
+**/worker-policy.json
+**/installation.json
+**/last-run.json
+**/visibility-preferences.json
+*.pfx
+*.p12
+*.kdbx
+*.bundle
+
+# Private pairing and relay state
+**/paired-master.json
+**/paired-devices.json
+**/pairing-options.json
+**/master.lock
+**/credential
+**/*.credential
+
+# Private managed enrollment and update staging
+**/deployment-invite.json
+**/update-plan.json
+**/update-manifest.json
+**/node-ready.json
+**/last-update.json
+
+# Local operator preferences, access configuration and raw application data
+*.local.json
+*.local.yml
+*.local.yaml
+**/.mcp.json
+**/.ssh/
+**/.aws/
+**/.azure/
+secrets/
+backups/
+logs/
+captures/
+screenshots/
+recordings/
+exports/
+*.jsonl
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.eml
+*.msg
+*.mbox
+*.pst
+*.ost

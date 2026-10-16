@@ -1,0 +1,65 @@
+{
+  "kind": "window-instance",
+  "cases": [
+    {
+      "name": "a named demonstration window proves its own window among two main windows of one process",
+      "windows": [
+        { "pid": 10, "handle": 100, "kind": "main", "started": "start" },
+        { "pid": 10, "handle": 101, "kind": "main", "started": "start" }
+      ],
+      "checks": [
+        { "pid": 10, "window": 101 },
+        { "pid": 10, "window": 100 }
+      ]
+    },
+    {
+      "name": "without a named window, two windows of one process are refused as not unambiguous",
+      "windows": [
+        { "pid": 10, "handle": 100, "kind": "main", "started": "start" },
+        { "pid": 10, "handle": 101, "kind": "main", "started": "start" }
+      ],
+      "checks": [
+        { "pid": 10, "window": null }
+      ]
+    },
+    {
+      "name": "a demonstration window that is no longer current is refused",
+      "windows": [
+        { "pid": 10, "handle": 100, "kind": "main", "started": "start" }
+      ],
+      "checks": [
+        { "pid": 10, "window": 101 }
+      ]
+    },
+    {
+      "name": "a window without a known process start is never proved",
+      "windows": [
+        { "pid": 10, "handle": 100, "kind": "main", "started": null }
+      ],
+      "checks": [
+        { "pid": 10, "window": 100 },
+        { "pid": 10, "window": null }
+      ]
+    },
+    {
+      "name": "a window of another process is not the demonstration window",
+      "windows": [
+        { "pid": 10, "handle": 100, "kind": "main", "started": "start" },
+        { "pid": 11, "handle": 200, "kind": "main", "started": "start" }
+      ],
+      "checks": [
+        { "pid": 10, "window": 200 }
+      ]
+    },
+    {
+      "name": "a one-window process keeps the unnamed rule and an absent process is refused",
+      "windows": [
+        { "pid": 10, "handle": 100, "kind": "main", "started": "start" }
+      ],
+      "checks": [
+        { "pid": 10, "window": null },
+        { "pid": 11, "window": null }
+      ]
+    }
+  ]
+}

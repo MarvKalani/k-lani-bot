@@ -1,0 +1,67 @@
+{
+  "name": "verify_element",
+  "description": "Checks actual state and exact expected text; unsupported assertions fail.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "pid": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "title": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "auto_id": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "timeout_ms": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 30000
+      },
+      "window_title": {
+        "type": "string"
+      },
+      "expected_state": {
+        "type": "string",
+        "enum": [
+          "exists",
+          "visible",
+          "hidden",
+          "enabled",
+          "disabled",
+          "absent"
+        ]
+      },
+      "expected_text": {
+        "type": "string"
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      },
+      "snapshot_id": {
+        "type": "string",
+        "description": "Snapshot returned by observation. Required for cached element or chapter references."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

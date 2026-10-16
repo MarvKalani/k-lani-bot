@@ -1,0 +1,20 @@
+{
+  "name": "backup_plan",
+  "description": "Plans a backup of the backup source the operator configured on this node: counts its closed files and fixes their fingerprint. Folders and key come from the node policy, not from arguments.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "format": 1,
+  "steps": [
+    {
+      "action": "fs_write_file",
+      "args": {
+        "path": "k-lani-bot-fixture.txt",
+        "content": "synthetic fixture",
+        "overwrite": false,
+        "request_id": "019f0000-0000-7000-8000-000000000001"
+      }
+    }
+  ]
+}

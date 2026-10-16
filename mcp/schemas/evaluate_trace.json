@@ -1,0 +1,26 @@
+{
+  "name": "evaluate_trace",
+  "description": "Optional external advisory classifier (the provider named in the advisor configuration). Produces advisory choice, score or yes/no probabilities; never overrides hard assertions or OS permissions. Available only when the operator configures an advisory provider.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "state": {
+        "type": "object"
+      },
+      "questions": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "state",
+      "questions"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": true
+  }
+}

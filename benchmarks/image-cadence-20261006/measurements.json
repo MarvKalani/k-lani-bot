@@ -1,0 +1,148 @@
+{
+  "format": "k-lani-bot-image-cadence-audit",
+  "version": 1,
+  "model": "gpt-6-luna",
+  "reasoningEffort": "medium",
+  "rateCard": {
+    "model": "gpt-6-luna",
+    "verifiedOn": "2026-10-06",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+    "currency": "USD",
+    "perMillionTokens": {
+      "input": 0.1,
+      "cachedInput": 0.01,
+      "cacheWrite": 0.125,
+      "output": 0.5
+    },
+    "assumptions": [
+      "Standard API processing, short request context, no regional premium or other tool/infrastructure fees.",
+      "These are reference prices, not a Codex subscription invoice.",
+      "Aggregate trial usage cannot determine whether any individual request exceeded the long-context threshold."
+    ]
+  },
+  "originalAudit": {
+    "totalImages": 64,
+    "runs": [
+      {
+        "case": 0,
+        "attempt": 0,
+        "success": false,
+        "counts": {
+          "firstObservation": 1,
+          "afterScrollOrPageKey": 5,
+          "afterMouseClick": 7,
+          "afterTyping": 0,
+          "other": 0
+        }
+      },
+      {
+        "case": 1,
+        "attempt": 0,
+        "success": true,
+        "counts": {
+          "firstObservation": 1,
+          "afterScrollOrPageKey": 8,
+          "afterMouseClick": 7,
+          "afterTyping": 1,
+          "other": 0
+        }
+      },
+      {
+        "case": 2,
+        "attempt": 0,
+        "success": true,
+        "counts": {
+          "firstObservation": 1,
+          "afterScrollOrPageKey": 7,
+          "afterMouseClick": 8,
+          "afterTyping": 0,
+          "other": 0
+        }
+      },
+      {
+        "case": 0,
+        "attempt": 1,
+        "success": true,
+        "counts": {
+          "firstObservation": 1,
+          "afterScrollOrPageKey": 9,
+          "afterMouseClick": 6,
+          "afterTyping": 2,
+          "other": 0
+        }
+      }
+    ],
+    "totals": {
+      "firstObservation": 4,
+      "afterScrollOrPageKey": 29,
+      "afterMouseClick": 28,
+      "afterTyping": 3,
+      "other": 0
+    }
+  },
+  "comparisonImageCounts": {
+    "authenticComputerUse": 0,
+    "chromeDevtoolsMcp": 0,
+    "note": "Those measured competitors used object trees or DOM instead of screenshots; this is not a screenshot-versus-screenshot rate comparison."
+  },
+  "keyboardBatchStudy": {
+    "groups": [
+      {
+        "route": "pixel-current",
+        "attempts": 4,
+        "successes": 3,
+        "totalImages": 67,
+        "successfulImages": [
+          {
+            "case": 0,
+            "images": 20
+          },
+          {
+            "case": 1,
+            "images": 18
+          },
+          {
+            "case": 2,
+            "images": 12
+          }
+        ],
+        "inputTokens": 3581250,
+        "outputTokens": 10128,
+        "totalUsdReference": 0.06266676,
+        "macroRuns": 0
+      },
+      {
+        "route": "pixel-keyboard-batch",
+        "attempts": 3,
+        "successes": 3,
+        "totalImages": 55,
+        "successfulImages": [
+          {
+            "case": 0,
+            "images": 19
+          },
+          {
+            "case": 1,
+            "images": 17
+          },
+          {
+            "case": 2,
+            "images": 19
+          }
+        ],
+        "inputTokens": 4095718,
+        "outputTokens": 10298,
+        "totalUsdReference": 0.06612559999999999,
+        "macroRuns": 20
+      }
+    ],
+    "scope": "Existing node save_macro/run_macro; only keyboard and clipboard steps, no selectors, DOM, program APIs or stored coordinates.",
+    "initialPointer": "Same 640x360 physical position before each test.",
+    "conclusion": "Keyboard-only node macros completed all tasks but did not reduce images in the successful executions. Macro construction added model interactions."
+  },
+  "limitations": [
+    "Three task datasets; small exploratory sample.",
+    "64 was the sum across three tasks and one failed attempt.",
+    "Input includes cumulative model requests and cached context; image count alone does not determine token usage."
+  ]
+}

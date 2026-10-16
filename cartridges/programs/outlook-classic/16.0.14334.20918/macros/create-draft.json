@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "name": "outlook_create_draft",
+  "description": "Create and save a new draft without sending or changing existing messages.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "steps": [
+    {
+      "action": "operate_application",
+      "args": {
+        "pid": "{{pid}}",
+        "operation": "CreateDraft",
+        "subject": "{{subject}}",
+        "body": "{{body}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

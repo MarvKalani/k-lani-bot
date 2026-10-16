@@ -1,0 +1,35 @@
+{
+  "name": "fs_read_file",
+  "description": "Reads bounded literal file content within the approved workspace.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "path": {
+        "type": "string"
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "length": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 1048576
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

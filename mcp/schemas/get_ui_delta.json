@@ -1,0 +1,36 @@
+{
+  "name": "get_ui_delta",
+  "description": "Reports differences from a prior observation; includes full data if the base is unavailable.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pid": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "title": {
+        "type": "string"
+      },
+      "since_snapshot": {
+        "type": "string"
+      },
+      "max_depth": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 32
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

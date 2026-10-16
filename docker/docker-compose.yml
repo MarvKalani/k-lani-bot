@@ -1,0 +1,25 @@
+services:
+  actuator:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.node
+    image: k-lani-bot-actuator:local
+    stdin_open: true
+    init: true
+    user: '${K_LANI_BOT_SANDBOX_UID:-10001}:${K_LANI_BOT_SANDBOX_GID:-10001}'
+    read_only: true
+    network_mode: none
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 768m
+    cpus: 2
+    shm_size: 128m
+    restart: 'no'
+    tmpfs:
+      - /tmp:rw,nosuid,size=128m
+      - /state:rw,noexec,nosuid,size=64m
+    volumes:
+      - '${K_LANI_BOT_WORKSPACE:?Set an isolated workspace}:/workspace'
+      - '${K_LANI_BOT_WORKER_POLICY:?Set a private read-only worker policy}:/run/k-lani-bot-policy.json:ro'
+    command: [--stdio-worker, --policy, /run/k-lani-bot-policy.json]

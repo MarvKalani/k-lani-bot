@@ -1,0 +1,11 @@
+[
+  {
+    "applicationName": "k-lani-bot compatibility fixture",
+    "publisher": "Synthetic Fixture Publisher",
+    "version": "1.0.0",
+    "targetId": "synthetic-windows-target",
+    "verdict": "Compatible",
+    "evidenceReference": "fixture://synthetic-reference-test",
+    "notes": "Nur ein Vertragsbeispiel. Keine reale Anwendung wird hierdurch freigegeben."
+  }
+]

@@ -1,0 +1,55 @@
+name: Release checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: release-checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  publication-guard:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5.0.0
+        with:
+          dotnet-version: 10.0.401
+      - name: Inspect all reachable commits and paths
+        run: scripts/repository-guard.sh --mode history
+      - name: Detect provider secrets independently
+        run: |
+          docker pull ghcr.io/gitleaks/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
+          scripts/gitleaks.sh history
+      - name: Verify consistent C# formatting
+        run: scripts/format.sh --check
+      - name: Verify guard fails closed
+        run: dotnet run --project tests/RepositoryGuardRegression/RepositoryGuardRegression.csproj --verbosity quiet
+  build-and-regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5.0.0
+        with:
+          dotnet-version: 10.0.401
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - name: Provide a controlled visible desktop for transport checks
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb openbox libgtk-3-0t64 dbus-x11 xdotool xclip scrot wmctrl \
+            at-spi2-core libatspi2.0-0 libsecret-1-0 gnome-keyring libglib2.0-bin \
+            python3-pil
+          /usr/bin/python3 -c 'from PIL import Image'
+      - name: Build every project with warnings as errors and run isolated regressions
+        env:
+          K_LANI_BOT_TEST_PYTHON: /usr/bin/python3
+        run: scripts/check.sh

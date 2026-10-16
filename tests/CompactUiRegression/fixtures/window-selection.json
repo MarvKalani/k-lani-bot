@@ -1,0 +1,43 @@
+{
+  "kind": "window-selection",
+  "cases": [
+    {
+      "name": "a named window and a window alone select their process; a later pid keeps the window",
+      "steps": [
+        { "info": [ { "pid": 10, "handle": 100, "kind": "main" }, { "pid": 10, "handle": 101, "kind": "dialog" } ] },
+        { "arguments": { "pid": 10, "window": 101 } },
+        { "arguments": { "window": 100 } },
+        { "arguments": { "pid": 10 } }
+      ]
+    },
+    {
+      "name": "unknown, foreign and missing selections are refused",
+      "steps": [
+        { "info": [ { "pid": 10, "handle": 100, "kind": "main" }, { "pid": 10, "handle": 101, "kind": "dialog" } ] },
+        { "arguments": { "pid": 10, "window": 999 } },
+        { "arguments": { "pid": 11, "window": 101 } },
+        { "arguments": { "pid": 11 } },
+        { "arguments": {} }
+      ]
+    },
+    {
+      "name": "a remembered window is dropped when Info stops listing it",
+      "steps": [
+        { "info": [ { "pid": 10, "handle": 100, "kind": "main" }, { "pid": 10, "handle": 101, "kind": "dialog" } ] },
+        { "arguments": { "pid": 10, "window": 101 } },
+        { "arguments": { "pid": 10 } },
+        { "info": [ { "pid": 10, "handle": 100, "kind": "main" } ] },
+        { "arguments": { "pid": 10 } }
+      ]
+    },
+    {
+      "name": "a remembered window does not follow another process",
+      "steps": [
+        { "info": [ { "pid": 10, "handle": 100, "kind": "main" }, { "pid": 11, "handle": 200, "kind": "main" } ] },
+        { "arguments": { "pid": 10, "window": 100 } },
+        { "arguments": { "pid": 11 } },
+        { "arguments": { "pid": 10 } }
+      ]
+    }
+  ]
+}

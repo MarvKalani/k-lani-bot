@@ -1,0 +1,156 @@
+{
+  "version": 2,
+  "name": "k-lani-bot-orcaslicer-242-import-stl-linux-en",
+  "description": "OrcaSlicer 2.4.2 English GTK/X11 STL import into a fresh Untitled project. Requires explicit UI authority and an isolated synthetic workspace. Never slices or prints.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "name": "model_path",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "expected_project_title",
+      "type": "string",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "verify_element",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Untitled - OrcaSlicer",
+        "role": "Window",
+        "expected_state": "visible",
+        "timeout_ms": 1000
+      }
+    },
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Untitled - OrcaSlicer"
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "ctrl",
+          "n"
+        ]
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "OrcaSlicer",
+        "name": "Printer",
+        "role": "label",
+        "visible": true,
+        "timeout_ms": 5000
+      },
+      "expect_count": 1
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "ctrl",
+          "i"
+        ]
+      }
+    },
+    {
+      "action": "wait_element",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):",
+        "state": "visible",
+        "timeout_ms": 10000,
+        "title": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):"
+      }
+    },
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):"
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "ctrl",
+          "l"
+        ]
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):",
+        "role": "Edit",
+        "visible": true,
+        "enabled": true,
+        "timeout_ms": 3000
+      },
+      "capture": "path",
+      "expect_count": 1
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{path.matches.0.Id}}",
+        "text": "{{model_path}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):",
+        "name": "Open",
+        "role": "Button",
+        "visible": true,
+        "enabled": true,
+        "timeout_ms": 3000
+      },
+      "capture": "open",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{open.matches.0.Id}}"
+      }
+    }
+  ],
+  "postconditions": [
+    {
+      "pid": "{{pid}}",
+      "name": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):",
+      "expected_state": "absent",
+      "timeout_ms": 10000,
+      "window_title": "Choose one or more files (3MF/STEP/STL/SVG/OBJ/AMF):"
+    },
+    {
+      "pid": "{{pid}}",
+      "name": "{{expected_project_title}}",
+      "role": "Window",
+      "expected_state": "visible",
+      "timeout_ms": 10000,
+      "window_title": "{{expected_project_title}}"
+    }
+  ],
+  "sha256": ""
+}

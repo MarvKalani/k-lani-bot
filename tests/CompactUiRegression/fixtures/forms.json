@@ -1,0 +1,787 @@
+{
+  "kind": "forms",
+  "cases": [
+    {
+      "name": "declared-ready",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"},
+        {"name":"options","action":"options","field":"Model"}
+      ]
+    },
+    {
+      "name": "unknown-prevents-ready",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":null,"Required":null,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"}
+      ]
+    },
+    {
+      "name": "required-empty",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"}
+      ]
+    },
+    {
+      "name": "absent-metadata",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"},
+        {"name":"set","action":"set","field":"Width","value":"1200"}
+      ]
+    },
+    {
+      "name": "hidden",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":false,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"},
+        {"name":"set","action":"set","field":"Width","value":"1200"}
+      ]
+    },
+    {
+      "name": "disabled",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":false,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"},
+        {"name":"set","action":"set","field":"Width","value":"1200"}
+      ]
+    },
+    {
+      "name": "read-only",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":true,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"},
+        {"name":"set","action":"set","field":"Width","value":"1200"}
+      ]
+    },
+    {
+      "name": "choice-literal-and-revision",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"literal","action":"set","field":"Model","value":"Wide"},
+        {"name":"stale","action":"set","field":"Model","option_id":"Wide","options_rev":"old"},
+        {"name":"disabled-option","action":"set","field":"Model","option_id":"Disabled"},
+        {"name":"unknown-option","action":"set","field":"Model","option_id":"Absent"}
+      ]
+    },
+    {
+      "name": "incomplete-choices",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":false,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"validate","action":"validate"},
+        {"name":"options","action":"options","field":"Model"},
+        {"name":"set","action":"set","field":"Model","option_id":"Wide"}
+      ]
+    },
+    {
+      "name": "verified-text",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"1200","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx2","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"set","action":"set","field":"Width","value":"1200","after_snapshot":1},
+        {"name":"validate","action":"validate"},
+        {"name":"reread","action":"read"}
+      ]
+    },
+    {
+      "name": "verified-choice-dependencies",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx2","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Wide"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"set","action":"set","field":"Model","option_id":"Wide","after_snapshot":1},
+        {"name":"reread","action":"read"}
+      ]
+    },
+    {
+      "name": "unconfirmed-no-retry",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"set","action":"set","field":"Width","value":"1200"},
+        {"name":"reread","action":"read"}
+      ]
+    },
+    {
+      "name": "external-context",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"1200","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx2","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"set","action":"set","field":"Width","value":"500","snapshot":1,"context_from":"read"},
+        {"name":"stale-validate","action":"validate","context_from":"read"}
+      ]
+    },
+    {
+      "name": "open-preserves-selection",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":true,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"options","action":"options","field":"Model","after_snapshot":1}
+      ]
+    },
+    {
+      "name": "open-loses-selection",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":true,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx2","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Wide"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"options","action":"options","field":"Model","after_snapshot":1}
+      ]
+    },
+    {
+      "name": "options-one-use",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"first","action":"options","field":"Model","limit":1},
+        {"name":"second","action":"options","field":"Model","cursor_from":"first"},
+        {"name":"reused","action":"options","field":"Model","cursor_from":"first"},
+        {"name":"changed-limit","action":"options","field":"Model","cursor_from":"second","limit":2}
+      ]
+    },
+    {
+      "name": "field-one-use-and-selection",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"first","action":"read","limit":1},
+        {"name":"selection-change","action":"read","fields":["Width"],"cursor_from":"first"},
+        {"name":"second","action":"read","cursor_from":"first"},
+        {"name":"reused","action":"read","cursor_from":"first"}
+      ]
+    },
+    {
+      "name": "stable-field-after-id-and-caption-change",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":20,"role":"combo box","name":"Renamed model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}},
+            "20": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"renamed","action":"read","snapshot":1}
+      ]
+    },
+    {
+      "name": "field-removal",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Button","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"removed","action":"read","snapshot":1}
+      ]
+    },
+    {
+      "name": "long-unicode-private-evidence",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂🙂é","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read","fields":["Width"]},
+        {"name":"validate","action":"validate"}
+      ]
+    },
+    {
+      "name": "field-cap",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":100,"role":"Edit","name":"Field 0","value":"0","autoId":"field0","enabled":true,"offscreen":false},
+            {"depth":2,"id":101,"role":"Edit","name":"Field 1","value":"1","autoId":"field1","enabled":true,"offscreen":false},
+            {"depth":2,"id":102,"role":"Edit","name":"Field 2","value":"2","autoId":"field2","enabled":true,"offscreen":false},
+            {"depth":2,"id":103,"role":"Edit","name":"Field 3","value":"3","autoId":"field3","enabled":true,"offscreen":false},
+            {"depth":2,"id":104,"role":"Edit","name":"Field 4","value":"4","autoId":"field4","enabled":true,"offscreen":false},
+            {"depth":2,"id":105,"role":"Edit","name":"Field 5","value":"5","autoId":"field5","enabled":true,"offscreen":false},
+            {"depth":2,"id":106,"role":"Edit","name":"Field 6","value":"6","autoId":"field6","enabled":true,"offscreen":false},
+            {"depth":2,"id":107,"role":"Edit","name":"Field 7","value":"7","autoId":"field7","enabled":true,"offscreen":false},
+            {"depth":2,"id":108,"role":"Edit","name":"Field 8","value":"8","autoId":"field8","enabled":true,"offscreen":false},
+            {"depth":2,"id":109,"role":"Edit","name":"Field 9","value":"9","autoId":"field9","enabled":true,"offscreen":false},
+            {"depth":2,"id":110,"role":"Edit","name":"Field 10","value":"10","autoId":"field10","enabled":true,"offscreen":false},
+            {"depth":2,"id":111,"role":"Edit","name":"Field 11","value":"11","autoId":"field11","enabled":true,"offscreen":false},
+            {"depth":2,"id":112,"role":"Edit","name":"Field 12","value":"12","autoId":"field12","enabled":true,"offscreen":false},
+            {"depth":2,"id":113,"role":"Edit","name":"Field 13","value":"13","autoId":"field13","enabled":true,"offscreen":false},
+            {"depth":2,"id":114,"role":"Edit","name":"Field 14","value":"14","autoId":"field14","enabled":true,"offscreen":false},
+            {"depth":2,"id":115,"role":"Edit","name":"Field 15","value":"15","autoId":"field15","enabled":true,"offscreen":false},
+            {"depth":2,"id":116,"role":"Edit","name":"Field 16","value":"16","autoId":"field16","enabled":true,"offscreen":false},
+            {"depth":2,"id":117,"role":"Edit","name":"Field 17","value":"17","autoId":"field17","enabled":true,"offscreen":false},
+            {"depth":2,"id":118,"role":"Edit","name":"Field 18","value":"18","autoId":"field18","enabled":true,"offscreen":false},
+            {"depth":2,"id":119,"role":"Edit","name":"Field 19","value":"19","autoId":"field19","enabled":true,"offscreen":false},
+            {"depth":2,"id":120,"role":"Edit","name":"Field 20","value":"20","autoId":"field20","enabled":true,"offscreen":false},
+            {"depth":2,"id":121,"role":"Edit","name":"Field 21","value":"21","autoId":"field21","enabled":true,"offscreen":false},
+            {"depth":2,"id":122,"role":"Edit","name":"Field 22","value":"22","autoId":"field22","enabled":true,"offscreen":false},
+            {"depth":2,"id":123,"role":"Edit","name":"Field 23","value":"23","autoId":"field23","enabled":true,"offscreen":false},
+            {"depth":2,"id":124,"role":"Edit","name":"Field 24","value":"24","autoId":"field24","enabled":true,"offscreen":false},
+            {"depth":2,"id":125,"role":"Edit","name":"Field 25","value":"25","autoId":"field25","enabled":true,"offscreen":false},
+            {"depth":2,"id":126,"role":"Edit","name":"Field 26","value":"26","autoId":"field26","enabled":true,"offscreen":false},
+            {"depth":2,"id":127,"role":"Edit","name":"Field 27","value":"27","autoId":"field27","enabled":true,"offscreen":false},
+            {"depth":2,"id":128,"role":"Edit","name":"Field 28","value":"28","autoId":"field28","enabled":true,"offscreen":false},
+            {"depth":2,"id":129,"role":"Edit","name":"Field 29","value":"29","autoId":"field29","enabled":true,"offscreen":false},
+            {"depth":2,"id":130,"role":"Edit","name":"Field 30","value":"30","autoId":"field30","enabled":true,"offscreen":false},
+            {"depth":2,"id":131,"role":"Edit","name":"Field 31","value":"31","autoId":"field31","enabled":true,"offscreen":false},
+            {"depth":2,"id":132,"role":"Edit","name":"Field 32","value":"32","autoId":"field32","enabled":true,"offscreen":false},
+            {"depth":2,"id":133,"role":"Edit","name":"Field 33","value":"33","autoId":"field33","enabled":true,"offscreen":false},
+            {"depth":2,"id":134,"role":"Edit","name":"Field 34","value":"34","autoId":"field34","enabled":true,"offscreen":false},
+            {"depth":2,"id":135,"role":"Edit","name":"Field 35","value":"35","autoId":"field35","enabled":true,"offscreen":false},
+            {"depth":2,"id":136,"role":"Edit","name":"Field 36","value":"36","autoId":"field36","enabled":true,"offscreen":false},
+            {"depth":2,"id":137,"role":"Edit","name":"Field 37","value":"37","autoId":"field37","enabled":true,"offscreen":false},
+            {"depth":2,"id":138,"role":"Edit","name":"Field 38","value":"38","autoId":"field38","enabled":true,"offscreen":false},
+            {"depth":2,"id":139,"role":"Edit","name":"Field 39","value":"39","autoId":"field39","enabled":true,"offscreen":false},
+            {"depth":2,"id":140,"role":"Edit","name":"Field 40","value":"40","autoId":"field40","enabled":true,"offscreen":false},
+            {"depth":2,"id":141,"role":"Edit","name":"Field 41","value":"41","autoId":"field41","enabled":true,"offscreen":false},
+            {"depth":2,"id":142,"role":"Edit","name":"Field 42","value":"42","autoId":"field42","enabled":true,"offscreen":false},
+            {"depth":2,"id":143,"role":"Edit","name":"Field 43","value":"43","autoId":"field43","enabled":true,"offscreen":false},
+            {"depth":2,"id":144,"role":"Edit","name":"Field 44","value":"44","autoId":"field44","enabled":true,"offscreen":false},
+            {"depth":2,"id":145,"role":"Edit","name":"Field 45","value":"45","autoId":"field45","enabled":true,"offscreen":false},
+            {"depth":2,"id":146,"role":"Edit","name":"Field 46","value":"46","autoId":"field46","enabled":true,"offscreen":false},
+            {"depth":2,"id":147,"role":"Edit","name":"Field 47","value":"47","autoId":"field47","enabled":true,"offscreen":false},
+            {"depth":2,"id":148,"role":"Edit","name":"Field 48","value":"48","autoId":"field48","enabled":true,"offscreen":false},
+            {"depth":2,"id":149,"role":"Edit","name":"Field 49","value":"49","autoId":"field49","enabled":true,"offscreen":false},
+            {"depth":2,"id":150,"role":"Edit","name":"Field 50","value":"50","autoId":"field50","enabled":true,"offscreen":false},
+            {"depth":2,"id":151,"role":"Edit","name":"Field 51","value":"51","autoId":"field51","enabled":true,"offscreen":false},
+            {"depth":2,"id":152,"role":"Edit","name":"Field 52","value":"52","autoId":"field52","enabled":true,"offscreen":false},
+            {"depth":2,"id":153,"role":"Edit","name":"Field 53","value":"53","autoId":"field53","enabled":true,"offscreen":false},
+            {"depth":2,"id":154,"role":"Edit","name":"Field 54","value":"54","autoId":"field54","enabled":true,"offscreen":false},
+            {"depth":2,"id":155,"role":"Edit","name":"Field 55","value":"55","autoId":"field55","enabled":true,"offscreen":false},
+            {"depth":2,"id":156,"role":"Edit","name":"Field 56","value":"56","autoId":"field56","enabled":true,"offscreen":false},
+            {"depth":2,"id":157,"role":"Edit","name":"Field 57","value":"57","autoId":"field57","enabled":true,"offscreen":false},
+            {"depth":2,"id":158,"role":"Edit","name":"Field 58","value":"58","autoId":"field58","enabled":true,"offscreen":false},
+            {"depth":2,"id":159,"role":"Edit","name":"Field 59","value":"59","autoId":"field59","enabled":true,"offscreen":false},
+            {"depth":2,"id":160,"role":"Edit","name":"Field 60","value":"60","autoId":"field60","enabled":true,"offscreen":false},
+            {"depth":2,"id":161,"role":"Edit","name":"Field 61","value":"61","autoId":"field61","enabled":true,"offscreen":false},
+            {"depth":2,"id":162,"role":"Edit","name":"Field 62","value":"62","autoId":"field62","enabled":true,"offscreen":false},
+            {"depth":2,"id":163,"role":"Edit","name":"Field 63","value":"63","autoId":"field63","enabled":true,"offscreen":false},
+            {"depth":2,"id":164,"role":"Edit","name":"Field 64","value":"64","autoId":"field64","enabled":true,"offscreen":false},
+            {"depth":2,"id":165,"role":"Edit","name":"Field 65","value":"65","autoId":"field65","enabled":true,"offscreen":false},
+            {"depth":2,"id":166,"role":"Edit","name":"Field 66","value":"66","autoId":"field66","enabled":true,"offscreen":false},
+            {"depth":2,"id":167,"role":"Edit","name":"Field 67","value":"67","autoId":"field67","enabled":true,"offscreen":false},
+            {"depth":2,"id":168,"role":"Edit","name":"Field 68","value":"68","autoId":"field68","enabled":true,"offscreen":false},
+            {"depth":2,"id":169,"role":"Edit","name":"Field 69","value":"69","autoId":"field69","enabled":true,"offscreen":false},
+            {"depth":2,"id":170,"role":"Edit","name":"Field 70","value":"70","autoId":"field70","enabled":true,"offscreen":false},
+            {"depth":2,"id":171,"role":"Edit","name":"Field 71","value":"71","autoId":"field71","enabled":true,"offscreen":false},
+            {"depth":2,"id":172,"role":"Edit","name":"Field 72","value":"72","autoId":"field72","enabled":true,"offscreen":false},
+            {"depth":2,"id":173,"role":"Edit","name":"Field 73","value":"73","autoId":"field73","enabled":true,"offscreen":false},
+            {"depth":2,"id":174,"role":"Edit","name":"Field 74","value":"74","autoId":"field74","enabled":true,"offscreen":false},
+            {"depth":2,"id":175,"role":"Edit","name":"Field 75","value":"75","autoId":"field75","enabled":true,"offscreen":false},
+            {"depth":2,"id":176,"role":"Edit","name":"Field 76","value":"76","autoId":"field76","enabled":true,"offscreen":false},
+            {"depth":2,"id":177,"role":"Edit","name":"Field 77","value":"77","autoId":"field77","enabled":true,"offscreen":false},
+            {"depth":2,"id":178,"role":"Edit","name":"Field 78","value":"78","autoId":"field78","enabled":true,"offscreen":false},
+            {"depth":2,"id":179,"role":"Edit","name":"Field 79","value":"79","autoId":"field79","enabled":true,"offscreen":false},
+            {"depth":2,"id":180,"role":"Edit","name":"Field 80","value":"80","autoId":"field80","enabled":true,"offscreen":false},
+            {"depth":2,"id":181,"role":"Edit","name":"Field 81","value":"81","autoId":"field81","enabled":true,"offscreen":false},
+            {"depth":2,"id":182,"role":"Edit","name":"Field 82","value":"82","autoId":"field82","enabled":true,"offscreen":false},
+            {"depth":2,"id":183,"role":"Edit","name":"Field 83","value":"83","autoId":"field83","enabled":true,"offscreen":false},
+            {"depth":2,"id":184,"role":"Edit","name":"Field 84","value":"84","autoId":"field84","enabled":true,"offscreen":false},
+            {"depth":2,"id":185,"role":"Edit","name":"Field 85","value":"85","autoId":"field85","enabled":true,"offscreen":false},
+            {"depth":2,"id":186,"role":"Edit","name":"Field 86","value":"86","autoId":"field86","enabled":true,"offscreen":false},
+            {"depth":2,"id":187,"role":"Edit","name":"Field 87","value":"87","autoId":"field87","enabled":true,"offscreen":false},
+            {"depth":2,"id":188,"role":"Edit","name":"Field 88","value":"88","autoId":"field88","enabled":true,"offscreen":false},
+            {"depth":2,"id":189,"role":"Edit","name":"Field 89","value":"89","autoId":"field89","enabled":true,"offscreen":false},
+            {"depth":2,"id":190,"role":"Edit","name":"Field 90","value":"90","autoId":"field90","enabled":true,"offscreen":false},
+            {"depth":2,"id":191,"role":"Edit","name":"Field 91","value":"91","autoId":"field91","enabled":true,"offscreen":false},
+            {"depth":2,"id":192,"role":"Edit","name":"Field 92","value":"92","autoId":"field92","enabled":true,"offscreen":false},
+            {"depth":2,"id":193,"role":"Edit","name":"Field 93","value":"93","autoId":"field93","enabled":true,"offscreen":false},
+            {"depth":2,"id":194,"role":"Edit","name":"Field 94","value":"94","autoId":"field94","enabled":true,"offscreen":false},
+            {"depth":2,"id":195,"role":"Edit","name":"Field 95","value":"95","autoId":"field95","enabled":true,"offscreen":false},
+            {"depth":2,"id":196,"role":"Edit","name":"Field 96","value":"96","autoId":"field96","enabled":true,"offscreen":false},
+            {"depth":2,"id":197,"role":"Edit","name":"Field 97","value":"97","autoId":"field97","enabled":true,"offscreen":false},
+            {"depth":2,"id":198,"role":"Edit","name":"Field 98","value":"98","autoId":"field98","enabled":true,"offscreen":false},
+            {"depth":2,"id":199,"role":"Edit","name":"Field 99","value":"99","autoId":"field99","enabled":true,"offscreen":false},
+            {"depth":2,"id":200,"role":"Edit","name":"Field 100","value":"100","autoId":"field100","enabled":true,"offscreen":false},
+            {"depth":2,"id":201,"role":"Edit","name":"Field 101","value":"101","autoId":"field101","enabled":true,"offscreen":false},
+            {"depth":2,"id":202,"role":"Edit","name":"Field 102","value":"102","autoId":"field102","enabled":true,"offscreen":false},
+            {"depth":2,"id":203,"role":"Edit","name":"Field 103","value":"103","autoId":"field103","enabled":true,"offscreen":false},
+            {"depth":2,"id":204,"role":"Edit","name":"Field 104","value":"104","autoId":"field104","enabled":true,"offscreen":false},
+            {"depth":2,"id":205,"role":"Edit","name":"Field 105","value":"105","autoId":"field105","enabled":true,"offscreen":false},
+            {"depth":2,"id":206,"role":"Edit","name":"Field 106","value":"106","autoId":"field106","enabled":true,"offscreen":false},
+            {"depth":2,"id":207,"role":"Edit","name":"Field 107","value":"107","autoId":"field107","enabled":true,"offscreen":false},
+            {"depth":2,"id":208,"role":"Edit","name":"Field 108","value":"108","autoId":"field108","enabled":true,"offscreen":false},
+            {"depth":2,"id":209,"role":"Edit","name":"Field 109","value":"109","autoId":"field109","enabled":true,"offscreen":false},
+            {"depth":2,"id":210,"role":"Edit","name":"Field 110","value":"110","autoId":"field110","enabled":true,"offscreen":false},
+            {"depth":2,"id":211,"role":"Edit","name":"Field 111","value":"111","autoId":"field111","enabled":true,"offscreen":false},
+            {"depth":2,"id":212,"role":"Edit","name":"Field 112","value":"112","autoId":"field112","enabled":true,"offscreen":false},
+            {"depth":2,"id":213,"role":"Edit","name":"Field 113","value":"113","autoId":"field113","enabled":true,"offscreen":false},
+            {"depth":2,"id":214,"role":"Edit","name":"Field 114","value":"114","autoId":"field114","enabled":true,"offscreen":false},
+            {"depth":2,"id":215,"role":"Edit","name":"Field 115","value":"115","autoId":"field115","enabled":true,"offscreen":false},
+            {"depth":2,"id":216,"role":"Edit","name":"Field 116","value":"116","autoId":"field116","enabled":true,"offscreen":false},
+            {"depth":2,"id":217,"role":"Edit","name":"Field 117","value":"117","autoId":"field117","enabled":true,"offscreen":false},
+            {"depth":2,"id":218,"role":"Edit","name":"Field 118","value":"118","autoId":"field118","enabled":true,"offscreen":false},
+            {"depth":2,"id":219,"role":"Edit","name":"Field 119","value":"119","autoId":"field119","enabled":true,"offscreen":false},
+            {"depth":2,"id":220,"role":"Edit","name":"Field 120","value":"120","autoId":"field120","enabled":true,"offscreen":false},
+            {"depth":2,"id":221,"role":"Edit","name":"Field 121","value":"121","autoId":"field121","enabled":true,"offscreen":false},
+            {"depth":2,"id":222,"role":"Edit","name":"Field 122","value":"122","autoId":"field122","enabled":true,"offscreen":false},
+            {"depth":2,"id":223,"role":"Edit","name":"Field 123","value":"123","autoId":"field123","enabled":true,"offscreen":false},
+            {"depth":2,"id":224,"role":"Edit","name":"Field 124","value":"124","autoId":"field124","enabled":true,"offscreen":false},
+            {"depth":2,"id":225,"role":"Edit","name":"Field 125","value":"125","autoId":"field125","enabled":true,"offscreen":false},
+            {"depth":2,"id":226,"role":"Edit","name":"Field 126","value":"126","autoId":"field126","enabled":true,"offscreen":false},
+            {"depth":2,"id":227,"role":"Edit","name":"Field 127","value":"127","autoId":"field127","enabled":true,"offscreen":false},
+            {"depth":2,"id":228,"role":"Edit","name":"Field 128","value":"128","autoId":"field128","enabled":true,"offscreen":false},
+            {"depth":2,"id":229,"role":"Edit","name":"Field 129","value":"129","autoId":"field129","enabled":true,"offscreen":false},
+            {"depth":2,"id":230,"role":"Edit","name":"Field 130","value":"130","autoId":"field130","enabled":true,"offscreen":false},
+            {"depth":2,"id":231,"role":"Edit","name":"Field 131","value":"131","autoId":"field131","enabled":true,"offscreen":false},
+            {"depth":2,"id":232,"role":"Edit","name":"Field 132","value":"132","autoId":"field132","enabled":true,"offscreen":false},
+            {"depth":2,"id":233,"role":"Edit","name":"Field 133","value":"133","autoId":"field133","enabled":true,"offscreen":false},
+            {"depth":2,"id":234,"role":"Edit","name":"Field 134","value":"134","autoId":"field134","enabled":true,"offscreen":false},
+            {"depth":2,"id":235,"role":"Edit","name":"Field 135","value":"135","autoId":"field135","enabled":true,"offscreen":false},
+            {"depth":2,"id":236,"role":"Edit","name":"Field 136","value":"136","autoId":"field136","enabled":true,"offscreen":false},
+            {"depth":2,"id":237,"role":"Edit","name":"Field 137","value":"137","autoId":"field137","enabled":true,"offscreen":false},
+            {"depth":2,"id":238,"role":"Edit","name":"Field 138","value":"138","autoId":"field138","enabled":true,"offscreen":false},
+            {"depth":2,"id":239,"role":"Edit","name":"Field 139","value":"139","autoId":"field139","enabled":true,"offscreen":false},
+            {"depth":2,"id":240,"role":"Edit","name":"Field 140","value":"140","autoId":"field140","enabled":true,"offscreen":false},
+            {"depth":2,"id":241,"role":"Edit","name":"Field 141","value":"141","autoId":"field141","enabled":true,"offscreen":false},
+            {"depth":2,"id":242,"role":"Edit","name":"Field 142","value":"142","autoId":"field142","enabled":true,"offscreen":false},
+            {"depth":2,"id":243,"role":"Edit","name":"Field 143","value":"143","autoId":"field143","enabled":true,"offscreen":false},
+            {"depth":2,"id":244,"role":"Edit","name":"Field 144","value":"144","autoId":"field144","enabled":true,"offscreen":false},
+            {"depth":2,"id":245,"role":"Edit","name":"Field 145","value":"145","autoId":"field145","enabled":true,"offscreen":false},
+            {"depth":2,"id":246,"role":"Edit","name":"Field 146","value":"146","autoId":"field146","enabled":true,"offscreen":false},
+            {"depth":2,"id":247,"role":"Edit","name":"Field 147","value":"147","autoId":"field147","enabled":true,"offscreen":false},
+            {"depth":2,"id":248,"role":"Edit","name":"Field 148","value":"148","autoId":"field148","enabled":true,"offscreen":false},
+            {"depth":2,"id":249,"role":"Edit","name":"Field 149","value":"149","autoId":"field149","enabled":true,"offscreen":false},
+            {"depth":2,"id":250,"role":"Edit","name":"Field 150","value":"150","autoId":"field150","enabled":true,"offscreen":false},
+            {"depth":2,"id":251,"role":"Edit","name":"Field 151","value":"151","autoId":"field151","enabled":true,"offscreen":false},
+            {"depth":2,"id":252,"role":"Edit","name":"Field 152","value":"152","autoId":"field152","enabled":true,"offscreen":false},
+            {"depth":2,"id":253,"role":"Edit","name":"Field 153","value":"153","autoId":"field153","enabled":true,"offscreen":false},
+            {"depth":2,"id":254,"role":"Edit","name":"Field 154","value":"154","autoId":"field154","enabled":true,"offscreen":false},
+            {"depth":2,"id":255,"role":"Edit","name":"Field 155","value":"155","autoId":"field155","enabled":true,"offscreen":false},
+            {"depth":2,"id":256,"role":"Edit","name":"Field 156","value":"156","autoId":"field156","enabled":true,"offscreen":false},
+            {"depth":2,"id":257,"role":"Edit","name":"Field 157","value":"157","autoId":"field157","enabled":true,"offscreen":false},
+            {"depth":2,"id":258,"role":"Edit","name":"Field 158","value":"158","autoId":"field158","enabled":true,"offscreen":false},
+            {"depth":2,"id":259,"role":"Edit","name":"Field 159","value":"159","autoId":"field159","enabled":true,"offscreen":false},
+            {"depth":2,"id":260,"role":"Edit","name":"Field 160","value":"160","autoId":"field160","enabled":true,"offscreen":false},
+            {"depth":2,"id":261,"role":"Edit","name":"Field 161","value":"161","autoId":"field161","enabled":true,"offscreen":false},
+            {"depth":2,"id":262,"role":"Edit","name":"Field 162","value":"162","autoId":"field162","enabled":true,"offscreen":false},
+            {"depth":2,"id":263,"role":"Edit","name":"Field 163","value":"163","autoId":"field163","enabled":true,"offscreen":false},
+            {"depth":2,"id":264,"role":"Edit","name":"Field 164","value":"164","autoId":"field164","enabled":true,"offscreen":false},
+            {"depth":2,"id":265,"role":"Edit","name":"Field 165","value":"165","autoId":"field165","enabled":true,"offscreen":false},
+            {"depth":2,"id":266,"role":"Edit","name":"Field 166","value":"166","autoId":"field166","enabled":true,"offscreen":false},
+            {"depth":2,"id":267,"role":"Edit","name":"Field 167","value":"167","autoId":"field167","enabled":true,"offscreen":false},
+            {"depth":2,"id":268,"role":"Edit","name":"Field 168","value":"168","autoId":"field168","enabled":true,"offscreen":false},
+            {"depth":2,"id":269,"role":"Edit","name":"Field 169","value":"169","autoId":"field169","enabled":true,"offscreen":false},
+            {"depth":2,"id":270,"role":"Edit","name":"Field 170","value":"170","autoId":"field170","enabled":true,"offscreen":false},
+            {"depth":2,"id":271,"role":"Edit","name":"Field 171","value":"171","autoId":"field171","enabled":true,"offscreen":false},
+            {"depth":2,"id":272,"role":"Edit","name":"Field 172","value":"172","autoId":"field172","enabled":true,"offscreen":false},
+            {"depth":2,"id":273,"role":"Edit","name":"Field 173","value":"173","autoId":"field173","enabled":true,"offscreen":false},
+            {"depth":2,"id":274,"role":"Edit","name":"Field 174","value":"174","autoId":"field174","enabled":true,"offscreen":false},
+            {"depth":2,"id":275,"role":"Edit","name":"Field 175","value":"175","autoId":"field175","enabled":true,"offscreen":false},
+            {"depth":2,"id":276,"role":"Edit","name":"Field 176","value":"176","autoId":"field176","enabled":true,"offscreen":false},
+            {"depth":2,"id":277,"role":"Edit","name":"Field 177","value":"177","autoId":"field177","enabled":true,"offscreen":false},
+            {"depth":2,"id":278,"role":"Edit","name":"Field 178","value":"178","autoId":"field178","enabled":true,"offscreen":false},
+            {"depth":2,"id":279,"role":"Edit","name":"Field 179","value":"179","autoId":"field179","enabled":true,"offscreen":false},
+            {"depth":2,"id":280,"role":"Edit","name":"Field 180","value":"180","autoId":"field180","enabled":true,"offscreen":false},
+            {"depth":2,"id":281,"role":"Edit","name":"Field 181","value":"181","autoId":"field181","enabled":true,"offscreen":false},
+            {"depth":2,"id":282,"role":"Edit","name":"Field 182","value":"182","autoId":"field182","enabled":true,"offscreen":false},
+            {"depth":2,"id":283,"role":"Edit","name":"Field 183","value":"183","autoId":"field183","enabled":true,"offscreen":false},
+            {"depth":2,"id":284,"role":"Edit","name":"Field 184","value":"184","autoId":"field184","enabled":true,"offscreen":false},
+            {"depth":2,"id":285,"role":"Edit","name":"Field 185","value":"185","autoId":"field185","enabled":true,"offscreen":false},
+            {"depth":2,"id":286,"role":"Edit","name":"Field 186","value":"186","autoId":"field186","enabled":true,"offscreen":false},
+            {"depth":2,"id":287,"role":"Edit","name":"Field 187","value":"187","autoId":"field187","enabled":true,"offscreen":false},
+            {"depth":2,"id":288,"role":"Edit","name":"Field 188","value":"188","autoId":"field188","enabled":true,"offscreen":false},
+            {"depth":2,"id":289,"role":"Edit","name":"Field 189","value":"189","autoId":"field189","enabled":true,"offscreen":false},
+            {"depth":2,"id":290,"role":"Edit","name":"Field 190","value":"190","autoId":"field190","enabled":true,"offscreen":false},
+            {"depth":2,"id":291,"role":"Edit","name":"Field 191","value":"191","autoId":"field191","enabled":true,"offscreen":false},
+            {"depth":2,"id":292,"role":"Edit","name":"Field 192","value":"192","autoId":"field192","enabled":true,"offscreen":false},
+            {"depth":2,"id":293,"role":"Edit","name":"Field 193","value":"193","autoId":"field193","enabled":true,"offscreen":false},
+            {"depth":2,"id":294,"role":"Edit","name":"Field 194","value":"194","autoId":"field194","enabled":true,"offscreen":false},
+            {"depth":2,"id":295,"role":"Edit","name":"Field 195","value":"195","autoId":"field195","enabled":true,"offscreen":false},
+            {"depth":2,"id":296,"role":"Edit","name":"Field 196","value":"196","autoId":"field196","enabled":true,"offscreen":false},
+            {"depth":2,"id":297,"role":"Edit","name":"Field 197","value":"197","autoId":"field197","enabled":true,"offscreen":false},
+            {"depth":2,"id":298,"role":"Edit","name":"Field 198","value":"198","autoId":"field198","enabled":true,"offscreen":false},
+            {"depth":2,"id":299,"role":"Edit","name":"Field 199","value":"199","autoId":"field199","enabled":true,"offscreen":false},
+            {"depth":2,"id":300,"role":"Edit","name":"Field 200","value":"200","autoId":"field200","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"}
+      ]
+    },
+    {
+      "name": "ambiguous-fields",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false},
+            {"depth":2,"id":4,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}},
+            "4": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"}
+      ]
+    },
+    {
+      "name": "requested-unknown",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read","fields":["Absent"]}
+      ]
+    },
+    {
+      "name": "window-caption-refresh-refusal",
+      "snapshots": [
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":2,"role":"combo box","name":"Model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "2": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}},
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}}
+          }
+        },
+        {
+          "nodes": [
+            {"depth":0,"id":1,"role":"Window","name":"Door updated","value":"","autoId":"","enabled":true,"offscreen":false},
+            {"depth":2,"id":20,"role":"combo box","name":"Renamed model","value":"","autoId":"model","enabled":true,"offscreen":false},
+            {"depth":2,"id":3,"role":"Edit","name":"Width","value":"900","autoId":"width","enabled":true,"offscreen":false}
+          ],
+          "metadata": {
+            "3": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"width","Dependencies":[],"Choices":{"Support":"Unsupported","Revision":"","Options":[],"Complete":false,"NeedsOpen":false,"SelectedId":null}},
+            "20": {"Support":"Available","Source":"ApplicationDeclaration","Enabled":true,"Visible":true,"ReadOnly":false,"Required":true,"Context":"ctx1","Field":"model","Dependencies":["width"],"Choices":{"Support":"Available","Revision":"v1","Options":[{"Id":"Basic","Label":"Basic","Enabled":true},{"Id":"Wide","Label":"Wide","Enabled":true},{"Id":"Disabled","Label":"Disabled","Enabled":false}],"Complete":true,"NeedsOpen":false,"SelectedId":"Basic"}}
+          }
+        }
+      ],
+      "steps": [
+        {"name":"read","action":"read"},
+        {"name":"renamed","action":"read","snapshot":1}
+      ]
+    }
+  ]
+}

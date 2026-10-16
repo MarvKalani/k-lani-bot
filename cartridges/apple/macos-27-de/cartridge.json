@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "id": "apple-macos-27-de-install",
+  "version": "1.0.0",
+  "kind": "trusted_installation",
+  "platform": "macos",
+  "locale": "de-DE",
+  "macos_major": 27,
+  "bundle_id": "com.k-lani.bot.node",
+  "bundle_name": "k-lani-bot-node.app",
+  "description": "Installiert k-lani-bot-node, schützt Dateirechte und privaten State, richtet den Login-Dienst ein, fordert Apple-Datenschutzfreigaben an und prüft den tatsächlichen GUI-Node. Kein TCC-Datenbankzugriff und kein dauerhafter Root-Daemon.",
+  "steps": ["preflight", "install_verified_bundle", "protect_private_state", "provision_node", "register_login_agent", "request_apple_permissions", "verify_gui_capabilities", "export_mdm_profile"],
+  "privacy_labels": {
+    "accessibility": "Gerätesteuerung und Datenzugriff",
+    "screen_capture": "Aufnahme von Bildschirm & Systemaudio"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "format": "k-lani-bot.local-macro-bundle.v1",
+  "id": "k-lani-bot.outlook-classic",
+  "version": "1.0.0",
+  "target": {
+    "application": "Microsoft Outlook",
+    "process_name": "OUTLOOK",
+    "application_version": "16.0.14334.20918",
+    "tested_platform": "windows-x64",
+    "tested_os": "Windows 11",
+    "tested_locale": "de-DE"
+  },
+  "entrypoints": [
+    {
+      "name": "inspect-window",
+      "recipe": "macros/inspect-window.json",
+      "risk": "secure",
+      "validation": "real_app_observation_tested",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "find-controls",
+      "recipe": "macros/find-controls.json",
+      "risk": "secure",
+      "validation": "unreviewed",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "activate-control",
+      "recipe": "macros/activate-control.json",
+      "risk": "probably_harmful",
+      "validation": "unreviewed",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "open-mail",
+      "recipe": "macros/open-mail.json",
+      "risk": "probably_harmful",
+      "validation": "unreviewed",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "fill-draft",
+      "recipe": "macros/fill-draft.json",
+      "risk": "probably_harmful",
+      "validation": "real_app_tested",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    },
+    {
+      "name": "open-view",
+      "recipe": "macros/open-view.json",
+      "risk": "probably_harmful",
+      "validation": "real_app_tested",
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    }
+  ],
+  "automatic_activation": false,
+  "release_approved": false,
+  "secured": false,
+  "effect_policy_enforced_by_node": false,
+  "limits": [
+    "Exact process identity/version is required before every gateway recipe.",
+    "Window inspection, full draft filling and navigation to Mail, Calendar, People and Tasks were accepted on a Windows node through MCP. Other entrypoints remain unreviewed.",
+    "Generic control activation exposes the UIA-supported application surface; unsupported custom controls require further authoring.",
+    "Sending, account changes, deletion, attachments, meetings, contacts, and rules have not been accepted.",
+    "Mutation recipes request foreground focus before selecting visible controls; background-only profiles refuse that step."
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "macros/inspect-window.json",
+      "bytes": 916,
+      "sha256": "a394326838257fd330495bfbcc0301defd0a1658ff4f9d9080c75e76bf5082cc"
+    },
+    {
+      "path": "macros/find-controls.json",
+      "bytes": 1150,
+      "sha256": "37a9c96fe13b51364f42732eb1559524173eabed480acf74e1028c71d02e2ff0"
+    },
+    {
+      "path": "macros/activate-control.json",
+      "bytes": 1524,
+      "sha256": "ec209b7ca94bc5bc0ec2df978dec67eb04a72bc97a736b4dd018506a549df464"
+    },
+    {
+      "path": "macros/open-mail.json",
+      "bytes": 1552,
+      "sha256": "6ef471ae9005afe5c79e6bed31b4e8d587ad346037cdca29b6df0c023aff8f6c"
+    },
+    {
+      "path": "macros/fill-draft.json",
+      "bytes": 2495,
+      "sha256": "a2a00136d5e5cf54f6103409932926001bb3e3aacfbfdcae92fc8c6c94ed764f"
+    },
+    {
+      "path": "macros/open-view.json",
+      "bytes": 1311,
+      "sha256": "fd64035f60d357489bcd811cd8a1f4af302d024881d4080870e05ca38680997c"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2676,
+      "sha256": "31209a6535ad7d09fff574d97c9f02fda8e7c6b8caf1be5aa8a703666dc3950a"
+    }
+  ]
+}

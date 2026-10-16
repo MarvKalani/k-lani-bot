@@ -1,0 +1,40 @@
+{
+  "format": "k-lani-bot-ui-access-evidence",
+  "version": 1,
+  "scope": "Observed browser benchmark calls; no claim about hidden Computer Use internals.",
+  "trials": [
+    {
+      "repetition": 0,
+      "successfulTask": true,
+      "transmittedImages": 0,
+      "successfulScriptOccurrences": {
+        "getAXState": 10,
+        "setValueByElement": 5,
+        "clickByElement": 10,
+        "clickByCoordinates": 0
+      }
+    },
+    {
+      "repetition": 1,
+      "successfulTask": true,
+      "transmittedImages": 0,
+      "successfulScriptOccurrences": {
+        "getAXState": 9,
+        "setValueByElement": 7,
+        "clickByElement": 8,
+        "clickByCoordinates": 0
+      }
+    },
+    {
+      "repetition": 2,
+      "successfulTask": true,
+      "transmittedImages": 0,
+      "successfulScriptOccurrences": {
+        "getAXState": 9,
+        "setValueByElement": 5,
+        "clickByElement": 9,
+        "clickByCoordinates": 0
+      }
+    }
+  ]
+}

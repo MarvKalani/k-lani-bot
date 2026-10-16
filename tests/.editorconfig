@@ -1,0 +1,4 @@
+# Test code throws on purpose: a failed check is an exception that ends the run. Announcing that in every helper's header
+# would add a line to each test and tell nobody anything, so KLB003 applies to production code only.
+[*.cs]
+dotnet_diagnostic.KLB003.severity = none

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "unicode-pages",
+      "owner": "node-a",
+      "outputs": { "document": "Größe😀\n", "empty": "" },
+      "debug": "{\"value\":\"é😀\"}",
+      "queries": [
+        { "arguments": { "section": "outputs/document", "offset": 3, "limit": 3 } },
+        { "arguments": { "section": "outputs/document", "offset": 7 } },
+        { "arguments": { "section": "outputs/empty" } },
+        { "arguments": { "section": "debug", "offset": 9, "limit": 2 } }
+      ]
+    },
+    {
+      "name": "negative-pages",
+      "owner": "node-a",
+      "outputs": { "value": "abc" },
+      "debug": "{}",
+      "queries": [
+        { "arguments": { "section": "outputs/unknown" } },
+        { "arguments": { "section": "../debug" } },
+        { "arguments": { "section": "outputs/value", "offset": -1 } },
+        { "arguments": { "section": "outputs/value", "offset": 1.5 } },
+        { "arguments": { "section": "outputs/value", "offset": 1.0, "limit": 1.0 } },
+        { "arguments": { "section": "outputs/value", "offset": 1e21 } },
+        { "arguments": { "section": "outputs/value", "offset": 4 } },
+        { "arguments": { "section": "outputs/value", "offset": null } },
+        { "arguments": { "section": "outputs/value", "limit": 0 } },
+        { "arguments": { "section": "outputs/value", "limit": 8001 } },
+        { "arguments": { "section": "outputs/value", "limit": null } },
+        { "arguments": { "section": "outputs/value", "node": "foreign" } },
+        { "arguments": { "section": "outputs/value", "evidence_ref": "/some/file" } },
+        { "request_owner": "foreign-node", "arguments": { "section": "outputs/value" } }
+      ]
+    }
+  ]
+}

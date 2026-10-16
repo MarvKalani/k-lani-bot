@@ -1,0 +1,53 @@
+{
+  "name": "wait_element",
+  "description": "Waits for a selector and actual requested state; unsupported states fail.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pid": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "title": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "auto_id": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "timeout_ms": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 30000
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "exists",
+          "visible",
+          "hidden",
+          "enabled",
+          "disabled",
+          "absent"
+        ]
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <AssemblyName>k-lani-bot-visibility-probe</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionErrorCode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/ReadProblem.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/Result.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionOutcome.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionResults.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/OperationLedger.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Tool.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ToolFeature.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ToolContract.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/TraceRetention.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/UiTargetIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/PrivateFile.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/WireNames.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/BackupPolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/BackupRequirement.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/NodePolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/DialogTextEvidence.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/DialogRouting.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/ArgumentPatterns.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/Scope.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/TextInputPolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiActionGuard.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiActionRule.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiGuardMode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiGuardOptions.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/WindowInteractionMode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiLanguage.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiTexts.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/IUiService.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/WindowSelection.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/UiNativeTextSupport.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/UiFormMetadata.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ApplicationObjects.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ApplicationCommandValidation.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/Diagnostics.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/ProductIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/ProtocolIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/AccessVisibility.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/AccessVisibility.Pace.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/AgentPace.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/LinuxVisibilityHost.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/MacVisibilityHost.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/NativeVisibilityHost.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/EscapeKeyWatch.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/X11EscapeKeyWatch.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/MacEscapeKeyWatch.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/ProductBranding.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/SessionPresentation.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/VisibilityEnums.cs" />
+    <Compile Include="../Shared/PrivateGuiSession.cs" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-icon-24.png" LogicalName="KLaniBot.icon-24.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-icon-32.png" LogicalName="KLaniBot.icon-32.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-logo-linux-panel.png" LogicalName="KLaniBot.logo-linux-panel.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-logo-macos-menubar.png" LogicalName="KLaniBot.logo-macos-menubar.png" />
+    <EmbeddedResource Include="../../assets/branding/k-lani-bot-logo-windows-dialog.png" LogicalName="KLaniBot.logo-windows-dialog.png" />
+    <EmbeddedResource Include="../../contracts/tools.json" LogicalName="KLaniBot.tools.json" />
+  </ItemGroup>
+</Project>

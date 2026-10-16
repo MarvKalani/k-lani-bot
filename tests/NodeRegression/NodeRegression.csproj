@@ -1,0 +1,179 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.13.0" />
+    <!-- Kestrel serves the TLS fixtures that make each transport failure happen for real. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/RepositoryLocator.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionDispatcher.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/PostconditionWait.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/PostconditionDefaults.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/StepDescriber.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/StepResultDescriber.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/StepDiagnosticDescriber.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/StepLogText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/StepEfficiency.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/StepEfficiencyText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/ReadProblem.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/Result.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Credentials/*.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Backup/*.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/NodeConfiguration.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionErrorCode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionExecution.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionHandling.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionOutcome.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionReceipt.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionRequest.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionResults.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionTrace.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ActionTraceViewer.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/DesktopActor.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/DesktopObservationState.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/BackupActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/BackupAnswers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/ClipboardActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/FileActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/InputActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/InternalModules.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/MacroActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/MacroEngine.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/MetaActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/ObservationActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/ApplicationObjectActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/ProcessActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/TerminalActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Handlers/WindowActionHandlers.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/InspectorPage.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/OperationLedger.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/Tool.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ToolFeature.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/ToolContract.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/SelectedActionSchemas.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/CompactUi/*.cs" />
+    <EmbeddedResource Include="../../contracts/compact-ui-tools.json" LogicalName="KLaniBot.compact-ui-tools.json" />
+    <EmbeddedResource Include="../../contracts/compact-ui-functions.json" LogicalName="KLaniBot.compact-ui-functions.json" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/TraceRetention.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/UiStateAtlas.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/UiTargetIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/AdvisoryCalibration.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/AdvisoryProviders.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/AdvisoryQuestionSchema.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/AdvisoryResult.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/EvaluationRunner.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/IAdvisoryEvaluator.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Advisory/LayaAdvisoryEvaluator.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Audit/AuditJournal.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Cartridges/CartridgeManifest.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/CanonicalJson.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/PrivateFile.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/ProcessRunner.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Common/WireNames.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Fleet/MasterAdministration.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Fleet/MasterBackupRequirements.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Fleet/PairingProtocol.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/AgentDecision.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/InventoryPermission.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/PolicyFile.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/ModalDialogPolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/BackupPolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/BackupRequirement.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/NodePolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/DialogTextEvidence.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/DialogRouting.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Actions/DialogEvidence.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/ArgumentPatterns.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/NodeRiskClassifier.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/DialogClassifier.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/SandboxResources.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/Scope.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/TextInputPolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiActionGuard.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiActionRule.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiGuardMode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/UiGuardOptions.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/WindowInteractionMode.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Inventory/ApplicationEvidence.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Inventory/ApplicationKindClassifier.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Inventory/ApplicationSources.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Inventory/ApplicationVersion.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Inventory/InventoryPages.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Inventory/SystemInventory.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiLanguage.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Localization/UiTexts.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/IUiService.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/WindowSelection.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Linux/WmctrlLineParser.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/UiNativeTextSupport.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/UiFormMetadata.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ApplicationObjects.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ApplicationObjectThread.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ApplicationMailText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MailHtmlText.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ApplicationCommandValidation.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ForegroundActivationPlan.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Linux/DesktopEntryParser.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Linux/LinuxApplicationSource.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Linux/DirectConnectionAddress.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Linux/LinuxPasswordRole.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacApplicationSource.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacLoginAgentContract.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/PreviousBundles.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacBundleVersion.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacAccessibilityRoleName.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacAttributeOutcome.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacAttributeRead.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Mobile/AdbUiService.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/ProcessLauncher.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Windows/WindowsApplicationSource.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Windows/WindowsCommandLine.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Windows/UpdatePlanRecovery.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/CommandFailure.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/CommandLine.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/Diagnostics.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/NodeArguments.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/NodeCommand.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/NodeName.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/ProductIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Startup/WorkerStartupFailure.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/ActuatorChannel.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/ExecutionRole.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/JsonLineReader.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/McpGateway.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/NodeTransportClient.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/NodeManagementStatus.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/ProtocolIdentity.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GatewayBundleFunctions.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GatewayCartridges.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GatewayCartridgeLibrary.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GatewayProgramCatalog.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GeneratedCartridgeSession.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/CartridgeCoverage.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/SelectedGatewayCartridge.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Cartridges/CartridgeCatalogue.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/CartridgeTopics.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/CartridgeMcpSession.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GatewayBackupFunctions.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Updates/NodeUpdateManifest.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/StdioWorkerLoop.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/TransportFailure.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/WorkerEnvironment.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/WorkerSupervisor.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/AccessVisibility.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/AccessVisibility.Pace.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/AgentPace.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/SessionPresentation.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Visibility/VisibilityEnums.cs" />
+    <EmbeddedResource Include="../../contracts/tools.json" LogicalName="KLaniBot.tools.json" />
+    <EmbeddedResource Include="../../src/k-lani-bot-node/Actions/Inspector.html.txt" LogicalName="KLaniBot.inspector.html" />
+  </ItemGroup>
+</Project>

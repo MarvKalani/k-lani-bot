@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "startingCommit": "d5a2bca3807c2ff9424547b8462373bb3015fe07",
+  "implementation": "completed",
+  "views": {
+    "contexts": 32,
+    "projectedControls": 10000,
+    "idleTtlSeconds": 300,
+    "completedBaselinesPerContext": 2,
+    "pageDefault": 50,
+    "pageMaximum": 200,
+    "sameStateCursor": true,
+    "freshInstanceAndTargetChecks": true
+  },
+  "aba": {
+    "aba_full_bytes": 1881,
+    "aba_delta_bytes": 221,
+    "reductionPercent": 88.251,
+    "scope": "Deterministic serialized response bytes; no model-token claim"
+  },
+  "correctness": {
+    "desktopUiCasesPassed": 61,
+    "combinedUiEfficiencyCasesPassed": 78,
+    "combinedOptionalCasesSkipped": 1,
+    "pythonCasesPassed": 36,
+    "defaultLiveCasesSkipped": 2,
+    "nativeDiscoveryChecksPassed": 8,
+    "nativeDynamicChecksPassed": 17,
+    "typedFixtureChecksPassed": 24,
+    "format": "passed",
+    "buildWarningsAsErrors": "passed",
+    "pagedControls": 250,
+    "pagedFunctions": 120
+  },
+  "nativeEvidence": {
+    "platform": "Linux GTK3 / AT-SPI in private Xvfb",
+    "observedFields": 250,
+    "uniqueFieldIdentities": 250,
+    "semanticWriteAndFullReadback": true,
+    "actualSavedTargetVerified": true,
+    "unrelatedFieldsPreserved": true,
+    "coordinatesUsed": false
+  },
+  "suite": "state-discovery",
+  "imageStatus": "New discovery fixture changes worker source; preparation not executed without a measurement request",
+  "performance": "pending",
+  "modelRuns": 0,
+  "modelUsage": null,
+  "savingsClaim": null,
+  "remainingAcceptance": [
+    "Accepted updated Docker image for state-discovery",
+    "Reviewed matched model adapter and explicit private budget",
+    "Suitable narrow access route for unnamed Mousepad editor writes",
+    "Native Windows/macOS execution"
+  ]
+}

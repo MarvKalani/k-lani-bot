@@ -1,0 +1,703 @@
+{
+  "format": "k-lani-bot-hybrid-authoring-diagnostics",
+  "version": 1,
+  "scope": "Measured model trials during implementation, separate from routine execution; coding agent development usage is not isolated.",
+  "phases": [
+    {
+      "phase": "runs",
+      "trials": [
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "12.40",
+            "7.60",
+            "19.99",
+            "5.01",
+            "55.00"
+          ],
+          "repetition": 0,
+          "attempt": 0,
+          "success": false,
+          "usage": {
+            "input_tokens": 509151,
+            "cached_input_tokens": 473728,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1153,
+            "reasoning_output_tokens": 183
+          },
+          "elapsedMs": 27346.583237,
+          "toolCalls": 15,
+          "toolServerVersion": null,
+          "semanticObservations": 9,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 2,
+          "physicalClicks": 0,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 260929,
+          "images": 2,
+          "imageBytes": 130821,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "pending",
+            "successful": false,
+            "completedOperations": 0
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "12.40",
+            "7.60",
+            "19.99",
+            "5.01",
+            "55.00"
+          ],
+          "repetition": 0,
+          "attempt": 1,
+          "success": true,
+          "usage": {
+            "input_tokens": 2298023,
+            "cached_input_tokens": 2222592,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3951,
+            "reasoning_output_tokens": 587
+          },
+          "elapsedMs": 170152.831603,
+          "toolCalls": 60,
+          "toolServerVersion": null,
+          "semanticObservations": 3,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 0,
+          "physicalClicks": 17,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1686811,
+          "images": 20,
+          "imageBytes": 1219959,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 192,
+            "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "11.20",
+            "22.35",
+            "3.05",
+            "44.40",
+            "5.00"
+          ],
+          "repetition": 1,
+          "attempt": 0,
+          "success": false,
+          "usage": {
+            "input_tokens": 573036,
+            "cached_input_tokens": 528896,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2011,
+            "reasoning_output_tokens": 884
+          },
+          "elapsedMs": 34970.46372999999,
+          "toolCalls": 12,
+          "toolServerVersion": null,
+          "semanticObservations": 6,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 3,
+          "physicalClicks": 0,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 251016,
+          "images": 1,
+          "imageBytes": 88597,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "pending",
+            "successful": false,
+            "completedOperations": 0
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "11.20",
+            "22.35",
+            "3.05",
+            "44.40",
+            "5.00"
+          ],
+          "repetition": 1,
+          "attempt": 1,
+          "success": true,
+          "usage": {
+            "input_tokens": 2530553,
+            "cached_input_tokens": 2447232,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 5439,
+            "reasoning_output_tokens": 998
+          },
+          "elapsedMs": 215712.97040800002,
+          "toolCalls": 79,
+          "toolServerVersion": null,
+          "semanticObservations": 20,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 3,
+          "physicalClicks": 15,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1476009,
+          "images": 17,
+          "imageBytes": 1044765,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 191,
+            "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "0.10",
+            "0.20",
+            "0.30",
+            "0.40",
+            "0.50"
+          ],
+          "repetition": 2,
+          "attempt": 0,
+          "success": false,
+          "usage": {
+            "input_tokens": 316137,
+            "cached_input_tokens": 263936,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 764,
+            "reasoning_output_tokens": 96
+          },
+          "elapsedMs": 24632.160723999958,
+          "toolCalls": 8,
+          "toolServerVersion": "0.2610.0608",
+          "semanticObservations": 4,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 1,
+          "physicalClicks": 0,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 150041,
+          "images": 1,
+          "imageBytes": 88196,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "pending",
+            "successful": false,
+            "completedOperations": 0
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "0.10",
+            "0.20",
+            "0.30",
+            "0.40",
+            "0.50"
+          ],
+          "repetition": 2,
+          "attempt": 1,
+          "success": true,
+          "usage": {
+            "input_tokens": 3822297,
+            "cached_input_tokens": 3706240,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4216,
+            "reasoning_output_tokens": 793
+          },
+          "elapsedMs": 119322.758171,
+          "toolCalls": 69,
+          "toolServerVersion": "0.2610.0608",
+          "semanticObservations": 12,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 2,
+          "physicalClicks": 14,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1401075,
+          "images": 15,
+          "imageBytes": 937177,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 187,
+            "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+            "completedOperations": 6,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "phase": "fixed",
+      "trials": [
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "12.40",
+            "7.60",
+            "19.99",
+            "5.01",
+            "55.00"
+          ],
+          "repetition": 0,
+          "attempt": 0,
+          "success": true,
+          "usage": {
+            "input_tokens": 2866449,
+            "cached_input_tokens": 2774400,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 5837,
+            "reasoning_output_tokens": 1612
+          },
+          "elapsedMs": 166465.634682,
+          "toolCalls": 81,
+          "toolServerVersion": null,
+          "semanticObservations": 19,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 5,
+          "physicalClicks": 15,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1832483,
+          "images": 22,
+          "imageBytes": 1304024,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 192,
+            "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "11.20",
+            "22.35",
+            "3.05",
+            "44.40",
+            "5.00"
+          ],
+          "repetition": 1,
+          "attempt": 0,
+          "success": true,
+          "usage": {
+            "input_tokens": 2555817,
+            "cached_input_tokens": 2460416,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3654,
+            "reasoning_output_tokens": 613
+          },
+          "elapsedMs": 165467.00676099997,
+          "toolCalls": 59,
+          "toolServerVersion": "0.2610.0609",
+          "semanticObservations": 3,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 0,
+          "physicalClicks": 15,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1728449,
+          "images": 21,
+          "imageBytes": 1245116,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 191,
+            "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "0.10",
+            "0.20",
+            "0.30",
+            "0.40",
+            "0.50"
+          ],
+          "repetition": 2,
+          "attempt": 0,
+          "success": true,
+          "usage": {
+            "input_tokens": 3805731,
+            "cached_input_tokens": 3703040,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 5725,
+            "reasoning_output_tokens": 847
+          },
+          "elapsedMs": 210976.04557399993,
+          "toolCalls": 77,
+          "toolServerVersion": "0.2610.0609",
+          "semanticObservations": 24,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 4,
+          "physicalClicks": 16,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1907422,
+          "images": 14,
+          "imageBytes": 893621,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 187,
+            "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "phase": "actions",
+      "trials": [
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "12.40",
+            "7.60",
+            "19.99",
+            "5.01",
+            "55.00"
+          ],
+          "repetition": 0,
+          "attempt": 0,
+          "success": false,
+          "usage": {
+            "input_tokens": 419799,
+            "cached_input_tokens": 383232,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1105,
+            "reasoning_output_tokens": 250
+          },
+          "elapsedMs": 39240.637498000004,
+          "toolCalls": 12,
+          "toolServerVersion": "0.2610.0609",
+          "semanticObservations": 6,
+          "semanticActionDispatches": 1,
+          "semanticActionFailures": 2,
+          "physicalClicks": 1,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 181087,
+          "images": 1,
+          "imageBytes": 88876,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "pending",
+            "successful": false,
+            "completedOperations": 0
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "12.40",
+            "7.60",
+            "19.99",
+            "5.01",
+            "55.00"
+          ],
+          "repetition": 0,
+          "attempt": 1,
+          "success": true,
+          "usage": {
+            "input_tokens": 3803859,
+            "cached_input_tokens": 3699072,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 5354,
+            "reasoning_output_tokens": 887
+          },
+          "elapsedMs": 116867.512854,
+          "toolCalls": 77,
+          "toolServerVersion": "0.2610.0609",
+          "semanticObservations": 22,
+          "semanticActionDispatches": 10,
+          "semanticActionFailures": 3,
+          "physicalClicks": 5,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1284621,
+          "images": 14,
+          "imageBytes": 886428,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 192,
+            "sha256": "7bb2ddaf92f356d28a9d6c8aec0b706004c16fb29b81fdefa6dbb5b38f15e40d",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "11.20",
+            "22.35",
+            "3.05",
+            "44.40",
+            "5.00"
+          ],
+          "repetition": 1,
+          "attempt": 0,
+          "success": true,
+          "usage": {
+            "input_tokens": 3523477,
+            "cached_input_tokens": 3416448,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4526,
+            "reasoning_output_tokens": 552
+          },
+          "elapsedMs": 88645.372504,
+          "toolCalls": 59,
+          "toolServerVersion": "0.2610.0609",
+          "semanticObservations": 19,
+          "semanticActionDispatches": 9,
+          "semanticActionFailures": 6,
+          "physicalClicks": 7,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 930526,
+          "images": 5,
+          "imageBytes": 264220,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 191,
+            "sha256": "3272cfe16e8119157ec64128d06bd53c478ff41181cfdc5bf8a60b865b1f4b62",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        },
+        {
+          "route": "bot-hybrid",
+          "dataset": [
+            "0.10",
+            "0.20",
+            "0.30",
+            "0.40",
+            "0.50"
+          ],
+          "repetition": 2,
+          "attempt": 0,
+          "success": true,
+          "usage": {
+            "input_tokens": 3772793,
+            "cached_input_tokens": 3655552,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3871,
+            "reasoning_output_tokens": 552
+          },
+          "elapsedMs": 94115.093784,
+          "toolCalls": 63,
+          "toolServerVersion": "0.2610.0609",
+          "semanticObservations": 6,
+          "semanticActionDispatches": 0,
+          "semanticActionFailures": 2,
+          "physicalClicks": 15,
+          "toolDescriptionsBytes": 17597,
+          "functionSchemasBytes": 0,
+          "resultBytes": 1637534,
+          "images": 19,
+          "imageBytes": 1127355,
+          "imageTokens": null,
+          "toolSchemaTokens": null,
+          "retries": null,
+          "oracle": {
+            "status": "passed",
+            "successful": true,
+            "checks": {
+              "calculation": true,
+              "fileContents": true,
+              "reopened": true,
+              "completedOperations": true,
+              "noOtherOutput": true
+            },
+            "bytes": 187,
+            "sha256": "0fe7b747d700b1bc75ff8a958b01b55955150d43331af53ce1d360f4c0bf1d7b",
+            "completedOperations": 7,
+            "operations": [
+              "calculator.sum",
+              "editor.write",
+              "editor.write",
+              "folder.create",
+              "editor.write",
+              "file.save",
+              "file.read"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "k-lani-bot proposed manifest v1",
+  "description": "Proposed contract; not an active product/registry admission mechanism.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+    },
+    "publisher": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "automation",
+        "administration",
+        "executable_extension"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": [
+            "windows",
+            "macos",
+            "linux",
+            "android",
+            "ios-simulator"
+          ]
+        },
+        "architecture": {
+          "type": "string",
+          "enum": [
+            "x64",
+            "arm64",
+            "any"
+          ]
+        },
+        "os_version": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "scheme": {
+              "type": "string",
+              "enum": [
+                "semver",
+                "numeric_components",
+                "exact_build"
+              ]
+            },
+            "minimum": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "maximum_exclusive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          },
+          "required": [
+            "scheme",
+            "minimum"
+          ]
+        },
+        "application": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "version": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "scheme": {
+                  "type": "string",
+                  "enum": [
+                    "semver",
+                    "numeric_components",
+                    "exact_build"
+                  ]
+                },
+                "minimum": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                },
+                "maximum_exclusive": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                }
+              },
+              "required": [
+                "scheme",
+                "minimum"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version"
+          ]
+        }
+      },
+      "required": [
+        "platform",
+        "architecture",
+        "os_version"
+      ]
+    },
+    "locales": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "base": {
+          "type": "string",
+          "pattern": "^(und|[a-z]{2,3}(-[A-Za-z0-9]{2,8})*)$"
+        },
+        "supported": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "fallback": {
+          "type": "string",
+          "enum": [
+            "none",
+            "base_if_neutral"
+          ]
+        }
+      },
+      "required": [
+        "base",
+        "supported",
+        "fallback"
+      ]
+    },
+    "entrypoints": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "recipe": {
+            "type": "string",
+            "pattern": "^recipes/[a-z0-9._-]+\\.json$"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "recipe"
+        ]
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scopes": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "enum": [
+              "observe",
+              "ui",
+              "clipboard",
+              "files.read",
+              "files.write",
+              "process",
+              "shell",
+              "admin"
+            ]
+          }
+        },
+        "effects": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "enum": [
+              "read_ui",
+              "input_ui",
+              "read_workspace",
+              "write_workspace",
+              "start_process",
+              "network_access",
+              "install_software",
+              "change_os_settings"
+            ]
+          }
+        },
+        "executables": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "network_origins": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "file_boundary": {
+          "type": "string",
+          "enum": [
+            "workspace",
+            "isolated_profile",
+            "admin_handler"
+          ]
+        }
+      },
+      "required": [
+        "scopes",
+        "effects",
+        "executables",
+        "network_origins",
+        "file_boundary"
+      ]
+    },
+    "dependencies": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]{0,119}$"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ]
+      }
+    },
+    "files": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._/-]{0,179}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1048576
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "media_type": {
+            "type": "string",
+            "enum": [
+              "application/json",
+              "text/markdown"
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "bytes",
+          "sha256",
+          "media_type"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format",
+    "id",
+    "publisher",
+    "version",
+    "kind",
+    "target",
+    "locales",
+    "entrypoints",
+    "permissions",
+    "dependencies",
+    "files"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "backup_verify",
+  "description": "Decrypts and checks a stored backup archive and says whether it is recent enough to cover a following change.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "backup_id": {
+        "type": "string",
+        "description": "Backup identifier returned by backup_plan or backup_create."
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [
+      "backup_id"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

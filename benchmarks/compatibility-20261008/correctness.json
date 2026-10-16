@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "startingCommit": "80d11038b76a16f4d837166fa8f956f49a8eddb0",
+  "implementation": "completed",
+  "route": "compact generated-cartridge compatibility and revision recovery",
+  "correctness": {
+    "desktopUiCasesPassed": 113,
+    "combinedJsCasesPassed": 140,
+    "optionalJsCasesSkipped": 1,
+    "pythonCasesPassed": 42,
+    "defaultLiveCasesSkipped": 3,
+    "repositoryStepsPassed": 18,
+    "repositoryStepExceptions": [
+      "existing dispatcher characterization"
+    ],
+    "startingCommitCharacterization": "Same failure reproduced from isolated unmodified starting-commit source",
+    "format": "passed",
+    "buildWarningsAsErrors": "passed"
+  },
+  "nativeAcceptance": {
+    "application": "native GTK delivery fixture",
+    "compatiblePatchDefinitionUnchanged": true,
+    "incompatibleWriterPreservesActualState": true,
+    "independentFunctionalReceiptAccepted": true,
+    "legacyMigratedThenRoutineVerified": true,
+    "independentOracle": "Direct worker AT-SPI through Python pyatspi",
+    "sharedProxyVerified": true,
+    "syntheticMetadataBuilds": true,
+    "buildProvenance": "Two explicitly synthetic metadata labels over the actual node; production version unchanged",
+    "nativeImplementationFingerprint": "5d08e2280796c582afb9456afc605857ba49b27c82918618a30ccde55a0b2f59",
+    "coordinatesUsed": false,
+    "image": "sha256:fdada6121566cf96ac095c0bf0a3e564fed47896856fe3c7d9a29228ac8e62a8",
+    "imageTreatment": "Existing pinned desktop; current readonly node/fixture binaries; correctness only"
+  },
+  "nativeScopePolicy": "Generated UI exact-build scope; native API policy requires an explicit tested range and function-specific read-only probes",
+  "negativeCoverage": [
+    "Changed implementation requires isolated functional acceptance",
+    "Missing required action, changed app variant/build/platform/wire or function scope refuses input",
+    "Unknown identities and missing historic v1 contract evidence remain unconfirmed for reuse",
+    "Caller passed flags, ordinary Info evidence, read-only writer tests, failed oracles and forged/foreign receipts rejected",
+    "CAS detects stale revisions and same-revision external file edits",
+    "Actual process exit before/after replace; corrupted temporary state explicitly recoverable",
+    "New workflow recipe hashes allow metadata-only accepted revisions without replay; edited bodies rejected",
+    "Future file formats and symbolic state rejected without rewriting the original"
+  ],
+  "performance": "pending",
+  "modelRuns": 0,
+  "modelUsage": null,
+  "savingsClaim": null,
+  "measurementPrerequisites": {
+    "infrastructure": "Docker reachable",
+    "applications": "No accepted image for current worker snapshot",
+    "modelBaseline": "Reviewed compatible authorized host adapter and explicit private budget unavailable"
+  },
+  "remainingAcceptance": [
+    "Prepared accepted measurement image",
+    "Matched bounded model-token comparison including repair/recapture",
+    "Native Windows/macOS qualification"
+  ]
+}

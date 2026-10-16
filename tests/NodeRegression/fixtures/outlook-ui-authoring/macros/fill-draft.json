@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "name": "outlook_fill_draft",
+  "description": "Fill the selected Outlook draft subject and body, and verify the exact text. Replaces those fields; does not set recipients, send, or save the draft.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Observed OUTLOOK process identifier.",
+      "required": true
+    },
+    {
+      "name": "window_title",
+      "type": "string",
+      "description": "Unique observed draft window; its title may change after editing the subject.",
+      "required": true
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Literal message text; Outlook omits a trailing paragraph break when reading its TextPattern.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}",
+        "role": "Edit",
+        "visible": true,
+        "enabled": true,
+        "limit": 2,
+        "auto_id": "4101"
+      },
+      "capture": "subject_field",
+      "expect_count": 1
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{subject_field.matches.0.Id}}",
+        "text": "{{subject}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}",
+        "role": "Document",
+        "visible": true,
+        "enabled": true,
+        "limit": 2
+      },
+      "capture": "body_field",
+      "expect_count": 1
+    },
+    {
+      "action": "mouse_click",
+      "args": {
+        "id": "{{body_field.matches.0.Id}}",
+        "button": "left"
+      }
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{body_field.matches.0.Id}}",
+        "text": "{{body}}",
+        "clear": true
+      }
+    }
+  ],
+  "postconditions": [
+    {
+      "pid": "{{pid}}",
+      "window_title": "{{window_title}}",
+      "auto_id": "4101",
+      "role": "Edit",
+      "expected_text": "{{subject}}",
+      "timeout_ms": 1000
+    },
+    {
+      "pid": "{{pid}}",
+      "window_title": "{{window_title}}",
+      "role": "Document",
+      "expected_text": "{{body}}",
+      "timeout_ms": 1000
+    }
+  ],
+  "sha256": ""
+}

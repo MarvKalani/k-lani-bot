@@ -1,0 +1,85 @@
+{
+  "format": "k-lani-bot.local-macro-bundle.v1",
+  "id": "k-lani-bot.orcaslicer",
+  "version": "1.0.0",
+  "target": {
+    "application": "OrcaSlicer",
+    "application_version": "2.4.2",
+    "tested_platform": "linux-x64",
+    "tested_os": "Ubuntu 24.04 X11/GTK3 container",
+    "tested_locale": "en-US",
+    "official_archive_sha256": "d12fb8c8eac1aecd2dfb6377acd48f994f8fa439ed5292fa532dd82880f029fd"
+  },
+  "entrypoints": [
+    {
+      "name": "inspect-ui",
+      "recipe": "macros/inspect-ui.json",
+      "risk": "secure",
+      "validation": "real_app_observation_tested",
+      "scopes": [
+        "observe"
+      ]
+    },
+    {
+      "name": "import-stl",
+      "recipe": "macros/import-stl-linux-en.json",
+      "risk": "probably_harmful",
+      "validation": "real_app_tested",
+      "scopes": [
+        "observe",
+        "ui"
+      ],
+      "effects": [
+        "read_ui",
+        "model.import",
+        "application.new_project",
+        "application.hotkey",
+        "file_picker_input"
+      ]
+    },
+    {
+      "name": "import-stl-fixture",
+      "recipe": "macros/import-stl-fixture.json",
+      "risk": "probably_harmful",
+      "validation": "fixture_tested",
+      "testing_only": true,
+      "scopes": [
+        "observe",
+        "ui"
+      ]
+    }
+  ],
+  "automatic_activation": false,
+  "release_approved": false,
+  "secured": false,
+  "effect_policy_enforced_by_node": false,
+  "limits": [
+    "Exact application identity/version is verified manually; Linux window enumeration reports unknown version.",
+    "Local ui authority is broader than these recipes. Resource/role-specific production broker is not implemented.",
+    "Final real import was accepted once; an earlier unexplained worker exit needs diagnosis.",
+    "No slicing, profile validity, printing, cloud, G-code, plugins, Windows/macOS or German-locale acceptance."
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "macros/inspect-ui.json",
+      "bytes": 519,
+      "sha256": "4cd633bb4499c8e82a18b7d08d36c354a4a6f2cfce705b60aca080feefe1dd66"
+    },
+    {
+      "path": "macros/import-stl-linux-en.json",
+      "bytes": 3466,
+      "sha256": "cca974891475f92b7531e0a6947689220cefe6886cba671674719de59921b101"
+    },
+    {
+      "path": "macros/import-stl-fixture.json",
+      "bytes": 1610,
+      "sha256": "9e1eec4e82ced31c0b78a60e9f2b0c52bbe8aafd63e51357c194ee73ee497933"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4696,
+      "sha256": "c1cf1ddc1d639bcb4f5fd19ed5beb4d4963b5c52de7467ade358c15355ca5c7c"
+    }
+  ]
+}

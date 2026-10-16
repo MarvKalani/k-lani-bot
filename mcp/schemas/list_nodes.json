@@ -1,0 +1,16 @@
+{
+  "name": "list_nodes",
+  "description": "Lists administratively registered nodes. Node registration is not model-controlled.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

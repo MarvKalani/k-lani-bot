@@ -1,0 +1,89 @@
+{
+  "name": "find_elements",
+  "description": "Searches the semantic tree on the node; reports ambiguous matches explicitly.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pid": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "title": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "name_contains": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256,
+        "description": "Case-insensitive part of the element name."
+      },
+      "auto_id": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
+      },
+      "timeout_ms": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 30000
+      },
+      "count": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 200,
+        "description": "Wait until exactly this many elements match; timeout_ms bounds the wait."
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 200
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      },
+      "visible": {
+        "type": "boolean",
+        "description": "Restrict to the observed visibility state. Re-observe before input; this filter is not a focus or OS security boundary."
+      },
+      "enabled": {
+        "type": "boolean",
+        "description": "Restrict to the observed enabled state."
+      },
+      "within": {
+        "type": "object",
+        "description": "Search only below the one element matching this role and name.",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "name_contains": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "description": "Case-insensitive part of the container name."
+          }
+        },
+        "required": [
+          "role"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

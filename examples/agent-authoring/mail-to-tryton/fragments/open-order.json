@@ -1,0 +1,200 @@
+{
+  "version": 2,
+  "name": "tryton_new_sale",
+  "description": "Opens Sales and starts a new draft sale for an existing customer with the reference; verifies both. Then tryton_add_sale_line per line and tryton_save_sale.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Tryton process from ui_info.",
+      "required": true
+    },
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Exact customer (party) name.",
+      "required": true
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "description": "Customer reference, e.g. the order number.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Window",
+        "count": 1,
+        "timeout_ms": 2000
+      },
+      "expect_count": 1
+    },
+    {
+      "action": "focus_window",
+      "args": {
+        "pid": "{{pid}}"
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Sales",
+        "role": "table cell"
+      },
+      "capture": "top"
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{top.matches.0.Id}}",
+        "focus_only": true
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "shift",
+          "right"
+        ]
+      }
+    },
+    {
+      "action": "wait_element",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Reporting",
+        "role": "table cell",
+        "state": "visible",
+        "timeout_ms": 3000
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Sales",
+        "role": "table cell",
+        "count": 3,
+        "timeout_ms": 3000
+      },
+      "capture": "entries",
+      "expect_count": 3
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{entries.matches.1.Id}}",
+        "focus_only": true
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "enter"
+        ]
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "New",
+        "role": "Button",
+        "visible": true,
+        "count": 1,
+        "timeout_ms": 5000
+      },
+      "capture": "new",
+      "expect_count": 1
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{new.matches.0.Id}}"
+      }
+    },
+    {
+      "action": "wait_element",
+      "args": {
+        "pid": "{{pid}}",
+        "name": "Party:",
+        "role": "label",
+        "state": "visible",
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Edit",
+        "visible": true,
+        "limit": 60
+      },
+      "capture": "form",
+      "expect_count": 20
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{form.matches.19.Id}}",
+        "text": "{{customer}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "click_element",
+      "args": {
+        "id": "{{form.matches.19.Id}}",
+        "focus_only": true
+      }
+    },
+    {
+      "action": "hotkey",
+      "args": {
+        "keys": [
+          "tab"
+        ]
+      }
+    },
+    {
+      "action": "type_text",
+      "args": {
+        "id": "{{form.matches.11.Id}}",
+        "text": "{{reference}}",
+        "clear": true
+      }
+    },
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "role": "Edit",
+        "visible": true,
+        "limit": 60,
+        "timeout_ms": 1000
+      },
+      "capture": "after",
+      "expect_count": 20
+    }
+  ],
+  "postconditions": [
+    {
+      "id": "{{after.matches.11.Id}}",
+      "expected_text": "{{reference}}",
+      "timeout_ms": 2000
+    },
+    {
+      "id": "{{after.matches.19.Id}}",
+      "expected_text": "{{customer}}",
+      "timeout_ms": 2000
+    }
+  ]
+}

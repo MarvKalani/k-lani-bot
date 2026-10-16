@@ -1,0 +1,9 @@
+{
+  "codexExecutable": "/absolute/path/to/current/codex",
+  "nodeExecutable": "/absolute/path/to/k-lani-bot-node",
+  "fixtureExecutable": "/absolute/path/to/k-lani-bot-cartridge-lab",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "medium",
+  "timeoutMs": 300000,
+  "repetitions": 3
+}

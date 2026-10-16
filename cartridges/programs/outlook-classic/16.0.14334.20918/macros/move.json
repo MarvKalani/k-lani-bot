@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "outlook_move",
+  "description": "Move a reviewed mail to an observed folder; verify source, unchanged content and the fresh destination identity.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "entry_id",
+      "type": "string",
+      "description": "Previously observed mail EntryID.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "Observed mailbox StoreID.",
+      "required": true
+    },
+    {
+      "name": "expected_folder_id",
+      "type": "string",
+      "description": "Expected current source folder EntryID.",
+      "required": true
+    },
+    {
+      "name": "destination_folder_id",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "expected_content_sha256",
+      "type": "string",
+      "description": "ContentSha256 from the completely read and reviewed mail.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "operate_application",
+      "args": {
+        "pid": "{{pid}}",
+        "operation": "Move",
+        "entry_id": "{{entry_id}}",
+        "store_id": "{{store_id}}",
+        "expected_folder_id": "{{expected_folder_id}}",
+        "destination_folder_id": "{{destination_folder_id}}",
+        "expected_content_sha256": "{{expected_content_sha256}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

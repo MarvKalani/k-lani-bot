@@ -1,0 +1,54 @@
+{
+  "version": 2,
+  "name": "outlook_folders",
+  "description": "Read one page of children of an identified folder; no coordinate or localized-label selection.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "",
+      "required": false,
+      "default": 20
+    }
+  ],
+  "steps": [
+    {
+      "action": "inspect_application",
+      "args": {
+        "pid": "{{pid}}",
+        "area": "Folders",
+        "folder_id": "{{folder_id}}",
+        "store_id": "{{store_id}}",
+        "offset": "{{offset}}",
+        "limit": "{{limit}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

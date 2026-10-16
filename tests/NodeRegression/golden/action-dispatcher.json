@@ -1,0 +1,5356 @@
+{
+  "scenarios": {
+    "mutation_succeeds": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of the click",
+          "action": "get_action_status",
+          "response": {
+            "success": true,
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "replayed": true
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "read_only_action": {
+      "steps": [
+        {
+          "step": "read the tree",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of an unknown id",
+          "action": "get_action_status",
+          "response": {
+            "success": false,
+            "outcome": "unknown",
+            "error": "No recorded result. This does not prove that an action did not occur before a worker restart.",
+            "code": "unknown_operation"
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "same_id_is_replayed": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "first click",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "same click again",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 3>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "replayed": true
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "same_id_with_other_content": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "first click",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "same id, other arguments",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Operation identifier reused with different content.",
+            "code": "invalid_request"
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "action": "click_element",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "Operation identifier reused with different content.",
+              "timestamp": "<timestamp>"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of the id",
+          "action": "get_action_status",
+          "response": {
+            "success": true,
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "replayed": true
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "missing_scope": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click without the ui scope",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Capability 'ui' denied.",
+            "code": "denied"
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "action": "click_element",
+              "principal_id": "reader",
+              "session_id": "session-rrrrrrrrrrrr",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "Capability 'ui' denied.",
+              "timestamp": "<timestamp>"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of the id",
+          "action": "get_action_status",
+          "response": {
+            "success": false,
+            "outcome": "unknown",
+            "error": "No recorded result. This does not prove that an action did not occur before a worker restart.",
+            "code": "unknown_operation"
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "guard_rejection": {
+      "steps": [
+        {
+          "step": "raw key chord under the guard",
+          "action": "hotkey",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Node guard blocks raw keys, coordinates, shell and process authority in guarded mode.",
+            "code": "denied"
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "action": "hotkey",
+              "principal_id": "guarded",
+              "session_id": "session-gggggggggggg",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "Node guard blocks raw keys, coordinates, shell and process authority in guarded mode.",
+              "timestamp": "<timestamp>"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of the id",
+          "action": "get_action_status",
+          "response": {
+            "success": false,
+            "outcome": "unknown",
+            "error": "No recorded result. This does not prove that an action did not occur before a worker restart.",
+            "code": "unknown_operation"
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "stale_snapshot": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "<id 2>-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "<id 2>-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "<id 2>.json"
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "<id 2>-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "<id 2>-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 4
+          }
+        },
+        {
+          "step": "click with an unknown snapshot",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Stale target snapshot.",
+            "code": "invalid_request",
+            "trace_file": "rejected/019b796d-d600-7001-8000-000000000000.json"
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "action": "click_element",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "Stale target snapshot.",
+              "timestamp": "<timestamp>"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 4
+          }
+        },
+        {
+          "step": "same click again",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Stale target snapshot.",
+            "code": "invalid_request",
+            "trace_error": "The file '<temp>/golden-stale_snapshot-state/action-traces/rejected/019b796d-d600-7001-8000-000000000000.json' already exists."
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "action": "click_element",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "Stale target snapshot.",
+              "timestamp": "<timestamp>"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 4
+          }
+        }
+      ]
+    },
+    "lease_held_by_another_session": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "<id 2>-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "<id 2>-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "<id 2>.json"
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "<id 2>-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "<id 2>-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 4
+          }
+        },
+        {
+          "step": "click from the second session",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "code": "denied",
+            "outcome": "not_dispatched",
+            "error": "Desktop leased to another session.",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-bbbbbbbbbbbb",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Desktop leased to another session.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "019b796d-d600-7001-8000-000000000000.json"
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-bbbbbbbbbbbb",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-bbbbbbbbbbbb",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Desktop leased to another session.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 5
+          }
+        },
+        {
+          "step": "status of the id",
+          "action": "get_action_status",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-bbbbbbbbbbbb",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Desktop leased to another session.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "replayed": true
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 5
+          }
+        }
+      ]
+    },
+    "unsupported_backend_feature": {
+      "steps": [
+        {
+          "step": "read the clipboard",
+          "action": "get_clipboard",
+          "response": {
+            "success": false,
+            "code": "unsupported",
+            "outcome": "not_dispatched",
+            "error": "Backend capability 'clipboard' is unavailable.",
+            "receipt": {
+              "operation_id": "<id 1>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "get_clipboard",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": "Backend capability 'clipboard' is unavailable.",
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "<id 1>.json"
+          },
+          "journal": [
+            {
+              "operation_id": "<id 1>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "get_clipboard",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": "Backend capability 'clipboard' is unavailable.",
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 2
+          }
+        }
+      ]
+    },
+    "consent_missing": {
+      "steps": [
+        {
+          "step": "tree before the person approved",
+          "action": "get_ui_tree",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Approve this session locally from the k-lani-bot tray/menu. No OS action dispatched.",
+            "code": "consent_required"
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click before the person approved",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Approve this session locally from the k-lani-bot tray/menu. No OS action dispatched.",
+            "code": "consent_required"
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ],
+      "visibility_events": [
+        {
+          "event": "session_connected",
+          "session_key": "operator:session-aaaaaaaaaaaa",
+          "action": null,
+          "request_id": "<id 1>",
+          "timestamp": "<timestamp>"
+        },
+        {
+          "event": "consent_requested",
+          "session_key": "operator:session-aaaaaaaaaaaa",
+          "action": null,
+          "request_id": "<id 2>",
+          "timestamp": "<timestamp>"
+        }
+      ]
+    },
+    "postcondition_met": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click with a postcondition that holds",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "verification": {
+              "success": true,
+              "message": "checked",
+              "details": null
+            },
+            "outcome": "verified",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "verified",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "verified",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "postcondition_not_met": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click with a postcondition that fails",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "message": "invoked",
+            "verification": {
+              "success": false,
+              "message": "checked",
+              "details": null
+            },
+            "outcome": "postcondition_failed",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "postcondition_failed",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "postcondition_failed",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "modal_dialog_decision": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "<id 2>-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "<id 2>-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "<id 2>.json"
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "<id 2>-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "<id 2>-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 4
+          }
+        },
+        {
+          "step": "click on a modal target, default policy",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "code": "invalid_request",
+            "outcome": "not_dispatched",
+            "error": "Synthetic target blocked before input.",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "019b796d-d600-7001-8000-000000000000-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "019b796d-d600-7001-8000-000000000000-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Synthetic target blocked before input.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "019b796d-d600-7001-8000-000000000000.json"
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "019b796d-d600-7001-8000-000000000000-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "019b796d-d600-7001-8000-000000000000-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Synthetic target blocked before input.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 4,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 7
+          }
+        },
+        {
+          "step": "click on a modal target without a decision",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "code": "invalid_request",
+            "outcome": "not_dispatched",
+            "error": "Synthetic target blocked before input.",
+            "receipt": {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "019b796d-d600-7002-8000-000000000000-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "019b796d-d600-7002-8000-000000000000-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 3>",
+              "success": false,
+              "error": "Synthetic target blocked before input.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "019b796d-d600-7002-8000-000000000000.json"
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 3>",
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "not_dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "019b796d-d600-7002-8000-000000000000-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "019b796d-d600-7002-8000-000000000000-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 3>",
+              "success": false,
+              "error": "Synthetic target blocked before input.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 6,
+            "prepare_calls": 2,
+            "launches": 0,
+            "trace_files": 10
+          }
+        },
+        {
+          "step": "click on a modal target with a decision, no advisor",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "This unclear dialog is left to the person at the machine; nothing was performed. Hand control back instead of operating it.",
+            "code": "denied",
+            "dialog_class": "unclear",
+            "decider": "person",
+            "trace_file": "rejected/019b796d-d600-7003-8000-000000000000.json"
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "action": "click_element",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "This unclear dialog is left to the person at the machine; nothing was performed. Hand control back instead of operating it.",
+              "timestamp": "<timestamp>",
+              "dialog_class": "unclear",
+              "decider": "person",
+              "evidence": {
+                "available": false
+              }
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 6,
+            "prepare_calls": 2,
+            "launches": 0,
+            "trace_files": 10
+          }
+        },
+        {
+          "step": "click on a modal target with a decision",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "019b796d-d600-7004-8000-000000000000-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "019b796d-d600-7004-8000-000000000000-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 5>",
+              "decision": {
+                "severity": "Medium",
+                "occasion": "Synthetic certificate dialog",
+                "choice": "Accept the approved fixture certificate",
+                "reason": "Fixture issuer matches.",
+                "expected_result": "Fixture dialog closes",
+                "assessment_source": "agent"
+              },
+              "decision_result": {
+                "outcome": "dispatched",
+                "verified": false
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_file": "019b796d-d600-7004-8000-000000000000.json"
+          },
+          "journal": [
+            {
+              "event": "agent_decision_planned",
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "decision": {
+                "severity": "Medium",
+                "occasion": "Synthetic certificate dialog",
+                "choice": "Accept the approved fixture certificate",
+                "reason": "Fixture issuer matches.",
+                "expected_result": "Fixture dialog closes",
+                "assessment_source": "agent"
+              },
+              "dialog_class": "unclear",
+              "evidence": {
+                "available": false
+              },
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 5>",
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before": {
+                  "file": "019b796d-d600-7004-8000-000000000000-before.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                },
+                "after": {
+                  "file": "019b796d-d600-7004-8000-000000000000-after.png",
+                  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+                  "bytes": 68
+                }
+              },
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 5>",
+              "decision": {
+                "severity": "Medium",
+                "occasion": "Synthetic certificate dialog",
+                "choice": "Accept the approved fixture certificate",
+                "reason": "Fixture issuer matches.",
+                "expected_result": "Fixture dialog closes",
+                "assessment_source": "agent"
+              },
+              "decision_result": {
+                "outcome": "dispatched",
+                "verified": false
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 8,
+            "prepare_calls": 3,
+            "launches": 0,
+            "trace_files": 13
+          }
+        }
+      ]
+    },
+    "failure_after_handoff": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click that fails after the hand-off",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "code": "invalid_request",
+            "outcome": "unknown",
+            "error": "Synthetic failure after dispatch.",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Synthetic failure after dispatch.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "Synthetic failure after dispatch.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "same click again",
+          "action": "click_element",
+          "response": {
+            "success": false,
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 3>",
+              "success": false,
+              "error": "Synthetic failure after dispatch.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "replayed": true
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of the id",
+          "action": "get_action_status",
+          "response": {
+            "success": false,
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 3>",
+              "success": false,
+              "error": "Synthetic failure after dispatch.",
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "replayed": true
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "trace_cannot_be_written": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists.",
+                "after_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists."
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_error": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists."
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists.",
+                "after_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists."
+              },
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 2,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click while the trace cannot be saved",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists.",
+                "after_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists."
+              },
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            "trace_error": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists."
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "screenshots": {
+                "before_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists.",
+                "after_unavailable": "The file '<temp>/golden-trace_cannot_be_written-state/action-traces' already exists."
+              },
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 4,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "classifier_veto": {
+      "steps": [
+        {
+          "step": "launch the approved program, classifier blocks",
+          "action": "launch_process",
+          "response": {
+            "success": false,
+            "outcome": "not_dispatched",
+            "error": "Optional node classifier vetoed or abstained; no operation dispatched. Local rules cannot be overridden by classifier output.",
+            "code": "denied"
+          },
+          "journal": [
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "action": "launch_process",
+              "principal_id": "desktop",
+              "session_id": "session-dddddddddddd",
+              "success": false,
+              "outcome": "not_dispatched",
+              "error": "Optional node classifier vetoed or abstained; no operation dispatched. Local rules cannot be overridden by classifier output.",
+              "timestamp": "<timestamp>"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "status of the id",
+          "action": "get_action_status",
+          "response": {
+            "success": false,
+            "outcome": "unknown",
+            "error": "No recorded result. This does not prove that an action did not occur before a worker restart.",
+            "code": "unknown_operation"
+          },
+          "journal": [],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "macro_stops_halfway": {
+      "steps": [
+        {
+          "step": "save the macro",
+          "action": "save_macro",
+          "response": {
+            "success": true,
+            "message": "Immutable macro version saved.",
+            "macro": {
+              "version": 2,
+              "name": "two-steps",
+              "description": "",
+              "parameters": [],
+              "steps": [
+                {
+                  "action": "get_ui_tree",
+                  "args": {}
+                },
+                {
+                  "action": "fs_read_file",
+                  "args": {
+                    "path": "missing.txt"
+                  }
+                }
+              ],
+              "postconditions": [],
+              "sha256": "a2f2606d158d6a26908768ecbdb92cf36c49a039c77cfd1fb56d1d71fe46d3ab"
+            },
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "save_macro",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 1>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 1>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "save_macro",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "save_macro",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 1>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "run the macro",
+          "action": "run_macro",
+          "response": {
+            "success": false,
+            "outcome": "partial",
+            "sha256": "a2f2606d158d6a26908768ecbdb92cf36c49a039c77cfd1fb56d1d71fe46d3ab",
+            "run_id": "<id 1>",
+            "steps_completed": 2,
+            "failed_step": 2,
+            "trace_available": false,
+            "receipt": {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 2>",
+              "action": "run_macro",
+              "duration_ms": 0,
+              "outcome": "partial",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "run_macro",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "<id 3>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 2>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 2>",
+              "action": "fs_read_file",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": "File not found: <temp>/golden-macro_stops_halfway-workspace/missing.txt",
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 2>",
+              "action": "run_macro",
+              "duration_ms": 0,
+              "outcome": "partial",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "observation_tools": {
+      "steps": [
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 1>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 1>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "find a unique element",
+          "action": "find_elements",
+          "response": {
+            "success": true,
+            "snapshot_id": "<id 3>",
+            "matches": [
+              {
+                "Id": 2,
+                "Role": "Button",
+                "Name": "button",
+                "AutoId": "",
+                "Shortcut": null,
+                "IsEnabled": false,
+                "Value": null,
+                "IsOffscreen": false,
+                "Bounds": {}
+              }
+            ],
+            "total_matches": 1,
+            "ambiguous": false,
+            "truncated": false,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "find_elements",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "find_elements",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "find nothing",
+          "action": "find_elements",
+          "response": {
+            "success": true,
+            "snapshot_id": "<id 5>",
+            "matches": [],
+            "total_matches": 0,
+            "ambiguous": true,
+            "truncated": false,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 6>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 5>",
+              "action": "find_elements",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 6>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 5>",
+              "action": "find_elements",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "changes since the first tree",
+          "action": "get_ui_delta",
+          "response": {
+            "success": true,
+            "snapshot_id": "<id 7>",
+            "base_available": true,
+            "requires_full_observation": false,
+            "added": [],
+            "removed": [],
+            "truncated": false,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 8>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 7>",
+              "action": "get_ui_delta",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 8>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 7>",
+              "action": "get_ui_delta",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "changes since an unknown tree",
+          "action": "get_ui_delta",
+          "response": {
+            "success": true,
+            "snapshot_id": "<id 9>",
+            "base_available": false,
+            "requires_full_observation": true,
+            "added": [],
+            "removed": [],
+            "truncated": false,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 10>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 9>",
+              "action": "get_ui_delta",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 10>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 9>",
+              "action": "get_ui_delta",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "list chapters",
+          "action": "get_chapters",
+          "response": {
+            "success": true,
+            "chapters": "[K1] panel",
+            "snapshot_id": "<id 11>",
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 12>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 9>",
+              "action": "get_chapters",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 12>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 9>",
+              "action": "get_chapters",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "inspect a chapter",
+          "action": "inspect_section",
+          "response": {
+            "success": true,
+            "sectionTree": "[6] Button button",
+            "snapshot_id": "<id 13>",
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 14>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 13>",
+              "action": "inspect_section",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 14>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 13>",
+              "action": "inspect_section",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "wait for an element",
+          "action": "wait_element",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "element": null,
+            "snapshot_id": "<id 15>",
+            "outcome": "failed",
+            "receipt": {
+              "operation_id": "<id 16>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "wait_element",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 16>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "wait_element",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "verify an element",
+          "action": "verify_element",
+          "response": {
+            "success": true,
+            "message": "checked",
+            "verification": null,
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 17>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "verify_element",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 17>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "verify_element",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "take a screenshot",
+          "action": "take_screenshot",
+          "response": {
+            "success": true,
+            "message": "fixture",
+            "image": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=",
+            "mime_type": "image/png",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 18>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "take_screenshot",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 18>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "take_screenshot",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 1,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "list the modules",
+          "action": "list_available_mcps",
+          "response": {
+            "success": true,
+            "modules": [
+              "semanticInspect",
+              "semanticInvoke",
+              "textInjection",
+              "screenshot",
+              "windows",
+              "windowControl",
+              "physicalInput",
+              "backgroundInvoke",
+              "clipboard"
+            ],
+            "allowed_scopes": [
+              "observe",
+              "ui",
+              "process",
+              "clipboard",
+              "files.read",
+              "files.write",
+              "macro.write"
+            ],
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 19>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "list_available_mcps",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 19>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "list_available_mcps",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 1,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "describe the machine",
+          "action": "get_machine_capabilities",
+          "response": {
+            "success": true,
+            "capabilities": {
+              "nodeId": "golden-node",
+              "version": "<node-version>",
+              "desktopSession": null,
+              "windowInteraction": "Foreground",
+              "modalDialogs": "Pause",
+              "postconditionRequired": false,
+              "dialogDeciders": {
+                "routine": "agent",
+                "securityException": "person",
+                "dataLoss": "person",
+                "unclear": "person"
+              },
+              "features": [
+                "semanticInspect",
+                "semanticInvoke",
+                "textInjection",
+                "screenshot",
+                "windows",
+                "windowControl",
+                "physicalInput",
+                "backgroundInvoke",
+                "clipboard"
+              ],
+              "formCapabilities": {
+                "Metadata": "Unsupported",
+                "Options": "Unsupported",
+                "Selection": "Unsupported"
+              },
+              "activeTools": [
+                "get_machine_capabilities",
+                "list_available_mcps",
+                "list_windows",
+                "get_ui_tree",
+                "get_chapters",
+                "inspect_section",
+                "find_elements",
+                "get_ui_delta",
+                "focus_window",
+                "close_window",
+                "get_window_geometry",
+                "set_window_geometry",
+                "click_element",
+                "silent_click",
+                "type_text",
+                "take_screenshot",
+                "mouse_move",
+                "mouse_click",
+                "drag_and_drop",
+                "hotkey",
+                "launch_process",
+                "wait_element",
+                "verify_element",
+                "get_clipboard",
+                "set_clipboard",
+                "paste_clipboard",
+                "list_macros",
+                "save_macro",
+                "run_macro",
+                "fs_list_directory",
+                "fs_read_file",
+                "fs_write_file",
+                "fs_search_files",
+                "fs_get_metadata",
+                "get_action_status",
+                "end_session",
+                "get_macro",
+                "get_macro_trace"
+              ],
+              "uiGuardMode": "Desktop",
+              "classifier_veto_enabled": false,
+              "semanticDataTrust": "untrusted",
+              "executionBoundary": "isolated OS account or sandbox required",
+              "platform": "fixture"
+            },
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 20>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "get_machine_capabilities",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 20>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 15>",
+              "action": "get_machine_capabilities",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 1,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "end the session",
+          "action": "end_session",
+          "response": {
+            "success": true,
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "end_session",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 13>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 13>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "end_session",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "end_session",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 13>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 1,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "the lease is free for another session",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 21>",
+            "tree": "[7] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 22>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-bbbbbbbbbbbb",
+              "snapshot_id": "<id 21>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 22>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-bbbbbbbbbbbb",
+              "snapshot_id": "<id 21>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 1,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "window_and_input_tools": {
+      "steps": [
+        {
+          "step": "list windows",
+          "action": "list_windows",
+          "response": {
+            "success": true,
+            "count": 0,
+            "windows": [],
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 1>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "list_windows",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 1>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "list_windows",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "focus a window",
+          "action": "focus_window",
+          "response": {
+            "success": false,
+            "message": "The target window could not be brought to the foreground",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "focus_window",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "focus_window",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "focus_window",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "read a window's geometry",
+          "action": "get_window_geometry",
+          "response": {
+            "success": false,
+            "message": "Target window not found",
+            "outcome": "failed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "get_window_geometry",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "get_window_geometry",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "change a window's geometry",
+          "action": "set_window_geometry",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "geometry": null,
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "set_window_geometry",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 4>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 4>",
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "set_window_geometry",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "set_window_geometry",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 4>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "close a window",
+          "action": "close_window",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "close_window",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7003-8000-000000000000",
+              "request_hash": "<hash of request 5>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7003-8000-000000000000",
+              "request_hash": "<hash of request 5>",
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "close_window",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "close_window",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7003-8000-000000000000",
+              "request_hash": "<hash of request 5>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "move the mouse",
+          "action": "mouse_move",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "mouse_move",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 6>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 6>",
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "mouse_move",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "mouse_move",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 6>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "drag and drop",
+          "action": "drag_and_drop",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7005-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "drag_and_drop",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7005-8000-000000000000",
+              "request_hash": "<hash of request 7>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7005-8000-000000000000",
+              "request_hash": "<hash of request 7>",
+              "operation_id": "019b796d-d600-7005-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "drag_and_drop",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7005-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "drag_and_drop",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7005-8000-000000000000",
+              "request_hash": "<hash of request 7>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "press a chord",
+          "action": "hotkey",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7006-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "hotkey",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7006-8000-000000000000",
+              "request_hash": "<hash of request 8>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7006-8000-000000000000",
+              "request_hash": "<hash of request 8>",
+              "operation_id": "019b796d-d600-7006-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "hotkey",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7006-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "hotkey",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7006-8000-000000000000",
+              "request_hash": "<hash of request 8>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 3>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click without the mouse",
+          "action": "silent_click",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7007-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "silent_click",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7007-8000-000000000000",
+              "request_hash": "<hash of request 10>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7007-8000-000000000000",
+              "request_hash": "<hash of request 10>",
+              "operation_id": "019b796d-d600-7007-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "silent_click",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7007-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "silent_click",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7007-8000-000000000000",
+              "request_hash": "<hash of request 10>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click at a point",
+          "action": "mouse_click",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "clickInfo": null,
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7008-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "mouse_click",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7008-8000-000000000000",
+              "request_hash": "<hash of request 11>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7008-8000-000000000000",
+              "request_hash": "<hash of request 11>",
+              "operation_id": "019b796d-d600-7008-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "mouse_click",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7008-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "mouse_click",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7008-8000-000000000000",
+              "request_hash": "<hash of request 11>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 1,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "type text",
+          "action": "type_text",
+          "response": {
+            "success": true,
+            "message": "typed",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7009-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "type_text",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7009-8000-000000000000",
+              "request_hash": "<hash of request 12>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7009-8000-000000000000",
+              "request_hash": "<hash of request 12>",
+              "operation_id": "019b796d-d600-7009-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "type_text",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7009-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "type_text",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7009-8000-000000000000",
+              "request_hash": "<hash of request 12>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 1,
+            "screenshots": 0,
+            "prepare_calls": 2,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "click in the background",
+          "action": "click_element",
+          "response": {
+            "success": true,
+            "message": "invoked",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-700a-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-700a-8000-000000000000",
+              "request_hash": "<hash of request 13>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "BackgroundSemantic"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-700a-8000-000000000000",
+              "request_hash": "<hash of request 13>",
+              "operation_id": "019b796d-d600-700a-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "click_element",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-700a-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "click_element",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-700a-8000-000000000000",
+              "request_hash": "<hash of request 13>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "BackgroundSemantic"
+            }
+          ],
+          "desktop": {
+            "clicks": 2,
+            "screenshots": 0,
+            "prepare_calls": 3,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "type text in the background",
+          "action": "type_text",
+          "response": {
+            "success": true,
+            "message": "semantic",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-700b-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "type_text",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-700b-8000-000000000000",
+              "request_hash": "<hash of request 14>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "BackgroundSemantic"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-700b-8000-000000000000",
+              "request_hash": "<hash of request 14>",
+              "operation_id": "019b796d-d600-700b-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "type_text",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-700b-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 3>",
+              "action": "type_text",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-700b-8000-000000000000",
+              "request_hash": "<hash of request 14>",
+              "success": true,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "BackgroundSemantic"
+            }
+          ],
+          "desktop": {
+            "clicks": 2,
+            "screenshots": 0,
+            "prepare_calls": 4,
+            "launches": 0,
+            "trace_files": 0
+          }
+        }
+      ]
+    },
+    "files_clipboard_process_and_macro_tools": {
+      "steps": [
+        {
+          "step": "write a file",
+          "action": "fs_write_file",
+          "response": {
+            "success": true,
+            "message": "File written.",
+            "path": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+            "sizeBytes": 5,
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_write_file",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 1>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 1>",
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "fs_write_file",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7001-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_write_file",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7001-8000-000000000000",
+              "request_hash": "<hash of request 1>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "write it again without overwrite",
+          "action": "fs_write_file",
+          "response": {
+            "success": false,
+            "error": "File already exists. Set overwrite=true to replace it: <temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_write_file",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "File already exists. Set overwrite=true to replace it: <temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "fs_write_file",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7002-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_write_file",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7002-8000-000000000000",
+              "request_hash": "<hash of request 2>",
+              "success": false,
+              "error": "File already exists. Set overwrite=true to replace it: <temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "list the workspace",
+          "action": "fs_list_directory",
+          "response": {
+            "success": true,
+            "currentDirectory": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace",
+            "totalCount": 1,
+            "entries": [
+              {
+                "name": "notes.txt",
+                "path": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+                "isDirectory": false,
+                "size": 5,
+                "lastModified": "<timestamp>"
+              }
+            ],
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 1>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_list_directory",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 1>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_list_directory",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "read the file",
+          "action": "fs_read_file",
+          "response": {
+            "success": true,
+            "path": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+            "sizeBytes": 5,
+            "content": "hello",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_read_file",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 2>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_read_file",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "search the workspace",
+          "action": "fs_search_files",
+          "response": {
+            "success": true,
+            "searchPath": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace",
+            "pattern": "*.txt",
+            "count": 1,
+            "files": [
+              {
+                "name": "notes.txt",
+                "path": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+                "size": 5,
+                "lastModified": "<timestamp>"
+              }
+            ],
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 3>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_search_files",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 3>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_search_files",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "read the file's metadata",
+          "action": "fs_get_metadata",
+          "response": {
+            "success": true,
+            "exists": true,
+            "path": "<temp>/golden-files_clipboard_process_and_macro_tools-workspace/notes.txt",
+            "isDirectory": false,
+            "sizeBytes": 5,
+            "creationTime": "<timestamp>",
+            "lastWriteTime": "<timestamp>",
+            "attributes": "Normal",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_get_metadata",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 4>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "fs_get_metadata",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "set the clipboard",
+          "action": "set_clipboard",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "set_clipboard",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7003-8000-000000000000",
+              "request_hash": "<hash of request 7>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7003-8000-000000000000",
+              "request_hash": "<hash of request 7>",
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "set_clipboard",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7003-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "set_clipboard",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7003-8000-000000000000",
+              "request_hash": "<hash of request 7>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "read the clipboard",
+          "action": "get_clipboard",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "text": "",
+            "outcome": "failed",
+            "receipt": {
+              "operation_id": "<id 5>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "get_clipboard",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 5>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "",
+              "action": "get_clipboard",
+              "duration_ms": 0,
+              "outcome": "failed",
+              "timestamp": "<timestamp>",
+              "success": false,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "observe",
+          "action": "get_ui_tree",
+          "response": {
+            "success": true,
+            "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+            "snapshot_id": "<id 6>",
+            "tree": "[1] Button button",
+            "truncated": false,
+            "total_lines": 1,
+            "data_trust": "untrusted",
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 7>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 7>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "paste the clipboard",
+          "action": "paste_clipboard",
+          "response": {
+            "success": false,
+            "message": "unsupported",
+            "outcome": "unknown",
+            "receipt": {
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "paste_clipboard",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 10>",
+              "success": false,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 10>",
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "paste_clipboard",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7004-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "paste_clipboard",
+              "duration_ms": 0,
+              "outcome": "unknown",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7004-8000-000000000000",
+              "request_hash": "<hash of request 10>",
+              "success": false,
+              "error": null,
+              "target_element_id": 1,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 0,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "launch the approved program",
+          "action": "launch_process",
+          "response": {
+            "success": true,
+            "message": "launched",
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7005-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "desktop",
+              "session_id": "session-dddddddddddd",
+              "snapshot_id": "<id 6>",
+              "action": "launch_process",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "desktop:019b796d-d600-7005-8000-000000000000",
+              "request_hash": "<hash of request 11>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "desktop:019b796d-d600-7005-8000-000000000000",
+              "request_hash": "<hash of request 11>",
+              "operation_id": "019b796d-d600-7005-8000-000000000000",
+              "principal_id": "desktop",
+              "session_id": "session-dddddddddddd",
+              "action": "launch_process",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7005-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "desktop",
+              "session_id": "session-dddddddddddd",
+              "snapshot_id": "<id 6>",
+              "action": "launch_process",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "desktop:019b796d-d600-7005-8000-000000000000",
+              "request_hash": "<hash of request 11>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 1,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "save a macro",
+          "action": "save_macro",
+          "response": {
+            "success": true,
+            "message": "Immutable macro version saved.",
+            "macro": {
+              "version": 2,
+              "name": "read-tree",
+              "description": "",
+              "parameters": [],
+              "steps": [
+                {
+                  "action": "get_ui_tree",
+                  "args": {}
+                }
+              ],
+              "postconditions": [],
+              "sha256": "df315c795d0cebd67ad690eb3d157d37837f5d7a71b71824a43c16e029b89fc8"
+            },
+            "outcome": "dispatched",
+            "receipt": {
+              "operation_id": "019b796d-d600-7006-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "save_macro",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7006-8000-000000000000",
+              "request_hash": "<hash of request 12>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7006-8000-000000000000",
+              "request_hash": "<hash of request 12>",
+              "operation_id": "019b796d-d600-7006-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "save_macro",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "019b796d-d600-7006-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "save_macro",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7006-8000-000000000000",
+              "request_hash": "<hash of request 12>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 1,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "list macros",
+          "action": "list_macros",
+          "response": {
+            "success": true,
+            "total": 1,
+            "offset": 0,
+            "next_offset": null,
+            "macros": [
+              {
+                "name": "read-tree",
+                "description": "",
+                "sha256": "df315c795d0cebd67ad690eb3d157d37837f5d7a71b71824a43c16e029b89fc8",
+                "parameters": [],
+                "step_count": 1,
+                "postcondition_count": 0,
+                "required_scopes": [
+                  "observe"
+                ]
+              }
+            ],
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 8>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "list_macros",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 8>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "list_macros",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 1,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "read a macro",
+          "action": "get_macro",
+          "response": {
+            "success": true,
+            "macro": {
+              "version": 2,
+              "name": "read-tree",
+              "description": "",
+              "parameters": [],
+              "steps": [
+                {
+                  "action": "get_ui_tree",
+                  "args": {}
+                }
+              ],
+              "postconditions": [],
+              "sha256": "df315c795d0cebd67ad690eb3d157d37837f5d7a71b71824a43c16e029b89fc8"
+            },
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 9>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "get_macro",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 9>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 6>",
+              "action": "get_macro",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 1,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "run the macro with a trace",
+          "action": "run_macro",
+          "response": {
+            "success": true,
+            "outcome": "dispatched",
+            "sha256": "df315c795d0cebd67ad690eb3d157d37837f5d7a71b71824a43c16e029b89fc8",
+            "run_id": "<id 10>",
+            "steps_completed": 1,
+            "failed_step": null,
+            "trace_available": true,
+            "receipt": {
+              "operation_id": "019b796d-d600-7007-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 11>",
+              "action": "run_macro",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7007-8000-000000000000",
+              "request_hash": "<hash of request 15>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_key": "operator:019b796d-d600-7007-8000-000000000000",
+              "request_hash": "<hash of request 15>",
+              "operation_id": "019b796d-d600-7007-8000-000000000000",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "action": "run_macro",
+              "outcome": "admitted",
+              "timestamp": "<timestamp>"
+            },
+            {
+              "operation_id": "<id 12>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 11>",
+              "action": "get_ui_tree",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            },
+            {
+              "operation_id": "019b796d-d600-7007-8000-000000000000",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 11>",
+              "action": "run_macro",
+              "duration_ms": 0,
+              "outcome": "dispatched",
+              "timestamp": "<timestamp>",
+              "operation_key": "operator:019b796d-d600-7007-8000-000000000000",
+              "request_hash": "<hash of request 15>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 1,
+            "trace_files": 0
+          }
+        },
+        {
+          "step": "read the macro's trace",
+          "action": "get_macro_trace",
+          "response": {
+            "success": true,
+            "run_id": "<id 10>",
+            "results": [
+              {
+                "success": true,
+                "state_fingerprint": "e5d28fe0c933d23b33863ebdeda72b42480b73a8d0da65b6b99b94b11feb4171",
+                "snapshot_id": "<id 11>",
+                "tree": "[2] Button button",
+                "truncated": false,
+                "total_lines": 1,
+                "data_trust": "untrusted",
+                "outcome": "completed",
+                "receipt": {
+                  "operation_id": "<id 12>",
+                  "node_id": "golden-node",
+                  "principal_id": "operator",
+                  "session_id": "session-aaaaaaaaaaaa",
+                  "snapshot_id": "<id 11>",
+                  "action": "get_ui_tree",
+                  "duration_ms": 0,
+                  "outcome": "completed",
+                  "timestamp": "<timestamp>",
+                  "success": true,
+                  "error": null,
+                  "target_element_id": null,
+                  "purpose": null,
+                  "master": null,
+                  "window_interaction": "Foreground"
+                }
+              }
+            ],
+            "total": 1,
+            "next_offset": null,
+            "truncated": false,
+            "outcome": "completed",
+            "receipt": {
+              "operation_id": "<id 13>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 11>",
+              "action": "get_macro_trace",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          },
+          "journal": [
+            {
+              "operation_id": "<id 13>",
+              "node_id": "golden-node",
+              "principal_id": "operator",
+              "session_id": "session-aaaaaaaaaaaa",
+              "snapshot_id": "<id 11>",
+              "action": "get_macro_trace",
+              "duration_ms": 0,
+              "outcome": "completed",
+              "timestamp": "<timestamp>",
+              "success": true,
+              "error": null,
+              "target_element_id": null,
+              "purpose": null,
+              "master": null,
+              "window_interaction": "Foreground"
+            }
+          ],
+          "desktop": {
+            "clicks": 0,
+            "screenshots": 0,
+            "prepare_calls": 0,
+            "launches": 1,
+            "trace_files": 0
+          }
+        }
+      ]
+    }
+  }
+}

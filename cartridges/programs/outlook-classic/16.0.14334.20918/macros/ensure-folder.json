@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "outlook_ensure_folder",
+  "description": "Create a missing mail folder under an observed parent or verify the existing same-name folder; returns a stable destination identity.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Bound by cartridge_info.",
+      "required": true
+    },
+    {
+      "name": "store_id",
+      "type": "string",
+      "description": "store id.",
+      "required": true
+    },
+    {
+      "name": "parent_folder_id",
+      "type": "string",
+      "description": "parent folder id.",
+      "required": true
+    },
+    {
+      "name": "folder_name",
+      "type": "string",
+      "description": "folder name.",
+      "required": true
+    }
+  ],
+  "steps": [
+    {
+      "action": "operate_application",
+      "args": {
+        "pid": "{{pid}}",
+        "operation": "CreateFolder",
+        "store_id": "{{store_id}}",
+        "parent_folder_id": "{{parent_folder_id}}",
+        "folder_name": "{{folder_name}}"
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

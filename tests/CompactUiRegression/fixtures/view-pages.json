@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "kind": "view-pages",
+  "steps": [
+    { "name": "a-first", "context": "a", "stamp": "a1", "records": [{"ref":"e1","name":"A","value":"Größe😀","offscreen":false}] },
+    { "name": "b-first", "context": "b", "stamp": "b1", "records": [{"ref":"e2","name":"B","value":"different"}] },
+    { "name": "a-again", "context": "a", "stamp": "a1", "records": [{"ref":"e1","name":"A","value":"Größe😀","offscreen":false}], "since": "a-first" },
+    { "name": "a-changed", "context": "a", "stamp": "a2", "records": [{"ref":"e1","name":"A","value":"new","offscreen":false}], "since": "a-first" },
+    { "name": "visibility-only", "context": "a", "stamp": "a3", "records": [{"ref":"e1","name":"A","value":"new","offscreen":true}], "since": "a-changed" },
+    { "name": "removed", "context": "a", "stamp": "a4", "records": [] },
+    { "name": "foreign-baseline", "context": "a", "stamp": "a5", "records": [], "since": "b-first" },
+    { "name": "expired-baseline", "context": "a", "stamp": "a6", "records": [], "since": "a-first" },
+    { "name": "many-first", "context": "many", "stamp": "many1", "count": 250 },
+    { "name": "incomplete-baseline", "context": "many", "stamp": "many1", "count": 250, "since": "many-first" },
+    { "name": "reset-many", "context": "many", "stamp": "many1", "count": 250, "options": {"full":true} },
+    { "name": "page-2", "context": "many", "stamp": "many1", "count": 250, "cursor": "reset-many" },
+    { "name": "page-3", "context": "many", "stamp": "many1", "count": 250, "cursor": "page-2" },
+    { "name": "page-4", "context": "many", "stamp": "many1", "count": 250, "cursor": "page-3" },
+    { "name": "page-5", "context": "many", "stamp": "many1", "count": 250, "cursor": "page-4" },
+    { "name": "many-delta", "context": "many", "stamp": "many1", "count": 250, "since": "page-5" },
+    { "name": "reset-stale", "context": "many", "stamp": "many1", "count": 250, "options": {"full":true} },
+    { "name": "foreign-cursor", "context": "other", "stamp": "many1", "count": 250, "cursor": "reset-stale" },
+    { "name": "changed-stamp", "context": "many", "stamp": "changed", "count": 250, "cursor": "reset-stale" },
+    { "name": "consumed-cursor", "context": "many", "stamp": "many1", "count": 250, "cursor": "page-4" },
+    { "name": "invalid-limit", "context": "many", "stamp": "many1", "count": 250, "options": {"limit":1.5} },
+    { "name": "null-limit", "context": "many", "stamp": "many1", "count": 250, "options": {"limit":null} },
+    { "name": "integer-lexeme", "context": "many", "stamp": "many1", "count": 250, "options": {"full":true,"limit":200.0} },
+    { "name": "different-limit", "context": "many", "stamp": "many1", "count": 250, "cursor": "integer-lexeme", "options": {"limit":50} },
+    { "name": "too-large", "context": "large", "stamp": "large1", "count": 10001 },
+    { "name": "empty-full", "context": "empty", "stamp": "empty1", "records": [] }
+  ]
+}

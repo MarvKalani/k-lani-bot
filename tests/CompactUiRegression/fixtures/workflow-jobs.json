@@ -1,0 +1,12 @@
+{
+  "kind":"workflow-jobs",
+  "cases":[
+    {"name":"created","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{"text":"PRIVATE_SYNTHETIC_RUNTIME_INPUT"}},
+    {"name":"restart","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{"text":"PRIVATE_SYNTHETIC_RUNTIME_INPUT"},"restart":true},
+    {"name":"checkpoint-restart","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{"text":"PRIVATE_SYNTHETIC_RUNTIME_INPUT"},"checkpoint":true,"restart":true},
+    {"name":"foreign-authority","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{"text":"PRIVATE_SYNTHETIC_RUNTIME_INPUT"},"foreign":true},
+    {"name":"request-conflict","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{"text":"PRIVATE_SYNTHETIC_RUNTIME_INPUT"},"request_conflict":true},
+    {"name":"missing-input","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{}},
+    {"name":"empty-explicit-input","request_id":"request-one","fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","parameters":{"text":""}}
+  ]
+}

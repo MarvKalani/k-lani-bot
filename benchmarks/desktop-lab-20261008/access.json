@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "startingCommit": "4eb518246ea5f3be736f1e4486f2019e3cb4ad2a",
+  "onboardingCommit": "949bb6f46639b098def1a55949e583b7ea88665e",
+  "implementation": "completed",
+  "connection": "verified",
+  "workerSourceDigest": "ed806d6ad349a4cf92e46cdc02c2ecb75290b94b87e6bc06a22530d3af4ddf8d",
+  "imageContentId": "sha256:fdada6121566cf96ac095c0bf0a3e564fed47896856fe3c7d9a29228ac8e62a8",
+  "verifierDigest": "f12f0fe203e340ea0e3ddc2e18b1dba067dea5e6b3e3867e00a80e42f3048bd0",
+  "applicationFingerprints": {
+    "converseen": {
+      "version": "0.12.1.0-1build2",
+      "sha256": "3ffa59b72d678379115b2435e3e4d7d1c06ee2e1a9b8fdc5a044b10d38d2af23"
+    },
+    "xarchiver": {
+      "version": "1:0.5.4.22-1build2",
+      "sha256": "721c019e597c0a94a6d94223d0a9d753a135e182ca65b28440ddf7ded76728a8"
+    },
+    "mousepad": {
+      "version": "0.6.1-1build2",
+      "sha256": "b536cd00a2164d271e48431e9d3b5c6836b150903eabf57f24e3a3a09e7b908c"
+    },
+    "libreoffice": {
+      "version": "4:24.2.7-0ubuntu0.24.04.7",
+      "sha256": "eef555c71025262c67274dc6e98d00168c2a2ce0fcd16473c38609ff3ce2ace9"
+    },
+    "pdftotext": {
+      "version": "24.02.0-1ubuntu9.9",
+      "sha256": "0fb98ea179e19154a90202608c164f2a319b79f16576fa6534b2d601033565e7"
+    },
+    "k-lani-bot-node": {
+      "sha256": "f89d66f28e724f294743762fd6bcd496eec7a1d3e303408dbdc5562ef7f4757b"
+    },
+    "k-lani-bot-cartridge-lab": {
+      "sha256": "dce8c2a6032ac3bb82f87ebc981cca1f3cfd3f21f9f41509d72d54694d67a19f"
+    },
+    "packages_sha256": "0d27d0c5f7c55708c749dd410f5bdad04dbd895b0c55f8eb61b659f12bf4ee97"
+  },
+  "applicationChecks": {
+    "webp": {
+      "status": "passed",
+      "detail": "Converseen persisted decodable WebP with original dimensions and alpha; no lossless claim"
+    },
+    "zip": {
+      "status": "passed",
+      "detail": "Xarchiver created ZIP; independently read exact entry and content"
+    },
+    "text_pdf": {
+      "status": "passed",
+      "detail": "Mousepad exposed actual text through AT-SPI; Poppler read generated PDF"
+    },
+    "spreadsheet": {
+      "status": "passed",
+      "detail": "LibreOffice Calc saved XLSX through UNO; independently read persisted cell"
+    }
+  },
+  "independentVerification": {
+    "status": "passed",
+    "detail": "Host oracle verified actual WebP, ZIP, extracted PDF text and persisted XLSX A1"
+  },
+  "node": {
+    "version": "0.2610.0609",
+    "platform": "linux-x11-atspi",
+    "transport": "pinned HTTPS/H2 with private Docker actuator"
+  },
+  "remoteCorrectness": {
+    "application": "Mousepad",
+    "verifiedCharacters": 16000,
+    "actualValueSha256": "cd9d22430fba843122724ba10521b792f8d7c4aee19b2783a75c4d62b194cf59",
+    "wrongOutputRejected": true,
+    "coordinatesUsed": false
+  },
+  "compactMeter": {
+    "tools": [
+      "ui_info",
+      "ui_observe",
+      "ui_act"
+    ],
+    "schemaResultBytes": "recorded privately",
+    "imagesCallsTiming": "recorded privately",
+    "tokenEstimation": false
+  },
+  "correctness": {
+    "pythonCasesPassed": 32,
+    "defaultLiveCasesSkipped": 1,
+    "explicitLiveDockerCasesPassed": 1,
+    "repositoryPublicationGuardChecksPassed": 89,
+    "nativeDynamicFormChecksPassed": 17,
+    "modalDialogChecksPassed": 24,
+    "format": "passed",
+    "buildWarningsAsErrors": "passed",
+    "existingNodeRegression": "Known dispatcher characterization failure reproduced from the original starting commit; unchanged"
+  },
+  "performance": "pending",
+  "currentChatInterval": "inconclusive",
+  "usageComplete": false,
+  "standaloneModelRuns": 0,
+  "usage": null,
+  "savingsClaim": null,
+  "apiCharge": null,
+  "missingPrerequisites": [
+    "Complete equivalent-context client usage for a matched task pair",
+    "Verified authentic native desktop Computer Use baseline and supported actions",
+    "Explicit private run budget for the bounded paired model profile"
+  ],
+  "limits": {
+    "maxSeconds": 600,
+    "maxModelRuns": 6,
+    "perModelRunSeconds": 90
+  },
+  "scope": "Connection and correctness evidence; existing-chat authoring and partial telemetry are not a scored performance comparison",
+  "optionalAutomatedAdapter": "Reviewed paired JSON-lines model client remains unbundled; current-client operation does not require it",
+  "optionalMail": "Pinned GreenMail image and live mail round-trip remain unverified"
+}

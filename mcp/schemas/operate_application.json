@@ -1,0 +1,125 @@
+{
+  "name": "operate_application",
+  "description": "Operate an explicitly identified native mail object. SetField saves the changed item. No arbitrary scripts or message sending; source-folder identities are checked.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pid": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      },
+      "operation": {
+        "type": "string",
+        "enum": [
+          "CreateDraft",
+          "SetField",
+          "Save",
+          "Move",
+          "Delete",
+          "Display",
+          "Close",
+          "CreateFolder"
+        ]
+      },
+      "entry_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "store_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "expected_folder_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "destination_folder_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "field": {
+        "type": "string",
+        "enum": [
+          "Subject",
+          "Body",
+          "HTMLBody",
+          "To",
+          "CC",
+          "BCC",
+          "Importance",
+          "Sensitivity",
+          "ReadReceiptRequested",
+          "OriginatorDeliveryReportRequested"
+        ]
+      },
+      "value": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 32768
+          },
+          "boolean": {
+            "type": "boolean"
+          },
+          "integer": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          }
+        },
+        "additionalProperties": false
+      },
+      "subject": {
+        "type": "string",
+        "maxLength": 512
+      },
+      "body": {
+        "type": "string",
+        "maxLength": 32768
+      },
+      "request_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      },
+      "next_steps": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "maxItems": 10
+      },
+      "expected_content_sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Content hash observed when reading the reviewed mail; Move refuses if it changed."
+      },
+      "parent_folder_id": {
+        "type": "string",
+        "maxLength": 4096
+      },
+      "folder_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "required": [
+      "pid",
+      "operation"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": false,
+    "openWorldHint": false
+  }
+}

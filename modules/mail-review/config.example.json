@@ -1,0 +1,22 @@
+{
+  "executable": "/absolute/path/to/current/codex",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "medium",
+  "timeoutMs": 300000,
+  "sorting": {
+    "sender_rules": [
+      {
+        "id": "confirmed-search-alerts",
+        "sender": "alerts@example.invalid",
+        "destination": "Werbung",
+        "approved": true
+      }
+    ]
+  },
+  "preferences": {
+    "important-sender@example.invalid": "Flag messages from this example sender for personal review.",
+    "requestedSearchAlerts": "Keep explicitly requested alerts separate from general promotions.",
+    "routineDigests": "Review personal and security messages before treating a digest as routine.",
+    "financialDocuments": "Preserve original invoices and related payment records for review."
+  }
+}

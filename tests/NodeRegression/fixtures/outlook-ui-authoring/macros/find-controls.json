@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "name": "outlook_find_controls",
+  "description": "Find Outlook controls by semantic identity; return every match and an explicit ambiguity flag. No clicks.",
+  "parameters": [
+    {
+      "name": "pid",
+      "type": "integer",
+      "description": "Observed OUTLOOK process identifier.",
+      "required": true
+    },
+    {
+      "name": "window_title",
+      "type": "string",
+      "description": "",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "auto_id",
+      "type": "string",
+      "description": "",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "steps": [
+    {
+      "action": "find_elements",
+      "args": {
+        "pid": "{{pid}}",
+        "title": "{{window_title}}",
+        "name": "{{name}}",
+        "auto_id": "{{auto_id}}",
+        "role": "{{role}}",
+        "limit": 50
+      }
+    }
+  ],
+  "postconditions": [],
+  "sha256": ""
+}

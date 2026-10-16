@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "freshBrowserProcess": true,
+  "frontendRestarted": true,
+  "hotDiscovery": [
+    "editor.open",
+    "editor.write_text"
+  ],
+  "directCall": {
+    "success": true,
+    "function": "editor.write_text",
+    "completed_steps": 1,
+    "verified": true,
+    "outputs": {
+      "result": "Second access: direct MCP after restart."
+    }
+  },
+  "returnedBytes": 147,
+  "modelImages": 0,
+  "tokenUsage": null,
+  "scope": "Real Linux node/native accessibility; learning and reuse across browser and MCP frontend restart. No model token measurement."
+}

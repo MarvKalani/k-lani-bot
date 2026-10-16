@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-labelledby="title">
+  <title id="title">k-lani-bot – Kristall-Sternchen mit zwei Augen</title>
+  <defs>
+    <radialGradient id="eye">
+      <stop offset="0" stop-color="#0b2236"/>
+      <stop offset=".68" stop-color="#071525"/>
+      <stop offset=".73" stop-color="#36ddeb"/>
+      <stop offset="1" stop-color="#a1fbff"/>
+    </radialGradient>
+    <linearGradient id="crystal" gradientUnits="userSpaceOnUse" x1="60" y1="260" x2="340" y2="140">
+      <stop offset="0" stop-color="#b82f5c"/>
+      <stop offset=".42" stop-color="#9757ae"/>
+      <stop offset=".65" stop-color="#586bb3"/>
+      <stop offset="1" stop-color="#27b6cd"/>
+    </linearGradient>
+    <linearGradient id="wordmark" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="609" y2="0">
+      <stop offset="0" stop-color="#723779"/>
+      <stop offset=".48" stop-color="#66519c"/>
+      <stop offset="1" stop-color="#167596"/>
+    </linearGradient>
+
+    <clipPath id="star-clip">
+      <path d="M167 67 A33 33 0 0 1 233 67 V333 A33 33 0 0 1 167 333Z"/>
+      <path d="M167 67 A33 33 0 0 1 233 67 V333 A33 33 0 0 1 167 333Z" transform="rotate(60 200 200)"/>
+      <path d="M167 67 A33 33 0 0 1 233 67 V333 A33 33 0 0 1 167 333Z" transform="rotate(-60 200 200)"/>
+      <circle cx="200" cy="200" r="61"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#star-clip)">
+    <path d="M40 30 H360 V370 H40Z" fill="url(#crystal)"/>
+    <g>
+      <path d="M167 34 L233 34 L200 128Z" fill="#9471b3"/>
+      <path d="M167 34 L200 128 L167 182Z" fill="#603474"/>
+      <path d="M233 34 L200 128 L233 182Z" fill="#728ac3"/>
+      <path d="M47 92 L121 101 L146 169Z" fill="#b581b9"/>
+      <path d="M47 92 L146 169 L65 171Z" fill="#73337c"/>
+      <path d="M121 101 L200 200 L146 169Z" fill="#954fa4"/>
+      <path d="M279 101 L352 92 L255 170Z" fill="#64c3d5"/>
+      <path d="M352 92 L336 171 L255 170Z" fill="#17628e"/>
+      <path d="M279 101 L255 170 L200 200Z" fill="#3b9ab8"/>
+      <path d="M146 169 L200 128 L200 200Z" fill="#8850a1"/>
+      <path d="M200 128 L255 170 L200 200Z" fill="#438ba8"/>
+      <path d="M146 169 L200 200 L147 235Z" fill="#69256c"/>
+      <path d="M200 200 L255 170 L253 235Z" fill="#225c84"/>
+      <path d="M45 284 L147 235 L99 299Z" fill="#c83e67"/>
+      <path d="M45 284 L147 235 L65 231Z" fill="#7f193e"/>
+      <path d="M147 235 L200 200 L200 275Z" fill="#a572bb"/>
+      <path d="M253 235 L355 284 L300 299Z" fill="#3ab9ca"/>
+      <path d="M253 235 L335 231 L355 284Z" fill="#1b648f"/>
+      <path d="M200 200 L253 235 L200 275Z" fill="#6e8bc3"/>
+      <path d="M167 245 L200 275 L167 366Z" fill="#784291"/>
+      <path d="M233 245 L233 366 L200 275Z" fill="#579cbf"/>
+      <path d="M167 366 L200 275 L233 366Z" fill="#a088c3"/>
+    </g>
+  </g>
+  <circle cx="172" cy="201" r="24" fill="url(#eye)" stroke="#25cbdc" stroke-width="2"/>
+  <circle cx="228" cy="201" r="24" fill="url(#eye)" stroke="#25cbdc" stroke-width="2"/>
+  <g fill="#f3ffff">
+    <circle cx="165" cy="193" r="5.5"/>
+    <circle cx="221" cy="193" r="5.5"/>
+  </g>
+</svg>
