@@ -119,8 +119,20 @@ The code calls the MCP routing part a *gateway*. It belongs to k-lani-bot and do
 
 ## 03 / A real action: mail to Tryton
 
+> **What is Tryton?** [Tryton](https://www.tryton.org) is a free, open-source business application (ERP) for customers,
+> sales orders, purchasing, invoices and stock: the kind of desktop program in which office staff type orders all day.
+> It stands in here for any business software you use. The action operates Tryton's normal desktop window, just as a
+> person would, rather than calling a database or a special interface.
+
 The [worked example](docs/AGENT-AUTHORING.md) takes order data from a Thunderbird mail and creates a Tryton sales draft.
 Its authored `tryton_create_draft_sale` function adds two positions, saves the draft and verifies the result.
+
+[![Watch the 34-second demo: an order mail becomes a verified Tryton sales draft in one MCP call](docs/media/mail-to-tryton-demo.jpg)](docs/media/mail-to-tryton-demo.mp4)
+
+**See it before you install anything:** this [34-second video](docs/media/mail-to-tryton-demo.mp4) is a real, uncut run
+in the isolated lab (16 October 2026, current node, Tryton 6.0.34-1, synthetic test data; the administrator switched the
+backup requirement off for this disposable database). The order mail was opened by hand for the camera; everything in
+Tryton then happened through one `cartridge_call`: 79 steps, verified, 15.8 s.
 
 ```text
   Order data from mail
