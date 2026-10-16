@@ -55,7 +55,15 @@ public enum Scope
 
     // Decrypt an archive into a new folder under the operator's recovery root; not granted by --init.
     [JsonStringEnumMemberName("backup.restore")]
-    BackupRestore
+    BackupRestore,
+
+    // List the programs' own MCP tools and run the ones the operator marked read-only; not granted by --init.
+    [JsonStringEnumMemberName("app.read")]
+    ApplicationRead,
+
+    // Run any tool of a program's own MCP server; counts as a change. Not granted by --init.
+    [JsonStringEnumMemberName("app.call")]
+    ApplicationCall
 }
 
 // A number in place of a word would grant whatever scope has that position today, so only words are read.

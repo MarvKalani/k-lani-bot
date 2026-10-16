@@ -152,7 +152,13 @@ public enum Tool
     BackupCreate,
 
     [JsonStringEnumMemberName("backup_restore")]
-    BackupRestore
+    BackupRestore,
+
+    [JsonStringEnumMemberName("app_mcp_read")]
+    ApplicationMcpRead,
+
+    [JsonStringEnumMemberName("app_mcp_call")]
+    ApplicationMcpCall
 }
 
 // A number in place of a word would name whichever tool has that position today, so only words are read.

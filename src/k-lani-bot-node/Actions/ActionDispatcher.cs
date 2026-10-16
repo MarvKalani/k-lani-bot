@@ -74,6 +74,7 @@ public sealed class ActionDispatcher : IDisposable
             Atlas = new UiStateAtlas(policy.StateRoot),
             ClassifierEnabled = _classifier != null,
             Backup = new NodeBackup(policy, backupKeys ?? NodeBackup.PlatformKeys(policy), clock),
+            ApplicationMcps = new ApplicationMcp.ApplicationMcpHost(policy, clock),
             RunNestedAction = Execute
         };
         _backupGate = new BackupGate(policy, _services.Backup, clock);
@@ -104,6 +105,7 @@ public sealed class ActionDispatcher : IDisposable
         new ProcessActionHandlers(_services).Register(Add);
         new MacroActionHandlers(_services).Register(Add);
         new BackupActionHandlers(_services).Register(Add);
+        new ApplicationMcpActionHandlers(_services).Register(Add);
     }
 
     // The advisory classifier is optional. It exists only when the operator configured a provider.
@@ -378,7 +380,8 @@ public sealed class ActionDispatcher : IDisposable
     {
         if (request.Mutates)
         {
-            _backupGate.Require(request.Context, request.Tool);
+            string? program = request.Tool == Tool.ApplicationMcpCall ? request.Arguments["program"]?.ToString() : null;
+            _backupGate.Require(request.Context, request.Tool, program);
         }
     }
 
@@ -946,11 +949,13 @@ public sealed class ActionDispatcher : IDisposable
     // earlier in the sequence (a dialog, a changed element, a program or argument not allowed) must stay "not dispatched".
     private static bool HandlerMarksItself(Tool action)
     {
-        return action is Tool.ClickElement or Tool.SilentClick or Tool.TypeText or Tool.MouseClick or Tool.LaunchProcess;
+        return action is Tool.ClickElement or Tool.SilentClick or Tool.TypeText or Tool.MouseClick or Tool.LaunchProcess
+            or Tool.ApplicationMcpCall;
     }
 
     public void Dispose()
     {
         _classifier?.Dispose();
+        _services.ApplicationMcps.Dispose();
     }
 }

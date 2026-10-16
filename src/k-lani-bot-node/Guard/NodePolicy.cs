@@ -72,6 +72,8 @@ public sealed class NodePolicy
     }
     // Read again for every change, so an administrator's switch takes effect without a restart.
     public BackupRequirement BackupRequirement { get; set; } = BackupRequirement.Required;
+    // Programs whose own MCP server agents may use; empty means the app_mcp tools are not offered.
+    public ApplicationMcpPolicy[] ApplicationMcps { get; set; } = [];
     // Reads and checks policy.json without changing anything on disk.
     public static Result<NodePolicy, ReadProblem> Read(string path)
     {
@@ -96,7 +98,7 @@ public sealed class NodePolicy
         policy.StateRoot = Path.GetFullPath(policy.StateRoot);
 
         ReadProblem? problem = SettingsProblem(policy) ?? RootsProblem(policy) ?? PrincipalsProblem(policy) ?? ClassifierProblem(policy)
-            ?? BackupProblem(policy);
+            ?? BackupProblem(policy) ?? ApplicationMcpProblem(policy);
         return problem == null ? policy : problem;
     }
 
@@ -171,6 +173,26 @@ public sealed class NodePolicy
         return RefusalOf(() => policy.Backup.Validate(policy.WorkspaceRoot, policy.StateRoot, policy.SourcePath));
     }
 
+    private static ReadProblem? ApplicationMcpProblem(NodePolicy policy)
+    {
+        policy.ApplicationMcps ??= [];
+        if (policy.ApplicationMcps.Any(program => program == null))
+            return Refused("ApplicationMcps entries must be objects.");
+        if (policy.ApplicationMcps.Select(program => program.Id).Distinct(StringComparer.Ordinal).Count() != policy.ApplicationMcps.Length)
+            return Refused("ApplicationMcps must have distinct ids.");
+        foreach (ApplicationMcpPolicy program in policy.ApplicationMcps)
+        {
+            if (RefusalOf(program.Validate) is { } problem)
+                return problem;
+        }
+        return null;
+    }
+
+    public ApplicationMcpPolicy? FindApplicationMcp(string id)
+    {
+        return ApplicationMcps.FirstOrDefault(program => program.Id == id);
+    }
+
     private static ReadProblem Refused(string detail)
     {
         return new ReadProblem(ReadProblemKind.Refused, detail);
@@ -207,15 +229,17 @@ public sealed class NodePolicy
             throw new UnauthorizedAccessException("Root changes require a controlled restart.");
         return current.Principals;
     }
-    // Throws UnauthorizedAccessException when the policy file became unreadable; the change is then refused.
-    public BackupRequirement CurrentBackupRequirement()
+    // Throws UnauthorizedAccessException when the policy file became unreadable; the change is then refused. A program's own
+    // setting replaces the node's for changes made through that program's MCP server.
+    public BackupRequirement CurrentBackupRequirement(string? applicationMcp = null)
     {
-        if (SourcePath == "")
-            return BackupRequirement;
-        NodePolicy current = Parse(SourcePath).Match(
+        NodePolicy current = SourcePath == "" ? this : Parse(SourcePath).Match(
             parsed => parsed,
             problem => throw new UnauthorizedAccessException("Policy unavailable: " + problem.Describe()));
-        return Enum.IsDefined(current.BackupRequirement) ? current.BackupRequirement : BackupRequirement.Required;
+        BackupRequirement? program = applicationMcp == null ? null
+            : (current.ApplicationMcps ?? []).FirstOrDefault(entry => entry?.Id == applicationMcp)?.BackupRequirement;
+        BackupRequirement chosen = program ?? current.BackupRequirement;
+        return Enum.IsDefined(chosen) ? chosen : BackupRequirement.Required;
     }
 
     // Throws UnauthorizedAccessException for duplicate identities or an expired or revoked principal.

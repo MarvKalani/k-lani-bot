@@ -2,8 +2,8 @@ using System.Text.Json.Nodes;
 using KLaniBot.Actions;
 using KLaniBot.Transport;
 
-// The cartridge and compact gateways route the four backup functions to the node tools of the same name; a change gets a
-// request id when the caller sent none, and an id the caller sent is kept so a retry is recognized.
+// The cartridge and compact gateways route the four backup functions and the two app MCP functions to the node tools of the
+// same name; a change gets a request id when the caller sent none, and an id the caller sent is kept so a retry is recognized.
 internal static class GatewayBackupFunctionCases
 {
     public static int Run()
@@ -24,6 +24,13 @@ internal static class GatewayBackupFunctionCases
         checks.That(GatewayBackupFunctions.Arguments(Tool.BackupCreate, sent)["request_id"]?.ToString() == given,
             "a request id the caller sent is kept");
         checks.That(sent.Count == 1, "the caller's arguments are not changed");
+
+        checks.That(GatewayBackupFunctions.TryTool("app_mcp_call", out Tool appCall) && appCall == Tool.ApplicationMcpCall
+            && GatewayBackupFunctions.TryTool("app_mcp_read", out Tool appRead) && appRead == Tool.ApplicationMcpRead,
+            "the app MCP functions route to the node tools");
+        checks.That(GatewayBackupFunctions.Arguments(Tool.ApplicationMcpCall, new JsonObject())["request_id"] != null
+            && GatewayBackupFunctions.Arguments(Tool.ApplicationMcpRead, new JsonObject())["request_id"] == null,
+            "an app MCP change gets a request id, a read does not");
 
         return checks.Passed;
     }

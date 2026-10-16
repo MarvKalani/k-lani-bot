@@ -218,6 +218,8 @@ public static class UiTexts
         [UiText.RightBackupRead] = "Plan and check backups",
         [UiText.RightBackupCreate] = "Create backups",
         [UiText.RightBackupRestore] = "Restore backups into a new folder",
+        [UiText.RightApplicationRead] = "Read through programs' own MCP servers",
+        [UiText.RightApplicationCall] = "Operate programs through their own MCP servers",
 
         [UiText.TracePageTitle] = "k-lani-bot run log",
         [UiText.TraceExecutedSteps] = "Executed steps",
@@ -463,6 +465,8 @@ public static class UiTexts
         [UiText.RightBackupRead] = "Sicherungen planen und prüfen",
         [UiText.RightBackupCreate] = "Sicherungen anlegen",
         [UiText.RightBackupRestore] = "Sicherungen in einen neuen Ordner wiederherstellen",
+        [UiText.RightApplicationRead] = "Über die MCP-Server der Programme lesen",
+        [UiText.RightApplicationCall] = "Programme über ihre eigenen MCP-Server bedienen",
 
         [UiText.TracePageTitle] = "k-lani-bot Ablaufprotokoll",
         [UiText.TraceExecutedSteps] = "Ausgeführte Schritte",

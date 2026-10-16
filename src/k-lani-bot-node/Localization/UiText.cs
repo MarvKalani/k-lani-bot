@@ -175,6 +175,8 @@ public enum UiText
     RightBackupRead,
     RightBackupCreate,
     RightBackupRestore,
+    RightApplicationRead,
+    RightApplicationCall,
 
     TracePageTitle,
     TraceExecutedSteps,

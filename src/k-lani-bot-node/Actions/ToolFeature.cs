@@ -75,7 +75,11 @@ public enum ToolFeature
 
     // Encrypted archives of the operator's backup source; answered inside the node.
     [JsonStringEnumMemberName("backup")]
-    Backup
+    Backup,
+
+    // A program's own MCP server that the operator listed in the policy; it runs beside the node, not on the screen.
+    [JsonStringEnumMemberName("applicationMcp")]
+    ApplicationMcp
 }
 
 // A number in place of a word would name whatever feature has that position today, so only words are read.
@@ -105,7 +109,7 @@ public static class ToolFeatures
         return feature switch
         {
             ToolFeature.Meta or ToolFeature.Macros or ToolFeature.Filesystem or ToolFeature.Terminal or ToolFeature.Process
-                or ToolFeature.Backup => false,
+                or ToolFeature.Backup or ToolFeature.ApplicationMcp => false,
             ToolFeature.Windows or ToolFeature.WindowControl or ToolFeature.SemanticInspect or ToolFeature.ApplicationObjects
                 or ToolFeature.SemanticInvoke
                 or ToolFeature.BackgroundInvoke or ToolFeature.PhysicalInput or ToolFeature.TextInjection or ToolFeature.Screenshot
@@ -125,7 +129,7 @@ public static class ToolFeatures
                 or ToolFeature.BackgroundInvoke or ToolFeature.PhysicalInput or ToolFeature.TextInjection or ToolFeature.Screenshot
                 or ToolFeature.Clipboard => true,
             ToolFeature.Meta or ToolFeature.Macros or ToolFeature.Filesystem or ToolFeature.Terminal or ToolFeature.Process
-                or ToolFeature.Fleet or ToolFeature.Classifier or ToolFeature.Backup => false,
+                or ToolFeature.Fleet or ToolFeature.Classifier or ToolFeature.Backup or ToolFeature.ApplicationMcp => false,
             _ => throw new UnreachableException()
         };
     }

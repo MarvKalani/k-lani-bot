@@ -27,6 +27,7 @@
     <Compile Include="../../src/k-lani-bot-node/Guard/BackupPolicy.cs" />
     <Compile Include="../../src/k-lani-bot-node/Guard/BackupRequirement.cs" />
     <Compile Include="../../src/k-lani-bot-node/Guard/NodePolicy.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Guard/ApplicationMcpPolicy.cs" />
     <Compile Include="../../src/k-lani-bot-node/Actions/DialogTextEvidence.cs" />
     <Compile Include="../../src/k-lani-bot-node/Guard/DialogRouting.cs" />
     <Compile Include="../../src/k-lani-bot-node/Guard/ArgumentPatterns.cs" />

@@ -333,7 +333,7 @@ public static class UiActionGuard
             Tool.ListMacros, Tool.GetMacro, Tool.GetMacroTrace, Tool.SaveMacro, Tool.RunMacro,
             Tool.FsListDirectory, Tool.FsReadFile, Tool.FsWriteFile, Tool.FsSearchFiles, Tool.FsGetMetadata,
             Tool.ListNodes, Tool.EvaluateTrace, Tool.BackupPlan, Tool.BackupVerify,
-            Tool.BackupCreate, Tool.BackupRestore);
+            Tool.BackupCreate, Tool.BackupRestore, Tool.ApplicationMcpRead, Tool.ApplicationMcpCall);
         return table;
     }
 

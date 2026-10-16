@@ -1,0 +1,57 @@
+{
+  "name": "app_mcp_read",
+  "description": "Uses a program\u0027s own MCP server that the node operator listed (Programmable App MCPs). Without tool and schema it lists the program\u0027s tools and version; with schema it returns one tool\u0027s input schema; with tool it runs a tool the operator marked read-only. Answers are bounded text pages; images only on request.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "program": {
+        "type": "string",
+        "description": "Program id the node operator listed for app MCPs, for example filmcraft.",
+        "pattern": "^[a-z0-9][a-z0-9-]{0,31}$"
+      },
+      "tool": {
+        "type": "string",
+        "description": "Tool name of the program\u0027s own MCP server, from the app_mcp_read listing.",
+        "pattern": "^[A-Za-z0-9_.-]{1,64}$"
+      },
+      "schema": {
+        "type": "string",
+        "description": "Tool name whose input schema to return.",
+        "pattern": "^[A-Za-z0-9_.-]{1,64}$"
+      },
+      "arguments": {
+        "type": "object",
+        "description": "Arguments for the program\u0027s tool, as its schema describes them."
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Character offset to continue a long text answer at next_offset."
+      },
+      "max_chars": {
+        "type": "integer",
+        "minimum": 200,
+        "maximum": 16000,
+        "description": "Most characters of text to return; default 4000."
+      },
+      "images": {
+        "type": "boolean",
+        "description": "Return up to two images of the answer; images are omitted by default."
+      },
+      "node": {
+        "type": "string",
+        "description": "Registered node identifier; URLs are not accepted."
+      }
+    },
+    "required": [
+      "program"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

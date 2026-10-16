@@ -11,8 +11,10 @@ internal static class GuardClassificationCases
 {
     // Mutating tools that the guarded profile deliberately leaves to the principal's scopes. The backup tools touch no
     // desktop and write only below the operator's fixed archive and recovery roots.
+    // app_mcp_call never touches the desktop: its scope is granted only by editing the policy, which also names the programs,
+    // and every call passes the backup requirement.
     private static readonly Tool[] MutatingScopeOnlyTools =
-        [Tool.FsWriteFile, Tool.SaveMacro, Tool.RunMacro, Tool.EndSession, Tool.BackupCreate, Tool.BackupRestore];
+        [Tool.FsWriteFile, Tool.SaveMacro, Tool.RunMacro, Tool.EndSession, Tool.BackupCreate, Tool.BackupRestore, Tool.ApplicationMcpCall];
 
     public static int Run(string temporaryRoot)
     {

@@ -102,6 +102,11 @@ internal sealed class HandlerServices
     {
         get; init;
     }
+    // The programs' own MCP servers started for agent sessions; one per session and program.
+    public required ApplicationMcp.ApplicationMcpHost ApplicationMcps
+    {
+        get; init;
+    }
 
     // A macro runs its steps as ordinary actions of the same caller, so every step passes the same checks.
     public required Func<JsonObject, RequestContext, JsonObject> RunNestedAction

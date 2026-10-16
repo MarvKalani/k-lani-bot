@@ -133,7 +133,8 @@ public static class NodeInitializer
         foreach (string word in commaSeparated.Split(','))
         {
             if (!WireNames<Scope>.TryParse(word, out Scope scope)
-                || scope is Scope.Eval or Scope.BackupRead or Scope.BackupCreate or Scope.BackupRestore)
+                || scope is Scope.Eval or Scope.BackupRead or Scope.BackupCreate or Scope.BackupRestore
+                    or Scope.ApplicationRead or Scope.ApplicationCall)
             {
                 throw new ArgumentException("Unknown scope '" + word + "' in --scopes.");
             }

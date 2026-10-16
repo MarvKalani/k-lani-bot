@@ -114,13 +114,15 @@ internal sealed class MetaActionHandlers
         IReadOnlySet<Tool>? supportedTools = _services.Ui.SupportedTools;
         bool backendSupportsTool = supportedTools == null || supportedTools.Contains(ToolNames.OfContractEntry(tool));
         bool featureAvailable = _services.Ui.Features.Contains(feature) || !ToolFeatures.UsesDesktop(feature);
-        return scopeGranted && backendSupportsTool && featureAvailable;
+        bool programsListed = feature != ToolFeature.ApplicationMcp || _services.Policy.ApplicationMcps.Length > 0;
+        return scopeGranted && backendSupportsTool && featureAvailable && programsListed;
     }
 
     private object EndSession(ActionCall call)
     {
         string requester = call.Caller.PrincipalId + ":" + call.Caller.SessionId;
         _services.Desktop.ReleaseLease(requester);
+        _services.ApplicationMcps.CloseSession(call.Caller);
         return new
         {
             success = true

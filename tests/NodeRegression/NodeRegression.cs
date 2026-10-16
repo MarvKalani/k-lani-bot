@@ -43,9 +43,9 @@ public static class NodeRegression
             Console.WriteLine(checks + " credential checks passed.");
             return 0;
         }
-        if (args.Contains(ProcessRunnerCases.ProbeArgument))
+        if (TryRunChildMode(args, out int childExitCode))
         {
-            return ProcessRunnerCases.RunProbe();
+            return childExitCode;
         }
         string temp = Path.Combine(Path.GetTempPath(), "k-lani-bot-regression-" + Guid.NewGuid());
 
@@ -114,10 +114,27 @@ public static class NodeRegression
         return count;
     }
 
+    // The regression starts itself as a child program for some checks: a probe with an open standard input, and a stand-in for a
+    // program's own MCP server with its version command.
+    private static bool TryRunChildMode(string[] args, out int exitCode)
+    {
+        exitCode = 0;
+        if (args.Contains(ProcessRunnerCases.ProbeArgument))
+            exitCode = ProcessRunnerCases.RunProbe();
+        else if (args.Contains(FakeApplicationMcp.ServeArgument))
+            exitCode = FakeApplicationMcp.Serve();
+        else if (args.Contains(FakeApplicationMcp.VersionArgument))
+            Console.WriteLine(FakeApplicationMcp.Version);
+        else
+            return false;
+        return true;
+    }
+
     private static int RunMaintenanceCases(string temporaryRoot)
     {
         return CredentialCases.Run() + BackupCases.Run(temporaryRoot) + BackupPolicyCases.Run(temporaryRoot)
-            + BackupToolCases.Run(temporaryRoot) + BackupGateCases.Run(temporaryRoot) + GatewayBackupFunctionCases.Run();
+            + BackupToolCases.Run(temporaryRoot) + BackupGateCases.Run(temporaryRoot) + GatewayBackupFunctionCases.Run()
+            + ApplicationMcpCases.Run(temporaryRoot);
     }
 
     // The platform backends' pure parts run on every platform: Windows row format, foreground plan and window selection,

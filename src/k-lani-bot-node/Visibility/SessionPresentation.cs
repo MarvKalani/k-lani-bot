@@ -29,7 +29,9 @@ public sealed record SessionPresentation(string Client, string Purpose, string M
         [Scope.Eval] = UiText.RightEval,
         [Scope.BackupRead] = UiText.RightBackupRead,
         [Scope.BackupCreate] = UiText.RightBackupCreate,
-        [Scope.BackupRestore] = UiText.RightBackupRestore
+        [Scope.BackupRestore] = UiText.RightBackupRestore,
+        [Scope.ApplicationRead] = UiText.RightApplicationRead,
+        [Scope.ApplicationCall] = UiText.RightApplicationCall
     };
 
     public string ShownClient => Shown(Client, UiText.UnnamedClient);

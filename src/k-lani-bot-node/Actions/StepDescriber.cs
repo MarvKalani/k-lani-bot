@@ -151,7 +151,7 @@ internal static class StepDescriber
             ToolFeature.Process => StepKind.Launch,
             ToolFeature.Clipboard => StepKind.Clipboard,
             ToolFeature.Filesystem or ToolFeature.Backup => StepKind.Files,
-            ToolFeature.Terminal => StepKind.Command,
+            ToolFeature.Terminal or ToolFeature.ApplicationMcp => StepKind.Command,
             ToolFeature.Macros => StepKind.Macro,
             ToolFeature.Meta or ToolFeature.Fleet or ToolFeature.Classifier => StepKind.Other,
             _ => throw new UnreachableException()

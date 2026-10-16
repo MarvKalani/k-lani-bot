@@ -14,7 +14,11 @@
             "type": "array",
             "description": "Return actual permitted node schemas only for these selected action names; omitted requests retain the compact capability reply.",
             "maxItems": 64,
-            "items": { "type": "string", "minLength": 1, "maxLength": 80 }
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            }
           },
           "node": {
             "type": "string",
@@ -3751,6 +3755,137 @@
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "app_mcp_read",
+      "description": "Uses a program's own MCP server that the node operator listed (Programmable App MCPs). Without tool and schema it lists the program's tools and version; with schema it returns one tool's input schema; with tool it runs a tool the operator marked read-only. Answers are bounded text pages; images only on request.",
+      "scope": "app.read",
+      "feature": "applicationMcp",
+      "mutates": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "program": {
+            "type": "string",
+            "description": "Program id the node operator listed for app MCPs, for example filmcraft.",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,31}$"
+          },
+          "tool": {
+            "type": "string",
+            "description": "Tool name of the program's own MCP server, from the app_mcp_read listing.",
+            "pattern": "^[A-Za-z0-9_.-]{1,64}$"
+          },
+          "schema": {
+            "type": "string",
+            "description": "Tool name whose input schema to return.",
+            "pattern": "^[A-Za-z0-9_.-]{1,64}$"
+          },
+          "arguments": {
+            "type": "object",
+            "description": "Arguments for the program's tool, as its schema describes them."
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Character offset to continue a long text answer at next_offset."
+          },
+          "max_chars": {
+            "type": "integer",
+            "minimum": 200,
+            "maximum": 16000,
+            "description": "Most characters of text to return; default 4000."
+          },
+          "images": {
+            "type": "boolean",
+            "description": "Return up to two images of the answer; images are omitted by default."
+          },
+          "node": {
+            "type": "string",
+            "description": "Registered node identifier; URLs are not accepted."
+          }
+        },
+        "required": [
+          "program"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "app_mcp_call",
+      "description": "Runs any tool of a program's own MCP server that the node operator listed (Programmable App MCPs) and counts as a change: it needs a current backup unless the administrator switched that off. The program keeps its state for this session. Never automatically retry; a timed-out program is stopped and starts fresh.",
+      "scope": "app.call",
+      "feature": "applicationMcp",
+      "mutates": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "program": {
+            "type": "string",
+            "description": "Program id the node operator listed for app MCPs, for example filmcraft.",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,31}$"
+          },
+          "tool": {
+            "type": "string",
+            "description": "Tool name of the program's own MCP server, from the app_mcp_read listing.",
+            "pattern": "^[A-Za-z0-9_.-]{1,64}$"
+          },
+          "arguments": {
+            "type": "object",
+            "description": "Arguments for the program's tool, as its schema describes them."
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Character offset to continue a long text answer at next_offset."
+          },
+          "max_chars": {
+            "type": "integer",
+            "minimum": 200,
+            "maximum": 16000,
+            "description": "Most characters of text to return; default 4000."
+          },
+          "images": {
+            "type": "boolean",
+            "description": "Return up to two images of the answer; images are omitted by default."
+          },
+          "node": {
+            "type": "string",
+            "description": "Registered node identifier; URLs are not accepted."
+          },
+          "request_id": {
+            "type": "string",
+            "description": "RFC 9562 UUIDv7 operation identifier. Generated by the gateway when omitted; never automatically retry a mutation.",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "next_steps": {
+            "type": "array",
+            "description": "What the agent plans to do after this step, in plain words. The person at the machine sees it while the agent is paused or in slow motion. A refusal with code paused_by_person did nothing: observe again before the next step and never rerun a macro from its first step.",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "program",
+          "tool"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
         "idempotentHint": false,
         "openWorldHint": false
       }

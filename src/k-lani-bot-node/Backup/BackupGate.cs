@@ -20,9 +20,9 @@ internal sealed class BackupGate(NodePolicy policy, NodeBackup backup, TimeProvi
 
     // Throws BackupRequiredException when the requirement is on and no current archive covers this session, and
     // UnauthorizedAccessException when the policy became unreadable.
-    public void Require(RequestContext caller, Tool tool)
+    public void Require(RequestContext caller, Tool tool, string? applicationMcp = null)
     {
-        if (Exempt(tool) || policy.CurrentBackupRequirement() == BackupRequirement.Off)
+        if (Exempt(tool) || policy.CurrentBackupRequirement(applicationMcp) == BackupRequirement.Off)
         {
             return;
         }
