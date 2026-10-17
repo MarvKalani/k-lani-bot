@@ -46,6 +46,13 @@ internal static class ApplicationMcpCases
         NodePolicy readOnly = Policy(root, "read-only", [Settings()], BackupRequirement.Off, [Scope.Observe, Scope.ApplicationRead]);
         using (var dispatcher = new ActionDispatcher(new FakeUi(), readOnly))
             checks.That(Execute(dispatcher, Call("state_add"), Caller())["code"]?.ToString() == "denied", "app_mcp_call needs app.call");
+        using (var dispatcher = new ActionDispatcher(new FakeUi(), with))
+            checks.That(Capabilities(dispatcher)["applicationMcps"]?.AsArray().Single()?.ToString() == Program,
+                "the capabilities name the listed program to a principal with the app scopes");
+        NodePolicy observer = Policy(root, "observer", [Settings()], BackupRequirement.Off, [Scope.Observe]);
+        using (var dispatcher = new ActionDispatcher(new FakeUi(), observer))
+            checks.That(Capabilities(dispatcher)["applicationMcps"]?.AsArray().Count == 0,
+                "a principal without the app scopes is told of no program");
     }
 
     private static void CheckReadAndBackup(Checks checks, string root)
@@ -174,9 +181,14 @@ internal static class ApplicationMcpCases
 
     private static string[] ActiveTools(ActionDispatcher dispatcher)
     {
+        return (Capabilities(dispatcher)["activeTools"] as JsonArray ?? []).Select(tool => tool!.ToString()).ToArray();
+    }
+
+    private static JsonObject Capabilities(ActionDispatcher dispatcher)
+    {
         JsonObject answer = dispatcher.Execute(new JsonObject { ["action"] = "get_machine_capabilities", ["args"] = new JsonObject() },
             Caller());
-        return (answer["capabilities"]?["activeTools"] as JsonArray ?? []).Select(tool => tool!.ToString()).ToArray();
+        return answer["capabilities"] as JsonObject ?? new JsonObject();
     }
 
     private static JsonObject Read(string? tool)

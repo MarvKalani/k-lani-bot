@@ -6,7 +6,7 @@ namespace KLaniBot.Transport;
 // Use case: an AI working through the cartridge or compact gateway gets backup_required and creates the backup through the
 // same gateway, and uses a program's own MCP server (Programmable App MCPs) there too. These node tools are routed functions
 // of cartridge_call, not extra top-level tools; the node still checks scopes, the policy and the request id of each change.
-internal static class GatewayBackupFunctions
+internal static class GatewayNodeFunctions
 {
     private static readonly Dictionary<string, Tool> Functions = new(StringComparer.Ordinal)
     {

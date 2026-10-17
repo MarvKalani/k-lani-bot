@@ -185,6 +185,11 @@ internal sealed class NativeAdapterFixture : ICompactNodeClient
     {
         get; set;
     }
+    // Program ids the node reports for Programmable App MCPs; null reports none, as an older node would.
+    public string[]? ApplicationMcps
+    {
+        get; set;
+    }
     public Action<int>? BeforeTree
     {
         get; set;
@@ -258,6 +263,10 @@ internal sealed class NativeAdapterFixture : ICompactNodeClient
             ["platform"] = "linux-x11-atspi",
             ["nativeImplementationSha256"] = NativeDigest
         };
+        if (ApplicationMcps != null)
+        {
+            capabilities["applicationMcps"] = new JsonArray(ApplicationMcps.Select(id => (JsonNode?)id).ToArray());
+        }
         if (arguments.ContainsKey("action_schema_names"))
         {
             var available = ToolContract.Tools.OfType<JsonObject>().Where(tool =>

@@ -3217,6 +3217,7 @@
                 "get_macro",
                 "get_macro_trace"
               ],
+              "applicationMcps": [],
               "uiGuardMode": "Desktop",
               "classifier_veto_enabled": false,
               "semanticDataTrust": "untrusted",

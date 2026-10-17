@@ -18,6 +18,7 @@ public sealed class CompactGatewaySession : IDisposable
     private bool _storedFunctionListed;
     private bool _bundleFunctionListed;
     private bool _buildDriftListed;
+    private bool _applicationMcpListed;
     // The evidence of an unchanged build-drift detail is reused, so repeated ui_info calls do not push other evidence out of the store.
     private readonly Dictionary<string, CompactEvidenceReference> _buildDriftEvidence = new(StringComparer.Ordinal);
 
@@ -104,6 +105,7 @@ public sealed class CompactGatewaySession : IDisposable
     {
         var info = await _observation.InfoAsync(cancellation);
         await ListFunctionsAsync(info, cancellation);
+        _applicationMcpListed = info.ContainsKey(CompactApplicationMcpNames.Field);
         info["next"] = NextSentence();
 
         return info;
@@ -124,6 +126,10 @@ public sealed class CompactGatewaySession : IDisposable
         if (_buildDriftListed)
         {
             sentences.Add(CompactBuildDriftNames.Hint);
+        }
+        if (_applicationMcpListed)
+        {
+            sentences.Add(CompactApplicationMcpNames.Hint);
         }
         sentences.Add(CompactViewNames.StateHint);
 
@@ -548,9 +554,9 @@ public sealed class CompactGatewaySession : IDisposable
         {
             return await SelectProgramAsync(arguments, cancellation);
         }
-        if (GatewayBackupFunctions.TryTool(function, out Tool backup))
+        if (GatewayNodeFunctions.TryTool(function, out Tool backup))
         {
-            return await _client.CallAsync(backup, GatewayBackupFunctions.Arguments(backup, arguments), cancellation);
+            return await _client.CallAsync(backup, GatewayNodeFunctions.Arguments(backup, arguments), cancellation);
         }
         var descriptor = CompactGatewayFunctionTools.Find(function);
         if (descriptor == null)

@@ -25,7 +25,7 @@ public sealed class CompactGatewayObservation(ICompactNodeClient client, Compact
         state.ObservedWindows = windows;
         state.Demonstration = null;
 
-        return new JsonObject
+        var info = new JsonObject
         {
             ["success"] = true,
             ["node"] = new JsonObject { ["name"] = "k-lani-bot-node", ["version"] = state.Version },
@@ -35,6 +35,11 @@ public sealed class CompactGatewayObservation(ICompactNodeClient client, Compact
             ["form_capabilities"] = state.FormCapabilities?.DeepClone() ?? JsonValue.Create("unsupported"),
             ["windows"] = new JsonArray(windows.Select(window => (JsonNode?)Window(window)).ToArray())
         };
+        if (capabilities?["applicationMcps"] is JsonArray { Count: > 0 } programs)
+        {
+            info[CompactApplicationMcpNames.Field] = programs.DeepClone();
+        }
+        return info;
     }
 
     // Throws CompactNodeException for an unobserved/replaced application, incomplete tree or failed native screenshot;

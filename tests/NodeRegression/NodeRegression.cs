@@ -133,7 +133,7 @@ public static class NodeRegression
     private static int RunMaintenanceCases(string temporaryRoot)
     {
         return CredentialCases.Run() + BackupCases.Run(temporaryRoot) + BackupPolicyCases.Run(temporaryRoot)
-            + BackupToolCases.Run(temporaryRoot) + BackupGateCases.Run(temporaryRoot) + GatewayBackupFunctionCases.Run()
+            + BackupToolCases.Run(temporaryRoot) + BackupGateCases.Run(temporaryRoot) + GatewayNodeFunctionCases.Run()
             + ApplicationMcpCases.Run(temporaryRoot);
     }
 

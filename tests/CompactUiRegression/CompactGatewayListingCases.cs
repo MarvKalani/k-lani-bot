@@ -28,6 +28,7 @@ internal static class CompactGatewayListingCases
             await GeneratedNamesStayOutOfListingAsync(root);
             await NamesStoredFunctionsAsync(root);
             await SaysNoStoredFunctionsAsync(root);
+            await NamesApplicationMcpsAsync(root);
         }
         finally
         {
@@ -44,6 +45,21 @@ internal static class CompactGatewayListingCases
             "a function without parameters or description leaves both keys out");
         var declared = withParameters["parameters"]!.AsArray().Select(parameter => parameter!.ToString()).ToArray();
         Require(declared.SequenceEqual(new[] { "text", "encoding" }), "a function with parameters names them in their declared order");
+    }
+
+    // A node that offers Programmable App MCPs gets them named in ui_info with the hint; a node without them adds nothing.
+    private static async Task NamesApplicationMcpsAsync(string root)
+    {
+        var client = new NativeAdapterFixture { ApplicationMcps = ["filmcraft"] };
+        using var session = new CompactGatewaySession(client, "fixture", CompactGatewayCases.WindowRoots(root, "app-mcps"),
+            () => "2025-11-25");
+        var info = await session.CallAsync("ui_info", new(), CancellationToken.None);
+        Require(info[CompactApplicationMcpNames.Field]?.AsArray().Single()?.ToString() == "filmcraft", "ui_info names the program");
+        Require(info["next"]?.ToString().Contains(CompactApplicationMcpNames.Hint) == true, "ui_info says how to use it");
+        using var plain = new CompactGatewaySession(new NativeAdapterFixture(), "fixture",
+            CompactGatewayCases.WindowRoots(root, "no-app-mcps"), () => "2025-11-25");
+        var without = await plain.CallAsync("ui_info", new(), CancellationToken.None);
+        Require(!without.ContainsKey(CompactApplicationMcpNames.Field), "a node without app MCPs adds no field");
     }
 
     // ui_info names the stored function of the row that runs it, with its parameter names, and carries the one-call hint.

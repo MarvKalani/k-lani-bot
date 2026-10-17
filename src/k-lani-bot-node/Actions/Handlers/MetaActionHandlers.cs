@@ -63,6 +63,7 @@ internal sealed class MetaActionHandlers
                 features = _services.Ui.Features,
                 formCapabilities = _services.Ui.FormCapabilities,
                 activeTools = ActiveToolNames(principal),
+                applicationMcps = ApplicationMcpIds(principal),
                 uiGuardMode = principal.UiGuard.Mode.ToString(),
                 classifier_veto_enabled = _services.ClassifierEnabled,
                 semanticDataTrust = "untrusted",
@@ -105,6 +106,13 @@ internal sealed class MetaActionHandlers
             .Where(tool => IsAvailableTo(principal, tool))
             .Select(tool => tool["name"]!.ToString())
             .ToArray();
+    }
+
+    // The programs whose own MCP server this principal may use; ids only, so an agent can name one in app_mcp_read.
+    private string[] ApplicationMcpIds(PrincipalPolicy principal)
+    {
+        bool mayUse = principal.Scopes.Contains(Scope.ApplicationRead) || principal.Scopes.Contains(Scope.ApplicationCall);
+        return mayUse ? _services.Policy.ApplicationMcps.Select(program => program.Id).ToArray() : [];
     }
 
     private bool IsAvailableTo(PrincipalPolicy principal, JsonObject tool)

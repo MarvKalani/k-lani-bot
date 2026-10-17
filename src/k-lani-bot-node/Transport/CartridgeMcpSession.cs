@@ -62,9 +62,9 @@ internal sealed class CartridgeMcpSession(
         {
             return await NodeStatusAsync(client, cancellation);
         }
-        if (name == CartridgeGatewayTools.CallName && GatewayBackupFunctions.TryTool(arguments["function"]?.ToString(), out Tool backup))
+        if (name == CartridgeGatewayTools.CallName && GatewayNodeFunctions.TryTool(arguments["function"]?.ToString(), out Tool backup))
         {
-            return await client.CallAsync(backup, GatewayBackupFunctions.Arguments(backup, arguments["arguments"]), cancellation);
+            return await client.CallAsync(backup, GatewayNodeFunctions.Arguments(backup, arguments["arguments"]), cancellation);
         }
         JsonObject? local = RouteLibrary(name, arguments, node);
         if (local != null)
