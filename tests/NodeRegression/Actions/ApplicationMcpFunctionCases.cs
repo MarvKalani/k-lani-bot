@@ -142,8 +142,16 @@ internal static class ApplicationMcpFunctionCases
         File.WriteAllBytes(stale, FakeApplicationMcp.Gif(2));
         JsonObject claims = Await(functions.SaveAsync(ClaimsDefinition(stale), CancellationToken.None));
         checks.That(Code(claims) == "check_failed" && claims["saved"] == null, "a file that existed unchanged before does not pass");
-        JsonObject unknown = Call(functions, "nothing", new JsonObject());
-        checks.That(Code(unknown) == "unknown_function", "an unknown stored name is refused");
+        var unknown = new JsonObject { ["program"] = Program, ["parameters"] = new JsonObject() };
+        checks.That(Await(functions.TryCallAsync("nothing", unknown, CancellationToken.None)) == null,
+            "a name no version stores is left to the other routes");
+        var foreign = new JsonObject { ["program"] = Program, ["pid"] = 7, ["parameters"] = new JsonObject() };
+        checks.That(Await(functions.TryCallAsync("export", foreign, CancellationToken.None)) == null,
+            "a call with other arguments beside program is left to the other routes");
+        var reserved = ExportDefinition(Test(workspace, "reserved.gif", 2));
+        reserved["name"] = "app_mcp_call";
+        checks.That(Code(Await(functions.SaveAsync(reserved, CancellationToken.None))) == "invalid_definition",
+            "a gateway function name cannot be saved");
         var bad = ExportDefinition(Test(workspace, "bad.gif", 2));
         bad["steps"]![1]!["arguments"]!["path"] = "{{undeclared}}";
         checks.That(Code(Await(functions.SaveAsync(bad, CancellationToken.None))) == "invalid_definition",

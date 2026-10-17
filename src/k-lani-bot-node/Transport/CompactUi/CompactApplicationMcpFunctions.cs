@@ -86,6 +86,11 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
         {
             return CompactApplicationMcpFunctionNames.Refusal(definition.Failure!.Value, definition.Detail);
         }
+        if (IsRoutedElsewhere(definition.Value!.Name))
+        {
+            return CompactApplicationMcpFunctionNames.Refusal(CompactApplicationMcpFailure.InvalidDefinition,
+                "'" + definition.Value.Name + "' is a gateway function name; choose another name.");
+        }
 
         var run = await _runner.RunAsync(program, null, definition.Value!, arguments["test"] as JsonObject, null, cancellation);
         Remember(program, run);
@@ -96,20 +101,17 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
         return Store(program, run, definition.Value!);
     }
 
-    // Null when the call names no program, so the other stored-function routes handle it.
+    // Null unless the call has exactly {program, parameters} and some version of that program stores the name, so an installed
+    // cartridge or stored UI function whose own parameters include "program" keeps its route.
     // Throws what the node connection throws for cancellation or a broken transport.
     public async Task<JsonObject?> TryCallAsync(string function, JsonObject arguments, CancellationToken cancellation)
     {
-        if (!CompactDiscoveryDocumentCodec.Text(arguments, "program", out string program))
+        bool shaped = CompactDiscoveryDocumentCodec.Text(arguments, "program", out string program)
+            && CompactApplicationMcpFunctionCodec.ValidProgram(program)
+            && arguments.All(entry => entry.Key is "program" or "parameters") && arguments["parameters"] is null or JsonObject;
+        if (!shaped || !ReadAll(program).Any(document => document.Functions.Any(stored => stored.Name == function)))
         {
             return null;
-        }
-        if (!CompactApplicationMcpFunctionCodec.ValidProgram(program)
-            || arguments.Any(entry => entry.Key is not "program" and not "parameters")
-            || arguments["parameters"] is not null and not JsonObject)
-        {
-            return CompactApplicationMcpFunctionNames.Refusal(CompactApplicationMcpFailure.InvalidParameters,
-                "A stored app MCP function takes {program, parameters: {name: value}}.");
         }
 
         CompactApplicationMcpProbe probe = await ProbeAsync(program, cancellation);
@@ -177,6 +179,13 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
                 driftRows.Add(CompactApplicationMcpFunctionNames.DriftRow(report));
             }
         }
+    }
+
+    // cartridge_call routes these names before stored app MCP functions, so a function saved under one could never run.
+    private static bool IsRoutedElsewhere(string name)
+    {
+        return name is SaveFunction or ListFunction || name == GatewayCartridgeLibrary.SelectFunction
+            || GatewayNodeFunctions.TryTool(name, out _) || CompactGatewayFunctionTools.Find(name) != null;
     }
 
     private bool TryDefinition(string program, JsonObject arguments,
