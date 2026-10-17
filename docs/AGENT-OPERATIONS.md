@@ -206,7 +206,8 @@ The catalog is host-side and may succeed while this node probe reports `connecti
 Select an observed catalog key through `cartridge_call` with `function: "cartridge_select"` and `arguments: {"key": "..."}`,
 then call `cartridge_info` and browse the selected task branch. Supply the configured node selector when the schema requires it.
 `cartridge_node_status` and `cartridge_select` are routed functions, not additional top-level MCP tools; so are
-`backup_plan`, `backup_verify`, `backup_create` and `backup_restore`, which reach the selected node's backup tools.
+`backup_plan`, `backup_verify`, `backup_create` and `backup_restore`, which reach the selected node's backup tools,
+and `app_mcp_read` and `app_mcp_call` (Programmable App MCPs, below).
 
 Catalog metadata combines a native bundle and its generated extension into one variant/build entry. Revisions remain
 inside that entry. Exact stored identities take precedence; a legacy process-name alias is used only when it identifies
@@ -251,7 +252,41 @@ Choose the cheapest available route that can correctly complete the task:
 | Native program cartridge | Compact: the `ui_info` row lists its functions, call them by pid. Otherwise browse `Catalog`, select its key, `cartridge_info`, then task branch | Existing application API/object-model functions |
 | Compact UI gateway | `ui_info`, then `ui_observe` on the selected PID (skipped for a stored function that `ui_info` lists) | Accessibility discovery and semantic actions |
 | Generated UI function | The `ui_info` row with its parameter names for a named function; for a generated one, `cartridge_browse` on its topic, then `cartridge_call` (`cartridge_browse` for the full schema) | Reuse a verified capture with fresh parameters |
+| Programmable App MCP | `app_mcp_read {program}` lists the program's own MCP tools; load one schema, then read or call | Programs that ship their own MCP server, such as FilmCraft |
 | Core node primitives | Capability probe, then only needed tool schemas | Setup, diagnosis and operations not covered by a cartridge |
+
+### Programmable App MCPs
+
+Some programs ship their own MCP server, for example FilmCraft's `filmcraft-cli mcp`. The node forwards to it; the agent
+never starts it and never names a command. The administrator lists each program in the node policy (for `--init` nodes in
+the actuator's `worker-policy.json`) and grants the scopes `app.read` and `app.call`, which `--init` does not grant:
+
+```json
+"applicationMcps": [{
+  "id": "filmcraft",
+  "command": ["/usr/bin/filmcraft-cli", "mcp", "--bridge", "127.0.0.1:9876"],
+  "versionCommand": ["/usr/bin/filmcraft-cli", "--version"],
+  "readTools": ["command_list", "doc_inspect", "project_inspect", "sequence_inspect", "render_frame"],
+  "callTimeoutSeconds": 300,
+  "backupRequirement": "off"
+}]
+```
+
+- `app_mcp_read {program}` returns the version and the program's tools, each marked read or not; `{program, schema}` returns
+  one tool's input schema; `{program, tool, arguments}` runs a tool the administrator listed in `readTools`.
+- `app_mcp_call {program, tool, arguments}` runs any tool of the program and counts as a change: it needs a request id and,
+  unless the program's or the node's `backupRequirement` is `off`, a current backup. The program's own read-only hints are
+  not trusted.
+- Answers are text pages (`max_chars`, `offset`, `next_offset`); images only with `images: true`. Fields the program adds
+  beyond its content are dropped.
+- The program starts with an empty environment and no shell, stays alive for the session (FilmCraft keeps its open project),
+  and stops on `end_session`, after 15 idle minutes or when a call misses `callTimeoutSeconds`. A stopped program starts fresh
+  on the next call; nothing is replayed. Program requests to the node are refused.
+- Run the node next to the program, for example inside the program's container; the node never needs Docker access.
+  Confine the program's own file access with that container, because many program MCP servers can read and write wherever
+  their user can.
+- Through the compact and cartridge gateways both tools are routed `cartridge_call` functions:
+  `cartridge_call {"function": "app_mcp_read", "arguments": {"program": "filmcraft"}}`.
 
 Core cartridges and the compact gateway expose similarly named routing tools with different schemas. Always use the
 selected server's descriptors. App identity/version and access capabilities must be established before cartridge use.
