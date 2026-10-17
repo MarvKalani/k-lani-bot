@@ -399,37 +399,13 @@ public sealed class LinuxUiService : IUiService
         return r.Output.Split('\n').Select(l => l.Split('=', 2)).Where(p => p.Length == 2).ToDictionary(p => p[0], p => p[1]);
     }
     // X11 screenshots and pointer input both use root-window pixels, so the rectangle needs no scaling.
-    // Throws ArgumentException for an unknown or ambiguous window and InvalidOperationException when xdotool fails.
+    // Throws ArgumentException for an unknown or ambiguous window and InvalidOperationException when the X server does not answer.
     public WindowScreenBounds? ReadWindowBounds(WindowSelectionRequest request)
     {
         RequireX11();
         var window = Select(request);
-        if (window == null)
-        {
-            return null;
-        }
 
-        var result = Run("xdotool", "getwindowgeometry", "--shell", window.Handle.ToInt64().ToString());
-        if (!result.Success)
-        {
-            throw new InvalidOperationException(result.Error);
-        }
-        var fields = result.Output.Split('\n').Select(line => line.Split('=', 2)).Where(pair => pair.Length == 2)
-            .ToDictionary(pair => pair[0], pair => pair[1]);
-
-        return ReadBounds(fields);
-    }
-
-    private static WindowScreenBounds? ReadBounds(Dictionary<string, string> fields)
-    {
-        if (!int.TryParse(fields.GetValueOrDefault("X"), out int x) || !int.TryParse(fields.GetValueOrDefault("Y"), out int y)
-            || !int.TryParse(fields.GetValueOrDefault("WIDTH"), out int width)
-            || !int.TryParse(fields.GetValueOrDefault("HEIGHT"), out int height) || width <= 0 || height <= 0)
-        {
-            return null;
-        }
-
-        return new WindowScreenBounds(x, y, width, height);
+        return window == null ? null : X11WindowRectangle.Read(window.Handle.ToInt64());
     }
     public GeometryOutcome SetWindowGeometry(
         int? pid,

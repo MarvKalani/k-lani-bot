@@ -425,7 +425,8 @@ FilmCraft on Linux). Core `get_ui_tree` then fails with the code `no_accessibili
   store its coordinates or keys.
 
 Core `get_window_geometry` accepts the optional `window` handle and then answers `bounds` in screenshot pixels. Only the
-Linux/X11 backend implements it; Windows and macOS answer `unsupported` until a native acceptance has checked the scale
+Linux/X11 backend implements it, reading the window's origin through XCB (xdotool and wmctrl count the frame offset twice
+under a reparenting window manager); Windows and macOS answer `unsupported` until a native acceptance has checked the scale
 between their screenshots and pointer input (DPI, Retina), so `ui_input` is refused there. The node's red activity bar and
 border let clicks through but cover the screenshot; a control under them has to be reached by keyboard or after moving the window.
 
