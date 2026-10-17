@@ -309,7 +309,9 @@ cartridge_call {"function": "app_mcp_save", "arguments": {"program": "filmcraft"
 - Saving reruns every step with the `test` values; only when every step answered, every `expect` held and every check read
   a file this run wrote (absent before or changed, not empty, frame count within `min`/`max`) is the function stored. It is
   stored for the version the program's `versionCommand` printed; a program whose version cannot be read stores nothing.
-- `ui_info` lists stored functions in `app_mcp_functions` for the version the node runs. Run one with
+- `ui_info` lists stored functions in `app_mcp_functions` for the version the node runs; the tool listing of
+  `app_mcp_read {program}` names them in `stored_functions`, `cartridge_browse {function}` returns one's call schema and
+  `cartridge_call {"function": "app_mcp_functions", "arguments": {program}}` lists them again. Run one with
   `cartridge_call {function, arguments: {program, parameters: {name: value}}}`; each step is its own `app_mcp_call`
   (scope, backup requirement, audit, request id), the run stops at the first failing step, names it and says whether the
   program may have changed. It never retries.

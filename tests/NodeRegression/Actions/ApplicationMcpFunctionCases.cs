@@ -88,6 +88,7 @@ internal static class ApplicationMcpFunctionCases
             checks.That(row?["version"]?.ToString() == FakeApplicationMcp.Version && row["functions"]?[0]?["name"]?.ToString() == "export"
                 && row["functions"]?[0]?["parameters"]?["frames"]?.ToString() == "integer", "ui_info lists the function for this version");
             checks.That(functions.FunctionsListed && !functions.DriftListed, "only the function row is listed");
+            CheckDiscovery(checks, dispatcher, functions);
         }
         using (var restarted = new ActionDispatcher(new FakeUi(), policy))
         {
@@ -98,6 +99,27 @@ internal static class ApplicationMcpFunctionCases
             JsonObject again = Call(functions, "export", Test(workspace, "second.gif", 4));
             checks.That(again["verified"]?.GetValue<bool>() == true && Frames(again) == 4, "an output written again counts as written");
         }
+    }
+
+    // Wherever an agent looks after ui_info, the stored function is named: a browse, the tool listing and the field called as a function.
+    private static void CheckDiscovery(Checks checks, ActionDispatcher dispatcher, CompactApplicationMcpFunctions functions)
+    {
+        JsonObject? described = functions.Describe("export");
+        checks.That(described?["program"]?.ToString() == Program && described["steps"]?.AsArray().Count == 2
+            && described["inputSchema"]?["properties"]?["parameters"]?["required"]?.AsArray().Count == 3,
+            "a browse by name describes a listed function with the schema of its call");
+        checks.That(functions.Describe("unlisted") == null, "a name the latest ui_info did not list is not described");
+        var listingArguments = new JsonObject { ["program"] = Program };
+        JsonObject listing = Execute(dispatcher, Tool.ApplicationMcpRead, (JsonObject)listingArguments.DeepClone());
+        functions.AddToListing(listingArguments, listing);
+        checks.That(listing["stored_functions"]?[0]?["name"]?.ToString() == "export" && listing["tools"] != null,
+            "the program's tool listing names the stored functions of its version");
+        JsonObject schemaAnswer = new JsonObject { ["success"] = true, ["version"] = FakeApplicationMcp.Version };
+        functions.AddToListing(new JsonObject { ["program"] = Program, ["schema"] = "import" }, schemaAnswer);
+        checks.That(schemaAnswer["stored_functions"] == null, "a schema answer is left as it is");
+        JsonObject listed = Await(functions.ListAsync(new JsonObject { ["program"] = Program }, CancellationToken.None));
+        checks.That(listed[CompactApplicationMcpFunctionNames.FunctionsField]?[0]?["functions"]?[0]?["name"]?.ToString() == "export",
+            "app_mcp_functions called as a function lists the same rows as ui_info");
     }
 
     private static void CheckFailures(Checks checks, string root, string library)

@@ -15,6 +15,13 @@ public static class CompactApplicationMcpFunctionNames
         + "node runs: cartridge_call {function, arguments: {program, parameters: {name: value}}} runs one; a reply with verified true "
         + "is final.";
 
+    public const string ListingField = "stored_functions";
+
+    public const string ListingHint = "stored_functions were verified on this version and do a whole task in one call: "
+        + "cartridge_call {function, arguments: {program, parameters: {name: value}}}; a reply with verified true is final. "
+        + "Otherwise load one tool's schema with app_mcp_read {program, schema}; read tools run through app_mcp_read, all others "
+        + "through app_mcp_call.";
+
     public const string DriftHint = "app_mcp_other_versions lists stored functions of another version of the program; none is "
         + "callable here: test_run_needed means its tools and arguments still fit, so verify it with cartridge_call {function: "
         + "\"app_mcp_save\", arguments: {program, name, from_version, test: {name: value}}}; repair_needed names the first step "
@@ -111,6 +118,43 @@ public static class CompactApplicationMcpFunctionNames
             CompactApplicationMcpFunctionCodec.TypeName(parameter.Type))));
 
         return entry;
+    }
+
+    // A browsed function: its description, the program tools of its steps and the schema of its cartridge_call arguments.
+    public static JsonObject Descriptor(CompactApplicationMcpDocument document, CompactApplicationMcpFunction function)
+    {
+        var properties = new JsonObject(function.Parameters.Select(parameter => new KeyValuePair<string, JsonNode?>(parameter.Name,
+            ParameterSchema(parameter))));
+        var parameters = new JsonObject
+        {
+            ["type"] = "object",
+            ["properties"] = properties,
+            ["required"] = new JsonArray(function.Parameters.Select(parameter => (JsonNode?)parameter.Name).ToArray()),
+            ["additionalProperties"] = false
+        };
+        var descriptor = Entry(function);
+        descriptor["program"] = document.Program;
+        descriptor["version"] = document.Version;
+        descriptor["steps"] = new JsonArray(function.Steps.Select(step => (JsonNode?)step.Tool).ToArray());
+        descriptor["inputSchema"] = new JsonObject
+        {
+            ["type"] = "object",
+            ["properties"] = new JsonObject { ["program"] = new JsonObject { ["const"] = document.Program }, ["parameters"] = parameters },
+            ["required"] = new JsonArray("program", "parameters")
+        };
+
+        return descriptor;
+    }
+
+    private static JsonObject ParameterSchema(CompactApplicationMcpParameter parameter)
+    {
+        var schema = new JsonObject { ["type"] = CompactApplicationMcpFunctionCodec.TypeName(parameter.Type) };
+        if (parameter.Description != null)
+        {
+            schema["description"] = parameter.Description;
+        }
+
+        return schema;
     }
 
     public static JsonObject DriftRow(CompactApplicationMcpDriftReport report)

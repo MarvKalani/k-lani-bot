@@ -9,10 +9,18 @@ namespace KLaniBot.Transport.CompactUi;
 public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, string libraryRoot)
 {
     public const string SaveFunction = "app_mcp_save";
+
+    // Agents call the ui_info field name as a function, so it answers with the same rows for one program.
+    public const string ListFunction = CompactApplicationMcpFunctionNames.FunctionsField;
+
+    // cartridge_info and cartridge_browse add this after a ui_info that listed app MCP functions, so no reply says there are none.
+    public const string ListedSentence = "Stored app MCP functions are listed in ui_info app_mcp_functions; run one with "
+        + "cartridge_call {function, arguments: {program, parameters: {name: value}}}.";
     private readonly CompactApplicationMcpStore _store = new(libraryRoot);
     private readonly CompactApplicationMcpRunner _runner = new(client);
     private readonly CompactApplicationMcpDrift _drift = new(client);
     private readonly Dictionary<string, CompactApplicationMcpProbe> _probes = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, CompactApplicationMcpDocument> _listed = new(StringComparer.Ordinal);
 
     public bool FunctionsListed
     {
@@ -29,6 +37,7 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
     {
         FunctionsListed = false;
         DriftListed = false;
+        _listed.Clear();
         var functionRows = new JsonArray();
         var driftRows = new JsonArray();
         foreach (string program in Programs(info))
@@ -44,6 +53,23 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
         AddRows(info, CompactApplicationMcpFunctionNames.DriftField, driftRows);
         FunctionsListed = functionRows.Count > 0;
         DriftListed = driftRows.Count > 0;
+    }
+
+    // Throws what the node connection throws for cancellation or a broken transport.
+    public async Task<JsonObject> ListAsync(JsonObject arguments, CancellationToken cancellation)
+    {
+        if (!CompactDiscoveryDocumentCodec.Text(arguments, "program", out string program)
+            || !CompactApplicationMcpFunctionCodec.ValidProgram(program))
+        {
+            return CompactApplicationMcpFunctionNames.Refusal(CompactApplicationMcpFailure.InvalidParameters,
+                "app_mcp_functions takes {program}.");
+        }
+
+        var reply = new JsonObject { ["success"] = true, [CompactApplicationMcpNames.Field] = new JsonArray(program) };
+        await AddToInfoAsync(reply, cancellation);
+        reply.Remove(CompactApplicationMcpNames.Field);
+        reply["next"] = CompactApplicationMcpFunctionNames.FunctionsHint;
+        return reply;
     }
 
     // Throws what the node connection throws for cancellation or a broken transport.
@@ -98,6 +124,37 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
         return CompactApplicationMcpFunctionNames.Reply(function, run);
     }
 
+    // An agent told about app MCPs lists the program's tools first, so that listing names the stored functions of its version too.
+    public void AddToListing(JsonObject arguments, JsonObject listing)
+    {
+        bool toolListing = !arguments.ContainsKey("tool") && !arguments.ContainsKey("schema") && !arguments.ContainsKey("file");
+        if (!toolListing || listing["success"]?.GetValue<bool>() != true
+            || !CompactDiscoveryDocumentCodec.Text(arguments, "program", out string program)
+            || listing["version"]?.ToString() is not { } version || Find(program, version) is not { Functions.Count: > 0 } document)
+        {
+            return;
+        }
+
+        listing[CompactApplicationMcpFunctionNames.ListingField] = new JsonArray(document.Functions
+            .Take(CompactApplicationMcpFunctionNames.FunctionLimit)
+            .Select(function => (JsonNode?)CompactApplicationMcpFunctionNames.Entry(function)).ToArray());
+        listing["next"] = CompactApplicationMcpFunctionNames.ListingHint;
+        _listed[program] = document;
+    }
+
+    // The browse descriptor of a function the latest ui_info listed, or null; a name several programs list is not described.
+    public JsonObject? Describe(string name)
+    {
+        var matches = _listed.Values.SelectMany(document => document.Functions.Where(function => function.Name == name)
+            .Select(function => new CompactApplicationMcpListedFunction(document, function))).ToArray();
+        if (matches.Length != 1)
+        {
+            return null;
+        }
+
+        return CompactApplicationMcpFunctionNames.Descriptor(matches[0].Document, matches[0].Function);
+    }
+
     private async Task AddProgramAsync(string program, IReadOnlyList<CompactApplicationMcpDocument> documents, JsonArray functionRows,
         JsonArray driftRows, CancellationToken cancellation)
     {
@@ -109,6 +166,7 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
         if (current is { Functions.Count: > 0 })
         {
             functionRows.Add(FunctionRow(current));
+            _listed[program] = current;
         }
         var currentNames = (current?.Functions ?? []).Select(function => function.Name).ToHashSet(StringComparer.Ordinal);
         foreach (CompactApplicationMcpDocument other in documents.Where(document => document.Version != probe.Version))
@@ -170,12 +228,19 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
 
     private CompactApplicationMcpFunction? Find(string program, string? version, string function)
     {
-        if (!CompactApplicationMcpFunctionCodec.KnownVersion(version) || !_store.TryRead(program, version!, out var document))
+        return Find(program, version)?.Functions.FirstOrDefault(stored => stored.Name == function);
+    }
+
+    // The stored document of this program version; null for an unknown version, none stored or an unreadable store.
+    private CompactApplicationMcpDocument? Find(string program, string? version)
+    {
+        if (!CompactApplicationMcpFunctionCodec.ValidProgram(program) || !CompactApplicationMcpFunctionCodec.KnownVersion(version)
+            || !_store.TryRead(program, version!, out var document))
         {
             return null;
         }
 
-        return document.Value?.Functions.FirstOrDefault(stored => stored.Name == function);
+        return document.Value;
     }
 
     private async Task<CompactApplicationMcpProbe> ProbeAsync(string program, CancellationToken cancellation)
@@ -240,3 +305,6 @@ public sealed class CompactApplicationMcpFunctions(ICompactNodeClient client, st
         }
     }
 }
+
+// A function of the latest ui_info listing together with the program version document it belongs to.
+internal sealed record CompactApplicationMcpListedFunction(CompactApplicationMcpDocument Document, CompactApplicationMcpFunction Function);

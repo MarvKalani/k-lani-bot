@@ -389,6 +389,7 @@ public sealed class CompactGatewaySession : IDisposable
                 if (topic.Length == 0)
                 {
                     native["stored_functions"] = CompactStoredFunctionListing.Sentence(_discovery);
+                    AddApplicationMcpSentence(native);
                 }
                 return native;
             }
@@ -460,6 +461,10 @@ public sealed class CompactGatewaySession : IDisposable
             ["functions"] = available,
             ["next_cursor"] = null
         };
+        if (topic.Length == 0 || IsUseTopic(topic))
+        {
+            AddApplicationMcpSentence(reply);
+        }
         if (topic.Length == 0)
         {
             reply["stored_functions"] = CompactStoredFunctionListing.Sentence(_discovery);
@@ -510,7 +515,7 @@ public sealed class CompactGatewaySession : IDisposable
     // Throws CompactNodeException for an unavailable selected program/function.
     private JsonObject Descriptor(string name)
     {
-        var descriptor = CompactGatewayFunctionTools.Find(name);
+        var descriptor = CompactGatewayFunctionTools.Find(name) ?? _applicationMcpFunctions.Describe(name);
         if (descriptor != null)
         {
             return descriptor;
@@ -570,11 +575,20 @@ public sealed class CompactGatewaySession : IDisposable
         }
         if (GatewayNodeFunctions.TryTool(function, out Tool backup))
         {
-            return await _client.CallAsync(backup, GatewayNodeFunctions.Arguments(backup, arguments), cancellation);
+            JsonObject answer = await _client.CallAsync(backup, GatewayNodeFunctions.Arguments(backup, arguments), cancellation);
+            if (backup == Tool.ApplicationMcpRead)
+            {
+                _applicationMcpFunctions.AddToListing(arguments, answer);
+            }
+            return answer;
         }
         if (function == CompactApplicationMcpFunctions.SaveFunction)
         {
             return await _applicationMcpFunctions.SaveAsync(arguments, cancellation);
+        }
+        if (function == CompactApplicationMcpFunctions.ListFunction)
+        {
+            return await _applicationMcpFunctions.ListAsync(arguments, cancellation);
         }
         if (await _applicationMcpFunctions.TryCallAsync(function, arguments, cancellation) is { } applicationMcpRun)
         {
@@ -819,8 +833,18 @@ public sealed class CompactGatewaySession : IDisposable
     {
         var info = await CartridgeInfoReplyAsync(cancellation);
         info["stored_functions"] = CompactStoredFunctionListing.Sentence(_discovery);
+        AddApplicationMcpSentence(info);
 
         return info;
+    }
+
+    // The window sentence speaks of window rows only; app MCP functions of the latest ui_info are named beside it.
+    private void AddApplicationMcpSentence(JsonObject reply)
+    {
+        if (_applicationMcpListed && _applicationMcpFunctions.FunctionsListed)
+        {
+            reply[CompactApplicationMcpFunctionNames.FunctionsField] = CompactApplicationMcpFunctions.ListedSentence;
+        }
     }
 
     // Throws CompactNodeException for absent/ambiguous native instance binding; generated program Info retains actual metadata.
