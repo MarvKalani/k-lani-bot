@@ -114,6 +114,8 @@
     <Compile Include="../../src/k-lani-bot-node/Localization/UiText.cs" />
     <Compile Include="../../src/k-lani-bot-node/Localization/UiTexts.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/IUiService.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/WindowScreenBounds.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/UiTreeErrors.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/WindowSelection.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/Linux/WmctrlLineParser.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/UiNativeTextSupport.cs" />

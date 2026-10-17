@@ -606,7 +606,7 @@
     },
     {
       "name": "get_window_geometry",
-      "description": "Reads current window geometry.",
+      "description": "Reads current window geometry; by window handle, the window's rectangle in screenshot pixels.",
       "scope": "observe",
       "feature": "windowControl",
       "mutates": false,
@@ -619,6 +619,10 @@
           },
           "title": {
             "type": "string"
+          },
+          "window": {
+            "type": "integer",
+            "description": "Native window handle from list_windows. It selects exactly one window and ignores title; the reply is bounds {x, y, width, height} in screenshot pixels, or unsupported where the platform cannot prove that scale."
           },
           "node": {
             "type": "string",
@@ -1403,6 +1407,12 @@
               "double"
             ]
           },
+          "last_resort_reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "Why the semantic route cannot do this step, for example a window without an accessibility tree. Recorded in the node journal before dispatch."
+          },
           "node": {
             "type": "string",
             "description": "Registered node identifier; URLs are not accepted."
@@ -1673,6 +1683,12 @@
             },
             "minItems": 1,
             "maxItems": 6
+          },
+          "last_resort_reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "Why the semantic route cannot do this step, for example a window without an accessibility tree. Recorded in the node journal before dispatch."
           },
           "node": {
             "type": "string",

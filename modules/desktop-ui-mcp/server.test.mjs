@@ -33,7 +33,7 @@ readline.createInterface({input:process.stdin}).on('line', line => {
     assert.equal(initialized.result.instructions, compactInstructions);
     const response = await client.request('tools/list', {});
     assert.deepEqual(response.result.tools.map(tool => tool.name),
-        ['ui_info', 'ui_observe', 'ui_act', 'ui_apply', 'cartridge_info', 'cartridge_browse', 'cartridge_call']);
+        ['ui_info', 'ui_observe', 'ui_act', 'ui_apply', 'ui_input', 'cartridge_info', 'cartridge_browse', 'cartridge_call']);
     const browse = await client.call('cartridge_browse', { function: 'Info.result' });
     assert.equal(JSON.parse(browse.result.content[0].text).function.name, 'Info.result');
     const learning = await client.call('cartridge_browse', { function: 'Programming.learn' });

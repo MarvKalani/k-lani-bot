@@ -278,6 +278,86 @@
       }
     },
     {
+      "name": "ui_input",
+      "description": "Last resort for a window without an accessibility tree (ui_observe and ui_act report none): keyboard and pointer input checked with screenshots. Select the window by its handle from ui_info and say why the semantic route cannot do it. Without steps it returns a screenshot of the display and its shot id. click x/y are pixels of that screenshot: one click per call, as the first step, with the latest shot; a window that moved since is refused. key sends keys; type pastes literal text through the clipboard. Every call returns a fresh screenshot: success means the input was sent, so check the image for the result. Never saved in functions; a node in the guarded profile refuses it.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "window": {
+            "type": "integer"
+          },
+          "pid": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "shot": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "click",
+                    "key",
+                    "type"
+                  ]
+                },
+                "x": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "y": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "button": {
+                  "type": "string",
+                  "enum": [
+                    "left",
+                    "right",
+                    "double"
+                  ]
+                },
+                "keys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "maxItems": 8
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "required": [
+                "action"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "window",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "cartridge_info",
       "description": "Identify the configured application/version and generated-function coverage before reuse.",
       "inputSchema": {

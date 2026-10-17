@@ -68,7 +68,10 @@ public enum ActionErrorCode
     PausedByPerson,
 
     // No current backup covers this session's first change, and the administrator has not switched the requirement off.
-    BackupRequired
+    BackupRequired,
+
+    // The window exists, but the accessibility bus publishes no tree for it; only the last-resort input route can operate it.
+    NoAccessibilityTree
 }
 
 // Receipts, journal entries and failure answers carry the error code as a word; this table gives each code its word and reads it back.
@@ -99,6 +102,7 @@ public static class ActionErrorCodeNames
             ActionErrorCode.ImageTooLarge => "image_too_large",
             ActionErrorCode.PausedByPerson => "paused_by_person",
             ActionErrorCode.BackupRequired => "backup_required",
+            ActionErrorCode.NoAccessibilityTree => "no_accessibility_tree",
             _ => throw new UnreachableException()
         };
     }

@@ -45,11 +45,7 @@ internal sealed class ObservationActionHandlers
         string tree = ReadUiTree(arguments, request, maxDepth);
         if (tree.StartsWith("error:"))
         {
-            return new
-            {
-                success = false,
-                error = tree
-            };
+            return TreeFailure(tree);
         }
         string snapshot = _services.Desktop.IssueSnapshot();
         _services.Desktop.RememberObservation(snapshot, tree);
@@ -73,6 +69,22 @@ internal sealed class ObservationActionHandlers
         var response = JsonSerializer.SerializeToNode(result)!.AsObject();
         response["form_metadata"] = JsonSerializer.SerializeToNode(ReadFieldMetadata(lines.Take(limit)));
         return response;
+    }
+
+    // A window without any accessibility tree gets its own code, so the last-resort input route can tell it from other failures.
+    private static JsonObject TreeFailure(string error)
+    {
+        var failure = new JsonObject
+        {
+            ["success"] = false,
+            ["error"] = error
+        };
+        if (error == UiTreeErrors.NoTreeLine)
+        {
+            failure["code"] = ActionErrorCode.NoAccessibilityTree.ToWireName();
+        }
+
+        return failure;
     }
 
     // Only an explicit row_format request changes the text; other callers keep each backend's own tree.

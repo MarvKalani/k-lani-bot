@@ -418,9 +418,10 @@ public sealed class ActionDispatcher : IDisposable
             ActionResults.Failure(ActionOutcome.Unknown, "Operation admitted; outcome not yet confirmed."));
     }
 
+    // A raw key or coordinate input names why the semantic route could not do it, and the journal keeps that reason with the action.
     private static JsonObject AdmissionEntry(ActionRequest request)
     {
-        return new JsonObject
+        var entry = new JsonObject
         {
             ["operation_key"] = request.OperationKey,
             ["request_hash"] = request.Hash,
@@ -431,6 +432,12 @@ public sealed class ActionDispatcher : IDisposable
             ["outcome"] = ActionOutcome.Admitted.ToWireName(),
             ["timestamp"] = DateTimeOffset.UtcNow.ToString("O")
         };
+        if (request.Arguments["last_resort_reason"] is JsonValue reason)
+        {
+            entry["last_resort_reason"] = reason.DeepClone();
+        }
+
+        return entry;
     }
 
     // The agent's reasons are written down before the action, so they cannot be adjusted to the result, together with what

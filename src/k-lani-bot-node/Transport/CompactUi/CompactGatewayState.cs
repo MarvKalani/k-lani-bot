@@ -44,6 +44,11 @@ public sealed class CompactGatewayState
     {
         get; set;
     }
+    // The screenshot ui_input returned last; a click must name it, so coordinates never outlive the picture they came from.
+    public CompactInputShot? InputShot
+    {
+        get; set;
+    }
     public CompactResultAuthority Authority => new(Node ?? "unknown", Session);
 
     // Throws CompactNodeException when a caller has not established this process through Info in the current conversation.

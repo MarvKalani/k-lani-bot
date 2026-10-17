@@ -31,7 +31,7 @@ public sealed class CompactGatewayObservation(ICompactNodeClient client, Compact
             ["node"] = new JsonObject { ["name"] = "k-lani-bot-node", ["version"] = state.Version },
             ["platform"] = state.Platform ?? "unknown",
             ["routes"] = new JsonArray("native UI actions", "semantic focus and keyboard",
-                "optional screenshots"),
+                "optional screenshots", CompactInputNames.Route),
             ["form_capabilities"] = state.FormCapabilities?.DeepClone() ?? JsonValue.Create("unsupported"),
             ["windows"] = new JsonArray(windows.Select(window => (JsonNode?)Window(window)).ToArray())
         };

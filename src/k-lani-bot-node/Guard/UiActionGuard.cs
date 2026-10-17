@@ -161,7 +161,7 @@ public static class UiActionGuard
             AuthorizeApplication(guardOptions, identity.ExecutablePath);
             return;
         }
-        if (action is Tool.GetUiTree or Tool.FocusWindow && arguments["window"] is { } windowHandle)
+        if (action is Tool.GetUiTree or Tool.FocusWindow or Tool.GetWindowGeometry && arguments["window"] is { } windowHandle)
         {
             AuthorizeWindowApplication(guardOptions, uiService, windowHandle.GetValue<long>());
             return;

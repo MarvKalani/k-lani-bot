@@ -92,6 +92,9 @@ public sealed class CompactGatewaySession : IDisposable
                 _state.SelectedProcess = _state.SelectWindow(arguments).ProcessId;
                 return new CompactGatewayApply(_observation, _state, new CompactNodeAccess(_client, _state.Node!))
                     .RunAsync(arguments, cancellation);
+            case CompactUiTool.Input:
+                _state.SelectedProcess = _state.SelectWindow(arguments).ProcessId;
+                return new CompactGatewayInput(_client, _observation, _state).RunAsync(arguments, cancellation);
             case CompactUiTool.CartridgeBrowse:
                 return BrowseAsync(arguments, cancellation);
             case CompactUiTool.CartridgeCall:

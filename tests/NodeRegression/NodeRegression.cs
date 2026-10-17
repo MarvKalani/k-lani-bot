@@ -146,6 +146,7 @@ public static class NodeRegression
         int count = CommonTreeRowCases.Run(temp);
         count += ForegroundActivationPlanCases.Run();
         count += WindowSelectionCases.Run(temp);
+        count += LastResortInputCases.Run(temp);
         count += RunMacSuites(temp);
         count += RunLinuxSuites();
 
@@ -310,15 +311,24 @@ internal sealed class FakeUi : IUiService
         return false;
     }
     public object? GetWindowGeometry(int? pid, string? title) => null;
+    // The rectangle a handle-selected window reports; null stands for a backend that cannot prove screenshot scale.
+    public WindowScreenBounds? Bounds;
+    public WindowScreenBounds? ReadWindowBounds(WindowSelectionRequest request)
+    {
+        LastWindowRequest = request;
+        return Bounds;
+    }
     public GeometryOutcome SetWindowGeometry(int? pid, string? title, string? state, int? w, int? h, int? x, int? y)
         => new(false, "unsupported", null);
+    // A window whose program publishes no accessibility tree, as an egui program's window does.
+    public bool NoTree;
     public string GetUiTree(WindowSelectionRequest request, int maxDepth = 4)
     {
         LastWindowRequest = request;
-        return $"[{++Id}] Button button";
+        return NoTree ? UiTreeErrors.NoTreeLine : $"[{++Id}] Button button";
     }
     public string GetCommonUiTree(WindowSelectionRequest request, int maxDepth = 4)
-        => $"[{++Id}] Root \"Desktop\" (autoId: \"\", val: null, enabled: True, offscreen: False)";
+        => NoTree ? UiTreeErrors.NoTreeLine : $"[{++Id}] Root \"Desktop\" (autoId: \"\", val: null, enabled: True, offscreen: False)";
     public string GetChapters(int? pid, string? title) => "[K1] panel";
     public string InspectSection(string chapter, int maxDepth = 3)
         => GetUiTree(new WindowSelectionRequest(null, null, null), maxDepth);

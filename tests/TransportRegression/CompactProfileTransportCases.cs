@@ -69,7 +69,8 @@ internal static class CompactProfileTransportCases
             && instructions.Contains("Call ui_info first;", StringComparison.Ordinal),
             "Compact initialize names the author/operator role and first discovery call.");
         var tools = replies[2]["result"]!["tools"]!.AsArray().OfType<JsonObject>().ToArray();
-        Require(tools.Length == 7 && tools.Any(tool => tool["name"]!.ToString() == "ui_act")
+        Require(tools.Length == 8 && tools.Any(tool => tool["name"]!.ToString() == "ui_act")
+            && tools.Any(tool => tool["name"]!.ToString() == "ui_input")
             && tools.Any(tool => tool["name"]!.ToString() == "ui_apply")
             && !tools.Any(tool => tool["name"]!.ToString() == "type_text"), "Raw native tools leaked into compact discovery.");
         Require(replies[4]["result"]?["structuredContent"]?["function"]?["name"]?.ToString() == "Info.compatibility",

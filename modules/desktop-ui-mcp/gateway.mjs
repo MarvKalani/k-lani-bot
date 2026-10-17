@@ -16,8 +16,9 @@ import { CompatibilityRuntime, compatibilityDefinitions } from './compatibility-
 import { isPlainTextEntry } from './role-vocabulary.mjs';
 import { viewLimits } from './view-store.mjs';
 import { WindowApply } from './window-apply.mjs';
+import { LastResortInput, inputRoute, noTreeHint } from './last-resort-input.mjs';
 
-const checkpointedMutationTools = new Set(['click_element', 'type_text', 'focus_window', 'hotkey', 'set_clipboard']);
+const checkpointedMutationTools = new Set(['click_element', 'type_text', 'focus_window', 'hotkey', 'set_clipboard', 'mouse_click']);
 // The same words as the compact gateway, so both implementations answer each case with one message and one usage hint.
 export const pidRefusal = 'Select a PID from the current ui_info reply before observing or operating it.';
 // The same words as the compact gateway; a key name with a plus sign is refused and this sentence names the separate keys.
@@ -38,7 +39,8 @@ export const compactInstructions = 'Author missing task procedures, then use the
     + 'Programming.learn captures supported ui_act demonstrations; other procedures need a loaded cartridge. '
     + 'Call ui_info first; each window row lists the stored functions it can run. '
     + 'Run a listed function with cartridge_call {function, arguments: {pid, parameters: {name: value}}}. '
-    + 'When the function verifies the requested business result, do not observe it again.';
+    + 'When the function verifies the requested business result, do not observe it again. '
+    + 'A window without an accessibility tree is operated with ui_input as a last resort; its coordinates never enter a function.';
 const windowRefusal = 'The window handle is not one of the current windows; call ui_info again.';
 const unknownWindowRefusal = windowRefusal;
 export const ambiguousWindowRefusal = 'Recipe window is absent, foreign or ambiguous; name the main window with the window argument '
@@ -123,6 +125,7 @@ export class DesktopUiGateway {
         this.listedRows = [];
         this.storedDiscovery = StoredFunctionDiscovery.notObserved;
         this.demonstration = null;
+        this.inputShot = null;
         this.learned = learning ? new LearnedFunctions(learning) : null;
         this.compatibilityRuntime = new CompatibilityRuntime(this, evidence.compatibility ?? learning?.compatibility ?? null);
         this.forms = this.learned ? new FormScanner(this.learned) : null;
@@ -143,6 +146,7 @@ export class DesktopUiGateway {
         this.learned?.discovery.clear();
         this.results.clear();
         this.demonstration = null;
+        this.inputShot = null;
         this.projection.clear();
         this.observedInstances.clear();
         this.knownPids.clear();
@@ -163,6 +167,7 @@ export class DesktopUiGateway {
         const selected = { ...args, pid: selection.pid, window: selection.window };
         if (name === 'ui_observe') return this.observe(selected);
         if (name === 'ui_apply') return new WindowApply(this).run(selected);
+        if (name === 'ui_input') return new LastResortInput(this).run(selected);
         return this.act(selected);
     }
 
@@ -258,7 +263,7 @@ export class DesktopUiGateway {
         return { success: true, node: this.serverInfo, platform: this.platform,
             compatibility: { tested_node: '0.2610.0609', tested_platform: 'linux-x11-atspi', native_depth_limit: 32,
                 other_platforms: 'not validated; observation must parse successfully before references are issued' },
-            routes: ['native UI actions', 'semantic focus and keyboard', 'optional screenshots'],
+            routes: ['native UI actions', 'semantic focus and keyboard', 'optional screenshots', inputRoute],
             form_capabilities: capabilities.capabilities?.formCapabilities ?? 'unsupported', windows: listed, next };
     }
 
@@ -354,8 +359,10 @@ export class DesktopUiGateway {
     // A tree is always read for one native window, so every row can be attributed to that window's kind.
     async readTree(pid, fieldMetadata = false, window = undefined) {
         const observed = await this.observedWindow(pid, window);
-        const result = this.requireSuccess(await this.native('get_ui_tree', { pid, window: observed.WindowHandle, max_depth: 32,
-            max_nodes: 2000, ...(fieldMetadata ? { field_metadata: true } : {}) }));
+        const reply = await this.native('get_ui_tree', { pid, window: observed.WindowHandle, max_depth: 32,
+            max_nodes: 2000, ...(fieldMetadata ? { field_metadata: true } : {}) });
+        if (reply.code === 'no_accessibility_tree') throw new Error((reply.error ?? '') + ' ' + noTreeHint);
+        const result = this.requireSuccess(reply);
         if (result.truncated) throw new Error('The native tree is incomplete; completion is unverified.');
         this.lastNodes = parseNativeTree(result.tree);
         if (fieldMetadata) {

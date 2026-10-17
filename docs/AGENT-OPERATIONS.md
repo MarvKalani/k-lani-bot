@@ -394,6 +394,41 @@ dialog when its other windows are main windows, and otherwise fails as ambiguous
 substring search and can match several windows, so pass the handle to name one exactly. On macOS and Linux, `get_ui_tree`
 without a handle still observes every window of the process.
 
+### Last resort: a window without an accessibility tree
+
+Some programs draw their whole window themselves and publish no accessibility tree (for example egui programs such as
+FilmCraft on Linux). Core `get_ui_tree` then fails with the code `no_accessibility_tree`, and the compact `ui_observe` and
+`ui_act` refusals end with a sentence naming `ui_input`; `ui_info` lists the route under `routes`.
+
+`ui_input {window, reason, pid?, shot?, steps?}` is the compact last resort for such a window, in the C# gateway and its JS twin:
+
+- **Window by handle only.** `window` is the handle from `ui_info`; the instance (handle and process start) must still be
+  the one `ui_info` listed. A caption never selects the window.
+- **Only without a tree.** Before any input the gateway reads the window's tree. It accepts `no_accessibility_tree` or a
+  tree with nothing below the window row (`empty_accessibility_tree`), and refuses a window with elements: use
+  `ui_observe` and `ui_act` there. Any other read failure is refused, because the absence is not proved.
+- **Look first.** Without `steps` the reply is the display screenshot as MCP image content, the window's `bounds`
+  `{x, y, width, height}` and a new `shot` id. Coordinates are pixels of that screenshot.
+- **Steps (1–4).** `click {x, y, button: left|right|double}` only as the first step, with the `shot` of the latest
+  `ui_input` reply for this window; the window must have the same rectangle and the point must lie inside it, otherwise the
+  call is refused before any input. `key {keys}` sends a chord. `type {text}` writes the text to the clipboard and pastes it
+  with Ctrl+V at the current caret. The window is focused by handle first.
+- **Fresh check.** After the steps the gateway waits briefly, checks the window instance again and returns a new screenshot,
+  bounds and shot. `success` means the input was sent; verify the business result in the image. A failed call names
+  `completed_steps`, spends the earlier shot and must not be replayed.
+- **Usual checks.** Every input goes through the node: scopes, consent, the guard, the backup requirement and the journal
+  apply. `reason` (1–500 characters) travels as `last_resort_reason` on `mouse_click` and `hotkey`, prefixed with the proved
+  absence word, and the node writes it into the journal's admission entry. No `decision` is sent with raw input.
+- **Policy.** Raw keys and coordinates stay blocked in the guarded profile (`BlockedInGuardedMode`); only a node whose
+  administrator chose the `desktop` profile accepts them. Text needs the `clipboard` scope.
+- **Never stored.** A `ui_input` call ends the current demonstration, so `Programming.learn` and automatic capture never
+  store its coordinates or keys.
+
+Core `get_window_geometry` accepts the optional `window` handle and then answers `bounds` in screenshot pixels. Only the
+Linux/X11 backend implements it; Windows and macOS answer `unsupported` until a native acceptance has checked the scale
+between their screenshots and pointer input (DPI, Retina), so `ui_input` is refused there. The node's red activity bar and
+border let clicks through but cover the screenshot; a control under them has to be reached by keyboard or after moving the window.
+
 
 ### Choose the result information needed
 

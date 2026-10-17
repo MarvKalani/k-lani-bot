@@ -1,6 +1,6 @@
 {
   "name": "get_window_geometry",
-  "description": "Reads current window geometry.",
+  "description": "Reads current window geometry; by window handle, the window\u0027s rectangle in screenshot pixels.",
   "inputSchema": {
     "type": "object",
     "properties": {
@@ -10,6 +10,10 @@
       },
       "title": {
         "type": "string"
+      },
+      "window": {
+        "type": "integer",
+        "description": "Native window handle from list_windows. It selects exactly one window and ignores title; the reply is bounds {x, y, width, height} in screenshot pixels, or unsupported where the platform cannot prove that scale."
       },
       "node": {
         "type": "string",

@@ -191,6 +191,9 @@ public interface IUiService
     List<WindowInfo> ListWindows();
     bool FocusWindow(WindowSelectionRequest request);
     object? GetWindowGeometry(int? pid, string? titleQuery);
+    // Null where the backend cannot prove that its window rectangle and its screenshot pixels share one scale.
+    // Throws ArgumentException for an unknown or ambiguous window.
+    WindowScreenBounds? ReadWindowBounds(WindowSelectionRequest request) => null;
     GeometryOutcome SetWindowGeometry(
         int? pid,
         string? titleQuery,

@@ -87,6 +87,7 @@ internal static class Program
         await InstalledCartridgeCases.RunAsync();
         await CompactGatewayObservationCases.RunAsync();
         await CompactGatewayApplyCases.RunAsync();
+        await CompactGatewayInputCases.RunAsync();
         await CompactGatewayCallCases.RunAsync();
         await ProgramCatalogCases.RunAsync();
         CompactContractDigestCases.Run();

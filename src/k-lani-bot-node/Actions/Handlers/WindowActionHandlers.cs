@@ -73,6 +73,10 @@ internal sealed class WindowActionHandlers
 
     private object GetWindowGeometry(ActionCall call)
     {
+        if (call.Arguments["window"] != null)
+        {
+            return ReadWindowBounds(call);
+        }
         int? pid = call.Arguments["pid"]?.GetValue<int?>();
         string? title = call.Arguments["title"]?.ToString();
         var geometry = _services.Ui.GetWindowGeometry(pid, title);
@@ -88,6 +92,30 @@ internal sealed class WindowActionHandlers
         {
             success = true,
             geometry
+        };
+    }
+
+    // A window named by its handle answers with one rectangle shape on every platform, or with unsupported where the backend cannot
+    // prove that rectangle and screenshot share one scale. Throws ArgumentException for an unknown or ambiguous handle.
+    private object ReadWindowBounds(ActionCall call)
+    {
+        WindowSelectionRequest request = ReadWindowRequest(call.Arguments);
+
+        WindowScreenBounds? bounds = _services.Ui.ReadWindowBounds(request);
+
+        if (bounds == null)
+        {
+            return new
+            {
+                success = false,
+                code = ActionErrorCode.Unsupported.ToWireName(),
+                error = "This platform cannot report the window's rectangle in screenshot pixels."
+            };
+        }
+        return new
+        {
+            success = true,
+            bounds
         };
     }
 

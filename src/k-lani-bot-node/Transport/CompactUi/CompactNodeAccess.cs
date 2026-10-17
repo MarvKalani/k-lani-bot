@@ -69,9 +69,22 @@ public sealed class CompactNodeAccess(ICompactNodeClient client, string expected
         {
             arguments["window"] = handle;
         }
-        var result = CompactNodeResponse.Require(await client.CallAsync(Tool.GetUiTree, arguments, cancellation));
+        JsonObject response = await client.CallAsync(Tool.GetUiTree, arguments, cancellation);
+        RequireTree(response);
 
-        return CompactNodeObservation.Tree(result);
+        return CompactNodeObservation.Tree(response);
+    }
+
+    // Throws CompactNodeException for a failed tree read; a window without any tree names the last-resort route that can operate it.
+    private static void RequireTree(JsonObject response)
+    {
+        var result = CompactNodeResponse.Read(response);
+        if (result.Code == ActionErrorCode.NoAccessibilityTree)
+        {
+            string error = response["error"]?.ToString() ?? "";
+            throw new CompactNodeException(error + " " + CompactInputNames.NoTreeHint, result);
+        }
+        CompactNodeResponse.Require(response);
     }
 
     // Throws CompactNodeException if intent/response persistence fails; no send occurs unless the original UUIDv7 is durable.

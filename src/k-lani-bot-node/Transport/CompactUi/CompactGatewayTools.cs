@@ -10,12 +10,13 @@ public enum CompactUiTool
     Observe,
     Act,
     Apply,
+    Input,
     CartridgeInfo,
     CartridgeBrowse,
     CartridgeCall
 }
 
-// The compact MCP edge exposes six routing descriptors from an embedded contract, with native schemas loaded privately on demand.
+// The compact MCP edge exposes its routing descriptors from an embedded contract, with native schemas loaded privately on demand.
 public static class CompactGatewayTools
 {
     // Some clients never show server instructions, so this recipe is a second channel beside the ui_info reply, which stays primary.
@@ -26,7 +27,8 @@ public static class CompactGatewayTools
         + "Programming.learn captures supported ui_act demonstrations; other procedures need a loaded cartridge. "
         + "Call ui_info first; each window row lists the stored functions it can run. "
         + "Run a listed function with cartridge_call {function, arguments: {pid, parameters: {name: value}}}. "
-        + "When the function verifies the requested business result, do not observe it again.";
+        + "When the function verifies the requested business result, do not observe it again. "
+        + "A window without an accessibility tree is operated with ui_input as a last resort; its coordinates never enter a function.";
 
     private static readonly JsonArray Tools = JsonNode.Parse(Assembly.GetExecutingAssembly()
         .GetManifestResourceStream("KLaniBot.compact-ui-tools.json")!)!["tools"]!.AsArray();
@@ -51,6 +53,7 @@ public static class CompactGatewayTools
             "ui_observe" => CompactUiTool.Observe,
             "ui_act" => CompactUiTool.Act,
             "ui_apply" => CompactUiTool.Apply,
+            "ui_input" => CompactUiTool.Input,
             "cartridge_info" => CompactUiTool.CartridgeInfo,
             "cartridge_browse" => CompactUiTool.CartridgeBrowse,
             "cartridge_call" => CompactUiTool.CartridgeCall,

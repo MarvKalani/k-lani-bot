@@ -58,6 +58,7 @@ public sealed class NativeThreadUiService(IUiService inner, NativeVisibilityHost
     public List<WindowInfo> ListWindows() => host.NativeCall(() => inner.ListWindows());
     public bool FocusWindow(WindowSelectionRequest request) => host.NativeCall(() => inner.FocusWindow(request));
     public object? GetWindowGeometry(int? pid, string? titleQuery) => host.NativeCall(() => inner.GetWindowGeometry(pid, titleQuery));
+    public WindowScreenBounds? ReadWindowBounds(WindowSelectionRequest request) => host.NativeCall(() => inner.ReadWindowBounds(request));
     public GeometryOutcome SetWindowGeometry(
         int? pid,
         string? titleQuery,
