@@ -17,12 +17,16 @@ internal sealed class ApplicationMcpActionHandlers(HandlerServices services)
     }
 
     // Throws ArgumentException for an unknown program, an unknown tool or a tool the operator did not mark as read-only.
+    // A file question is answered without starting the program.
     private object Read(ActionCall call)
     {
         string programId = call.Arguments["program"]!.ToString();
         string? schema = call.Arguments["schema"]?.ToString();
         string? tool = call.Arguments["tool"]?.ToString();
+        string? file = call.Arguments["file"]?.ToString();
 
+        if (file != null)
+            return FileFacts(programId, file);
         return Run(call, programId, program =>
         {
             if (schema != null)
@@ -33,6 +37,14 @@ internal sealed class ApplicationMcpActionHandlers(HandlerServices services)
                 throw new ArgumentException("'" + tool + "' is not a read-only tool on this node; use app_mcp_call.");
             return Invoke(program, tool, call, changes: false);
         });
+    }
+
+    // Throws ArgumentException for a program the policy does not list; UnauthorizedAccessException for a path outside the workspace.
+    private JsonObject FileFacts(string programId, string file)
+    {
+        if (services.Policy.FindApplicationMcp(programId) == null)
+            throw new ArgumentException("This node offers no program '" + programId + "'.");
+        return ApplicationMcpFiles.Facts(services.Policy, programId, file);
     }
 
     // Throws ArgumentException for an unknown program or a tool the program does not list.
@@ -76,7 +88,7 @@ internal sealed class ApplicationMcpActionHandlers(HandlerServices services)
         TimeSpan timeout = TimeSpan.FromSeconds(program.Settings.CallTimeoutSeconds);
 
         JsonObject result = program.Connection.Request("tools/call", parameters, timeout);
-        return ApplicationMcpAnswers.ToolResult(program.Settings.Id, tool, result, Window(call.Arguments));
+        return ApplicationMcpAnswers.ToolResult(program, tool, result, Window(call.Arguments));
     }
 
     private static AnswerWindow Window(JsonObject arguments)

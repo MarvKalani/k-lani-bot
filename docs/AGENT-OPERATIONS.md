@@ -252,7 +252,7 @@ Choose the cheapest available route that can correctly complete the task:
 | Native program cartridge | Compact: the `ui_info` row lists its functions, call them by pid. Otherwise browse `Catalog`, select its key, `cartridge_info`, then task branch | Existing application API/object-model functions |
 | Compact UI gateway | `ui_info`, then `ui_observe` on the selected PID (skipped for a stored function that `ui_info` lists) | Accessibility discovery and semantic actions |
 | Generated UI function | The `ui_info` row with its parameter names for a named function; for a generated one, `cartridge_browse` on its topic, then `cartridge_call` (`cartridge_browse` for the full schema) | Reuse a verified capture with fresh parameters |
-| Programmable App MCP | `app_mcp_read {program}` lists the program's own MCP tools; load one schema, then read or call | Programs that ship their own MCP server, such as FilmCraft |
+| Programmable App MCP | A stored function listed in `ui_info` `app_mcp_functions`; otherwise `app_mcp_read {program}` lists the program's own MCP tools; load one schema, then read or call | Programs that ship their own MCP server, such as FilmCraft |
 | Core node primitives | Capability probe, then only needed tool schemas | Setup, diagnosis and operations not covered by a cartridge |
 
 ### Programmable App MCPs
@@ -287,6 +287,37 @@ the actuator's `worker-policy.json`) and grants the scopes `app.read` and `app.c
   their user can.
 - Through the compact and cartridge gateways both tools are routed `cartridge_call` functions:
   `cartridge_call {"function": "app_mcp_read", "arguments": {"program": "filmcraft"}}`.
+- `app_mcp_read {program, file}` reports size, change time and GIF frame count of a workspace file without starting the
+  program; it is how stored functions check their output on the node.
+
+**Stored app MCP functions (compact gateway).** After a sequence of `app_mcp_call` steps worked, store it as one function:
+
+```json
+cartridge_call {"function": "app_mcp_save", "arguments": {"program": "filmcraft", "name": "export-video-gif",
+  "parameters": [{"name": "video", "type": "string"}, {"name": "gif", "type": "string"}],
+  "steps": [{"tool": "media_import", "arguments": {"paths": ["{{video}}"]}, "expect": [{"pointer": "/errors", "equals": []}]},
+            {"tool": "command_batch", "arguments": {"steps": [
+              {"id": "file.newSequence", "params": {"name": "clip", "fromItem": {"$step": 1, "pointer": "/items/0"}}},
+              {"id": "file.exportMedia", "params": {"path": "{{gif}}", "format": "gif", "wait": true}}]}}],
+  "checks": [{"kind": "file_written", "path": "{{gif}}"}, {"kind": "gif_frames", "path": "{{gif}}", "min": 2}],
+  "test": {"video": "/workspace/demo.mp4", "gif": "/workspace/test.gif"}}}
+```
+
+- `"{{name}}"` fills a parameter (a whole-string placeholder keeps the declared type: string, integer, number, boolean);
+  `{"$step": n, "pointer": "/items/0"}` takes a value from step n's answer read as JSON (RFC 6901 pointer). An absent value
+  stops the run before that step.
+- Saving reruns every step with the `test` values; only when every step answered, every `expect` held and every check read
+  a file this run wrote (absent before or changed, not empty, frame count within `min`/`max`) is the function stored. It is
+  stored for the version the program's `versionCommand` printed; a program whose version cannot be read stores nothing.
+- `ui_info` lists stored functions in `app_mcp_functions` for the version the node runs. Run one with
+  `cartridge_call {function, arguments: {program, parameters: {name: value}}}`; each step is its own `app_mcp_call`
+  (scope, backup requirement, audit, request id), the run stops at the first failing step, names it and says whether the
+  program may have changed. It never retries.
+- After a program update `app_mcp_other_versions` lists the functions of other versions instead: `test_run_needed` when
+  every stored tool is still listed and its arguments still fit the tool schema, `repair_needed` with the first step, tool
+  and reason (`tool_absent`, `argument_unknown`, `argument_required`). `app_mcp_save {program, name, from_version, test}`
+  reruns a stored function on the current version and stores it there only if it verifies.
+- Documents live under the cartridge library in `app-mcps/` (one per program version, revision inside the file).
 
 Core cartridges and the compact gateway expose similarly named routing tools with different schemas. Always use the
 selected server's descriptors. App identity/version and access capabilities must be established before cartridge use.

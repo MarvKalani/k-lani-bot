@@ -61,7 +61,7 @@ internal static class ApplicationMcpCases
         RequestContext caller = Caller();
         JsonObject listing = Execute(dispatcher, Read(null), caller);
         checks.That(listing["version"]?.ToString() == FakeApplicationMcp.Version, "the listing names the program's version");
-        checks.That(listing["tools"]?.AsArray().Count == 7, "the listing joins both pages of the program's tool list");
+        checks.That(listing["tools"]?.AsArray().Count == 9, "the listing joins both pages of the program's tool list");
         checks.That(Execute(dispatcher, Read("state_read"), caller)["text"]?.ToString() == "items: ", "a read tool runs through read");
         JsonObject notRead = Execute(dispatcher, Read("state_add"), caller);
         checks.That(notRead["success"]?.GetValue<bool>() == false && notRead["error"]?.ToString().Contains("app_mcp_call") == true,
@@ -149,7 +149,8 @@ internal static class ApplicationMcpCases
         }
     }
 
-    private static ApplicationMcpPolicy Settings()
+    // The next version serves the fake's later release, so a stored function of the first version drifts.
+    public static ApplicationMcpPolicy Settings(bool next = false)
     {
         string self = System.Reflection.Assembly.GetEntryAssembly()!.Location;
         bool hosted = Path.GetFileNameWithoutExtension(Environment.ProcessPath!) == "dotnet";
@@ -157,14 +158,14 @@ internal static class ApplicationMcpCases
         return new ApplicationMcpPolicy
         {
             Id = Program,
-            Command = [.. prefix, FakeApplicationMcp.ServeArgument],
-            VersionCommand = [.. prefix, FakeApplicationMcp.VersionArgument],
+            Command = [.. prefix, next ? FakeApplicationMcp.NextServeArgument : FakeApplicationMcp.ServeArgument],
+            VersionCommand = [.. prefix, next ? FakeApplicationMcp.NextVersionArgument : FakeApplicationMcp.VersionArgument],
             ReadTools = ["state_read"],
             CallTimeoutSeconds = 30
         };
     }
 
-    private static NodePolicy Policy(string root, string name, ApplicationMcpPolicy[] programs, BackupRequirement requirement,
+    public static NodePolicy Policy(string root, string name, ApplicationMcpPolicy[] programs, BackupRequirement requirement,
         Scope[]? scopes = null)
     {
         Scope[] granted = scopes ?? [Scope.Observe, Scope.ApplicationRead, Scope.ApplicationCall];
@@ -221,7 +222,7 @@ internal static class ApplicationMcpCases
         return dispatcher.Execute(new JsonObject { ["action"] = action, ["args"] = arguments }, caller);
     }
 
-    private static RequestContext Caller()
+    public static RequestContext Caller()
     {
         return new RequestContext("operator", Guid.CreateVersion7().ToString());
     }

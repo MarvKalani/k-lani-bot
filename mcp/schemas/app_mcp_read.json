@@ -1,6 +1,6 @@
 {
   "name": "app_mcp_read",
-  "description": "Uses a program\u0027s own MCP server that the node operator listed (Programmable App MCPs). Without tool and schema it lists the program\u0027s tools and version; with schema it returns one tool\u0027s input schema; with tool it runs a tool the operator marked read-only. Answers are bounded text pages; images only on request.",
+  "description": "Uses a program\u0027s own MCP server that the node operator listed (Programmable App MCPs). Without tool and schema it lists the program\u0027s tools and version; with schema it returns one tool\u0027s input schema; with tool it runs a tool the operator marked read-only; with file it reports size, time and GIF frame count of a workspace file without starting the program. Answers are bounded text pages; images only on request.",
   "inputSchema": {
     "type": "object",
     "properties": {
@@ -18,6 +18,12 @@
         "type": "string",
         "description": "Tool name whose input schema to return.",
         "pattern": "^[A-Za-z0-9_.-]{1,64}$"
+      },
+      "file": {
+        "type": "string",
+        "description": "Absolute path of a file inside the node workspace, for example a file the program exported.",
+        "minLength": 1,
+        "maxLength": 1024
       },
       "arguments": {
         "type": "object",

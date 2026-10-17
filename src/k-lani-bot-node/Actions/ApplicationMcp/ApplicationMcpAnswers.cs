@@ -56,7 +56,8 @@ internal static class ApplicationMcpAnswers
         };
     }
 
-    public static JsonObject ToolResult(string programId, string toolName, JsonObject result, AnswerWindow window)
+    // The answer names the version of the running program, so a stored function notices a program that was updated between steps.
+    public static JsonObject ToolResult(RunningProgram program, string toolName, JsonObject result, AnswerWindow window)
     {
         var text = new StringBuilder();
         var images = new JsonArray();
@@ -72,7 +73,10 @@ internal static class ApplicationMcpAnswers
             else if (type == "image")
                 omittedImages++;
         }
-        return Page(programId, toolName, result["isError"]?.GetValue<bool>() != true, text.ToString(), window, images, omittedImages);
+        JsonObject page = Page(program.Settings.Id, toolName, result["isError"]?.GetValue<bool>() != true, text.ToString(), window, images,
+            omittedImages);
+        page["version"] = program.Version;
+        return page;
     }
 
     public static JsonObject Failed(ApplicationMcpException failure)

@@ -121,10 +121,12 @@ public static class NodeRegression
         exitCode = 0;
         if (args.Contains(ProcessRunnerCases.ProbeArgument))
             exitCode = ProcessRunnerCases.RunProbe();
-        else if (args.Contains(FakeApplicationMcp.ServeArgument))
-            exitCode = FakeApplicationMcp.Serve();
+        else if (args.Contains(FakeApplicationMcp.ServeArgument) || args.Contains(FakeApplicationMcp.NextServeArgument))
+            exitCode = FakeApplicationMcp.Serve(args.Contains(FakeApplicationMcp.NextServeArgument));
         else if (args.Contains(FakeApplicationMcp.VersionArgument))
             Console.WriteLine(FakeApplicationMcp.Version);
+        else if (args.Contains(FakeApplicationMcp.NextVersionArgument))
+            Console.WriteLine(FakeApplicationMcp.NextVersion);
         else
             return false;
         return true;
@@ -134,7 +136,7 @@ public static class NodeRegression
     {
         return CredentialCases.Run() + BackupCases.Run(temporaryRoot) + BackupPolicyCases.Run(temporaryRoot)
             + BackupToolCases.Run(temporaryRoot) + BackupGateCases.Run(temporaryRoot) + GatewayNodeFunctionCases.Run()
-            + ApplicationMcpCases.Run(temporaryRoot);
+            + ApplicationMcpCases.Run(temporaryRoot) + ApplicationMcpFunctionCases.Run(temporaryRoot);
     }
 
     // The platform backends' pure parts run on every platform: Windows row format, foreground plan and window selection,

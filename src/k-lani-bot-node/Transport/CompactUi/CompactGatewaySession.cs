@@ -35,6 +35,7 @@ public sealed class CompactGatewaySession : IDisposable
     private readonly CompactGatewayConfiguration _configuration;
     private CompactGatewayWorkflows? _workflows;
     private readonly Dictionary<string, CompactFormScanner> _scanners = new(StringComparer.Ordinal);
+    private readonly CompactApplicationMcpFunctions _applicationMcpFunctions;
 
     public CompactGatewaySession(ICompactNodeClient client, string registeredName, CompactStorageRoots roots, Func<string> protocol,
         Func<string, JsonObject, CancellationToken, Task<JsonObject>>? nativeRoute = null,
@@ -47,6 +48,7 @@ public sealed class CompactGatewaySession : IDisposable
         _observation = new(client, _state);
         _nativeRoute = nativeRoute;
         _configuration = configuration ?? new();
+        _applicationMcpFunctions = new(client, roots.Library);
     }
 
     // Throws ArgumentException for unknown tools or invalid routing fields; native refusals remain explicit failed tool results.
@@ -106,6 +108,10 @@ public sealed class CompactGatewaySession : IDisposable
         var info = await _observation.InfoAsync(cancellation);
         await ListFunctionsAsync(info, cancellation);
         _applicationMcpListed = info.ContainsKey(CompactApplicationMcpNames.Field);
+        if (_applicationMcpListed)
+        {
+            await _applicationMcpFunctions.AddToInfoAsync(info, cancellation);
+        }
         info["next"] = NextSentence();
 
         return info;
@@ -130,6 +136,14 @@ public sealed class CompactGatewaySession : IDisposable
         if (_applicationMcpListed)
         {
             sentences.Add(CompactApplicationMcpNames.Hint);
+        }
+        if (_applicationMcpListed && _applicationMcpFunctions.FunctionsListed)
+        {
+            sentences.Add(CompactApplicationMcpFunctionNames.FunctionsHint);
+        }
+        if (_applicationMcpListed && _applicationMcpFunctions.DriftListed)
+        {
+            sentences.Add(CompactApplicationMcpFunctionNames.DriftHint);
         }
         sentences.Add(CompactViewNames.StateHint);
 
@@ -557,6 +571,14 @@ public sealed class CompactGatewaySession : IDisposable
         if (GatewayNodeFunctions.TryTool(function, out Tool backup))
         {
             return await _client.CallAsync(backup, GatewayNodeFunctions.Arguments(backup, arguments), cancellation);
+        }
+        if (function == CompactApplicationMcpFunctions.SaveFunction)
+        {
+            return await _applicationMcpFunctions.SaveAsync(arguments, cancellation);
+        }
+        if (await _applicationMcpFunctions.TryCallAsync(function, arguments, cancellation) is { } applicationMcpRun)
+        {
+            return applicationMcpRun;
         }
         var descriptor = CompactGatewayFunctionTools.Find(function);
         if (descriptor == null)
