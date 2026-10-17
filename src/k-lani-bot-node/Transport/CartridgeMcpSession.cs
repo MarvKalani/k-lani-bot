@@ -24,6 +24,7 @@ internal sealed class CartridgeMcpSession(
     private readonly Dictionary<string, SelectedGatewayCartridge> _selected = new(StringComparer.Ordinal);
     private readonly Dictionary<string, GeneratedCartridgeSession> _generated = new(StringComparer.Ordinal);
     private readonly SemaphoreSlim _selectionGate = new(1);
+    private readonly CartridgeApplicationMcpFunctions _applicationMcpFunctions = new(library.DirectoryPath);
     private GatewayCartridges? _current;
     private GatewayCartridges Current => _current ?? throw new UnreachableException();
 
@@ -60,11 +61,15 @@ internal sealed class CartridgeMcpSession(
         }
         if (name == CartridgeGatewayTools.CallName && arguments["function"]?.ToString() == "cartridge_node_status")
         {
-            return await NodeStatusAsync(client, cancellation);
+            return await NodeStatusAsync(node, client, cancellation);
         }
         if (name == CartridgeGatewayTools.CallName && GatewayNodeFunctions.TryTool(arguments["function"]?.ToString(), out Tool backup))
         {
-            return await client.CallAsync(backup, GatewayNodeFunctions.Arguments(backup, arguments["arguments"]), cancellation);
+            return await NodeFunctionAsync(node, client, backup, arguments["arguments"], cancellation);
+        }
+        if (await ApplicationMcpFunctionAsync(name, arguments, node, client, cancellation) is { } stored)
+        {
+            return stored;
         }
         JsonObject? local = RouteLibrary(name, arguments, node);
         if (local != null)
@@ -111,11 +116,12 @@ internal sealed class CartridgeMcpSession(
             : await RunAsync(node, arguments, binding, cancellation);
     }
 
-    private static async Task<JsonObject> NodeStatusAsync(NodeTransportClient client, CancellationToken cancellation)
+    // Throws what the node connection throws for cancellation or a broken transport.
+    private async Task<JsonObject> NodeStatusAsync(string node, NodeTransportClient client, CancellationToken cancellation)
     {
         JsonObject response = await client.CallAsync(Tool.GetMachineCapabilities, new JsonObject(), cancellation);
 
-        return new JsonObject
+        var status = new JsonObject
         {
             ["success"] = response["success"]?.DeepClone(),
             ["node_version"] = response["capabilities"]?["version"]?.DeepClone(),
@@ -125,6 +131,45 @@ internal sealed class CartridgeMcpSession(
             ["diagnostics_supported"] = response["management"] != null || response["update_report"] != null,
             ["error"] = response["error"]?.DeepClone()
         };
+        var compactClient = new CompactRegisteredNodeClient(client);
+        await _applicationMcpFunctions.AddToStatusAsync(node, compactClient, response["capabilities"], status, cancellation);
+        return status;
+    }
+
+    // An agent lists a program's tools first, so that listing names the stored functions of the program's version too.
+    // Throws what the node connection throws for cancellation or a broken transport.
+    private async Task<JsonObject> NodeFunctionAsync(string node, NodeTransportClient client, Tool tool, JsonNode? values,
+        CancellationToken cancellation)
+    {
+        JsonObject answer = await client.CallAsync(tool, GatewayNodeFunctions.Arguments(tool, values), cancellation);
+
+        if (tool == Tool.ApplicationMcpRead && values is JsonObject read)
+        {
+            _applicationMcpFunctions.AddToListing(node, new CompactRegisteredNodeClient(client), read, answer);
+        }
+        return answer;
+    }
+
+    // Stored app MCP functions share the cartridge library with the compact gateway; null leaves the call to the cartridge routes.
+    // Throws what the node connection throws for cancellation or a broken transport.
+    private async Task<JsonObject?> ApplicationMcpFunctionAsync(string name, JsonObject arguments, string node,
+        NodeTransportClient client, CancellationToken cancellation)
+    {
+        if (arguments["function"]?.ToString() is not { } function)
+        {
+            return null;
+        }
+
+        if (name == CartridgeGatewayTools.BrowseName)
+        {
+            return _applicationMcpFunctions.Describe(node, function);
+        }
+        if (name != CartridgeGatewayTools.CallName)
+        {
+            return null;
+        }
+        JsonObject values = arguments["arguments"] as JsonObject ?? new JsonObject();
+        return await _applicationMcpFunctions.TryCallAsync(node, new CompactRegisteredNodeClient(client), function, values, cancellation);
     }
 
     private static bool IsCoveragePath(string? path)

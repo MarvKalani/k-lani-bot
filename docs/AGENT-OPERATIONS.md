@@ -290,7 +290,7 @@ the actuator's `worker-policy.json`) and grants the scopes `app.read` and `app.c
 - `app_mcp_read {program, file}` reports size, change time and GIF frame count of a workspace file without starting the
   program; it is how stored functions check their output on the node.
 
-**Stored app MCP functions (compact gateway).** After a sequence of `app_mcp_call` steps worked, store it as one function:
+**Stored app MCP functions (compact and cartridge gateways).** After a sequence of `app_mcp_call` steps worked, store it as one function:
 
 ```json
 cartridge_call {"function": "app_mcp_save", "arguments": {"program": "filmcraft", "name": "export-video-gif",
@@ -319,6 +319,10 @@ cartridge_call {"function": "app_mcp_save", "arguments": {"program": "filmcraft"
   every stored tool is still listed and its arguments still fit the tool schema, `repair_needed` with the first step, tool
   and reason (`tool_absent`, `argument_unknown`, `argument_required`). `app_mcp_save {program, name, from_version, test}`
   reruns a stored function on the current version and stores it there only if it verifies.
+- On the three-tool cartridge gateway `cartridge_call {"function": "cartridge_node_status"}` takes the place of `ui_info`: it
+  names the programs in `app_mcps` and adds `app_mcp_functions`, `app_mcp_other_versions` and a `next` sentence. Save, list,
+  browse and run work there with the same calls; both gateways read the same documents, so a function saved on one runs on
+  the other.
 - Documents live under the cartridge library in `app-mcps/` (one per program version, revision inside the file).
 
 Core cartridges and the compact gateway expose similarly named routing tools with different schemas. Always use the

@@ -1,6 +1,7 @@
 using System.Text.Json.Nodes;
 using KLaniBot.Actions;
 using KLaniBot.Guard;
+using KLaniBot.Transport;
 using KLaniBot.Transport.CompactUi;
 
 // Stored app MCP functions: the gateway saves a sequence of app_mcp_call steps after a verified test run, lists it in ui_info for
@@ -22,6 +23,7 @@ internal static class ApplicationMcpFunctionCases
         CheckFailures(checks, root, library);
         CheckDrift(checks, root, library);
         CheckGuards(checks, root, library);
+        CheckCartridgeGateway(checks, root);
 
         return checks.Passed;
     }
@@ -120,6 +122,39 @@ internal static class ApplicationMcpFunctionCases
         JsonObject listed = Await(functions.ListAsync(new JsonObject { ["program"] = Program }, CancellationToken.None));
         checks.That(listed[CompactApplicationMcpFunctionNames.FunctionsField]?[0]?["functions"]?[0]?["name"]?.ToString() == "export",
             "app_mcp_functions called as a function lists the same rows as ui_info");
+    }
+
+    // The three-tool cartridge gateway reads the same library: node status names the functions, call saves and runs them.
+    private static void CheckCartridgeGateway(Checks checks, string root)
+    {
+        string library = Directory.CreateDirectory(Path.Combine(root, "cartridge-library")).FullName;
+        NodePolicy policy = ApplicationMcpCases.Policy(root, "cartridge", [ApplicationMcpCases.Settings()], BackupRequirement.Off);
+        using var dispatcher = new ActionDispatcher(new FakeUi(), policy);
+        var client = new DispatcherNodeClient(dispatcher, ApplicationMcpCases.Caller());
+        var gateway = new CartridgeApplicationMcpFunctions(library);
+        JsonNode? capabilities = Execute(dispatcher, Tool.GetMachineCapabilities, new JsonObject())["capabilities"];
+        var save = ExportDefinition(Test(policy.WorkspaceRoot, "cartridge.gif", 3));
+
+        string saveFunction = CompactApplicationMcpFunctions.SaveFunction;
+        JsonObject? saved = Await(gateway.TryCallAsync("node", client, saveFunction, save, CancellationToken.None));
+        checks.That(saved?["saved"]?.GetValue<bool>() == true, "cartridge_call app_mcp_save stores a verified function");
+        var status = new JsonObject { ["success"] = true };
+        gateway.AddToStatusAsync("node", client, capabilities, status, CancellationToken.None).GetAwaiter().GetResult();
+        checks.That(status[CompactApplicationMcpNames.Field]?[0]?.ToString() == Program
+            && status[CompactApplicationMcpFunctionNames.FunctionsField]?[0]?["functions"]?[0]?["name"]?.ToString() == "export"
+            && status["next"]?.ToString().Contains(CompactApplicationMcpFunctionNames.FunctionsHint) == true,
+            "cartridge_node_status names the program, its stored functions and how to run them");
+        checks.That(gateway.Describe("node", "export")?["inputSchema"] != null && gateway.Describe("other", "export") == null,
+            "cartridge_browse describes a function the node's status listed, and only for that node");
+        var arguments = new JsonObject { ["program"] = Program, ["parameters"] = Test(policy.WorkspaceRoot, "again.gif", 4) };
+        JsonObject? run = Await(gateway.TryCallAsync("node", client, "export", arguments, CancellationToken.None));
+        checks.That(run?["verified"]?.GetValue<bool>() == true && Frames(run!) == 4, "cartridge_call runs the stored function by name");
+        var selection = new JsonObject { ["key"] = "fake" };
+        checks.That(Await(gateway.TryCallAsync("node", client, "cartridge_select", selection, CancellationToken.None)) == null,
+            "other cartridge functions keep their routes");
+        var plain = new JsonObject { ["success"] = true };
+        gateway.AddToStatusAsync("node", client, new JsonObject(), plain, CancellationToken.None).GetAwaiter().GetResult();
+        checks.That(plain.Count == 1, "a node without app MCP programs keeps its status as it was");
     }
 
     private static void CheckFailures(Checks checks, string root, string library)

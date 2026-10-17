@@ -166,6 +166,7 @@
     <Compile Include="../../src/k-lani-bot-node/Transport/SelectedGatewayCartridge.cs" />
     <Compile Include="../../src/k-lani-bot-node/Cartridges/CartridgeCatalogue.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/CartridgeTopics.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/CartridgeApplicationMcpFunctions.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/CartridgeMcpSession.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/GatewayNodeFunctions.cs" />
     <Compile Include="../../src/k-lani-bot-node/Updates/NodeUpdateManifest.cs" />
