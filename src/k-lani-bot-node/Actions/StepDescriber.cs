@@ -64,6 +64,10 @@ internal static class StepDescriber
             };
             return UiTexts.Get(title);
         }
+        if (tool is Tool.ApplicationMcpRead or Tool.ApplicationMcpCall)
+        {
+            return ProgramToolTitle(tool, arguments);
+        }
         if (tool == Tool.OperateApplication)
         {
             return UiTexts.Format(UiText.ActionNativeOperation, arguments["operation"]?.ToString() ?? "",
@@ -72,6 +76,24 @@ internal static class StepDescriber
 
         return ConcreteActions.TryGetValue(tool, out UiText label) ? UiTexts.Get(label)
             : ToolContract.Get(tool)["description"]!.ToString();
+    }
+
+    // A program's own MCP tool is named with the program, so the box says which program and which of its tools the AI uses.
+    private static string ProgramToolTitle(Tool tool, JsonObject arguments)
+    {
+        string program = arguments["program"]?.ToString() ?? "";
+        string programTool = arguments["tool"]?.ToString() ?? "";
+
+        if (arguments["file"] is JsonValue file)
+        {
+            return UiTexts.Format(UiText.ActionCheckProgramFile, program, Path.GetFileName(file.ToString()));
+        }
+        if (programTool.Length == 0)
+        {
+            return UiTexts.Format(UiText.ActionListProgramTools, program);
+        }
+        UiText title = tool == Tool.ApplicationMcpCall ? UiText.ActionRunProgramTool : UiText.ActionReadProgramTool;
+        return UiTexts.Format(title, program, programTool);
     }
 
     public static StepView Describe(ToolFeature feature, JsonObject arguments, UiTargetIdentity? target)

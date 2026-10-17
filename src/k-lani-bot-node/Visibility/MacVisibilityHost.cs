@@ -325,6 +325,8 @@ public sealed partial class MacVisibilityHost : NativeVisibilityHost
     private static AssignmentWindow CreateAssignmentWindow(Rect bounds, string text)
     {
         var window = Window(bounds, 0);
+        Long(window, "setOpaque:", 0);
+        Pointer(window, "setBackgroundColor:", Send(Class("NSColor"), "clearColor"));
         Long(window, "setIgnoresMouseEvents:", 1);
         Long(window, "setHasShadow:", 0);
         Long(window, "setLevel:", 1000);
@@ -334,10 +336,13 @@ public sealed partial class MacVisibilityHost : NativeVisibilityHost
         Long(box, "setBorderType:", 1);
         Long(box, "setTitlePosition:", 0);
         SendSize(box, Sel("setContentViewMargins:"), new NativeImageSize { Width = 0, Height = 0 });
-        var color = SendColor(Class("NSColor"), Sel("colorWithSRGBRed:green:blue:alpha:"), .55, .04, .04, 1);
-        Pointer(box, "setFillColor:", color);
-        Pointer(box, "setBorderColor:", color);
-        SendDouble(box, Sel("setBorderWidth:"), 0);
+        // A dark, partly transparent panel lets the person see what lies behind it; the red rim keeps it tied to the border.
+        var fill = SendColor(Class("NSColor"), Sel("colorWithSRGBRed:green:blue:alpha:"), .07, .08, .11, .78);
+        var rim = SendColor(Class("NSColor"), Sel("colorWithSRGBRed:green:blue:alpha:"), 1, .27, .23, .9);
+        Pointer(box, "setFillColor:", fill);
+        Pointer(box, "setBorderColor:", rim);
+        SendDouble(box, Sel("setBorderWidth:"), 1.5);
+        SendDouble(box, Sel("setCornerRadius:"), 10);
         Pointer(window, "setContentView:", box);
         Send(box, "release");
         var label = SendRect(Send(Class("NSTextField"), "alloc"), Sel("initWithFrame:"), new Rect(10, 4, bounds.W - 20, bounds.H - 8));

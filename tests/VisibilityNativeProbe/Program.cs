@@ -146,5 +146,7 @@ static void CheckStepList(LinuxVisibilityHost host, SessionPresentation details,
     {
         Pace = Pace.Normal
     });
-    Console.WriteLine("Step list checks passed: pause and slow motion show the pace, the steps and the agent's plan; the banner grows.");
+    host.TestAssignment(outputDirectory, "normal-now", typingNow);
+    Console.WriteLine("Step list checks passed: pause and slow motion show the pace, the steps and the agent's plan; the banner grows; "
+        + "at normal pace the banner names the step now running.");
 }

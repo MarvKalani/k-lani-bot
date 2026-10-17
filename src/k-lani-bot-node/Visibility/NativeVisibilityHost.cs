@@ -254,8 +254,15 @@ public abstract class NativeVisibilityHost : IVisibilityDisplay
         return string.Join(Environment.NewLine, AssignmentLines(state));
     }
 
-    // The banner's lines. While the agent is paused or slowed down, the pace and the step list follow the assignment.
     protected static List<string> AssignmentLines(VisibilityState state, bool includeSteps = true)
+    {
+        return AssignmentRows(state, includeSteps).Select(row => row.Text).ToList();
+    }
+
+    // The banner's lines with their kind, so a host can set the heading apart from the identity and the steps. At normal pace
+    // the step now running, or the last one, follows the identity; while the agent is paused or slowed down the pace and the
+    // step list follow it instead.
+    protected static List<AssignmentRow> AssignmentRows(VisibilityState state, bool includeSteps = true)
     {
         SessionPresentation details = state.Presentation ?? SessionPresentation.Create(null, null);
         string activity = UiTexts.Get(state.Status == VisibilityStatus.Active ? UiText.AssignmentWorking : UiText.AssignmentGranted);
@@ -264,21 +271,36 @@ public abstract class NativeVisibilityHost : IVisibilityDisplay
         string client = details.ShownClient.Replace('\n', ' ');
         string master = details.ShownMaster.Replace('\n', ' ');
         string purpose = details.ShownPurpose.Replace('\n', ' ');
-        var lines = new List<string>
+        var lines = new List<AssignmentRow>
         {
-            ProductIdentity.ProductName + " · " + activity,
-            UiTexts.Format(UiText.AssignmentClientAndMaster, client, master),
-            UiTexts.Format(UiText.AssignmentPurpose, purpose)
+            new(ProductIdentity.ProductName + " · " + activity, AssignmentRowKind.Heading),
+            new(UiTexts.Format(UiText.AssignmentClientAndMaster, client, master), AssignmentRowKind.Identity),
+            new(UiTexts.Format(UiText.AssignmentPurpose, purpose), AssignmentRowKind.Identity)
         };
-        if (state.Pace != Pace.Normal)
+        if (state.Pace == Pace.Normal)
         {
-            lines.Add(DescribePace(state));
-            if (includeSteps)
-            {
-                lines.AddRange(StepLines(state.Steps ?? StepList.Empty));
-            }
+            AddCurrentStep(state, lines);
+            return lines;
+        }
+        lines.Add(new(DescribePace(state), AssignmentRowKind.Step));
+        if (includeSteps)
+        {
+            lines.AddRange(StepLines(state.Steps ?? StepList.Empty).Select(line => new AssignmentRow(line, AssignmentRowKind.Step)));
         }
         return lines;
+    }
+
+    private static void AddCurrentStep(VisibilityState state, List<AssignmentRow> lines)
+    {
+        StepView? step = state.Steps?.Now;
+        string headline = step == null ? "" : StepHeadline(step);
+        if (headline.Length == 0)
+        {
+            return;
+        }
+
+        UiText line = state.Status == VisibilityStatus.Active ? UiText.StepNow : UiText.StepLast;
+        lines.Add(new(UiTexts.Format(line, headline), AssignmentRowKind.Step));
     }
 
     private const int MillisecondsPerSecond = 1000;
@@ -316,11 +338,19 @@ public abstract class NativeVisibilityHost : IVisibilityDisplay
 
     internal static string DescribeStep(StepView step)
     {
+        string headline = StepHeadline(step);
+        bool titled = step.Title.Length > 0 || step.Kind == StepKind.Announced;
+
+        return titled && step.Result.Length > 0 ? headline + "\n" + StepText.Clean(step.Result) : headline;
+    }
+
+    // The step's title, or its kind and subject, on one line and without its result.
+    private static string StepHeadline(StepView step)
+    {
         string detail = StepText.Clean(step.Detail);
         if (step.Title.Length > 0 || step.Kind == StepKind.Announced)
         {
-            string title = step.Title.Length > 0 ? StepText.Clean(step.Title) : detail;
-            return title + (step.Result.Length > 0 ? "\n" + StepText.Clean(step.Result) : "");
+            return step.Title.Length > 0 ? StepText.Clean(step.Title) : detail;
         }
         string kind = UiTexts.Get(StepKindText(step.Kind));
         return detail.Length == 0 ? kind : kind + ": " + detail;
@@ -369,4 +399,15 @@ public abstract class NativeVisibilityHost : IVisibilityDisplay
         };
         return UiTexts.Get(status);
     }
+}
+
+// One line of the assignment banner and what it says.
+public sealed record AssignmentRow(string Text, AssignmentRowKind Kind);
+
+// The banner sets its heading apart from the identity lines and the step lines.
+public enum AssignmentRowKind
+{
+    Heading,
+    Identity,
+    Step
 }

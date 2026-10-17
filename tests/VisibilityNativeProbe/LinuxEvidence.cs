@@ -54,10 +54,10 @@ public sealed partial class LinuxVisibilityHost
             {
                 ScreenRectangle[] edges =
                 [
-                    new(area.X, area.Y, area.Width, 4),
-                    new(area.X, area.Y + area.Height - 4, area.Width, 4),
-                    new(area.X, area.Y, 4, area.Height),
-                    new(area.X + area.Width - 4, area.Y, 4, area.Height)
+                    new(area.X, area.Y, area.Width, 2),
+                    new(area.X, area.Y + area.Height - 2, area.Width, 2),
+                    new(area.X, area.Y, 2, area.Height),
+                    new(area.X + area.Width - 2, area.Y, 2, area.Height)
                 ];
                 if (!edges.All(placed.Contains))
                 {

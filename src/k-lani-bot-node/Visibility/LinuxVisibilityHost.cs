@@ -1,6 +1,5 @@
-using System.Diagnostics;
-
 #if !WINDOWS
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using KLaniBot.Startup;
 using KLaniBot.Guard;
@@ -38,7 +37,7 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
     {
         if (gtk_init_check(IntPtr.Zero, IntPtr.Zero) == 0)
             throw new InvalidOperationException("An interactive GTK desktop is required for the permanent indicator.");
-        _panelImage = LoadProductImage(ProductImage.LinuxPanel);
+        _panelImage = ScaleToHeight(LoadProductImage(ProductImage.LinuxPanel), PanelLogoHeight);
         _iconImage = LoadProductImage(ProductImage.Icon24);
         _tray = gtk_status_icon_new();
         gtk_status_icon_set_title(_tray, "k-lani-bot-node");
@@ -49,16 +48,18 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
         g_signal_connect_data(_tray, "popup-menu", Marshal.GetFunctionPointerForDelegate(pop), IntPtr.Zero, IntPtr.Zero, 0);
         _panel = gtk_window_new(0);
         gtk_window_set_title(_panel, "k-lani-bot-node · Status");
-        gtk_window_set_default_size(_panel, 380, 155);
         gtk_window_set_resizable(_panel, 0);
         gtk_window_set_keep_above(_panel, 1);
+        gtk_container_set_border_width(_panel, PanelPadding);
+        gtk_widget_set_tooltip_text(_panel, UiTexts.Get(UiText.PanelSubtitle));
         _label = gtk_label_new(UiTexts.Get(UiText.PanelReadyWithoutClient));
-        var panelBox = gtk_box_new(1, 4);
+        // One row keeps the panel small: logo, status and a settings button whose name is its tooltip.
+        var panelBox = gtk_box_new(0, PanelSpacing);
         gtk_container_add(_panel, panelBox);
         gtk_box_pack_start(panelBox, gtk_image_new_from_pixbuf(_panelImage), 0, 0, 0);
-        gtk_box_pack_start(panelBox, gtk_label_new(UiTexts.Get(UiText.PanelSubtitle)), 0, 0, 0);
         gtk_box_pack_start(panelBox, _label, 0, 0, 0);
-        var menuButton = gtk_button_new_with_label(UiTexts.Get(UiText.PanelSettingsButton));
+        var menuButton = gtk_button_new_with_label(SettingsSymbol);
+        gtk_widget_set_tooltip_text(menuButton, UiTexts.Get(UiText.PanelSettingsButton));
         gtk_box_pack_start(panelBox, menuButton, 0, 0, 0);
         Hook(menuButton, "clicked", (_, _) => Popup());
         var delete = new DeleteCallback((_, _, _) => { Revoke(); return 1; });
@@ -66,6 +67,24 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
         g_signal_connect_data(_panel, "delete-event", Marshal.GetFunctionPointerForDelegate(delete), IntPtr.Zero, IntPtr.Zero, 0);
         gtk_widget_show_all(_panel);
     }
+    private const int PanelLogoHeight = 24;
+    private const int PanelPadding = 6;
+    private const int PanelSpacing = 8;
+    private const string SettingsSymbol = "⚙";
+
+    // Returns a copy at the given height with the same aspect ratio and releases the original.
+    private static IntPtr ScaleToHeight(IntPtr image, int height)
+    {
+        int width = Math.Max(1, gdk_pixbuf_get_width(image) * height / Math.Max(1, gdk_pixbuf_get_height(image)));
+
+        IntPtr scaled = gdk_pixbuf_scale_simple(image, width, height, BilinearInterpolation);
+        g_object_unref(image);
+        return scaled;
+    }
+
+    // GDK_INTERP_BILINEAR.
+    private const int BilinearInterpolation = 2;
+
     // Throws InvalidDataException when the image cannot be decoded.
     private static IntPtr LoadProductImage(ProductImage image)
     {
@@ -277,7 +296,8 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
         }
         if (_assignmentWindow != IntPtr.Zero)
         {
-            gtk_label_set_text(_assignmentLabel, DescribeAssignment(state));
+            gtk_label_set_markup(_assignmentLabel, AssignmentMarkup(state));
+            PlaceAssignment();
             if (gtk_widget_get_visible(_assignmentWindow) == 0)
             {
                 throw new InvalidOperationException("Visible assignment indicator unavailable.");
@@ -329,9 +349,12 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
         return $"{area.X}:{area.Y}:{area.Width}:{area.Height}:{monitor.Scale}:{monitor.Primary}";
     }
 
+    // Thin enough not to frame the work like a warning sign, wide enough to be seen on every edge.
+    private const int BorderPixels = 2;
+
     private static int BorderThickness(MonitorArea monitor)
     {
-        return Math.Max(1, 4 / monitor.Scale);
+        return Math.Max(1, BorderPixels / monitor.Scale);
     }
 
     private void AddBorder(MonitorArea monitor)
@@ -374,31 +397,36 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
     }
 
     private const int AssignmentLineHeight = 20;
-    private const int AssignmentPadding = 16;
+    private const int AssignmentPadding = 20;
+    // A desktop that composites windows shows what lies behind the banner through this much of its background.
+    private const double TranslucentBannerAlpha = .78;
+    private const string AccentColor = "#ff453a";
+    private const string IdentityColor = "#b9bdc9";
 
     private void CreateAssignmentWindow(Geometry area, int thickness, VisibilityState state)
     {
-        string text = DescribeAssignment(state);
         int textHeight = AssignmentLines(state).Count * AssignmentLineHeight;
-        int width = Math.Min(1000, area.Width - 32);
+        _assignmentArea = area;
+        _assignmentTop = area.Y + thickness + AssignmentGap;
         _assignmentWindow = gtk_window_new(1);
         gtk_window_set_title(_assignmentWindow, UiTexts.Get(UiText.AssignmentWindowTitle));
         gtk_window_set_accept_focus(_assignmentWindow, 0);
         gtk_window_set_focus_on_map(_assignmentWindow, 0);
         gtk_window_set_decorated(_assignmentWindow, 0);
         gtk_window_set_keep_above(_assignmentWindow, 1);
-        gtk_widget_set_size_request(_assignmentWindow, width, textHeight + AssignmentPadding);
-        gtk_window_move(_assignmentWindow, area.X + (area.Width - width) / 2, area.Y + thickness);
-        gtk_container_set_border_width(_assignmentWindow, 8);
-        _assignmentLabel = gtk_label_new(text);
+        gtk_container_set_border_width(_assignmentWindow, AssignmentPadding / 2);
+        _assignmentLabel = gtk_label_new("");
+        gtk_label_set_markup(_assignmentLabel, AssignmentMarkup(state));
         gtk_label_set_xalign(_assignmentLabel, 0);
         gtk_label_set_ellipsize(_assignmentLabel, 3);
-        gtk_widget_set_size_request(_assignmentLabel, width - AssignmentPadding, textHeight);
-        var background = new Rgba { Red = .55, Green = .04, Blue = .04, Alpha = 1 };
-        var foreground = new Rgba { Red = 1, Green = 1, Blue = 1, Alpha = 1 };
+        gtk_label_set_max_width_chars(_assignmentLabel, AssignmentMaximumCharacters);
+        gtk_widget_set_size_request(_assignmentLabel, -1, textHeight);
+        var background = new Rgba { Red = .07, Green = .08, Blue = .11, Alpha = UseTranslucentVisual(_assignmentWindow) };
+        var foreground = new Rgba { Red = .96, Green = .96, Blue = .97, Alpha = 1 };
         gtk_widget_override_background_color(_assignmentWindow, 0, ref background);
         gtk_widget_override_color(_assignmentLabel, 0, ref foreground);
         gtk_container_add(_assignmentWindow, _assignmentLabel);
+        PlaceAssignment();
         gtk_widget_show_all(_assignmentWindow);
         IntPtr native = gtk_widget_get_window(_assignmentWindow);
         IntPtr empty = cairo_region_create();
@@ -407,6 +435,59 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
         gdk_window_set_pass_through(native, 1);
         gdk_window_raise(native);
         gdk_window_process_updates(native, 1);
+    }
+
+    private const int AssignmentGap = 8;
+    private const int AssignmentMinimumWidth = 420;
+    private const int AssignmentMaximumWidth = 600;
+    private const int AssignmentMaximumCharacters = 90;
+    private Geometry _assignmentArea;
+    private int _assignmentTop;
+
+    // The banner is as wide as its text within fixed limits and stays centred when a new step changes the text.
+    private void PlaceAssignment()
+    {
+        gtk_widget_get_preferred_width(_assignmentLabel, out _, out int natural);
+        int limit = Math.Min(AssignmentMaximumWidth, _assignmentArea.Width - 2 * AssignmentGap);
+        int width = Math.Clamp(natural + AssignmentPadding, Math.Min(AssignmentMinimumWidth, limit), limit);
+
+        gtk_widget_set_size_request(_assignmentWindow, width, -1);
+        gtk_window_resize(_assignmentWindow, width, 1);
+        gtk_window_move(_assignmentWindow, _assignmentArea.X + (_assignmentArea.Width - width) / 2, _assignmentTop);
+    }
+
+    // Returns the background alpha: translucent where the screen composites windows, opaque where it cannot blend them.
+    private static double UseTranslucentVisual(IntPtr window)
+    {
+        IntPtr screen = gtk_widget_get_screen(window);
+        IntPtr visual = gdk_screen_get_rgba_visual(screen);
+        if (visual == IntPtr.Zero || gdk_screen_is_composited(screen) == 0)
+        {
+            return 1;
+        }
+
+        gtk_widget_set_visual(window, visual);
+        return TranslucentBannerAlpha;
+    }
+
+    // Pango markup of the banner: the heading with a red mark, identity lines smaller and dimmed, steps in full white.
+    private static string AssignmentMarkup(VisibilityState state)
+    {
+        var lines = AssignmentRows(state).Select(row => row.Kind switch
+        {
+            AssignmentRowKind.Heading => "<span foreground=\"" + AccentColor + "\">●</span> <b>" + Escape(row.Text) + "</b>",
+            AssignmentRowKind.Identity => "<span size=\"small\" foreground=\"" + IdentityColor + "\">" + Escape(row.Text) + "</span>",
+            AssignmentRowKind.Step => Escape(row.Text),
+            _ => throw new UnreachableException()
+        });
+
+        return string.Join("\n", lines);
+    }
+
+    // Client, purpose and step texts come from the AI client and programs; markup characters in them stay plain text.
+    private static string Escape(string text)
+    {
+        return text.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
     }
 
     private void CloseActivityWindows()
@@ -593,6 +674,20 @@ public sealed partial class LinuxVisibilityHost : NativeVisibilityHost
     [DllImport(Gtk)] private static extern void gtk_box_pack_start(IntPtr box, IntPtr child, int expand, int fill, uint padding);
     [DllImport(Gtk)] private static extern IntPtr gtk_button_new_with_label([MarshalAs(UnmanagedType.LPUTF8Str)] string label);
     [DllImport(Gdk)] private static extern IntPtr gdk_screen_get_default();
+    [DllImport("libgdk_pixbuf-2.0.so.0")]
+    private static extern IntPtr gdk_pixbuf_scale_simple(IntPtr source, int width, int height, int interpolation);
+    [DllImport("libgdk_pixbuf-2.0.so.0")]
+    private static extern int gdk_pixbuf_get_width(IntPtr pixbuf);
+    [DllImport("libgdk_pixbuf-2.0.so.0")]
+    private static extern int gdk_pixbuf_get_height(IntPtr pixbuf);
+    [DllImport(Gtk)]
+    private static extern void gtk_widget_set_tooltip_text(IntPtr widget, [MarshalAs(UnmanagedType.LPUTF8Str)] string text);
+    [DllImport(Gtk)] private static extern void gtk_widget_get_preferred_width(IntPtr widget, out int minimum, out int natural);
+    [DllImport(Gtk)] private static extern void gtk_window_resize(IntPtr window, int width, int height);
+    [DllImport(Gdk)] private static extern IntPtr gdk_screen_get_rgba_visual(IntPtr screen);
+    [DllImport(Gdk)] private static extern int gdk_screen_is_composited(IntPtr screen);
+    [DllImport(Gtk)] private static extern IntPtr gtk_widget_get_screen(IntPtr widget);
+    [DllImport(Gtk)] private static extern void gtk_widget_set_visual(IntPtr widget, IntPtr visual);
     [DllImport(Gdk)] private static extern int gdk_screen_get_width(IntPtr screen);
     [DllImport(Gdk)] private static extern int gdk_screen_get_height(IntPtr screen);
     [DllImport(Gdk)] private static extern void gdk_window_input_shape_combine_region(IntPtr window, IntPtr region, int x, int y);
