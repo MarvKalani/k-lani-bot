@@ -170,6 +170,32 @@ provides the actual MCP request, version requirements and partial-failure limits
 
 ## 04 / Less context. Measured.
 
+### FilmCraft: one video task, measured with Claude
+
+[![Watch the 47-second demo: Haiku 5.5 drives the FilmCraft video editor through k-lani-bot](docs/media/programmable-app-mcps-filmcraft-demo.jpg)](docs/media/programmable-app-mcps-filmcraft-demo.mp4)
+
+Some programs ship their own MCP server, such as the [FilmCraft](https://github.com/storytold/filmcraft) video editor.
+With **Programmable App MCPs** the node forwards to it under the administrator's policy, and a sequence that worked can be
+stored as one function. The task: import a 34-second video into FilmCraft 0.8.0, make a new sequence from it and export an
+800×450 GIF at 10 fps without sound. Every run started in a fresh lab and finished the task;
+[the 47-second video](docs/media/programmable-app-mcps-filmcraft-demo.mp4) shows a real, recorded Haiku 5.5 run.
+
+| Route | Model | Model tokens | Calls | Time |
+| --- | --- | ---: | ---: | ---: |
+| Screenshots, clicks and keys | Sonnet 5.5 | 1,246,818 | 78 | 236 s |
+| FilmCraft's own MCP, without k-lani-bot | Haiku 5.5 | 347,815 | 13 | 67 s |
+| FilmCraft's MCP through k-lani-bot | Haiku 5.5 | 304,472 | 16 | 95 s |
+| FilmCraft's MCP through k-lani-bot | Sonnet 5.5 | 244,811 | 15 | 84 s |
+| Stored function in k-lani-bot, reused | Sonnet 5.5 | 149,070 | 7 | – |
+| Stored function in k-lani-bot, reused | Haiku 5.5 | **61,094** | 3 | – |
+
+Tokens include cached input and output. These are single runs, so expect variance. The stored-function rows count reuse
+only; storing the function once is a separate, uncounted authoring cost. FilmCraft publishes no accessibility tree on Linux,
+so the compact UI route alone could not finish this task; that gap led to the `ui_input` last resort.
+[How Programmable App MCPs work](docs/AGENT-OPERATIONS.md#programmable-app-mcps)
+
+### Browser pilot
+
 Our browser pilot compared the same completed report-writing task across three routes.
 
 | Route | Model tokens per completed task | Reduction |
@@ -227,6 +253,7 @@ all three desktop platforms. Local packages, test images, credentials and raw tr
 | State | Scope |
 | --- | --- |
 | Implemented and tested | Native MCP, compact UI discovery, verified capture/reuse and an authored Tryton draft action reused after restart |
+| Implemented and lab-tested | Programmable App MCPs with stored functions (FilmCraft) and the `ui_input` last resort for windows without a tree (Linux/X11) |
 | Internal components | Efficiency summary, encrypted closed-file backup and credential broker; administration through MCP remains incomplete |
 | Requires more implementation or qualification | General installation/removal, whole-machine recovery, automatic community-cartridge activation and full mobile nodes |
 
