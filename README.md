@@ -127,9 +127,11 @@ The code calls the MCP routing part a *gateway*. It belongs to k-lani-bot and do
 The [worked example](docs/AGENT-AUTHORING.md) takes order data from a Thunderbird mail and creates a Tryton sales draft.
 Its authored `tryton_create_draft_sale` function adds two positions, saves the draft and verifies the result.
 
-[![Watch the 34-second demo: an order mail becomes a verified Tryton sales draft in one MCP call](docs/media/mail-to-tryton-demo.jpg)](docs/media/mail-to-tryton-demo.mp4)
+![34-second demo: an order mail becomes a verified Tryton sales draft in one MCP call](docs/media/mail-to-tryton-demo.gif)
 
-**See it before you install anything:** this [34-second video](docs/media/mail-to-tryton-demo.mp4) is a real, uncut run
+[Download the full-quality MP4](docs/media/mail-to-tryton-demo.mp4)
+
+**See it before you install anything:** the 34-second animation above is a real, uncut run
 in the isolated lab (16 October 2026, current node, Tryton 6.0.34-1, synthetic test data; the administrator switched the
 backup requirement off for this disposable database). The order mail was opened by hand for the camera; everything in
 Tryton then happened through one `cartridge_call`: 79 steps, verified, 15.8 s.
@@ -172,13 +174,15 @@ provides the actual MCP request, version requirements and partial-failure limits
 
 ### FilmCraft: one video task, measured with Claude
 
-[![Watch the 47-second demo: Haiku 5.5 drives the FilmCraft video editor through k-lani-bot](docs/media/programmable-app-mcps-filmcraft-demo.jpg)](docs/media/programmable-app-mcps-filmcraft-demo.mp4)
+![47-second demo: Haiku 5.5 drives the FilmCraft video editor through k-lani-bot](docs/media/programmable-app-mcps-filmcraft-demo.gif)
+
+[Download the full-quality MP4](docs/media/programmable-app-mcps-filmcraft-demo.mp4)
 
 Some programs ship their own MCP server, such as the [FilmCraft](https://github.com/storytold/filmcraft) video editor.
 With **Programmable App MCPs** the node forwards to it under the administrator's policy, and a sequence that worked can be
 stored as one function. The task: import a 34-second video into FilmCraft 0.8.0, make a new sequence from it and export an
 800×450 GIF at 10 fps without sound. Every run started in a fresh lab and finished the task;
-[the 47-second video](docs/media/programmable-app-mcps-filmcraft-demo.mp4) shows a real, recorded Haiku 5.5 run.
+the 47-second animation above shows a real, recorded Haiku 5.5 run.
 
 | Route | Model | Model tokens | Calls | Time |
 | --- | --- | ---: | ---: | ---: |
