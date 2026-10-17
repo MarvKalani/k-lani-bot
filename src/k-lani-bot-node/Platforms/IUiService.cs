@@ -156,6 +156,8 @@ public interface IUiService
         return new(false, "This backend has no verified background invocation.");
     }
     UiTargetIdentity? GetTargetIdentity(int id) => null;
+    // The element the activity panel names for a step; a backend whose guard identity is withheld can still name it here.
+    UiTargetIdentity? GetDisplayedTarget(int id) => GetTargetIdentity(id);
     // The names of the texts and controls in the window of an observed element, read through that element without a new
     // observation, so element numbers stay valid. Field contents are not part of it. Null where unsupported or unreadable.
     string? ReadWindowText(int id) => null;

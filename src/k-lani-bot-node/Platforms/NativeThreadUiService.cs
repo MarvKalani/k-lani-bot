@@ -38,6 +38,7 @@ public sealed class NativeThreadUiService(IUiService inner, NativeVisibilityHost
         return host.NativeCall(() => inner.InvokeBackgroundElement(id));
     }
     public UiTargetIdentity? GetTargetIdentity(int id) => host.NativeCall(() => inner.GetTargetIdentity(id));
+    public UiTargetIdentity? GetDisplayedTarget(int id) => host.NativeCall(() => inner.GetDisplayedTarget(id));
     public string? ReadWindowText(int id) => host.NativeCall(() => inner.ReadWindowText(id));
     public string? ShowingModalWindowTitle(int processId) => host.NativeCall(() => inner.ShowingModalWindowTitle(processId));
     public ModalDialogDetection DetectModalDialog(int id) => host.NativeCall(() => inner.DetectModalDialog(id));

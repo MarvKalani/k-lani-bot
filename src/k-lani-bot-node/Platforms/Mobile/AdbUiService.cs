@@ -9,9 +9,10 @@ using KLaniBot.Guard;
 namespace KLaniBot.Platforms.Mobile;
 
 // The Android backend for one device or emulator, through adb and UIAutomator dumps. Input is tapping and
-// typing in the foreground; there is no background mode, no clipboard, and no element identity, so the guarded
-// profile cannot authorize input here. UIAutomator reports no reliable modal state, so modal dialogs are not
-// detected. Terminal commands run in the device's shell, and the application allow-list holds package names.
+// typing in the foreground; there is no background mode, no clipboard, and no guard identity of an element, so the
+// guarded profile cannot authorize input here; the activity panel still names the observed element. UIAutomator reports
+// no reliable modal state, so modal dialogs are not detected. Terminal commands run in the device's shell, and the
+// application allow-list holds package names.
 public sealed class AdbUiService(string executable, string serial) : IUiService
 {
     // Throws NotSupportedException always; Android has no background input.
@@ -162,6 +163,18 @@ public sealed class AdbUiService(string executable, string serial) : IUiService
         }
         return root;
     }
+    // The element as the last observation saw it, only for the activity panel: the guard still gets no identity here, so the
+    // guarded profile keeps refusing input. An Android app has no executable file; its package name stands in for the program.
+    public UiTargetIdentity? GetDisplayedTarget(int id)
+    {
+        if (!_cache.TryGetValue(id, out var element))
+        {
+            return null;
+        }
+
+        VisualTreeNode node = element.Node;
+        return new UiTargetIdentity(0, element.Package, "", node.Role, node.Name, node.AutoId, !node.IsOffscreen, node.IsEnabled);
+    }
     // Throws ArgumentException when the target is from an older observation, vanished or became ambiguous.
     private Element Current(int id)
     {
@@ -175,7 +188,8 @@ public sealed class AdbUiService(string executable, string serial) : IUiService
     // Throws InvalidOperationException when the focused activity cannot be read.
     public List<WindowInfo> ListWindows()
     {
-        string dump = Shell("dumpsys", "window", "windows");
+        // Android 15 prints mCurrentFocus only in the full window dump, not in its "windows" section; older releases print both.
+        string dump = Shell("dumpsys", "window");
         var match = System.Text.RegularExpressions.Regex.Match(dump, @"mCurrentFocus=Window\{[^\s]+\s+\S+\s+([^\s}]+)");
         if (!match.Success)
             throw new InvalidOperationException("Focused activity unavailable.");

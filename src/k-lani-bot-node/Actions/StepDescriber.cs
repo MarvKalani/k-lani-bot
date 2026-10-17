@@ -28,6 +28,9 @@ internal static class StepDescriber
         [Tool.CloseWindow] = UiText.ActionCloseWindow,
         [Tool.ClickElement] = UiText.ActionActivateControl,
         [Tool.SilentClick] = UiText.ActionActivateControl,
+        [Tool.MouseClick] = UiText.ActionClick,
+        [Tool.Hotkey] = UiText.ActionPressKeys,
+        [Tool.DragAndDrop] = UiText.ActionDrag,
         [Tool.TypeText] = UiText.ActionSetControlText,
         [Tool.VerifyElement] = UiText.ActionVerifyControl,
         [Tool.WaitElement] = UiText.ActionWaitControl
@@ -144,7 +147,11 @@ internal static class StepDescriber
     {
         if (target != null)
         {
-            return target.Name.Length == 0 ? target.WindowTitle : target.Name + " (" + target.WindowTitle + ")";
+            if (target.Name.Length == 0 || target.WindowTitle.Length == 0)
+            {
+                return target.Name.Length == 0 ? target.WindowTitle : target.Name;
+            }
+            return target.Name + " (" + target.WindowTitle + ")";
         }
         if (arguments["name"] is JsonValue name)
         {

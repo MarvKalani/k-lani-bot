@@ -247,8 +247,26 @@ public sealed class ActionDispatcher : IDisposable
         }
     }
 
-    // Every step the person could watch passes the pace gate before it reaches the desktop. Only while the agent is paused or
-    // slowed down is the target read for the step list, because that is a backend call.
+    // The panel shows a step without its target when the backend cannot name the element; naming it never fails the action.
+    private UiTargetIdentity? DisplayedTarget(JsonObject arguments)
+    {
+        if (arguments["id"] is not JsonValue element || !element.TryGetValue(out int elementId))
+        {
+            return null;
+        }
+
+        try
+        {
+            return _ui.GetDisplayedTarget(elementId);
+        }
+        catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or UnauthorizedAccessException)
+        {
+            return null;
+        }
+    }
+
+    // Every step the person could watch passes the pace gate before it reaches the desktop. The activity panel names the step's
+    // control at every pace, so the target is read for each step that names an element.
     // Throws PausedByPersonException when the step met a pause; nothing was dispatched.
     private void RespectPace(ActionRequest request)
     {
@@ -257,8 +275,7 @@ public sealed class ActionDispatcher : IDisposable
             return;
         }
 
-        bool watched = _visibility.CurrentPace != Pace.Normal;
-        UiTargetIdentity? target = watched ? DialogEvidence.TargetOf(_ui, request.Arguments) : null;
+        UiTargetIdentity? target = DisplayedTarget(request.Arguments);
         StepView step = StepDescriber.Describe(request.Tool, request.Arguments, target);
         IReadOnlyList<StepView>? announced = StepDescriber.Announced(request.Arguments);
         if (_visibility.AwaitPace(request.Context, step, announced, request.OperationId) == PaceDecision.PausedByPerson)
