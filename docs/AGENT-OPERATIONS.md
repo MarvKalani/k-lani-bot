@@ -428,11 +428,14 @@ FilmCraft on Linux). Core `get_ui_tree` then fails with the code `no_accessibili
 - **Never stored.** A `ui_input` call ends the current demonstration, so `Programming.learn` and automatic capture never
   store its coordinates or keys.
 
-Core `get_window_geometry` accepts the optional `window` handle and then answers `bounds` in screenshot pixels. Only the
-Linux/X11 backend implements it, reading the window's origin through XCB (xdotool and wmctrl count the frame offset twice
-under a reparenting window manager); Windows and macOS answer `unsupported` until a native acceptance has checked the scale
-between their screenshots and pointer input (DPI, Retina), so `ui_input` is refused there. The node's activity panel and red
-border let clicks through but cover the screenshot; a control under them has to be reached by keyboard or after moving the window.
+Core `get_window_geometry` accepts the optional `window` handle and then answers `bounds` in screenshot pixels. Linux/X11
+reads the window's origin through XCB (xdotool and wmctrl count the frame offset twice under a reparenting window manager).
+Windows reads the visible DWM frame; the node is per-monitor DPI aware, so screenshot, frame and pointer share physical
+pixels. Windows answers `unsupported` when the desktop does not start at 0,0 (a monitor left of or above the primary one),
+because a screenshot pixel would then not be the pointer position. The Windows lab acceptance (17 October 2026, 100 %
+scaling) matched frame and screenshot and landed a click on screenshot coordinates; other scalings are not yet accepted.
+macOS answers `unsupported` until a native acceptance has checked Retina scaling, so `ui_input` is refused there.
+The node's activity panel and red border let clicks through but cover the screenshot; a control under them has to be reached by keyboard or after moving the window.
 The panel names the client, the stated task and, at normal pace, the step now running (for a program MCP call: the program and
 its tool); the task shown is `K_LANI_BOT_TASK` from the gateway's environment, otherwise "Task not stated".
 
