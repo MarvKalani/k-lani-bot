@@ -17,6 +17,9 @@ public sealed class CompactGatewaySession : IDisposable
     private CompactStoredFunctionDiscovery _discovery = CompactStoredFunctionDiscovery.NotObserved;
     private bool _storedFunctionListed;
     private bool _bundleFunctionListed;
+    private bool _buildDriftListed;
+    // The evidence of an unchanged build-drift detail is reused, so repeated ui_info calls do not push other evidence out of the store.
+    private readonly Dictionary<string, CompactEvidenceReference> _buildDriftEvidence = new(StringComparer.Ordinal);
 
     // The catalog program and application process the native cartridge route is currently bound to. A call by pid compares these
     // before it selects and binds again, so alternating between two programs costs a model no round trip.
@@ -118,6 +121,10 @@ public sealed class CompactGatewaySession : IDisposable
         {
             sentences.Add(BundleUsageHint);
         }
+        if (_buildDriftListed)
+        {
+            sentences.Add(CompactBuildDriftNames.Hint);
+        }
         sentences.Add(CompactViewNames.StateHint);
 
         return string.Join(" ", sentences);
@@ -153,6 +160,56 @@ public sealed class CompactGatewaySession : IDisposable
 
         _discovery = _storedFunctionListed || _bundleFunctionListed ? CompactStoredFunctionDiscovery.Listed
             : CompactStoredFunctionDiscovery.NoneListed;
+        await AddBuildDriftAsync(info, cancellation);
+    }
+
+    // The row of an instance whose build has no cartridge, while another build of its variant has stored functions, carries the
+    // probe report of those functions. They stay out of the function list and out of name resolution, so none becomes callable.
+    private async Task AddBuildDriftAsync(JsonObject info, CancellationToken cancellation)
+    {
+        _buildDriftListed = false;
+        var listing = new CompactBuildDriftListing(new CompactNodeAccess(_client, _state.Node!), new CompactGatewayPrograms(_roots));
+        var reports = await listing.ListAsync(_state.ObservedWindows, cancellation);
+        foreach (var row in info["windows"]!.AsArray().OfType<JsonObject>())
+        {
+            if (!reports.TryGetValue(row["window"]!.GetValue<long>(), out var instanceReports))
+            {
+                continue;
+            }
+            string detail = CompactJsonText.Serialize(CompactBuildDriftNames.Detail(instanceReports));
+            if (!TryBuildDriftEvidence(detail, out var evidence))
+            {
+                continue;
+            }
+            string reference = evidence!.Value.ToString();
+            row["other_builds"] = new JsonArray(instanceReports.Select(report => (JsonNode?)CompactBuildDriftNames.Row(report, reference))
+                .ToArray());
+            _buildDriftListed = true;
+        }
+    }
+
+    // An identical detail that the store still holds keeps its reference; otherwise the detail is stored once more.
+    private bool TryBuildDriftEvidence(string detail, out CompactEvidenceReference? evidence)
+    {
+        var debug = new CompactResultSection(CompactResultSectionKind.Debug);
+        if (_buildDriftEvidence.TryGetValue(detail, out evidence)
+            && _state.Results.TryRead(_state.Authority, new(evidence, debug, 0, 1), out _))
+        {
+            return true;
+        }
+        if (_buildDriftEvidence.Count >= CompactResultStore.MaximumEntries)
+        {
+            _buildDriftEvidence.Clear();
+        }
+        if (!_state.Results.TryPut(_state.Authority, new Dictionary<string, string>(), detail, out var stored))
+        {
+            evidence = null;
+            return false;
+        }
+        evidence = stored.Value!;
+        _buildDriftEvidence[detail] = evidence;
+
+        return true;
     }
 
     // Functions of an installed program bundle follow the stored ones; they are called by pid with their parameters directly.

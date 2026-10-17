@@ -90,6 +90,12 @@ check_step dynamic-form .artifacts/dynamic-form-tests.log scripts/private-gui-se
     dotnet "$runtime_root/PerformanceRegression/debug/PerformanceRegression.dll" --native \
     "$runtime_root/k-lani-bot-cartridge-lab/debug/k-lani-bot-cartridge-lab.dll"
 
+# A function learned for one synthetic build label is probed against real windows labelled with another build.
+# Without wmctrl the Linux window list is unavailable and the step reports a skip, as the transport Info check does.
+check_step build-drift .artifacts/build-drift-native.log scripts/private-gui-session.sh scripts/private-window-manager.sh \
+    dotnet "$runtime_root/PerformanceRegression/debug/PerformanceRegression.dll" --native-drift \
+    "$runtime_root/k-lani-bot-cartridge-lab/debug/k-lani-bot-cartridge-lab.dll"
+
 # These fixtures have independent state, displays, buses and dynamically chosen
 # ports. Running them together never touches the operator's physical desktop.
 run_test transport .artifacts/transport-e2e.log scripts/private-gui-session.sh \
@@ -112,6 +118,7 @@ done
 grep -H 'regression checks passed\.' .artifacts/transport-e2e.log .artifacts/pairing-e2e.log
 grep -H 'Linux native assignment checks passed' .artifacts/activity-banner-linux.log
 grep -H 'modal dialog regression checks passed' .artifacts/modal-dialog.log
+grep -H -E 'native build-drift checks passed|SKIP native build drift' .artifacts/build-drift-native.log
 printf 'All projects and platform builds passed; real-device coverage is separate.\n'
 printf 'Per-step timings: .artifacts/check-build/timings.tsv and .artifacts/regression-timings.tsv\n'
 if [ "${K_LANI_BOT_CHECK_GUI:-0}" = 1 ]; then

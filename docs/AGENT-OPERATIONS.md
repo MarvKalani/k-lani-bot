@@ -154,6 +154,23 @@ another build, or a function the node cannot prove compatible all leave the row 
 window}` still returns the full schema, with types and limits, the description and the step labels, when a model needs it; without a selected process the browse
 returns no stored functions and a `hint`.
 
+When a window's known build has no cartridge (no generated document and no installed bundle for that build), but another
+build of the same process variant has stored functions, `ui_info` probes those functions against the current window and adds
+`other_builds` to the row of that application instance (its main window). The probe applies the target rule of
+`Info.preflight` to every stored step without input, clicks, build check or file change. Each entry names the other `build`
+and sorts its named functions into up to three lists: `test_run_needed` (every target that can be checked before running
+still resolves to one control), `repair_needed` (the first step whose stored target no longer resolves, with its 1-based
+`step`, step `label` and `reason`: `target_absent_or_ambiguous`, `target_type_changed` or `unnamed_target`) and `unchecked`
+(a step's window kind is not open or not unique: `window_absent`, `window_ambiguous`, `window_scope_unproved`, with `window`).
+Reads after a mutation and output checks are left to the test run. Each list names at most twelve functions and counts the
+rest in `more_<list>`. `evidence_ref` reads the per-step detail, with the stored role, name and automation ID, through
+`cartridge_call Info.result {evidence_ref, section: "debug"}`. None of these functions appears in `functions` or becomes
+callable: `test_run_needed` is not `reusable`, and the recorded build is never rewritten. Follow the
+[authoring guide's version-change steps](AGENT-AUTHORING.md#version-changes). An unknown build or another process variant
+gets no report; an unreadable document or tree leaves the row without it. An unchanged report keeps its `evidence_ref`.
+Only compact `ui_info` carries `other_builds`: the native cartridge route's `cartridge_info` binds one catalog build and
+refuses a window of another build. The JavaScript reference gateway does not implement the report yet.
+
 
 For the native EXE frontend, start `k-lani-bot-node --mcp --ui-profile compact --nodes REGISTRY --default-node REGISTERED_NAME
 --cartridges LIBRARY_ROOT --learning-root PRIVATE_ROOT` as one command, replacing the capitalized values with existing

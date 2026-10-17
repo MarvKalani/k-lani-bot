@@ -109,8 +109,8 @@ internal static class CompactGatewayListingCases
             client.Build = build;
             using var session = new CompactGatewaySession(client, "fixture", roots, () => "2025-11-25");
             var info = await session.CallAsync("ui_info", new(), CancellationToken.None);
-            Require(info["next"]?.ToString() == CompactViewNames.StateHint && !Row(info, 100).ContainsKey("functions"),
-                "a different build lists no stored function");
+            Require(info["next"]!.ToString().EndsWith(CompactViewNames.StateHint, StringComparison.Ordinal)
+                && !Row(info, 100).ContainsKey("functions"), "a different build lists no stored function");
         }
     }
 

@@ -30,11 +30,30 @@ public static class CompactRecipeTarget
     public static void RequirePresent(CompactNativeObservation observation, CompactStoredSelector selector, CompactNativeWindow instance,
         CompactRecipeAction action)
     {
-        RequireNamedTarget(selector, action);
+        if (!TryPresent(observation, selector, instance, action, out var failure))
+        {
+            throw new CompactNodeException(failure!.Kind == CompactTargetFailureKind.UnnamedRefused ? UnnamedRefusal
+                : CompactTreeNames.Error(failure.Tree!.Value));
+        }
+    }
+
+    // The presence rule of preflight without an exception, so a build-drift report can name the reason per step.
+    public static bool TryPresent(CompactNativeObservation observation, CompactStoredSelector selector, CompactNativeWindow instance,
+        CompactRecipeAction action, out CompactTargetFailure? failure)
+    {
+        failure = null;
+        if (IsUnnamed(selector) && !CanWriteUnnamed(selector, action))
+        {
+            failure = new CompactTargetFailure(CompactTargetFailureKind.UnnamedRefused, null);
+            return false;
+        }
         if (!CompactTargetResolver.TryFindUnique(observation.Nodes, selector.Target(instance.ProcessId), true, out var target))
         {
-            throw new CompactNodeException(CompactTreeNames.Error(target.Error!.Value));
+            failure = new CompactTargetFailure(CompactTargetFailureKind.Tree, target.Error);
+            return false;
         }
+
+        return true;
     }
 
     // Throws CompactNodeException for an unnamed target that the action may not write. The resolver still requires one exact match.
@@ -107,3 +126,13 @@ public static class CompactRecipeTarget
         }
     }
 }
+
+// Preflight refuses a stored target either by the unnamed-target rule or by the resolver's own reason.
+public enum CompactTargetFailureKind
+{
+    UnnamedRefused,
+    Tree
+}
+
+// Why a stored target is not present; Tree is set only for a resolver refusal.
+public sealed record CompactTargetFailure(CompactTargetFailureKind Kind, CompactTreeError? Tree);

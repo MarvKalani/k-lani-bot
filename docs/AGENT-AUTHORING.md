@@ -54,6 +54,14 @@ behavior; repair changed selectors/transitions/checks; derive a cartridge for a 
 Keep one active cartridge per variant/build, with its revision inside the manifest. Preserve the previously qualified
 build. A native API may qualify a version range; UI/layout-dependent selectors may require an exact build.
 
+Start from the `other_builds` report that `ui_info` adds when the new build has no cartridge but an older one does
+([operations guide](AGENT-OPERATIONS.md)). It is a probe, not an approval: no function becomes callable from it.
+`test_run_needed` means every stored target still resolves in the current window, so the function needs only a test run in
+an authorized fixture. `repair_needed` names the first step whose target no longer resolves; explore only that step and the
+ones after it, not the whole function. `unchecked` names a window that must be open first; open it and call `ui_info` again.
+Read the per-step detail through its `evidence_ref` before exploring. The report never derives the new cartridge: author and
+verify the procedure for the new build as above, then keep the previous build's cartridge unchanged.
+
 Application replacement follows the same rule. Bind the saved action to a different qualified mail cartridge only
 after its read result satisfies the same contract. Missing capabilities must be implemented or reported explicitly.
 

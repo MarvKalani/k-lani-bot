@@ -8,6 +8,10 @@ if (args.Length == 2 && args[0] == "--native-discovery")
 {
     return NativeFixtureCases.RunDiscovery(args[1]);
 }
+if (args.Length == 2 && args[0] == "--native-drift")
+{
+    return await BuildDriftNativeCases.RunAsync(args[1]);
+}
 if (args.Length == 2 && args[0] == "--native-door")
 {
     return NativeFixtureCases.RunDoor(args[1]);
