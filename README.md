@@ -104,6 +104,15 @@ The target architecture extends this to a mixed fleet of Linux, macOS, Windows, 
 Desktop builds do not establish every native workflow. Android currently uses a host bridge; general physical iPhone/iPad
 nodes are not implemented. Browsers are operated through the host's application-access backend.
 
+![66-second demo: a contact is created in Google Contacts on an Android emulator through the k-lani-bot node](docs/media/android-contact-demo.gif)
+
+[Download the full-quality MP4](docs/media/android-contact-demo.mp4)
+
+**Android through the node:** the node reads the phone's accessibility tree over ADB, finds each field by name, types,
+saves and then verifies that "Ada Lovelace" is shown. The panel above the phone names every step as it runs. This is a
+scripted replay of node calls without an AI model (17 October 2026, Android 15 emulator, synthetic data; the administrator
+switched the backup requirement off for this disposable emulator copy). Nothing here mirrors a physical iPhone.
+
 <details>
 <summary><strong>Current connection details</strong></summary>
 
