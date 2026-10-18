@@ -4,6 +4,7 @@ using KLaniBot.Localization;
 using KLaniBot.Platforms;
 using KLaniBot.Platforms.Linux;
 using KLaniBot.Platforms.MacOS;
+using KLaniBot.Platforms.Mirroring;
 using KLaniBot.Platforms.Mobile;
 using KLaniBot.Platforms.Windows;
 using KLaniBot.Transport;
@@ -72,7 +73,25 @@ internal static class ActuatorCommands
         {
             return new AdbUiService(arguments.Option("--adb") ?? "adb", arguments.RequireOption("--serial"));
         }
+        if (arguments.Has("--iphone-mirroring"))
+        {
+            return CreateMirroringUiService(arguments);
+        }
         return CreateDesktopUiService(nativeHost);
+    }
+
+    // A real iPhone mirrored by the macOS iPhone Mirroring app; the node reads the window's text and taps it.
+    // Throws PlatformNotSupportedException on any other operating system.
+    private static IUiService CreateMirroringUiService(NodeArguments arguments)
+    {
+        if (!OperatingSystem.IsMacOS())
+        {
+            throw new PlatformNotSupportedException("iPhone Mirroring runs only on macOS.");
+        }
+
+        string bundle = arguments.Option("--mirroring-bundle") ?? MacMirroredScreen.IphoneMirroringBundle;
+        var screen = new MacMirroredScreen(new MacUiService(), MacMirroredScreen.BundledHelperPath(), bundle);
+        return new MirroredPhoneUiService(screen, "macos-iphone-mirroring");
     }
 
     private static IUiService CreateDesktopUiService(NativeVisibilityHost? nativeHost)

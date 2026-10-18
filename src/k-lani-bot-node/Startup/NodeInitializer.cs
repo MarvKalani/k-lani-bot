@@ -369,6 +369,14 @@ public static class NodeInitializer
             string serial = arguments.Option("--serial") ?? throw new ArgumentException("--serial required.");
             device.AddRange(["--android", "--serial", serial, "--adb", arguments.Option("--adb") ?? "adb"]);
         }
+        if (arguments.Has("--iphone-mirroring"))
+        {
+            device.Add("--iphone-mirroring");
+            if (arguments.Option("--mirroring-bundle") is { } bundle)
+            {
+                device.AddRange(["--mirroring-bundle", bundle]);
+            }
+        }
         if (arguments.Option("--ios-bridge") is { } iosBridge)
         {
             string iosBundle = arguments.Option("--ios-bundle") ?? throw new ArgumentException("--ios-bundle required.");

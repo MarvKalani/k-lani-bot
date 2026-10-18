@@ -136,7 +136,7 @@ public static class NodeRegression
     {
         return CredentialCases.Run() + BackupCases.Run(temporaryRoot) + BackupPolicyCases.Run(temporaryRoot)
             + BackupToolCases.Run(temporaryRoot) + BackupGateCases.Run(temporaryRoot) + GatewayNodeFunctionCases.Run()
-            + ApplicationMcpCases.Run(temporaryRoot) + ApplicationMcpFunctionCases.Run(temporaryRoot);
+            + ApplicationMcpCases.Run(temporaryRoot) + ApplicationMcpFunctionCases.Run(temporaryRoot) + MirroredPhoneCases.Run();
     }
 
     // The platform backends' pure parts run on every platform: Windows row format, foreground plan and window selection,

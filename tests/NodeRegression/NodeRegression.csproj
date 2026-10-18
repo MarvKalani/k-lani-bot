@@ -138,6 +138,7 @@
     <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacAttributeOutcome.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/MacOS/MacAttributeRead.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/Mobile/AdbUiService.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Platforms/Mirroring/*.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/ProcessLauncher.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/Windows/WindowsApplicationSource.cs" />
     <Compile Include="../../src/k-lani-bot-node/Platforms/Windows/WindowsCommandLine.cs" />

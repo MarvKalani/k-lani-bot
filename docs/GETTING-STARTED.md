@@ -198,6 +198,9 @@ An implemented backend does not imply identical capabilities or benchmark covera
 Mobile routes use the core node gateway, not the desktop compact gateway shown above.
 Android selection uses `--android --serial <device-serial>` and optionally `--adb <executable>` during initialization.
 iOS selection uses `--ios-bridge <private-bridge-directory> --ios-bundle <bundle-id>` with the XCTest runner already started.
+`--iphone-mirroring` (macOS, experimental, not yet accepted with a real iPhone) operates the window of the iPhone Mirroring app:
+the bundled `k-lani-bot-mirror` helper recognizes the window's text with Apple Vision, every tap goes to the text where it is
+now, and images stay in the node. It needs Screen Recording and Accessibility for the node; swipes are not implemented yet.
 These are advanced backend selections, not mobile installers or a claim that automatic desktop capture works on mobile.
 
 Implementation references: [backend selection](../src/k-lani-bot-node/Startup/ActuatorCommands.cs),

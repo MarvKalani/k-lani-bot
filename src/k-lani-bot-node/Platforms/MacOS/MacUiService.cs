@@ -932,6 +932,36 @@ public sealed class MacUiService : IUiService, IDisposable
         chunk.Clear();
         Thread.Sleep(10);
     }
+    // Quartz takes at most this many UTF-16 units per keyboard event.
+    private const int UnicodeEventLimit = 20;
+
+    // Types into whatever has keyboard focus in the frontmost app, for a mirrored phone whose fields have no accessibility element.
+    // The app of pid must be frontmost, so the text cannot land in another program.
+    // Throws UnauthorizedAccessException without the Accessibility permission, InvalidOperationException without keyboard events.
+    public UiOutcome TypeIntoFrontmost(int pid, string text)
+    {
+        Require();
+        if (!IsFrontmost(pid))
+        {
+            return new(false, "The expected app is not frontmost; nothing was typed.");
+        }
+
+        for (int start = 0; start < text.Length; start += UnicodeEventLimit)
+        {
+            char[] chars = text.Substring(start, Math.Min(UnicodeEventLimit, text.Length - start)).ToCharArray();
+            foreach (bool down in new[] { true, false })
+            {
+                using var ev = new Ref(CGEventCreateKeyboardEvent(IntPtr.Zero, 0, down));
+                if (ev.IsInvalid)
+                    throw new InvalidOperationException("Keyboard event unavailable.");
+                CGEventSetFlags(ev.Ptr, 0);
+                CGEventKeyboardSetUnicodeString(ev.Ptr, (nuint)chars.Length, chars);
+                CGEventPost(0, ev.Ptr);
+            }
+            Thread.Sleep(10);
+        }
+        return new(true, "Text typed as key events.");
+    }
     // Throws InvalidOperationException when no mouse event can be made.
     private static void Mouse(uint type, int x, int y, uint button = 0)
     {
