@@ -5,7 +5,7 @@ namespace RepositoryGuard;
 internal static class ExamplePrivacyPolicy
 {
     private const int MaximumFindings = 100;
-    private static readonly System.Text.RegularExpressions.Regex EmailPattern = new(
+    internal static readonly System.Text.RegularExpressions.Regex EmailPattern = new(
         @"[A-Za-z0-9._%+\-]+@(?<domain>[A-Za-z0-9.\-]+\.[A-Za-z]{2,})",
         System.Text.RegularExpressions.RegexOptions.CultureInvariant,
         TimeSpan.FromSeconds(1));
@@ -34,7 +34,7 @@ internal static class ExamplePrivacyPolicy
         return findings;
     }
 
-    private static bool IsDocumentationDomain(string domain)
+    internal static bool IsDocumentationDomain(string domain)
     {
         string normalized = domain.ToLowerInvariant();
         string[] reservedDomains = ["example.com", "example.org", "example.net", "example", "invalid", "test", "localhost"];

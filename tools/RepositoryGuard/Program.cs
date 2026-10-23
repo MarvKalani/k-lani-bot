@@ -91,7 +91,7 @@ public static class Program
         new("personal-machine-path", @"(?i)(?:/Users/|/home/|[A-Z]:\\Users\\)(?!user(?:/|\\)|example(?:/|\\)|<|\$)[A-Za-z0-9_.-]+(?:/|\\)"),
         new(
             "private-network-literal",
-            @"\b(?:192\.168\.[0-9]{1,3}\.[0-9]{1,3}|10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|"
+            @"\b(?:192\.168\.[0-9]{1,3}(?:\.[0-9]{1,3})?|10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|"
             + @"172\.(?:1[6-9]|2[0-9]|3[01])\.[0-9]{1,3}\.[0-9]{1,3})\b"),
         new("private-hostname", @"(?i)\b[A-Za-z0-9_.-]+\.fritz\.box\b"),
         new(
@@ -116,15 +116,19 @@ public static class Program
         string? commit,
         IReadOnlyDictionary<string,
         string> approvedAssets,
-        bool metadata = false)
+        bool metadata = false,
+        IReadOnlyList<string>? privateTerms = null)
     {
         var findings = new List<Finding>();
+        privateTerms ??= [];
+        if (!metadata && PublicationIdentityPolicy.PathHasTerm(path, privateTerms))
+            findings.Add(new("private-machine-or-network-name", "<redacted-path>", 0, commit));
         if (!metadata && !AddFileFindings(path, data, commit, approvedAssets, findings))
         {
             return findings;
         }
 
-        AddContentFindings(path, data, commit, findings);
+        AddContentFindings(path, data, commit, privateTerms, findings);
         return findings;
     }
 
@@ -190,7 +194,12 @@ public static class Program
     }
 
     // Content that is not UTF-8 text cannot be scanned and is reported as such; otherwise every pattern is searched.
-    private static void AddContentFindings(string path, byte[] data, string? commit, List<Finding> findings)
+    private static void AddContentFindings(
+        string path,
+        byte[] data,
+        string? commit,
+        IReadOnlyList<string> privateTerms,
+        List<Finding> findings)
     {
         string content;
         try
@@ -205,6 +214,7 @@ public static class Program
         }
 
         findings.AddRange(ExamplePrivacyPolicy.Inspect(SafePath(path), content, commit));
+        findings.AddRange(PublicationIdentityPolicy.Inspect(SafePath(path), content, commit, privateTerms));
         foreach (var (name, expression) in Patterns)
         {
             foreach (Match match in Regex.Matches(content, expression, RegexOptions.CultureInvariant, RegexDeadline))
@@ -264,7 +274,12 @@ public static class Program
             if (mode == "line-length")
                 return LineLengthPolicy.Run(root);
             string policyRoot = Path.GetFullPath(Option(args, "--policy-root") ?? root);
-            var scan = new GuardScan(root, ReadAssetPolicy(policyRoot), RepositorySizePolicy.Read(policyRoot));
+            string gitDirectory = Path.GetFullPath(Path.Combine(root, GitText(root, "rev-parse", "--git-common-dir").Trim()));
+            var scan = new GuardScan(
+                root,
+                ReadAssetPolicy(policyRoot),
+                RepositorySizePolicy.Read(policyRoot),
+                PublicationIdentityPolicy.ReadTerms(gitDirectory));
             scan.Collect(mode, args);
             scan.ScanCommits();
             if (mode is "history" or "pre-push")
@@ -295,7 +310,11 @@ public static class Program
     }
 
     // One run of the guard: which blobs and commits were scanned and what was found. Every blob is read once per path.
-    private sealed class GuardScan(string root, Dictionary<string, string> assets, RepositorySizePolicy sizes)
+    private sealed class GuardScan(
+        string root,
+        Dictionary<string, string> assets,
+        RepositorySizePolicy sizes,
+        IReadOnlyList<string> terms)
     {
         private const int MaximumBlobs = 20000;
         private const int MaximumCommits = 10000;
@@ -321,7 +340,8 @@ public static class Program
                         File.ReadAllBytes(Option(args, "--message") ?? throw new ArgumentException("Commit message file required.")),
                         null,
                         assets,
-                        true));
+                        true,
+                        terms));
             else if (mode == "history")
                 CollectHistory(Option(args, "--ref"));
             else if (mode == "pre-push")
@@ -367,7 +387,13 @@ public static class Program
                 ScanEntries(GitText(root, "ls-tree", "-r", "-z", commit), false, commit);
                 _trees++;
                 Findings.AddRange(
-                    Inspect("<commit-metadata>", Git(root, "show", "-s", "--format=%B%n%an%n%ae%n%cn%n%ce", commit), commit, assets, true));
+                    Inspect(
+                        "<commit-metadata>",
+                        Git(root, "show", "-s", "--format=%B%n%an%n%ae%n%cn%n%ce", commit),
+                        commit,
+                        assets,
+                        true,
+                        terms));
             }
         }
 
@@ -434,13 +460,13 @@ public static class Program
             }
             byte[] content = Git(root, "cat-file", "blob", oid);
             sizes.AddContent(oid, content);
-            Findings.AddRange(Inspect(path, content, commit, assets));
+            Findings.AddRange(Inspect(path, content, commit, assets, privateTerms: terms));
         }
 
         private void ScanTag(string reference)
         {
             if (GitText(root, "cat-file", "-t", reference).Trim() == "tag")
-                Findings.AddRange(Inspect("<tag-message>", Git(root, "cat-file", "tag", reference), null, assets, true));
+                Findings.AddRange(Inspect("<tag-message>", Git(root, "cat-file", "tag", reference), null, assets, true, terms));
         }
 
         // Throws InvalidDataException for a reference that is not explicit or when the commit limit is exceeded.

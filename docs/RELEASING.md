@@ -43,6 +43,14 @@ The guard also stops a file above 1 MiB and a published history above 10 MiB, co
 zlib-compressed (limits in [`.release/repository-size.json`](../.release/repository-size.json)). A sudden jump usually
 means a build output, log or dump was committed; find it first, then raise the limit by a reviewed commit if it belongs.
 
+Files, commit metadata, commit messages and tag messages may name no address except `support@kalanis.de`, the
+`noreply@anthropic.com` co-author trailer already in the published history, and reserved documentation domains
+(`example.com`, `.example`, `.invalid`, `.test`, `localhost`). Any private network address is blocked, including a bare
+`192.168.n` subnet prefix. Maintainers list their own machine names, subnets and hardware addresses, one per line, in
+`.git/info/repository-guard-private-terms`. Git never commits or pushes that file, and every worktree of the clone shares
+it. The guard rejects each term as a whole word, ignoring case, in content and paths, and never prints the term. Keep
+generic product names such as a computer model out of the list, because they appear in public tests.
+
 The Linux regression host needs Pillow for synthetic image fixtures.
 CI installs Ubuntu's `python3-pil` and uses `/usr/bin/python3` through `K_LANI_BOT_TEST_PYTHON`; local checks default to `python3`.
 These are test dependencies, not node runtime requirements. Earlier-version state fixtures are reviewed `.txt` templates;

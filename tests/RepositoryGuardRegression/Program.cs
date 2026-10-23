@@ -131,7 +131,35 @@ Check(
     "Non-UTF8 skipped.");
 Check(Inspect("source.cs", "safe\0hidden").Any(f => f.Rule == "binary-unscanned-content"), "NUL hidden content skipped.");
 Check(Inspect("README.md", "/Users/" + "personal-name/config.json").Any(f => f.Rule == "personal-machine-path"), "Personal path leaked.");
-Check(Inspect("README.md", "192.168." + "0.10").Any(f => f.Rule == "private-network-literal"), "Private infrastructure leaked.");
+Check(Inspect("README.md", "192." + "168.0.10").Any(f => f.Rule == "private-network-literal"), "Private infrastructure leaked.");
+Check(Inspect("README.md", "subnet 192." + "168.7").Any(f => f.Rule == "private-network-literal"), "A private subnet prefix leaked.");
+foreach (string address in new[] { "someone" + "@company.tld", "Person.Name" + "@mail.provider.de" })
+{
+    var findings = Inspect("docs/notes.md", "Contact " + address);
+    Check(findings.Any(f => f.Rule == "unapproved-email-address") && findings.All(f => !f.Path.Contains(address)),
+        "A foreign address was published or leaked in the diagnostic: " + address);
+}
+Check(Inspect("docs/notes.md", "SUPPORT@kalanis.de, alerts@offers.example, operator@lab.test").Count == 0,
+    "An approved address was blocked.");
+Check(
+    RepositoryGuard.Program.Inspect("<commit-message>", Encoding.UTF8.GetBytes("Fix\n\nCo-Authored-By: Tool <noreply@anthropic.com>"), null,
+        assets, true).Count == 0,
+    "The published co-author trailer blocked a commit message.");
+Check(
+    RepositoryGuard.Program.Inspect("<commit-metadata>", Encoding.UTF8.GetBytes("Fix\nName\nsomeone" + "@company.tld"), null, assets, true)
+        .Any(f => f.Rule == "unapproved-email-address"),
+    "A foreign author address passed the commit metadata scan.");
+string[] terms = ["lab-host", "Desk.PC"];
+IReadOnlyList<Finding> InspectPrivate(string path, string text)
+    => RepositoryGuard.Program.Inspect(path, Encoding.UTF8.GetBytes(text), null, assets, privateTerms: terms);
+foreach (string text in new[] { "node LAB-HOST is up", "ssh lab-host", "host=desk.pc;" })
+{
+    Check(InspectPrivate("tests/case.cs", text).Any(f => f.Rule == "private-machine-or-network-name"), "A private name passed: " + text);
+}
+Check(InspectPrivate("tests/case.cs", "lab-hostname deskXpc office-pc").Count == 0, "A private term matched inside another word.");
+var termPath = InspectPrivate("docs/lab-host/setup.md", "safe");
+Check(termPath.Any(f => f.Rule == "private-machine-or-network-name") && termPath.All(f => !f.Path.Contains("lab-host")),
+    "A private name in a path passed or leaked.");
 Check(
     Inspect("README.md", "https://user:" + "credential@example.invalid").Any(f => f.Rule == "inline-url-credential"),
     "Inline credential URL missed.");
@@ -247,6 +275,15 @@ try
     File.Delete(Path.Combine(root, ".release", "repository-size.json"));
     Check(Guard("index").Exit == 2, "A missing size policy did not block publication.");
     WriteSizeLimits(10485760, 1048576);
+    File.WriteAllText(Path.Combine(root, ".git", "info", PublicationIdentityPolicy.TermFileName), "# lab\n\nlab-host\n");
+    File.WriteAllText(Path.Combine(root, "node.cs"), "// runs on Lab-Host");
+    Git("add", "node.cs");
+    var privateName = Guard("index");
+    Check(privateName.Exit == 1 && privateName.Output.Contains("private-machine-or-network-name")
+            && !privateName.Output.Contains("lab-host", StringComparison.OrdinalIgnoreCase),
+        "A staged private machine name from the term list was accepted or printed.");
+    Git("rm", "--cached", "node.cs");
+    Check(Guard("index").Exit == 0, "The private term list blocked a clean index.");
     Check(LineLengthPolicy.Inspect("a.cs", new string('x', 140)).Count == 0, "A line of exactly 140 characters was reported.");
     var longLine = LineLengthPolicy.Inspect("a.cs", "short\n" + new string('x', 141) + "\nshort");
     Check(longLine.Count == 1 && longLine[0].Line == 2 && longLine[0].Length == 141, "A line of 141 characters was not reported.");
