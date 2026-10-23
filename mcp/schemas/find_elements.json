@@ -1,6 +1,6 @@
 {
   "name": "find_elements",
-  "description": "Searches the semantic tree on the node; reports ambiguous matches explicitly.",
+  "description": "Finds UI elements in a window by name, role or automation id and returns their ids plus a snapshot_id for click_element or type_text; reports ambiguous matches explicitly.",
   "inputSchema": {
     "type": "object",
     "properties": {

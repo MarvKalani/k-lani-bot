@@ -155,6 +155,7 @@
     <Compile Include="../../src/k-lani-bot-node/Transport/ExecutionRole.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/JsonLineReader.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/McpGateway.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Transport/GatewayOrientation.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/NodeTransportClient.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/NodeManagementStatus.cs" />
     <Compile Include="../../src/k-lani-bot-node/Transport/ProtocolIdentity.cs" />

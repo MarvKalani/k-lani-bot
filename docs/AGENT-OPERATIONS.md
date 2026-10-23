@@ -5,6 +5,14 @@ Read this before setting up access, using a cartridge or measuring performance. 
 
 ## Purpose and components
 
+In one sentence for any model: k-lani-bot is **remote computer use** — the agent sees and operates the desktop of
+other registered computers through their UI elements; saved reusable action sequences are **cartridges (RPA)**.
+Every gateway's MCP `instructions` start with that sentence (`Transport/GatewayOrientation.cs`, mirrored in
+`modules/desktop-ui-mcp/gateway.mjs`), followed by the start sequence and the connection rule: keep one MCP connection
+for a whole task, because a node's desktop belongs to one connection for five minutes after its last call. A refused
+second connection is told the remaining seconds and to call `end_session` when done. `K_LANI_BOT_TASK` in the gateway's
+environment is shown to the person at the node as the task.
+
 The AI connects to one **k-lani-bot** MCP server and selects registered **k-lani-node** targets.
 "Gateway" is the name of the MCP routing code inside that controller. The current executable is still
 `k-lani-bot-node` for both roles, selected by CLI options; the component name is not a replacement command.

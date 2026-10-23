@@ -1,6 +1,6 @@
 {
   "name": "take_screenshot",
-  "description": "Returns image content from the controlled display; no arbitrary output path.",
+  "description": "Returns a screenshot of the node\u0027s display, for checking a result that the UI tree does not show, such as terminal output. No arbitrary output path.",
   "inputSchema": {
     "type": "object",
     "properties": {

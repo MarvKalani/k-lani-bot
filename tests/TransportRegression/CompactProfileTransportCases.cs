@@ -65,9 +65,11 @@ internal static class CompactProfileTransportCases
             .ToDictionary(frame => frame["id"]!.GetValue<int>());
         Require(replies[1]["result"]?["protocolVersion"]?.ToString() == "2025-11-25", "Compact protocol negotiation failed.");
         string instructions = replies[1]["result"]?["instructions"]?.ToString() ?? "";
-        Require(instructions.StartsWith("Author missing task procedures", StringComparison.Ordinal)
+        Require(instructions.StartsWith("k-lani-bot is remote computer use", StringComparison.Ordinal)
+            && instructions.Contains("Keep one MCP connection for a whole task", StringComparison.Ordinal)
+            && instructions.Contains("Author missing task procedures", StringComparison.Ordinal)
             && instructions.Contains("Call ui_info first;", StringComparison.Ordinal),
-            "Compact initialize names the author/operator role and first discovery call.");
+            "Compact initialize names what the server is, the connection rule, the author role and first discovery call.");
         var tools = replies[2]["result"]!["tools"]!.AsArray().OfType<JsonObject>().ToArray();
         Require(tools.Length == 8 && tools.Any(tool => tool["name"]!.ToString() == "ui_act")
             && tools.Any(tool => tool["name"]!.ToString() == "ui_input")

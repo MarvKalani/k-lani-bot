@@ -32,7 +32,16 @@ export const usageHint = 'Run a listed function with cartridge_call {function, a
 export const stateHint = 'Read a window as a typed class with ui_observe {pid, window, as: "state"}, then change it with ui_apply.';
 export const applyHint = 'Change it with ui_apply {pid, shape, steps: [{set: path, value}, {call: path}]}.';
 export const stateCursorHint = 'Use a cursor from the more map of the latest state reply.';
-export const compactInstructions = 'Author missing task procedures, then use them yourself through MCP. '
+// Same orientation text as the native GatewayOrientation: what the server is and the one-connection rule.
+export const gatewayIdentity = 'k-lani-bot is remote computer use: you see and operate the desktop of other registered '
+    + 'computers (nodes) through their UI elements, like Computer Use with fewer screenshots. '
+    + 'Saved, reusable action sequences for one application are cartridges (RPA). ';
+export const gatewaySession = 'Keep one MCP connection for a whole task: a node\'s desktop belongs to one connection for '
+    + 'five minutes, renewed by every call, and other connections are refused until then; call end_session when done. '
+    + 'The person at the node sees a red border and your client name; set K_LANI_BOT_TASK in the gateway\'s environment '
+    + 'to show your task there too. ';
+export const compactInstructions = gatewayIdentity + gatewaySession
+    + 'Author missing task procedures, then use them yourself through MCP. '
     + 'Identify the application/build; on version drift, test the needed behavior before adapting or deriving its cartridge. '
     + 'Explore with the available screenshot/UI controls, parameterize and verify the procedure, and reuse it with fresh inputs. '
     + 'Aim for one business-operation call; keep deterministic steps out of model context. '

@@ -1,6 +1,6 @@
 {
   "name": "list_windows",
-  "description": "Lists windows available to this desktop session.",
+  "description": "Lists the open windows on the node\u0027s desktop with process id, program and version. Pass the process id to find_elements or get_ui_tree.",
   "inputSchema": {
     "type": "object",
     "properties": {

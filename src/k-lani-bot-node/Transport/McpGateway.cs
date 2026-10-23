@@ -252,7 +252,8 @@ public sealed class McpGateway : IDisposable
             }
             if (_cartridgeSession != null)
             {
-                return "Build missing task procedures from verified screenshot/UI exploration and use them yourself through MCP. "
+                return GatewayOrientation.Identity + GatewayOrientation.Session
+                    + "Build missing task procedures from verified screenshot/UI exploration and use them yourself through MCP. "
                     + "Identify the application/build; test changed builds before adapting or deriving their cartridge. "
                     + "Write parameterized recipes into the host cartridge library; the gateway runs their steps on the authorized node. "
                     + "Aim for one business-operation call. Browse Catalog for paged summaries; call cartridge_select with arguments.key. "
@@ -260,9 +261,9 @@ public sealed class McpGateway : IDisposable
                     + "Info/Coverage shows implementation and acceptance gaps. Cartridge changes do not change the three MCP tools.";
             }
 
-            return "Build missing task procedures from verified screenshot/UI exploration and use them yourself through MCP. "
+            return GatewayOrientation.Identity + GatewayOrientation.Start + GatewayOrientation.Session
+                + "Build missing task procedures from verified screenshot/UI exploration and use them yourself through MCP. "
                 + "Identify the application/build; test changed builds before adapting or deriving their cartridge. "
-                + "Use list_nodes and get_machine_capabilities to select existing authorized access. "
                 + "Where macro-author privileges are available, save_macro stores a parameterized procedure and run_macro executes it. "
                 + "Otherwise author a host cartridge through the available file tools; do not assume arbitrary code can be uploaded. "
                 + "Keep deterministic steps and verification local; return the business result and separate authoring cost from reuse.";

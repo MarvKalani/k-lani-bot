@@ -1,6 +1,6 @@
 {
   "name": "end_session",
-  "description": "Releases the desktop lease and invalidates cached references.",
+  "description": "Ends your use of the node\u0027s desktop at the end of a task, so other clients can operate it; invalidates cached references.",
   "inputSchema": {
     "type": "object",
     "properties": {

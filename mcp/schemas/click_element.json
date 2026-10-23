@@ -1,6 +1,6 @@
 {
   "name": "click_element",
-  "description": "Invokes a supported semantic action; physical input requires mouse_click. Success reports dispatch, not task completion.",
+  "description": "Clicks a UI element by id from find_elements or get_ui_tree through its semantic action; physical input requires mouse_click. Success reports dispatch, not task completion.",
   "inputSchema": {
     "type": "object",
     "properties": {

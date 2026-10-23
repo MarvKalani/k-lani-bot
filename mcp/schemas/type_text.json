@@ -1,6 +1,6 @@
 {
   "name": "type_text",
-  "description": "Sets literal text in a target control; text never becomes key syntax.",
+  "description": "Types literal text into a UI element by id; enter: true presses Enter afterwards, for example to run a command in a terminal. Text never becomes key syntax.",
   "inputSchema": {
     "type": "object",
     "properties": {

@@ -81,7 +81,7 @@ public static class NodeRegression
         count += PaceDispatchCases.Run(temp);
         count += await RunCartridgeSuitesAsync(temp);
         count += ApplicationObjectCases.Run(temp);
-        count += ConcreteStepCases.Run();
+        count += ConcreteStepCases.Run() + DesktopLeaseCases.Run();
         count += LaunchArgumentCases.Run(temp);
         count += RunUpdateAndJournalSuites(temp);
         count += RunPlatformSuites(temp);

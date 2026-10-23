@@ -65,7 +65,7 @@ internal sealed class DesktopObservationState
     {
         if (_leaseOwner != null && _leaseOwner != owner && _leaseUntil > now)
         {
-            throw new UnauthorizedAccessException("Desktop leased to another session.");
+            throw new UnauthorizedAccessException(LeasedMessage(_leaseUntil - now));
         }
         if (_leaseOwner != owner)
         {
@@ -74,6 +74,16 @@ internal sealed class DesktopObservationState
         }
         _leaseOwner = owner;
         _leaseUntil = now + LeaseDuration;
+    }
+
+    // An agent that opens a new MCP connection per call locks itself out; the message says when the desktop frees up
+    // and how to avoid the wait. It names neither the holder's session nor its client, which belong to that connection.
+    internal static string LeasedMessage(TimeSpan remaining)
+    {
+        int seconds = Math.Max(1, (int)Math.Ceiling(remaining.TotalSeconds));
+        return "Desktop leased to another MCP connection for " + seconds + " more seconds. "
+            + "A connection holds a node's desktop for five minutes after its last call: keep one connection for a whole "
+            + "task and call end_session when done.";
     }
 
     // A session may end only its own lease. Ending it also forgets the snapshots, which were its own.

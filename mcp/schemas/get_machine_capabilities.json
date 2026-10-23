@@ -1,6 +1,6 @@
 {
   "name": "get_machine_capabilities",
-  "description": "Reports actual backend capabilities, allowed tools and deployment limitations.",
+  "description": "What you may do on one node: platform, desktop session state, allowed tools and scopes, and deployment limitations. Call it before operating the node.",
   "inputSchema": {
     "type": "object",
     "properties": {

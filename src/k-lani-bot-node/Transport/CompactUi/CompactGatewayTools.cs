@@ -20,7 +20,8 @@ public enum CompactUiTool
 public static class CompactGatewayTools
 {
     // Some clients never show server instructions, so this recipe is a second channel beside the ui_info reply, which stays primary.
-    public const string Instructions = "Author missing task procedures, then use them yourself through MCP. "
+    public const string Instructions = GatewayOrientation.Identity + GatewayOrientation.Session
+        + "Author missing task procedures, then use them yourself through MCP. "
         + "Identify the application/build; on version drift, test the needed behavior before adapting or deriving its cartridge. "
         + "Explore with the available screenshot/UI controls, parameterize and verify the procedure, and reuse it with fresh inputs. "
         + "Aim for one business-operation call; keep deterministic steps out of model context. "
