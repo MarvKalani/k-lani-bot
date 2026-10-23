@@ -18,6 +18,8 @@ namespace KLaniBot.Visibility;
 public sealed class WindowsVisibilityHost : NativeVisibilityHost
 {
     private const int BorderThickness = 4;
+    private const int AssignmentLineHeight = 23;
+    private const int MaximumAssignmentLines = 5;
     private readonly WindowsNativeTray _tray;
     private readonly List<WindowsPassiveWindow> _borders = new();
     private readonly int _windowsSessionId;
@@ -353,7 +355,8 @@ public sealed class WindowsVisibilityHost : NativeVisibilityHost
 
     private void ShowAssignment(Rectangle primary, VisibilityState state)
     {
-        int width = Math.Min(_displayDock == DisplayDock.Top ? 900 : 540, primary.Width - 32);
+        // Docked at a side, the task display and the step list form one column of equal width.
+        int width = Math.Min(_displayDock == DisplayDock.Top ? 900 : WindowsStepListWindow.PanelWidth, primary.Width - 32);
         _assignment = new WindowsPassiveWindow(false);
         WindowsWpfTheme.Apply(_assignment);
         _assignment.Background = Brushes.Transparent;
@@ -366,12 +369,21 @@ public sealed class WindowsVisibilityHost : NativeVisibilityHost
         heading.MouseLeftButtonDown += (_, _) => _assignment?.MoveByPerson();
         _assignmentText = WindowsWpfTheme.Text(string.Join("\n", AssignmentLines(state, false)));
         content.Children.Add(AssignmentHeading(heading));
+        // Long client, master or task lines wrap. A fixed line count would cut them off, so the text scrolls inside
+        // a bounded area and the person can still read what the remote control is for.
+        int visibleLines = Math.Min(AssignmentLines(state, false).Count, MaximumAssignmentLines);
         if (!_displayCollapsed)
         {
-            content.Children.Add(_assignmentText);
+            content.Children.Add(new ScrollViewer
+            {
+                Content = _assignmentText,
+                Height = visibleLines * AssignmentLineHeight,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+            });
         }
         _assignment.Content = WindowsWpfTheme.Surface(_assignment, content, 16);
-        _bannerHeight = _displayCollapsed ? 66 : 65 + AssignmentLines(state, false).Count * 23;
+        _bannerHeight = _displayCollapsed ? 66 : 65 + visibleLines * AssignmentLineHeight;
         int left = _displayDock switch
         {
             DisplayDock.Top => primary.Left + (primary.Width - width) / 2,

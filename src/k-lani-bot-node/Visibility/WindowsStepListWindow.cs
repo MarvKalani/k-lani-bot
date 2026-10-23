@@ -12,7 +12,9 @@ namespace KLaniBot.Visibility;
 // explicit refresh and Follow live resume it, while the bot and its access controls continue independently.
 internal sealed class WindowsStepListWindow : IDisposable
 {
-    private const int PreferredWidth = 620;
+    // Shared with the task display above it, so both side panels line up as one column.
+    internal const int PanelWidth = 620;
+    private const int ControlHeight = 32;
     private const int PreferredHeight = 560;
     private const int ScreenGap = 16;
     private readonly WindowsPassiveWindow _window = new(false, true);
@@ -70,13 +72,21 @@ internal sealed class WindowsStepListWindow : IDisposable
         toolbar.Children.Add(heading);
         var controls = new WrapPanel();
         ConfigureLevels();
-        controls.Children.Add(_levels);
-        controls.Children.Add(CreateButton(UiText.StepCopyAll, CopyAll));
-        controls.Children.Add(CreateButton(UiText.StepRefresh, RenderLatest));
         _follow.Content = UiTexts.Get(UiText.StepFollowLive);
         _follow.ToolTip = UiTexts.Get(UiText.StepLogSnapshot);
         _follow.Checked += (_, _) => RenderLatest();
-        controls.Children.Add(_follow);
+        _follow.VerticalContentAlignment = VerticalAlignment.Center;
+        // One height, one gap and one centre line, also when the row wraps on a narrow screen.
+        foreach (Control control in new Control[]
+                 {
+                     _levels, CreateButton(UiText.StepCopyAll, CopyAll), CreateButton(UiText.StepRefresh, RenderLatest), _follow
+                 })
+        {
+            control.Height = ControlHeight;
+            control.VerticalAlignment = VerticalAlignment.Center;
+            control.Margin = new Thickness(0, 0, 8, 8);
+            controls.Children.Add(control);
+        }
         toolbar.Children.Add(controls);
         _efficiency.TextWrapping = TextWrapping.Wrap;
         _efficiency.Foreground = WindowsWpfTheme.Brush(_window, "TextBrush");
@@ -103,7 +113,12 @@ internal sealed class WindowsStepListWindow : IDisposable
 
     private static Button CreateButton(UiText label, Action action)
     {
-        var button = new Button { Content = UiTexts.Get(label), Padding = new Thickness(10, 6, 10, 6) };
+        var button = new Button
+        {
+            Content = UiTexts.Get(label),
+            Padding = new Thickness(10, 0, 10, 0),
+            VerticalContentAlignment = VerticalAlignment.Center
+        };
         button.Click += (_, _) => action();
 
         return button;
@@ -116,7 +131,7 @@ internal sealed class WindowsStepListWindow : IDisposable
         {
             RenderLatest();
         }
-        int width = Math.Min(PreferredWidth, screen.Width - ScreenGap * 2);
+        int width = Math.Min(PanelWidth, screen.Width - ScreenGap * 2);
         int height = Math.Min(PreferredHeight, screen.Height - (int)bannerHeight - ScreenGap * 3);
         int left = atLeft ? screen.Left + ScreenGap : screen.Right - width - ScreenGap;
         var placement = new Rectangle(left, screen.Top + (int)bannerHeight + ScreenGap, width, height);
