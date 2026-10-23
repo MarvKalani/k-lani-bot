@@ -307,6 +307,11 @@ internal sealed class CartridgeMcpSession(
     {
         _bindings.Remove(node);
         JsonObject windows = await client.CallAsync(Tool.ListWindows, new(), cancellation);
+        if (windows["success"]?.GetValue<bool>() != true && windows["code"] != null)
+        {
+            // A refusal such as access_paused says why better than "no target found" would.
+            return windows;
+        }
         ProgramLookup lookup = FindProgram(windows, arguments["pid"]?.GetValue<int>());
         if (lookup.Window == null && !lookup.NoWindow)
         {

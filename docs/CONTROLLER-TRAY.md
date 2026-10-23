@@ -60,6 +60,13 @@ lists the nodes of `nodes.json` with unknown state. The menu is computed by a pl
 
 ## Boundaries
 
+- How the refusal reads depends on the gateway route. Core tools and routed node functions (`backup_*`, `app_mcp_*`) return
+  the master's JSON as a failed tool result (covered end to end). A stored cartridge recipe reports it as a JSON-RPC error
+  "The node refused the window check (access_paused): …", and `cartridge_select`/`cartridge_info` return the refusal itself;
+  both are unit-checked, not end to end. The compact profile (`--ui-profile compact`) is not yet checked.
+- Gateways started before this change send no instance header; they show one row per node session and can be paused the
+  same way. Only the master and the tray need the new build.
+
 - Nodes reached directly (a registry URL pointing at `--serve`, not at the master) are neither shown as clients nor
   paused; their own node indicator and consent still apply.
 - Host-side gateway work that reaches no node (catalog browse, `list_nodes`) continues while paused.

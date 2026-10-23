@@ -240,9 +240,15 @@ public sealed record GatewayRecipe(MacroDefinition Macro, string ProcessName, st
             && macro.Steps[0]["action"]?.ToString() == ToolNames.Of(Tool.LaunchProcess);
     }
 
-    // Throws UnauthorizedAccessException when the node cannot confirm the selected process and tested application version.
+    // Throws UnauthorizedAccessException when the node cannot confirm the selected process and tested application version, and
+    // ArgumentException carrying the node's own reason when the window list was refused with a code (for example access_paused
+    // from the controller tray): the gateway passes only that exception's message to the client.
     public void RequireApplication(JsonObject response, int processId)
     {
+        if (response["success"]?.GetValue<bool>() != true && response["code"] is { } code)
+        {
+            throw new ArgumentException("The node refused the window check (" + code + "): " + response["error"]);
+        }
         JsonObject[] windows = response["windows"] as JsonArray is { } entries
             ? entries.OfType<JsonObject>().Where(window => window["ProcessId"]?.GetValue<int>() == processId).ToArray()
             : [];

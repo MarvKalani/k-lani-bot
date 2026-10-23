@@ -91,6 +91,25 @@ internal static class GatewayCartridgeCases
         checks.That(Rejects(() => recipe.RequireApplication(WindowResponse("OUTLOOK", "16.0.14334.20919"), OutlookProcessId)),
             "an untested application version is refused");
         checks.That(Rejects(() => recipe.RequireApplication(windows, OutlookProcessId + 1)), "a different process id is refused");
+        var paused = new JsonObject
+        {
+            ["success"] = false,
+            ["outcome"] = "not_dispatched",
+            ["code"] = "access_paused",
+            ["error"] = "The operator paused this MCP client."
+        };
+        string reason = "";
+        try
+        {
+            recipe.RequireApplication(paused, OutlookProcessId);
+        }
+        catch (ArgumentException refusal)
+        {
+            reason = refusal.Message;
+        }
+        bool namesReason = reason.Contains("access_paused", StringComparison.Ordinal);
+        checks.That(namesReason && reason.Contains("paused this MCP client", StringComparison.Ordinal),
+            "a refused window check reports the node's reason instead of a version mismatch");
     }
 
     private static void CheckAmbiguousControl(Checks checks, GatewayCartridges cartridges, GatewayRecipe recipe)
