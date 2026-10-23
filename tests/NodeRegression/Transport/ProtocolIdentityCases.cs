@@ -37,6 +37,7 @@ internal static class ProtocolIdentityCases
         checks.That(ProtocolIdentity.NodeHeader == "X-K-Lani-Bot-Node", "node header");
         checks.That(ProtocolIdentity.VersionHeader == "X-K-Lani-Bot-Version", "version header");
         checks.That(ProtocolIdentity.UpdatesHeader == "X-K-Lani-Bot-Updates", "updates header");
+        checks.That(ProtocolIdentity.InstanceHeader == "X-K-Lani-Bot-Instance", "controller instance header");
         checks.That(ProtocolIdentity.PairingCommitDomain == "k-lani-bot/pairing/v1/commit", "pairing commitment domain");
         checks.That(ProtocolIdentity.PairingSessionDomain == "k-lani-bot/pairing/v1/session", "pairing session domain");
         checks.That(ProtocolIdentity.FleetProofDomain == "k-lani-bot/fleet/v1", "fleet proof domain");

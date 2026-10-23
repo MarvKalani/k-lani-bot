@@ -121,6 +121,7 @@ public static class Program
             NodeCommand.Evaluate => ReleaseCommands.EvaluateAsync(arguments),
             NodeCommand.ExportSchemas => Task.FromResult(ReleaseCommands.ExportSchemas(arguments)),
             NodeCommand.MasterAdmin => FleetCommands.MasterAdminAsync(arguments),
+            NodeCommand.ControllerTray => Task.FromResult(FleetCommands.ControllerTray(arguments)),
             NodeCommand.PairingMaster => FleetCommands.PairingMasterAsync(arguments),
             NodeCommand.Connect => FleetCommands.ConnectAsync(arguments),
             NodeCommand.Serve => FleetCommands.ServeAsync(arguments),

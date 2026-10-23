@@ -110,7 +110,16 @@ public static class NodeRegression
         count += UiTextCases.Run();
         count += NodeConfigurationCases.Run(temp);
         count += WorkerStartupFailureCases.Run(temp);
-        count += await MasterAdministrationCases.RunAsync(temp) + MasterBackupRequirementCases.Run(temp);
+        count += await RunMasterSuitesAsync(temp);
+        return count;
+    }
+
+    private static async Task<int> RunMasterSuitesAsync(string temp)
+    {
+        int count = await MasterAdministrationCases.RunAsync(temp);
+        count += MasterBackupRequirementCases.Run(temp);
+        count += ControllerAccessCases.Run(temp);
+        count += ControllerTrayMenuCases.Run();
         return count;
     }
 

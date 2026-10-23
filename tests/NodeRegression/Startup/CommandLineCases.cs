@@ -22,6 +22,7 @@ internal static class CommandLineCases
         new(["--inventory", "release", "--signing-key", "key"], NodeCommand.CreateInventory),
         new(["--evaluate", "spec.json", "--nodes", "nodes.json"], NodeCommand.Evaluate),
         new(["--master-admin", "--state", "state"], NodeCommand.MasterAdmin),
+        new(["--controller-tray", "--state", "state"], NodeCommand.ControllerTray),
         new(["--pairing-master", "--state", "state", "--bind", "127.0.0.1"], NodeCommand.PairingMaster),
         new(["--connect", "--config", "node.json"], NodeCommand.Connect),
         new(["--serve", "--config", "node.json"], NodeCommand.Serve),
@@ -48,7 +49,9 @@ internal static class CommandLineCases
         new(["--call", "--nodes", "nodes.json"], "--node <value> is required."),
         new(["--stdio-worker"], "--policy <value> is required."),
         new(["--export-schemas"], "--export-schemas <value> is required."),
-        new(["--create-backup-key"], "--policy <value> is required.")
+        new(["--create-backup-key"], "--policy <value> is required."),
+        new(["--controller-tray"], "--state <value> is required."),
+        new(["--controller-tray", "--mcp", "--state", "state", "--nodes", "nodes.json"], "select different commands")
     ];
 
     public static int Run()

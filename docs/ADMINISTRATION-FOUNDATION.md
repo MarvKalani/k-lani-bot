@@ -16,6 +16,7 @@ to install/uninstall software, change a live node or migrate existing databases.
 | Local efficiency summary | WPF step log and copied log show retained outcomes, measured argument/result JSON bytes and execution time | Complete job/phase aggregation, client-reported model tokens and matched baseline comparison |
 | Closed-file backup | Bounded plans, encrypted archives, freshness checks and verified restoration into a new directory; core node MCP tools `backup_plan`, `backup_verify`, `backup_create`, `backup_restore`; backup requirement before changes, switchable per node or fleet from the master | Consistent application exports, production restore orchestration, sandbox nodes for the remote switch |
 | Credential broker | Exact node/principal/application/purpose grants, expiry/revocation checks, short-lived zeroed buffers | Persistent operator-managed grants, provisioning UI and administrative/MCP routing |
+| Controller tray | Master lists registered nodes and the MCP clients using them; pause/resume per client and bot on/off, refused calls answer `access_paused`; Linux tray (AppIndicator), Windows tray cross-built | Native Windows acceptance, macOS tray; see [controller tray](CONTROLLER-TRAY.md) |
 | Linux Secret Service provider | Native binary storage/read/delete in a scoped OS keyring with bounded cancellation | Other OS providers and locked-session/unattended deployment qualification |
 
 The backup tools are callable on the core node MCP route and, as `cartridge_call` functions of the same names, through

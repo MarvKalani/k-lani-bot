@@ -18,7 +18,7 @@ using KLaniBot.Startup;
 
 // Pairing regression: pairs real node processes with a real master in a private display, and checks pairing, enrollment, relay, updates and
 // revocation.
-internal static class Program
+internal static partial class Program
 {
     private static int _passed;
 
@@ -247,6 +247,7 @@ internal static class Program
             await TestInventoryPermissionAsync(client, masterState);
             await TestBackupRequirementAsync(client, master, masterState);
             await TestServiceScanAsync(masterState, temporary);
+            await TestControllerAccessAsync(binary, masterState);
             await MasterAdministration.CallAsync(masterState, "service-inventory managed off", CancellationToken.None);
             JsonObject revoked = await client.CallAsync(Tool.CollectInventory, new JsonObject(), CancellationToken.None);
             Check(
@@ -679,7 +680,8 @@ internal static class Program
         return port;
     }
 
-    private static Process Start(string binary, string[] arguments)
+    // An environment entry with a null value is removed from the child's environment.
+    private static Process Start(string binary, string[] arguments, IReadOnlyDictionary<string, string?>? environment = null)
     {
         bool dll = binary.EndsWith(".dll", StringComparison.Ordinal);
         var start = new ProcessStartInfo(dll ? "dotnet" : binary)
@@ -689,6 +691,17 @@ internal static class Program
             RedirectStandardOutput = true,
             RedirectStandardError = true
         };
+        foreach ((string name, string? value) in environment ?? new Dictionary<string, string?>())
+        {
+            if (value == null)
+            {
+                start.Environment.Remove(name);
+            }
+            else
+            {
+                start.Environment[name] = value;
+            }
+        }
         if (dll)
         {
             start.ArgumentList.Add(binary);

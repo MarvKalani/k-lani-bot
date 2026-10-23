@@ -43,6 +43,15 @@ internal static class FleetCommands
         return succeeded ? 0 : 1;
     }
 
+    // The operator's login item starts this beside the master: a tray that shows nodes and MCP clients and pauses them. It
+    // runs on the calling thread, which the native tray needs as its UI thread.
+    public static int ControllerTray(NodeArguments arguments)
+    {
+        string state = arguments.RequireOption("--state");
+        using var cancellation = ConsoleCancellation.Create();
+        return KLaniBot.ControllerTray.ControllerTrayService.Run(state, cancellation.Token);
+    }
+
     // The master's service runs this permanently on its LAN address; nodes connect to it to pair.
     public static async Task<int> PairingMasterAsync(NodeArguments arguments)
     {

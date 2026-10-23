@@ -51,7 +51,8 @@ internal static class ActionOutcomeCases
         new(ActionErrorCode.InvalidRequestId, "invalid_request_id"),
         new(ActionErrorCode.ImageTooLarge, "image_too_large"),
         new(ActionErrorCode.PausedByPerson, "paused_by_person"),
-        new(ActionErrorCode.NoAccessibilityTree, "no_accessibility_tree")
+        new(ActionErrorCode.NoAccessibilityTree, "no_accessibility_tree"),
+        new(ActionErrorCode.AccessPaused, "access_paused")
     ];
 
     public static int Run(string temporaryRoot)

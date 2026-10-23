@@ -15,6 +15,9 @@ public static class ProtocolIdentity
     public const string UpdatesHeader = "X-K-Lani-Bot-Updates";
     // A node that understands the master's backup requirement message says so; older nodes would end the connection on it.
     public const string BackupRequirementHeader = "X-K-Lani-Bot-Backup-Requirement";
+    // One value per controller process, shared by its sessions to all nodes, so the master shows and pauses one MCP client
+    // as one row however many nodes it uses.
+    public const string InstanceHeader = "X-K-Lani-Bot-Instance";
 
     // Prefixes that are hashed or signed together with the content, so they separate one use from another.
     public const string PairingCommitDomain = "k-lani-bot/pairing/v1/commit";

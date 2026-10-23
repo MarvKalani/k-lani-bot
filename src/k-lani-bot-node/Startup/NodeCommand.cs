@@ -13,6 +13,7 @@ public enum NodeCommand
     CreateInventory,
     Evaluate,
     MasterAdmin,
+    ControllerTray,
     PairingMaster,
     Connect,
     Serve,

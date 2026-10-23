@@ -27,6 +27,9 @@ public sealed class NodeTransportClient : IDisposable
     private const string ServerAuthenticationUsage = "1.3.6.1.5.5.7.3.1";
     private static readonly TimeSpan DefaultCallDeadline = TimeSpan.FromSeconds(65);
 
+    // One MCP client runs one gateway process; its sessions to every node share this value (see ProtocolIdentity.InstanceHeader).
+    private static readonly string ProcessInstance = Guid.CreateVersion7().ToString();
+
     private readonly HttpClient _client;
     private readonly X509Certificate2 _root;
     private readonly Uri _base;
@@ -34,6 +37,7 @@ public sealed class NodeTransportClient : IDisposable
     private readonly string? _credentialEnvironment;
     private readonly SemaphoreSlim _serial = new(1);
     private readonly string _session = Guid.CreateVersion7().ToString();
+    private readonly string _instance;
     private Version? _version;
     private readonly bool _forceH2;
     private readonly TimeSpan _callDeadline;
@@ -53,9 +57,11 @@ public sealed class NodeTransportClient : IDisposable
         string registry,
         string? tokenEnvironment = null,
         bool forceH2 = false,
-        TimeSpan? callDeadline = null)
+        TimeSpan? callDeadline = null,
+        string? instance = null)
     {
         _forceH2 = forceH2;
+        _instance = instance ?? ProcessInstance;
         _callDeadline = callDeadline ?? DefaultCallDeadline;
         var document = JsonNode.Parse(File.ReadAllText(registry))!;
         if (document["version"]?.GetValue<int>() != 1)
@@ -81,6 +87,11 @@ public sealed class NodeTransportClient : IDisposable
         {
             throw new ArgumentException("Credential source required.");
         }
+        _client = CreatePinnedHttpClient();
+    }
+
+    private HttpClient CreatePinnedHttpClient()
+    {
         var handler = new SocketsHttpHandler
         {
             AllowAutoRedirect = false,
@@ -89,7 +100,8 @@ public sealed class NodeTransportClient : IDisposable
             ConnectTimeout = TimeSpan.FromSeconds(3)
         };
         handler.SslOptions.RemoteCertificateValidationCallback = ValidateServerCertificate;
-        _client = new HttpClient(handler)
+
+        return new HttpClient(handler)
         {
             Timeout = Timeout.InfiniteTimeSpan
         };
@@ -299,6 +311,7 @@ public sealed class NodeTransportClient : IDisposable
         };
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credential);
         request.Headers.Add(ProtocolIdentity.SessionHeader, _session);
+        request.Headers.Add(ProtocolIdentity.InstanceHeader, _instance);
         request.Headers.Add(SessionPresentation.Header, _presentation.Encode());
         request.Headers.Add("X-Request-ID", Guid.CreateVersion7().ToString());
         return request;

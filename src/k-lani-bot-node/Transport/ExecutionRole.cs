@@ -18,7 +18,8 @@ public static class ExecutionRoleSelector
     // Throws ArgumentException when two roles are requested.
     public static ExecutionRole FromArguments(string[] arguments)
     {
-        bool controller = arguments.Contains("--mcp") || arguments.Contains("--pairing-master") || arguments.Contains("--master-admin");
+        bool controller = arguments.Contains("--mcp") || arguments.Contains("--pairing-master") || arguments.Contains("--master-admin")
+            || arguments.Contains("--controller-tray");
         bool supervisor = arguments.Contains("--serve") || arguments.Contains("--connect");
         bool worker = arguments.Contains("--stdio-worker") || arguments.Contains("--local-http");
         bool enrollment = arguments.Contains("--enroll");

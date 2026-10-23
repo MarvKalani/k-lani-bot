@@ -151,6 +151,13 @@ Call `ui_info`, choose the intended application. Run a stored function that it l
 use `ui_observe` and `ui_act`.
 The gateway returns compact observations and changes. The node continues to enforce access and input policy.
 
+## See and pause the AI clients
+
+With a pairing master, start the controller tray on the same computer and as the same user:
+`k-lani-bot-node --controller-tray --state MASTER_STATE_DIR`. Its menu lists the paired computers, the AI clients using them,
+and lets you pause one client or switch the bot off. Linux needs `libayatana-appindicator3-1`. See
+[controller tray](CONTROLLER-TRAY.md).
+
 ## Enable automatic function capture
 
 The native configuration above already supplies `--learning-root`. Omit that option when new functions must not be saved;

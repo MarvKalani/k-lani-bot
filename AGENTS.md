@@ -119,6 +119,7 @@ A value that cannot occur ends in `throw new UnreachableException()`, which KLB0
 - MCP/controller identity is `k-lani-bot`; the operated component is `k-lani-node`.
   The current executable/bundle identity remains `k-lani-bot-node`; use that actual name in working commands.
 - Native status indicators and activity borders belong to the operated node. A controller must not instantiate desktop visibility hosts.
+  The controller tray (`--controller-tray`) is the one controller UI: a separate process with its own host, never a visibility host.
 - Windows product windows use WPF and shared styles; use native Win32 tray integration rather than WinForms.
 - One program variant and application version identifies one cartridge. Revisions update that cartridge and do not become extra catalog entries.
 - Store the active cartridge directly under its application-version directory; keep its revision in the manifest, not another directory.

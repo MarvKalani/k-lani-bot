@@ -48,6 +48,7 @@ public sealed class PairingMaster
     private readonly HashSet<string> _backupRequirementCapable = new(StringComparer.Ordinal);
     private readonly Dictionary<string, DateTimeOffset> _updateOffers = new();
     private readonly MasterBackupRequirements _backupRequirements;
+    private readonly ControllerAccess _access;
 
     private PairingMaster(
         string stateDirectory,
@@ -67,6 +68,7 @@ public sealed class PairingMaster
         string devicesPath = Path.Combine(stateDirectory, "paired-devices.json");
         _devices = File.Exists(devicesPath) ? JsonNode.Parse(File.ReadAllText(devicesPath))!.AsObject() : new JsonObject();
         _backupRequirements = new MasterBackupRequirements(stateDirectory);
+        _access = new ControllerAccess(stateDirectory);
     }
 
     private const int MaximumPort = 65535;
@@ -82,12 +84,14 @@ public sealed class PairingMaster
     private const int MaximumEnrollmentAuthorizationLength = 200;
     private const string BearerPrefix = "Bearer ";
     private const string CommandHelp = "Commands: approve TICKET | deny TICKET | revoke NODE | digits 0..6 | pending | "
-        + "backup-requirement NODE[,NODE]|all required|off | backup-requirement-status";
+        + "backup-requirement NODE[,NODE]|all required|off | backup-requirement-status | "
+        + "controller-status | client-pause INSTANCE | client-resume INSTANCE | bot on|off";
 
     // One master owns registry updates and approval state; a second process must not race them.
     private static readonly string[] StateFileNames =
     [
-        "master.lock", "node-ca.pem", "node-ca.key", "paired-devices.json", "pairing-options.json", "nodes.json"
+        "master.lock", "node-ca.pem", "node-ca.key", "paired-devices.json", "pairing-options.json", "nodes.json",
+        ControllerAccess.StateFileName
     ];
 
     // Throws ArgumentException when bind or port is not concrete.
@@ -531,6 +535,12 @@ public sealed class PairingMaster
         {
             return Results.BadRequest();
         }
+        ForwardedCall call = DescribeForwardedCall(context.Request.Headers, session, node, presence, body);
+        IResult? controllerAnswer = AdmitForwardedCall(call);
+        if (controllerAnswer != null)
+        {
+            return controllerAnswer;
+        }
         ReverseRelay? relay;
         lock (_gate)
         {
@@ -540,18 +550,64 @@ public sealed class PairingMaster
         {
             return OfflineReply(node, presence, body);
         }
-        SessionPresentation presentation = SessionPresentation.Decode(context.Request.Headers[SessionPresentation.Header].ToString());
-        var message = new JsonObject
-        {
-            ["kind"] = presence ? "presence" : "action",
-            ["session"] = session,
-            ["body"] = body,
-            ["presentation"] = SessionPresentation.Create(presentation.Client, presentation.Purpose,
-                Environment.MachineName + " · " + _origin).ToJson()
-        };
-        JsonObject result = await relay.CallAsync(message, context.RequestAborted);
+        JsonObject result = await relay.CallAsync(RelayMessage(call, presence, body), context.RequestAborted);
 
         return Results.Json(AttachUpdateReport(result, node, presence, body));
+    }
+
+    // The node shows this master as the session's master; client and purpose stay the controller's claim.
+    private JsonObject RelayMessage(ForwardedCall call, bool presence, JsonObject body)
+    {
+        return new JsonObject
+        {
+            ["kind"] = presence ? "presence" : "action",
+            ["session"] = call.Session,
+            ["body"] = body,
+            ["presentation"] = SessionPresentation.Create(call.Presentation.Client, call.Presentation.Purpose,
+                Environment.MachineName + " · " + _origin).ToJson()
+        };
+    }
+
+    // Throws ArgumentException for an oversized or invalid presentation header.
+    private static ForwardedCall DescribeForwardedCall(IHeaderDictionary headers, string session, string node, bool presence,
+        JsonObject body)
+    {
+        SessionPresentation presentation = SessionPresentation.Decode(headers[SessionPresentation.Header].ToString());
+        string instance = ControllerAccess.InstanceOf(headers[ProtocolIdentity.InstanceHeader].ToString(), session);
+        string action = presence ? "" : body["action"]?.ToString() ?? "";
+
+        return new ForwardedCall(instance, session, node, presentation, ForwardedRequestOf(presence, body), action);
+    }
+
+    private static ForwardedRequest ForwardedRequestOf(bool presence, JsonObject body)
+    {
+        if (!presence)
+        {
+            return ForwardedRequest.Action;
+        }
+        return body["event"]!.ToString() == "heartbeat" ? ForwardedRequest.Heartbeat : ForwardedRequest.Close;
+    }
+
+    // Every forwarded call updates the controller tray's client rows. Returns the master's own answer for a call of a paused
+    // client or a switched-off bot, and null when the call goes on to the node.
+    private IResult? AdmitForwardedCall(ForwardedCall call)
+    {
+        AccessDecision decision;
+        JsonObject? refusal;
+        lock (_gate)
+        {
+            _access.Record(call, DateTimeOffset.UtcNow);
+            decision = _access.Decide(call);
+            refusal = decision == AccessDecision.Refuse ? _access.Refusal() : null;
+        }
+
+        return decision switch
+        {
+            AccessDecision.Forward => null,
+            AccessDecision.Refuse => Results.Json(refusal),
+            AccessDecision.Absorb => Results.Json(new JsonObject { ["success"] = true, ["paused"] = true }),
+            _ => throw new System.Diagnostics.UnreachableException()
+        };
     }
 
     private IResult OfflineReply(string node, bool presence, JsonObject body)
@@ -678,7 +734,61 @@ public sealed class PairingMaster
             return SetBackupRequirement(words[1], words[2]);
         if (words.Length == 1 && command == "backup-requirement-status")
             return _backupRequirements.Status();
-        throw new ArgumentException(CommandHelp);
+        return ExecuteControllerCommand(words) ?? throw new ArgumentException(CommandHelp);
+    }
+
+    // The controller tray's commands; null for any other command. Throws ArgumentException for an unknown client instance
+    // or a switch word other than on or off.
+    private JsonObject? ExecuteControllerCommand(string[] words)
+    {
+        string command = words.Length == 0 ? "" : words[0];
+        if (words.Length == 1 && command == "controller-status")
+            return _access.Status(ControllerNodes(), DateTimeOffset.UtcNow).ToJson();
+        if (words.Length == 2 && command == "client-pause")
+            return PauseClient(words[1]);
+        if (words.Length == 2 && command == "client-resume")
+        {
+            _access.Resume(words[1]);
+            return Succeeded();
+        }
+        if (words.Length == 2 && command == "bot")
+        {
+            _access.SwitchBot(words[1]);
+            Console.WriteLine("Bot switched " + words[1] + " for MCP clients.");
+            return Succeeded();
+        }
+        return null;
+    }
+
+    private List<ControllerNodeRow> ControllerNodes()
+    {
+        var rows = new List<ControllerNodeRow>();
+        foreach (string node in _devices.Select(device => device.Key).Order(StringComparer.Ordinal))
+        {
+            rows.Add(new ControllerNodeRow(node, _relays.ContainsKey(node), _versions.GetValueOrDefault(node, "")));
+        }
+        return rows;
+    }
+
+    // The node no longer shows the paused client as connected; the answer does not matter, a node that misses it expires
+    // the session on its own.
+    private JsonObject PauseClient(string instance)
+    {
+        foreach (NodeSession nodeSession in _access.Pause(instance))
+        {
+            if (_relays.TryGetValue(nodeSession.Node, out ReverseRelay? relay))
+            {
+                var close = new JsonObject
+                {
+                    ["kind"] = "presence",
+                    ["session"] = nodeSession.Session,
+                    ["body"] = new JsonObject { ["event"] = "close" }
+                };
+                _ = relay.CallAsync(close, CancellationToken.None);
+            }
+        }
+        Console.WriteLine("MCP client paused: " + instance);
+        return Succeeded();
     }
 
     private static JsonObject Succeeded()

@@ -71,7 +71,10 @@ public enum ActionErrorCode
     BackupRequired,
 
     // The window exists, but the accessibility bus publishes no tree for it; only the last-resort input route can operate it.
-    NoAccessibilityTree
+    NoAccessibilityTree,
+
+    // The operator paused this MCP client, or switched the bot off, in the controller tray; the master did not forward the call.
+    AccessPaused
 }
 
 // Receipts, journal entries and failure answers carry the error code as a word; this table gives each code its word and reads it back.
@@ -103,6 +106,7 @@ public static class ActionErrorCodeNames
             ActionErrorCode.PausedByPerson => "paused_by_person",
             ActionErrorCode.BackupRequired => "backup_required",
             ActionErrorCode.NoAccessibilityTree => "no_accessibility_tree",
+            ActionErrorCode.AccessPaused => "access_paused",
             _ => throw new UnreachableException()
         };
     }

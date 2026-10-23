@@ -29,6 +29,10 @@ extra top-level tools. The optional Node.js compact frontend does not route them
 `backup_required` needs `backup_plan` and `backup_create` first; this applies on every route. General software maintenance belongs
 to the scope alongside business apps.
 
+A call answered with `access_paused` (`not_dispatched`) was stopped by the operator in the
+[controller tray](CONTROLLER-TRAY.md): this MCP client is paused, or the bot is switched off. Nothing reached the node.
+Stop, tell the user and do not retry in a loop; `get_machine_capabilities` and `end_session` still work while paused.
+
 k-lani-bot expects the agent to **author the missing MCP functions and then use them itself**. First use explores the
 relevant application through the existing screenshot/semantic controls; the agent writes a parameterized procedure,
 verifies it, exposes it through the gateway and calls it for subsequent work. Automatic capture is one authoring aid.
@@ -119,6 +123,10 @@ The MCP reads the node registry at startup. An already registered node can recon
 after approving a new registration, restart the MCP process to load that entry. Automatic registry refresh and compact
 multi-node selection are not implemented. Preserve the registry and pairing state during a restart.
 The existing pairing service uses `--pairing-master`; an already paired node uses `--connect --config <existing-node.json>`.
+Every gateway call to a paired node passes this master, which therefore lists the MCP clients (one row per `--mcp` process,
+with its `clientInfo` name and `K_LANI_BOT_TASK`) and can pause one or all of them: see the
+[controller tray](CONTROLLER-TRAY.md) (`--controller-tray --state MASTER_STATE`) and the master commands `controller-status`,
+`client-pause`, `client-resume` and `bot on|off`. Nodes reached directly through `--serve` registry URLs are not covered.
 These are controller/node modes of the same executable, not a requirement to install Linux or Docker.
 
 For **existing core MCP access**, call `list_nodes`, select an observed registered name, and load the current schema for
