@@ -18,8 +18,14 @@ public enum ControllerClientState
     Paused
 }
 
-// One registered node as the master's controller-status reports it.
-public sealed record ControllerNodeRow(string Name, bool Connected, string Version);
+// One registered node as the master's controller-status reports it. Vitals are the node's last answer, or null before its
+// first; SecondsSinceContact is null when the node was not heard from since the master started.
+public sealed record ControllerNodeRow(
+    string Name,
+    bool Connected,
+    string Version,
+    NodeVitals? Vitals = null,
+    long? SecondsSinceContact = null);
 
 // One MCP client (one gateway process) as the master's controller-status reports it. Client and purpose are the client's
 // own claim; Instance is what pause and resume name.
@@ -105,7 +111,14 @@ public sealed record ControllerStatus(
 
     public static JsonObject NodeJson(ControllerNodeRow node)
     {
-        return new JsonObject { ["name"] = node.Name, ["connected"] = node.Connected, ["version"] = node.Version };
+        return new JsonObject
+        {
+            ["name"] = node.Name,
+            ["connected"] = node.Connected,
+            ["version"] = node.Version,
+            ["vitals"] = node.Vitals?.ToJson(),
+            ["seconds_since_contact"] = node.SecondsSinceContact
+        };
     }
 
     public static JsonObject ClientJson(ControllerClientRow client)
@@ -176,7 +189,11 @@ public sealed record ControllerStatus(
             {
                 return false;
             }
-            rows.Add(new ControllerNodeRow(name, isConnected, entry["version"]?.ToString() ?? ""));
+            long? contact = entry["seconds_since_contact"] is JsonValue seconds && seconds.TryGetValue(out long since) && since >= 0
+                ? since
+                : null;
+            rows.Add(new ControllerNodeRow(name, isConnected, entry["version"]?.ToString() ?? "", NodeVitals.TryRead(entry["vitals"]),
+                contact));
         }
         return true;
     }

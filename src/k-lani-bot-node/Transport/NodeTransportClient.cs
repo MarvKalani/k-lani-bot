@@ -229,6 +229,31 @@ public sealed class NodeTransportClient : IDisposable
         }
     }
 
+    // The master's cached state of this node, or null when it cannot be read in time: a node registered directly without a
+    // master has no such route. This is no node call: it neither waits behind a running action nor opens a session, so the
+    // master does not show this process as a client of the node.
+    public async Task<JsonObject?> ReadStatusAsync(TimeSpan timeout, CancellationToken cancellation)
+    {
+        using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+        deadline.CancelAfter(timeout);
+        try
+        {
+            string credential = await ReadCredentialAsync(deadline.Token);
+            using var request = new HttpRequestMessage(HttpMethod.Get, new Uri(_base, "status"))
+            {
+                Version = HttpVersion.Version20,
+                VersionPolicy = HttpVersionPolicy.RequestVersionOrHigher
+            };
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credential);
+            using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, deadline.Token);
+            return response.IsSuccessStatusCode ? await ReadResultAsync(response, deadline.Token) : null;
+        }
+        catch (Exception exception) when (IsTransportException(exception))
+        {
+            return null;
+        }
+    }
+
     // Releases the desktop this client's session holds, so the next controller takes it at once instead of waiting
     // for the lease to expire. A client that never reached its node has nothing to release.
     public async Task EndDesktopSessionAsync(CancellationToken cancellation)

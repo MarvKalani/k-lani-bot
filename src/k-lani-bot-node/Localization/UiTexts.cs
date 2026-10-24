@@ -314,7 +314,18 @@ public static class UiTexts
         [UiText.ControllerResumeClient] = "Resume this client",
         [UiText.ControllerMoreEntries] = "… and {0} more",
         [UiText.ControllerNamesAsReported] = "Names and tasks are as the AI client reports them",
-        [UiText.ControllerCloseTray] = "Close this control (the bot keeps running)"
+        [UiText.ControllerCloseTray] = "Close this control (the bot keeps running)",
+        [UiText.ControllerNodeSystemUptime] = "{0}, up {1}",
+        [UiText.ControllerNodeCpu] = "CPU {0} %",
+        [UiText.ControllerNodeMemory] = "RAM {0} of {1} GB free",
+        [UiText.ControllerNodeDisk] = "{0} {1} of {2} GB free",
+        [UiText.ControllerNodeContactNow] = "Last contact: just now",
+        [UiText.ControllerNodeContactAgo] = "Last contact {0} ago",
+        [UiText.ControllerNodeNoContact] = "Last contact: none since the master started",
+        [UiText.DurationSeconds] = "{0} s",
+        [UiText.DurationMinutes] = "{0} min",
+        [UiText.DurationHoursMinutes] = "{0} h {1} min",
+        [UiText.DurationDaysHours] = "{0} d {1} h"
     };
 
     private static readonly Dictionary<UiText, string> German = new()
@@ -599,6 +610,17 @@ public static class UiTexts
         [UiText.ControllerResumeClient] = "Diesen Client fortsetzen",
         [UiText.ControllerMoreEntries] = "… und {0} weitere",
         [UiText.ControllerNamesAsReported] = "Namen und Aufgaben gibt der KI-Client selbst an",
-        [UiText.ControllerCloseTray] = "Steuerung schließen (der Bot läuft weiter)"
+        [UiText.ControllerCloseTray] = "Steuerung schließen (der Bot läuft weiter)",
+        [UiText.ControllerNodeSystemUptime] = "{0}, läuft seit {1}",
+        [UiText.ControllerNodeCpu] = "CPU {0} %",
+        [UiText.ControllerNodeMemory] = "RAM {0} von {1} GB frei",
+        [UiText.ControllerNodeDisk] = "{0} {1} von {2} GB frei",
+        [UiText.ControllerNodeContactNow] = "Letzter Kontakt: gerade eben",
+        [UiText.ControllerNodeContactAgo] = "Letzter Kontakt vor {0}",
+        [UiText.ControllerNodeNoContact] = "Letzter Kontakt: keiner seit dem Start des Masters",
+        [UiText.DurationSeconds] = "{0} s",
+        [UiText.DurationMinutes] = "{0} min",
+        [UiText.DurationHoursMinutes] = "{0} h {1} min",
+        [UiText.DurationDaysHours] = "{0} T {1} h"
     };
 }

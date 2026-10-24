@@ -46,6 +46,8 @@ public sealed class PairingMaster
     private readonly Dictionary<string, string> _versions = new();
     private readonly HashSet<string> _updateCapable = new();
     private readonly HashSet<string> _backupRequirementCapable = new(StringComparer.Ordinal);
+    private readonly HashSet<string> _vitalsCapable = new(StringComparer.Ordinal);
+    private readonly MasterNodeVitals _nodeVitals = new();
     private readonly Dictionary<string, DateTimeOffset> _updateOffers = new();
     private readonly MasterBackupRequirements _backupRequirements;
     private readonly ControllerAccess _access;
@@ -191,6 +193,7 @@ public sealed class PairingMaster
             "/" + ProtocolIdentity.UpdateFileRoutePrefix + "{version}",
             (HttpContext context, string version) => UpdateFile(context, version));
         app.MapGet("/node/{node}/health", (string node) => Health(node));
+        app.MapGet("/node/{node}/status", (HttpContext context, string node) => NodeStatus(context, node));
         app.MapPost("/node/{node}/action", (HttpContext context, string node) => ForwardAsync(context, node, false));
         app.MapPost("/node/{node}/session", (HttpContext context, string node) => ForwardAsync(context, node, true));
     }
@@ -211,7 +214,8 @@ public sealed class PairingMaster
         Task rotation = RotateAsync(certificates, address, lifetime.Token);
         Task administration = MasterAdministration.ServeAsync(directory, ExecuteCommand, lifetime.Token);
         Task distribution = DistributeUpdatesAsync(lifetime.Token);
-        _ = StopOnBackgroundFailureAsync(app, [rotation, administration, distribution], lifetime.Token);
+        Task vitals = CollectVitalsAsync(lifetime.Token);
+        _ = StopOnBackgroundFailureAsync(app, [rotation, administration, distribution, vitals], lifetime.Token);
         Console.WriteLine($"k-lani-bot Master {ProductIdentity.DisplayVersion}: {_origin}");
         Console.WriteLine(CommandHelp);
         Console.WriteLine("MCP registry: " + Path.Combine(directory, "nodes.json"));
@@ -228,6 +232,7 @@ public sealed class PairingMaster
             await rotation;
             await administration;
             await distribution;
+            await vitals;
         }
     }
 
@@ -459,6 +464,7 @@ public sealed class PairingMaster
         }
 
         Console.WriteLine("Connected: " + node);
+        _ = PollVitalsIfCapableAsync(node, relay, context.RequestAborted);
         try
         {
             await relay.ReadAsync(context.RequestAborted);
@@ -476,6 +482,8 @@ public sealed class PairingMaster
                 _relays.Remove(node);
                 _updateCapable.Remove(node);
                 _backupRequirementCapable.Remove(node);
+                _vitalsCapable.Remove(node);
+                _nodeVitals.Disconnected(node, relay.LastContact);
             }
         }
     }
@@ -496,11 +504,31 @@ public sealed class PairingMaster
                 SendBackupRequirement(node, relay);
             }
             _versions[node] = headers[ProtocolIdentity.VersionHeader].ToString();
+            if (headers[ProtocolIdentity.VitalsHeader].ToString() == "1")
+            {
+                _vitalsCapable.Add(node);
+            }
             if (headers[ProtocolIdentity.UpdatesHeader].ToString() == "1")
             {
                 _updateCapable.Add(node);
             }
             return true;
+        }
+    }
+
+    // Authenticated like a forwarded call, but answered from the master's cache: it reaches no node, holds no desktop and
+    // does not make the caller a client of the node, so list_nodes can ask about every node at once.
+    private IResult NodeStatus(HttpContext context, string node)
+    {
+        if (!Authenticate(context, node, "controller_token_hash"))
+        {
+            return Results.Unauthorized();
+        }
+        lock (_gate)
+        {
+            JsonObject status = ControllerStatus.NodeJson(NodeRow(node, DateTimeOffset.UtcNow));
+            status["success"] = true;
+            return Results.Json(status);
         }
     }
 
@@ -762,12 +790,47 @@ public sealed class PairingMaster
 
     private List<ControllerNodeRow> ControllerNodes()
     {
-        var rows = new List<ControllerNodeRow>();
-        foreach (string node in _devices.Select(device => device.Key).Order(StringComparer.Ordinal))
+        DateTimeOffset now = DateTimeOffset.UtcNow;
+        return _devices.Select(device => device.Key).Order(StringComparer.Ordinal).Select(node => NodeRow(node, now)).ToList();
+    }
+
+    private ControllerNodeRow NodeRow(string node, DateTimeOffset now)
+    {
+        return _nodeVitals.Row(node, _versions.GetValueOrDefault(node, ""), _relays.GetValueOrDefault(node), now);
+    }
+
+    private async Task PollVitalsIfCapableAsync(string node, ReverseRelay relay, CancellationToken cancellation)
+    {
+        bool capable;
+        lock (_gate)
         {
-            rows.Add(new ControllerNodeRow(node, _relays.ContainsKey(node), _versions.GetValueOrDefault(node, "")));
+            capable = _vitalsCapable.Contains(node);
         }
-        return rows;
+        if (capable)
+        {
+            await _nodeVitals.PollAsync(node, relay, cancellation);
+        }
+    }
+
+    // A node that is busy when its turn comes is skipped until the next round; its last answer stays shown meanwhile.
+    private async Task CollectVitalsAsync(CancellationToken cancellation)
+    {
+        using var timer = new PeriodicTimer(MasterNodeVitals.PollInterval);
+        try
+        {
+            while (await timer.WaitForNextTickAsync(cancellation))
+            {
+                List<KeyValuePair<string, ReverseRelay>> polled;
+                lock (_gate)
+                {
+                    polled = _relays.Where(relay => _vitalsCapable.Contains(relay.Key)).ToList();
+                }
+                await Task.WhenAll(polled.Select(relay => _nodeVitals.PollAsync(relay.Key, relay.Value, cancellation)));
+            }
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+        {
+        }
     }
 
     // The node no longer shows the paused client as connected; the answer does not matter, a node that misses it expires

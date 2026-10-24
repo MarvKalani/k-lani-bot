@@ -16,6 +16,7 @@ public sealed class ReverseRelay : IDisposable
     private TaskCompletionSource<JsonObject>? _reply;
     private string? _requestId;
     private int _queued;
+    private long _lastContactTicks = DateTimeOffset.UtcNow.UtcTicks;
 
     public ReverseRelay(WebSocket socket)
     {
@@ -34,6 +35,7 @@ public sealed class ReverseRelay : IDisposable
                 {
                     throw new InvalidDataException("Unexpected relay response.");
                 }
+                Interlocked.Exchange(ref _lastContactTicks, DateTimeOffset.UtcNow.UtcTicks);
                 _reply?.TrySetResult(result);
             }
         }
@@ -44,6 +46,9 @@ public sealed class ReverseRelay : IDisposable
         }
     }
 
+    // When the node connected or last answered a call.
+    public DateTimeOffset LastContact => new(Interlocked.Read(ref _lastContactTicks), TimeSpan.Zero);
+
     public async Task<JsonObject> CallAsync(JsonObject message, CancellationToken cancellation, TimeSpan? timeout = null)
     {
         if (Interlocked.Increment(ref _queued) > 16)
@@ -51,6 +56,23 @@ public sealed class ReverseRelay : IDisposable
             Interlocked.Decrement(ref _queued);
             return ActionResults.Failure(ActionOutcome.NotDispatched, "Node queue full.");
         }
+        return await CallQueuedAsync(message, cancellation, timeout);
+    }
+
+    // For background polls: sends only when no call is running or waiting, so a poll never delays an operator's action.
+    // Returns null when the relay was busy. An action that arrives meanwhile waits behind this one short call.
+    public async Task<JsonObject?> CallIfIdleAsync(JsonObject message, CancellationToken cancellation, TimeSpan timeout)
+    {
+        if (Interlocked.CompareExchange(ref _queued, 1, 0) != 0)
+        {
+            return null;
+        }
+        return await CallQueuedAsync(message, cancellation, timeout);
+    }
+
+    // The caller has already counted itself in _queued; this releases that count.
+    private async Task<JsonObject> CallQueuedAsync(JsonObject message, CancellationToken cancellation, TimeSpan? timeout)
+    {
         bool entered = false;
         bool dispatched = false;
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellation, _closed.Token);

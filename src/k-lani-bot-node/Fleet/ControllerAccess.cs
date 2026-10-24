@@ -42,6 +42,8 @@ internal sealed class ControllerAccess
 {
     private const string StateFile = "controller-access.json";
     private const int StatusBudgetBytes = 12 * 1024;
+    // Nodes with vitals are large; capping their share keeps room for the client rows the operator pauses.
+    private const int NodeBudgetBytes = 8 * 1024;
     private const int MaximumShownPurpose = 120;
     private const int MaximumShownNodesPerClient = 4;
     // Three missed heartbeats (every 20 seconds) end a row whose gateway went away without saying goodbye. A paused row stays
@@ -227,9 +229,9 @@ internal sealed class ControllerAccess
     {
         Expire(now);
         var clients = _rows.Values.OrderBy(row => row.Instance, StringComparer.Ordinal).Select(row => Report(row, now)).ToList();
-        int budget = StatusBudgetBytes;
-
-        List<ControllerNodeRow> shownNodes = TakeWithinBudget(nodes, ControllerStatus.NodeJson, ref budget);
+        int nodeBudget = NodeBudgetBytes;
+        List<ControllerNodeRow> shownNodes = TakeWithinBudget(nodes, ControllerStatus.NodeJson, ref nodeBudget);
+        int budget = StatusBudgetBytes - NodeBudgetBytes + nodeBudget;
         List<ControllerClientRow> shownClients = TakeWithinBudget(clients, ControllerStatus.ClientJson, ref budget);
         return new ControllerStatus(_bot, shownNodes, nodes.Count - shownNodes.Count, shownClients, clients.Count - shownClients.Count);
     }

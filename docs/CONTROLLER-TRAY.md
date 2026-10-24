@@ -2,8 +2,8 @@
 
 The operator's computer runs one pairing master (`--pairing-master`) and one `--mcp` gateway process per MCP client
 (Claude Code, Codex, another agent). The node shows who acts on it; the controller tray shows the same from the
-operator's side: which nodes are registered and connected, which MCP clients use them, and lets the person pause one
-client or switch the whole bot off.
+operator's side: which nodes are registered and connected, how each node is doing, which MCP clients use them, and lets
+the person pause one client or switch the whole bot off.
 
 ## Design
 
@@ -34,17 +34,40 @@ client waits. A restarted gateway is a new, unpaused client; to
 stop every client, including new ones, switch the bot off. The on/off switch is persisted privately as
 `controller-access.json` in the master's state directory, so a restarted master stays off.
 
+**Node vitals.** A node that sends `X-K-Lani-Bot-Vitals: 1` when it connects answers the master's `vitals` request
+with its operating system, available and total memory, free and total space of its system volume (`C:\`, `/`, or
+`/System/Volumes/Data` on macOS), CPU load and uptime since the system started (sleep included). The master asks right
+after the node connects and then every 30 seconds, but only while the node's relay is idle, so a poll never delays an
+action. The node answers from memory and never waits: CPU load is the average since the previous request, so the first
+answer has none. A value the node cannot measure is `null`, never an estimate. The master shortens the node's text,
+strips control characters and drops numbers out of range before the tray shows them or a model reads them. A node
+without the header (an older build) is never asked, because an unknown request would end its connection.
+
+Last contact is the node's last answer to any relayed call, or its connection. It lives in the master's memory: offline
+nodes keep it but lose their vitals, and after a master restart a node that has not reconnected shows "no contact since
+the master started". The tray shows two indented lines under a connected node, for example
+`Windows 11 (Build 22621), läuft seit 3 T 4 h` and `CPU 12 % · RAM 3,1 von 8,0 GB frei · C:\ 41 von 237 GB frei`, plus
+the last contact under every node. Contact under a minute reads "gerade eben" and sizes of 10 GB or more lose their
+decimal, so the menu does not redraw on every poll.
+
+`list_nodes` asks the master's authenticated `GET /node/{node}/status` for every node in parallel, with a three-second
+limit. The route answers from the master's cache: it reaches no node, holds no desktop lease and does not make the
+caller a client in the tray. Each entry carries `status` (`connected`, `offline`, or `unknown` when no master answered in
+time, for example for a node registered directly), `version`, `seconds_since_contact` and `vitals`. The unauthenticated
+`/node/{node}/health` route stays without vitals.
+
 **Commands.** The master's local administration pipe (current user, this state directory) gets four commands, usable
 from the console and through `--master-admin --state DIR --command "..."`:
 
 | Command | Effect |
 | --- | --- |
-| `controller-status` | Bot on/off, every registered node with connected state and version, every client row |
+| `controller-status` | Bot on/off, every registered node with connected state, version, vitals and seconds since last contact, every client row |
 | `client-pause INSTANCE` | Refuse that client's calls from now on |
 | `client-resume INSTANCE` | Admit them again |
 | `bot on` / `bot off` | Admit or refuse every client's calls |
 
-The status reply stays below the pipe's 16 KiB frame: at most 32 nodes and 32 clients, purposes cut to 120 characters.
+The status reply stays below the pipe's 16 KiB frame: node rows take at most 8 KiB (about 18 nodes with vitals), client
+rows the rest, purposes cut to 120 characters, and entries beyond the budget are counted as "more".
 
 **Tray process.** `k-lani-bot-node --controller-tray --state MASTER_STATE_DIR` is its own process. It never derives from
 or creates the node's visibility host (no border, no consent window). It asks the master for `controller-status` every
@@ -57,6 +80,12 @@ lists the nodes of `nodes.json` with unknown state. The menu is computed by a pl
 | Linux | StatusNotifierItem through `libayatana-appindicator3` (KDE, GNOME with AppIndicator extension, Wayland and X11) | Implemented; menu model tested headless, tray process runs in the private test display (no panel check on a real desktop yet) |
 | Windows | `WindowsNativeTray` (Shell_NotifyIcon) with a WPF context menu | Implemented and cross-built; native acceptance open |
 | macOS | — | Refused with a clear message; the menu model is ready for an NSStatusItem host |
+
+| Platform | Vitals source | Status |
+| --- | --- | --- |
+| Linux | `/etc/os-release`, `/proc/meminfo` (MemAvailable), `/proc/stat`, `/proc/uptime` | Parsers unit-tested; measured end to end by the real node in the pairing regression |
+| Windows | `GlobalMemoryStatusEx`, `GetSystemTimes`, `GetTickCount64`, build number for Windows 10 or 11 | Cross-built and name rule unit-tested; not yet run on a Windows node |
+| macOS | `hw.memsize` with `kern.memorystatus_level`, `host_statistics` CPU ticks, `kern.boottime` | Cross-built; not yet run on a Mac |
 
 ## Boundaries
 

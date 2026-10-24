@@ -80,8 +80,11 @@
     <Compile Include="../../src/k-lani-bot-node/Common/ProcessRunner.cs" />
     <Compile Include="../../src/k-lani-bot-node/Common/WireNames.cs" />
     <Compile Include="../../src/k-lani-bot-node/ControllerTray/ControllerTrayMenu.cs" />
+    <Compile Include="../../src/k-lani-bot-node/ControllerTray/NodeVitalsText.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/ControllerAccess.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/ControllerStatus.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Fleet/NodeVitals.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Fleet/NodeVitalsProbe.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/MasterAdministration.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/MasterBackupRequirements.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/PairingProtocol.cs" />

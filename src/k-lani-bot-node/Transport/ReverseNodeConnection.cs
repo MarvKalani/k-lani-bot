@@ -33,6 +33,8 @@ public static class ReverseNodeConnection
     private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(5);
     private static readonly TimeSpan ReconnectDelay = TimeSpan.FromSeconds(3);
     private static readonly TimeSpan SessionCloseTimeout = TimeSpan.FromSeconds(5);
+    // Kept across reconnects, so CPU load stays the average since the master's previous request.
+    private static readonly NodeVitalsProbe Vitals = new();
 
     // What every connection attempt needs; read once at start.
     private sealed record ReverseLink(Uri Endpoint, JsonObject Paired, NodePolicy Policy, string ConfigPath, WorkerSupervisor Worker);
@@ -194,6 +196,7 @@ public static class ReverseNodeConnection
         bool acceptsUpdates = OperatingSystem.IsWindows() && paired["auto_update"]?.GetValue<bool>() != false;
         socket.Options.SetRequestHeader(ProtocolIdentity.UpdatesHeader, acceptsUpdates ? "1" : "0");
         socket.Options.SetRequestHeader(ProtocolIdentity.BackupRequirementHeader, "1");
+        socket.Options.SetRequestHeader(ProtocolIdentity.VitalsHeader, "1");
         socket.Options.RemoteCertificateValidationCallback = (_, certificate, _, errors) =>
             PairingProtocol.ValidateCertificate(certificate, errors, paired["root"]!.ToString());
         socket.Options.KeepAliveInterval = KeepAliveInterval;
@@ -266,6 +269,12 @@ public static class ReverseNodeConnection
                 await AnswerServiceCheckAsync(socket, serviceId, serviceRequest, link.Policy.StateRoot, cancellation);
                 continue;
             }
+            if (IsVitals(message, out Guid vitalsId))
+            {
+                var vitals = new JsonObject { ["success"] = true, ["vitals"] = Vitals.Measure().ToJson() };
+                await PairingProtocol.SendAsync(socket, new JsonObject { ["id"] = vitalsId.ToString(), ["result"] = vitals }, cancellation);
+                continue;
+            }
             if (IsUpdate(message, out Guid updateId))
             {
                 string? plan = await AnswerUpdateAsync(socket, updateId, link, cancellation);
@@ -307,6 +316,12 @@ public static class ReverseNodeConnection
         serviceRequest = message["body"] as JsonObject ?? new JsonObject();
         return message.Count == 3 && message["kind"]?.ToString() == "service_check" && message["body"] is JsonObject
             && HasVersion7Id(message, out id);
+    }
+
+    private static bool IsVitals(JsonObject message, out Guid id)
+    {
+        id = Guid.Empty;
+        return message.Count == 2 && message["kind"]?.ToString() == "vitals" && HasVersion7Id(message, out id);
     }
 
     private static bool IsUpdate(JsonObject message, out Guid id)

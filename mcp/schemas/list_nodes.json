@@ -1,6 +1,6 @@
 {
   "name": "list_nodes",
-  "description": "Lists the computers (nodes) you can operate remotely. Start here, then call get_machine_capabilities for one node. Node registration is not model-controlled.",
+  "description": "Lists the computers (nodes) you can operate remotely. Through a master each node shows status (connected, offline or unknown), seconds since its last contact and, while connected, its vitals: operating system, free memory, free disk on its system volume, CPU load since the previous poll and uptime; unmeasured values are null. Start here, then call get_machine_capabilities for one node. Node registration is not model-controlled.",
   "inputSchema": {
     "type": "object",
     "properties": {},

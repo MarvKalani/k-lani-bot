@@ -115,7 +115,9 @@ values in chat. Ask only for missing non-secret configuration selection after ch
 
 One MCP process can reach several nodes through the **core** or **native program cartridge** route. Configure it with
 the controller's existing authorized `--nodes` registry. Omit `--default-node` when each operation must name its target;
-native cartridge calls accept the top-level `node` field. Core `list_nodes` provides the registered names.
+native cartridge calls accept the top-level `node` field. Core `list_nodes` provides the registered names and, through
+a master, whether each node is connected, when it last answered and its vitals (system, free memory and disk, CPU load,
+uptime); pick a connected node with room for the task.
 The compact `--ui-profile compact` route currently requires one default node and has no equivalent node selector.
 Choose the route for the task; do not configure a separate public MCP product for every target.
 

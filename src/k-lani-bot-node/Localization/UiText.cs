@@ -270,5 +270,16 @@ public enum UiText
     ControllerResumeClient,
     ControllerMoreEntries,
     ControllerNamesAsReported,
-    ControllerCloseTray
+    ControllerCloseTray,
+    ControllerNodeSystemUptime,
+    ControllerNodeCpu,
+    ControllerNodeMemory,
+    ControllerNodeDisk,
+    ControllerNodeContactNow,
+    ControllerNodeContactAgo,
+    ControllerNodeNoContact,
+    DurationSeconds,
+    DurationMinutes,
+    DurationHoursMinutes,
+    DurationDaysHours
 }

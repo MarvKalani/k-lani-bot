@@ -51,7 +51,7 @@ internal sealed record ControllerTrayCommand(ControllerTrayAction Action, string
     }
 }
 
-// One menu line. Indented lines belong to the client line above them.
+// One menu line. Indented lines belong to the node or client line above them.
 internal sealed record ControllerTrayEntry(ControllerTrayEntryKind Kind, string Text, ControllerTrayCommand? Command, bool Indented);
 
 // Everything a native tray draws: icon state, hover text and the menu lines in order.
@@ -149,6 +149,7 @@ internal static class ControllerTrayMenu
         foreach (ControllerNodeRow node in status.Nodes)
         {
             entries.Add(Information(NodeText(node)));
+            entries.AddRange(NodeVitalsText.Lines(node).Select(Detail));
         }
         if (status.Nodes.Count == 0 && status.MoreNodes == 0)
         {

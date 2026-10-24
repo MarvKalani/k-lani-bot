@@ -14,6 +14,7 @@ internal static partial class Program
 
     private static async Task TestControllerAccessAsync(string binary, string masterState)
     {
+        await TestNodeVitalsAsync(binary, masterState);
         string registry = Path.Combine(masterState, "nodes.json");
         using GatewayProcess claude = await GatewayProcess.StartAsync(binary, registry, ClaudeName, ClaudeTask);
         using GatewayProcess codex = await GatewayProcess.StartAsync(binary, registry, CodexName, null);

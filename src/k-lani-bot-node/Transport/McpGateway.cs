@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json.Nodes;
 using KLaniBot.Actions;
 using KLaniBot.Advisory;
+using KLaniBot.Fleet;
 using KLaniBot.Startup;
 using KLaniBot.Transport.CompactUi;
 
@@ -118,6 +119,8 @@ public sealed class McpGateway : IDisposable
 
         // How long shutdown waits for the nodes to release this controller's desktop session.
         private static readonly TimeSpan SessionCleanupDeadline = TimeSpan.FromSeconds(5);
+        // list_nodes answers within this even when a master is unreachable; a reachable master answers from memory.
+        private static readonly TimeSpan StatusTimeout = TimeSpan.FromSeconds(3);
 
         private readonly McpGateway _gateway;
         private readonly TextWriter _output;
@@ -487,7 +490,7 @@ public sealed class McpGateway : IDisposable
             }
             else if (tool == Tool.ListNodes)
             {
-                response = ListNodes();
+                response = await ListNodesAsync(token);
             }
             else
             {
@@ -538,14 +541,28 @@ public sealed class McpGateway : IDisposable
             return evaluation.ToJson();
         }
 
-        private JsonObject ListNodes()
+        // Each node with what its master last heard from it. A node whose state cannot be read in time is listed as unknown,
+        // so the list never fails or waits long because one master is unreachable.
+        private async Task<JsonObject> ListNodesAsync(CancellationToken token)
         {
-            var nodeEntries = _gateway._nodes.Select(n => (JsonNode)new JsonObject
+            var entries = await Task.WhenAll(_gateway._nodes.Select(node => NodeEntryAsync(node.Key, node.Value!, token)));
+            return new JsonObject { ["success"] = true, ["nodes"] = new JsonArray(entries) };
+        }
+
+        private async Task<JsonNode> NodeEntryAsync(string name, JsonNode registered, CancellationToken token)
+        {
+            var entry = new JsonObject { ["name"] = name, ["url"] = registered["url"]!.DeepClone(), ["status"] = "unknown" };
+            JsonObject? status = _gateway._clients.TryGetValue(name, out var client)
+                ? await client.ReadStatusAsync(StatusTimeout, token)
+                : null;
+            if (status?["connected"] is JsonValue connected && connected.TryGetValue(out bool isConnected))
             {
-                ["name"] = n.Key,
-                ["url"] = n.Value!["url"]!.DeepClone()
-            });
-            return new JsonObject { ["success"] = true, ["nodes"] = new JsonArray(nodeEntries.ToArray()) };
+                entry["status"] = isConnected ? "connected" : "offline";
+                entry["version"] = status["version"]?.DeepClone();
+                entry["seconds_since_contact"] = status["seconds_since_contact"]?.DeepClone();
+                entry["vitals"] = NodeVitals.TryRead(status["vitals"])?.ToJson();
+            }
+            return entry;
         }
 
         // Throws ArgumentException when the call names no registered node and there is no default.

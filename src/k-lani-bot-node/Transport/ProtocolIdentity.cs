@@ -15,6 +15,8 @@ public static class ProtocolIdentity
     public const string UpdatesHeader = "X-K-Lani-Bot-Updates";
     // A node that understands the master's backup requirement message says so; older nodes would end the connection on it.
     public const string BackupRequirementHeader = "X-K-Lani-Bot-Backup-Requirement";
+    // A node that answers the master's vitals request says so; the master never sends it to a node that did not.
+    public const string VitalsHeader = "X-K-Lani-Bot-Vitals";
     // One value per controller process, shared by its sessions to all nodes, so the master shows and pauses one MCP client
     // as one row however many nodes it uses.
     public const string InstanceHeader = "X-K-Lani-Bot-Instance";

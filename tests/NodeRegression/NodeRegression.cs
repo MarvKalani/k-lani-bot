@@ -120,6 +120,7 @@ public static class NodeRegression
         count += MasterBackupRequirementCases.Run(temp);
         count += ControllerAccessCases.Run(temp);
         count += ControllerTrayMenuCases.Run();
+        count += NodeVitalsCases.Run();
         return count;
     }
 

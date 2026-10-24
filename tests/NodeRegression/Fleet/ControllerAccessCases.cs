@@ -136,6 +136,14 @@ internal static class ControllerAccessCases
         checks.That(reply["clients"]![0]!["purpose"]!.ToString().Length == 121, "a long purpose is shortened");
         checks.That(ControllerStatus.TryRead(reply, out ControllerStatus read) && read.Clients.Count + read.MoreClients == 80,
             "the tray reads the reply back with every client accounted for");
+        var vitals = new NodeVitals(new string('s', 80), 1L << 32, 1L << 34, "/System/Volumes/Data", 1L << 36, 1L << 38, 99.9,
+            1L << 30);
+        var measured = Enumerable.Range(0, 40).Select(index => new ControllerNodeRow("node-" + index, true, "0.2610.0604", vitals,
+            long.MaxValue)).ToList();
+        JsonObject crowded = access.Status(measured, now).ToJson();
+        checks.That(System.Text.Encoding.UTF8.GetByteCount(crowded.ToJsonString()) < 16 * 1024
+            && crowded["more_nodes"]!.GetValue<int>() > 0 && crowded["clients"]!.AsArray().Count > 0,
+            "many nodes with vitals fit the frame without crowding out every client");
         checks.That(!ControllerStatus.TryRead(new JsonObject { ["success"] = "yes", ["bot"] = "on" }, out _),
             "a reply of another shape is no status");
     }
