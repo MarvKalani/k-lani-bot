@@ -47,7 +47,7 @@ public sealed class PairingMaster
     private readonly HashSet<string> _updateCapable = new();
     private readonly HashSet<string> _backupRequirementCapable = new(StringComparer.Ordinal);
     private readonly HashSet<string> _vitalsCapable = new(StringComparer.Ordinal);
-    private readonly MasterNodeVitals _nodeVitals = new();
+    private readonly MasterNodeVitals _nodeVitals;
     private readonly Dictionary<string, DateTimeOffset> _updateOffers = new();
     private readonly MasterBackupRequirements _backupRequirements;
     private readonly ControllerAccess _access;
@@ -59,6 +59,7 @@ public sealed class PairingMaster
         System.Security.Cryptography.X509Certificates.X509Certificate2 certificate)
     {
         _stateDirectory = stateDirectory;
+        _nodeVitals = new MasterNodeVitals(stateDirectory);
         _updates = new NodeUpdatePublisher(stateDirectory, certificate);
         _origin = origin;
         _root = root;
@@ -87,7 +88,7 @@ public sealed class PairingMaster
     private const string BearerPrefix = "Bearer ";
     private const string CommandHelp = "Commands: approve TICKET | deny TICKET | revoke NODE | digits 0..6 | pending | "
         + "backup-requirement NODE[,NODE]|all required|off | backup-requirement-status | "
-        + "controller-status | client-pause INSTANCE | client-resume INSTANCE | bot on|off";
+        + "controller-status | client-pause INSTANCE | client-resume INSTANCE | bot on|off | vitals-history NODE [HOURS]";
 
     // One master owns registry updates and approval state; a second process must not race them.
     private static readonly string[] StateFileNames =
@@ -527,7 +528,7 @@ public sealed class PairingMaster
         }
         lock (_gate)
         {
-            JsonObject status = ControllerStatus.NodeJson(NodeRow(node, DateTimeOffset.UtcNow));
+            JsonObject status = ControllerStatus.NodeJson(NodeRow(node, NodeVitalsSettings.Read(_stateDirectory), DateTimeOffset.UtcNow));
             status["success"] = true;
             return Results.Json(status);
         }
@@ -771,6 +772,8 @@ public sealed class PairingMaster
     private JsonObject? ExecuteControllerCommand(string[] words)
     {
         string command = words.Length == 0 ? "" : words[0];
+        if (words.Length is 2 or 3 && command == "vitals-history")
+            return VitalsHistory(words);
         if (words.Length == 1 && command == "controller-status")
             return _access.Status(ControllerNodes(), DateTimeOffset.UtcNow).ToJson();
         if (words.Length == 2 && command == "client-pause")
@@ -792,12 +795,29 @@ public sealed class PairingMaster
     private List<ControllerNodeRow> ControllerNodes()
     {
         DateTimeOffset now = DateTimeOffset.UtcNow;
-        return _devices.Select(device => device.Key).Order(StringComparer.Ordinal).Select(node => NodeRow(node, now)).ToList();
+        NodeVitalsSettings limits = NodeVitalsSettings.Read(_stateDirectory);
+        return _devices.Select(device => device.Key).Order(StringComparer.Ordinal).Select(node => NodeRow(node, limits, now)).ToList();
     }
 
-    private ControllerNodeRow NodeRow(string node, DateTimeOffset now)
+    // Throws ArgumentException for an unregistered node or hours outside 1 to 8784 (a leap year).
+    private JsonObject VitalsHistory(string[] words)
     {
-        return _nodeVitals.Row(node, _versions.GetValueOrDefault(node, ""), _relays.GetValueOrDefault(node), now);
+        if (!_devices.ContainsKey(words[1]))
+        {
+            throw new ArgumentException("No registered node has this name.");
+        }
+        int hours = 24;
+        if (words.Length == 3 && (!int.TryParse(words[2], System.Globalization.CultureInfo.InvariantCulture, out hours)
+            || hours is < 1 or > 8784))
+        {
+            throw new ArgumentException("Hours must be a whole number from 1 to 8784.");
+        }
+        return _nodeVitals.HistorySummary(words[1], TimeSpan.FromHours(hours));
+    }
+
+    private ControllerNodeRow NodeRow(string node, NodeVitalsSettings limits, DateTimeOffset now)
+    {
+        return _nodeVitals.Row(node, _versions.GetValueOrDefault(node, ""), _relays.GetValueOrDefault(node), limits, now);
     }
 
     private async Task PollVitalsIfCapableAsync(string node, ReverseRelay relay, CancellationToken cancellation)
@@ -813,20 +833,22 @@ public sealed class PairingMaster
         }
     }
 
-    // A node that is busy when its turn comes is skipped until the next round; its last answer stays shown meanwhile.
+    // A node that is busy when its turn comes is skipped until the next round; its last answer stays shown meanwhile. The
+    // interval is read each round, so a changed vitals.json applies from the next poll.
     private async Task CollectVitalsAsync(CancellationToken cancellation)
     {
-        using var timer = new PeriodicTimer(MasterNodeVitals.PollInterval);
         try
         {
-            while (await timer.WaitForNextTickAsync(cancellation))
+            while (true)
             {
+                NodeVitalsSettings settings = NodeVitalsSettings.Read(_stateDirectory);
+                await Task.Delay(settings.PollInterval, cancellation);
                 List<KeyValuePair<string, ReverseRelay>> polled;
                 lock (_gate)
                 {
                     polled = _relays.Where(relay => _vitalsCapable.Contains(relay.Key)).ToList();
                 }
-                await Task.WhenAll(polled.Select(relay => _nodeVitals.PollAsync(relay.Key, relay.Value, cancellation)));
+                await Task.WhenAll(polled.Select(relay => _nodeVitals.PollAsync(relay.Key, relay.Value, settings, cancellation)));
             }
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)

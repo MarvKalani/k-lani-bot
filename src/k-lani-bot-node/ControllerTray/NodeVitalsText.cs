@@ -7,7 +7,8 @@ namespace KLaniBot.ControllerTray;
 // Use case: the controller tray shows under each node what the person checks first on a remote computer: which system it
 // runs, how long since it started, how busy it is, how much memory and disk is free and when it last answered. Values the
 // node could not measure are left out. Numbers are rounded so that the menu, which is redrawn only when its text changes,
-// does not redraw on every poll: contact under a minute is "just now", larger sizes lose their decimals.
+// does not redraw on every poll: contact under a minute is "just now", larger sizes lose their decimals. A load line whose
+// values crossed one of the master's limits is marked.
 internal static class NodeVitalsText
 {
     private const double Gigabyte = 1024.0 * 1024 * 1024;
@@ -19,7 +20,8 @@ internal static class NodeVitalsText
         if (node.Connected && node.Vitals is { } vitals)
         {
             AddIfAny(lines, SystemLine(vitals));
-            AddIfAny(lines, LoadLine(vitals));
+            string load = LoadLine(vitals);
+            AddIfAny(lines, node.Alerts != NodeAlerts.None && load.Length > 0 ? "⚠ " + load : load);
         }
         lines.Add(ContactLine(node.SecondsSinceContact));
         return lines;

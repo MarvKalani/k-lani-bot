@@ -4,23 +4,30 @@ using KLaniBot.Transport;
 namespace KLaniBot.Fleet;
 
 // Use case: the master asks every connected node that understands it for its vital signs, right after it connects and then
-// every 30 seconds, and keeps the last answer for the controller tray and list_nodes. A poll is sent only while the node's
-// relay is idle, so it never delays an action. Last contact is the node's last answer to any call. It lives in memory: after
-// a master restart a node that has not reconnected reports no contact since the master started.
-internal sealed class MasterNodeVitals
+// at the operator's poll interval, keeps the last answer for the controller tray and list_nodes and writes the history. A
+// poll is sent only while the node's relay is idle, so it never delays an action. Last contact is the node's last answer to
+// any call. It lives in memory: after a master restart a node that has not reconnected reports no contact since the master
+// started.
+internal sealed class MasterNodeVitals(string stateDirectory)
 {
-    public static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(30);
     // The node answers from memory without waiting; a dispatched call that times out ends the relay, so the limit is generous.
     private static readonly TimeSpan AnswerTimeout = TimeSpan.FromSeconds(20);
     private readonly object _gate = new();
     private readonly Dictionary<string, NodeVitals> _vitals = new(StringComparer.Ordinal);
     private readonly Dictionary<string, DateTimeOffset> _contacts = new(StringComparer.Ordinal);
+    private readonly NodeVitalsHistory _history = new(stateDirectory);
+
+    public JsonObject HistorySummary(string node, TimeSpan period)
+    {
+        return _history.Summary(node, period, DateTimeOffset.UtcNow);
+    }
 
     // Right after a connection the relay may still carry the master's first message to the node, so the first poll retries
     // briefly instead of leaving the node without vitals until the next round.
     public async Task PollOnConnectAsync(string node, ReverseRelay relay, CancellationToken cancellation)
     {
-        for (int attempt = 0; attempt < 10 && !await PollAsync(node, relay, cancellation); attempt++)
+        NodeVitalsSettings settings = NodeVitalsSettings.Read(stateDirectory);
+        for (int attempt = 0; attempt < 10 && !await PollAsync(node, relay, settings, cancellation); attempt++)
         {
             await Task.Delay(TimeSpan.FromSeconds(1), cancellation);
         }
@@ -28,7 +35,7 @@ internal sealed class MasterNodeVitals
 
     // Returns whether the request was sent. A failed poll only leaves the last vitals in place: a node that disconnects
     // mid-poll has its relay disposed, and that must not end the master's poll loop.
-    public async Task<bool> PollAsync(string node, ReverseRelay relay, CancellationToken cancellation)
+    public async Task<bool> PollAsync(string node, ReverseRelay relay, NodeVitalsSettings settings, CancellationToken cancellation)
     {
         JsonObject? reply;
         try
@@ -51,6 +58,7 @@ internal sealed class MasterNodeVitals
             {
                 _vitals[node] = vitals;
             }
+            _history.Record(node, vitals, settings.Alerts(vitals), settings, DateTimeOffset.UtcNow);
         }
         return true;
     }
@@ -65,14 +73,15 @@ internal sealed class MasterNodeVitals
         }
     }
 
-    public ControllerNodeRow Row(string node, string version, ReverseRelay? relay, DateTimeOffset now)
+    public ControllerNodeRow Row(string node, string version, ReverseRelay? relay, NodeVitalsSettings limits, DateTimeOffset now)
     {
         lock (_gate)
         {
             DateTimeOffset? contact = relay?.LastContact ?? (_contacts.TryGetValue(node, out DateTimeOffset last) ? last : null);
             long? seconds = contact is { } heard ? Math.Max(0, (long)(now - heard).TotalSeconds) : null;
             NodeVitals? vitals = relay != null ? _vitals.GetValueOrDefault(node) : null;
-            return new ControllerNodeRow(node, relay != null, version, vitals, seconds);
+            NodeAlerts alerts = vitals == null ? NodeAlerts.None : limits.Alerts(vitals);
+            return new ControllerNodeRow(node, relay != null, version, vitals, seconds, alerts);
         }
     }
 }

@@ -2,7 +2,8 @@ using System.Text.Json.Nodes;
 using KLaniBot.Fleet;
 
 // End to end on this machine: the real node answers the master's vitals request right after it connects, controller-status
-// carries what it measured, and list_nodes in a real gateway shows the same through the master without becoming a client.
+// carries what it measured, list_nodes in a real gateway shows only crossed limits through the master without becoming a
+// client, and the master keeps the node's history.
 internal static partial class Program
 {
     private const string ObserverName = "observer-e2e";
@@ -18,16 +19,33 @@ internal static partial class Program
 
         string registry = Path.Combine(masterState, "nodes.json");
         using GatewayProcess observer = await GatewayProcess.StartAsync(binary, registry, ObserverName, null);
-        JsonObject listed = await observer.CallToolAsync("list_nodes", new JsonObject());
-        JsonNode? entry = listed["structuredContent"]?["nodes"]?.AsArray().SingleOrDefault(item => item?["name"]?.ToString() == "managed");
-        Check(entry?["status"]?.ToString() == "connected" && entry["vitals"]?["system"]?.ToString() == vitals.System
-            && entry["seconds_since_contact"] != null,
-            "list_nodes shows the node as connected with the vitals its master holds: " + listed.ToJsonString());
+        JsonObject? entry = await ListedNodeAsync(observer);
+        Check(entry?["status"]?.ToString() == "connected" && entry.Count == 3,
+            "list_nodes shows a healthy node only by name, URL and state, so a model spends no tokens on its vitals: "
+            + entry?.ToJsonString());
+        string settings = Path.Combine(masterState, NodeVitalsSettings.FileName);
+        File.WriteAllText(settings, "{\"disk_free_percent\": 100}");
+        JsonObject? strained = await ListedNodeAsync(observer);
+        Check(strained?["alerts"]?.AsArray().Single()?.ToString().StartsWith("disk_low: / ", StringComparison.Ordinal) == true,
+            "a crossed limit from vitals.json reaches list_nodes at once as one short alert: " + strained?.ToJsonString());
+        File.Delete(settings);
+
+        JsonObject history = await MasterAdministration.CallAsync(masterState, "vitals-history managed 1", CancellationToken.None);
+        Check(history["samples"]?.GetValue<int>() >= 1 && history["disk_free_bytes"]?["min"] != null
+            && File.Exists(Path.Combine(masterState, "vitals-history", "managed.jsonl")),
+            "the master wrote the node's vitals to its history and names the period's peaks: " + history.ToJsonString());
 
         JsonObject status = await MasterAdministration.CallAsync(masterState, "controller-status", CancellationToken.None);
         Check(ControllerStatus.TryRead(status, out ControllerStatus after) && after.Clients.All(client => client.Client != ObserverName),
             "Reading node status does not make the gateway a client of the node.");
         await observer.CloseAsync();
+    }
+
+    private static async Task<JsonObject?> ListedNodeAsync(GatewayProcess gateway)
+    {
+        JsonObject listed = await gateway.CallToolAsync("list_nodes", new JsonObject());
+        return listed["structuredContent"]?["nodes"]?.AsArray().SingleOrDefault(item => item?["name"]?.ToString() == "managed")
+            as JsonObject;
     }
 
     // The master asks right after the node connects, long before this step; only the answer may still be on its way.

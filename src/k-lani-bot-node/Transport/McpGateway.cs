@@ -541,8 +541,9 @@ public sealed class McpGateway : IDisposable
             return evaluation.ToJson();
         }
 
-        // Each node with what its master last heard from it. A node whose state cannot be read in time is listed as unknown,
-        // so the list never fails or waits long because one master is unreachable.
+        // Each node with its connection state, and vitals only as alerts for limits the operator set: a model spends no tokens
+        // on a healthy node. A node whose state cannot be read in time is listed as unknown, so the list never fails or
+        // waits long because one master is unreachable.
         private async Task<JsonObject> ListNodesAsync(CancellationToken token)
         {
             var entries = await Task.WhenAll(_gateway._nodes.Select(node => NodeEntryAsync(node.Key, node.Value!, token)));
@@ -558,9 +559,11 @@ public sealed class McpGateway : IDisposable
             if (status?["connected"] is JsonValue connected && connected.TryGetValue(out bool isConnected))
             {
                 entry["status"] = isConnected ? "connected" : "offline";
-                entry["version"] = status["version"]?.DeepClone();
-                entry["seconds_since_contact"] = status["seconds_since_contact"]?.DeepClone();
-                entry["vitals"] = NodeVitals.TryRead(status["vitals"])?.ToJson();
+                NodeAlerts alerts = NodeVitalsSettings.FromJson(status["alerts"]);
+                if (alerts != NodeAlerts.None && NodeVitals.TryRead(status["vitals"]) is { } vitals)
+                {
+                    entry["alerts"] = new JsonArray(NodeVitalsSettings.Describe(alerts, vitals).Select(line => (JsonNode)line).ToArray());
+                }
             }
             return entry;
         }

@@ -37,8 +37,8 @@ stop every client, including new ones, switch the bot off. The on/off switch is 
 **Node vitals.** A node that sends `X-K-Lani-Bot-Vitals: 1` when it connects answers the master's `vitals` request
 with its operating system, available and total memory, free and total space of its system volume (`C:\`, `/`, or
 `/System/Volumes/Data` on macOS), CPU load and uptime since the system started (sleep included). The master asks right
-after the node connects and then every 30 seconds, but only while the node's relay is idle, so a poll never delays an
-action. The node answers from memory and never waits: CPU load is the average since the previous request, so the first
+after the node connects and then every `poll_seconds` (default 30), but only while the node's relay is idle, so a poll
+never delays an action. The node answers from memory and never waits: CPU load is the average since the previous request, so the first
 answer has none. A value the node cannot measure is `null`, never an estimate. The master shortens the node's text,
 strips control characters and drops numbers out of range before the tray shows them or a model reads them. A node
 without the header (an older build) is never asked, because an unknown request would end its connection.
@@ -54,11 +54,43 @@ keeps an open menu then is not yet checked on a real desktop.
 
 `list_nodes` asks the master's authenticated `GET /node/{node}/status` for every node in parallel, with a three-second
 limit. The route answers from the master's cache: it reaches no node, holds no desktop lease and does not make the
-caller a client in the tray. Each entry carries `status` (`connected`, `offline`, or `unknown` when no master answered in
-time, for example for a node registered directly), `version`, `seconds_since_contact` and `vitals`. The unauthenticated
-`/node/{node}/health` route stays without vitals.
+caller a client in the tray. A model sees vitals only when they matter: each entry carries `status` (`connected`,
+`offline`, or `unknown` when no master answered in time, for example for a node registered directly) and, only when a
+limit is crossed, `alerts` such as `disk_low: C:\ 3.0 of 237 GB free`. The operator sees every value in the tray, where
+the load line of a node with an alert is marked with ⚠. The unauthenticated `/node/{node}/health` route stays without
+vitals.
 
-**Commands.** The master's local administration pipe (current user, this state directory) gets four commands, usable
+**Settings and history.** `vitals.json` in the master's state directory sets the limits, how often the master asks and
+how often and how long it keeps each node's vitals. The master reads it each time it reports or polls, so a change applies
+without a restart. A missing name keeps its default; an invalid file is reported on the master's console and the
+defaults apply, so a typo never silences every alert.
+
+```json
+{
+  "memory_free_percent": 10,
+  "disk_free_percent": 5,
+  "disk_free_gb": 5,
+  "cpu_load_percent": 90,
+  "poll_seconds": 30,
+  "history_interval_seconds": 600,
+  "history_days": 7
+}
+```
+
+The values shown are the defaults. Memory is low below `memory_free_percent` of the total; the disk is low below
+`disk_free_percent` of its size or below `disk_free_gb`, so small and large disks both warn in time; the processor is
+busy above `cpu_load_percent` on average since the previous poll. `poll_seconds` (10 to 3600) is how often each node
+measures; a slower poll spares the nodes. `history_interval_seconds` (10 to 86400, never faster than the poll) is how
+often a sample is kept, for example 60, 600 or 3600; `history_days` (0 to 366, 0 keeps none) is how long. Samples go
+to `vitals-history/NODE.jsonl` in the state directory, private to the master's user, one JSON line per sample with time,
+vitals and alerts; older samples are removed about once an hour. A node removed from the master keeps its file until the
+operator deletes it.
+
+`vitals-history NODE [HOURS]` (default 24) answers with the period's sample count, the highest CPU load and the least
+free memory and disk, each with its time, how often each limit was crossed and the path of the full file. AI clients get
+no history.
+
+**Commands.** The master's local administration pipe (current user, this state directory) gets five commands, usable
 from the console and through `--master-admin --state DIR --command "..."`:
 
 | Command | Effect |
@@ -67,6 +99,7 @@ from the console and through `--master-admin --state DIR --command "..."`:
 | `client-pause INSTANCE` | Refuse that client's calls from now on |
 | `client-resume INSTANCE` | Admit them again |
 | `bot on` / `bot off` | Admit or refuse every client's calls |
+| `vitals-history NODE [HOURS]` | Peaks and crossed limits of a node's vitals in the last hours (default 24) |
 
 The status reply stays below the pipe's 16 KiB frame: node rows take at most 8 KiB (about 18 nodes with vitals), client
 rows the rest, purposes cut to 120 characters, and entries beyond the budget are counted as "more".
