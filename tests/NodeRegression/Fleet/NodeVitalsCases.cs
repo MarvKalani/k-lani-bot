@@ -24,6 +24,8 @@ internal static class NodeVitalsCases
             LimitsAreReadFromTheMasterFile(checks);
             HistoryKeepsTheConfiguredRhythmAndPeriod(checks, Path.Combine(temp, "vitals-history-rhythm"));
             HistorySummaryNamesThePeaks(checks, Path.Combine(temp, "vitals-history-peaks"));
+            HistoryKeepsTheWorstValueOfEachInterval(checks, Path.Combine(temp, "vitals-history-worst"));
+            HistoryFailureDoesNotEscape(checks, Path.Combine(temp, "vitals-history-blocked"));
             UiTexts.Use(UiLanguage.German);
             TrayShowsVitalsInGerman(checks);
             TrayShowsLastContactOfAnOfflineNode(checks);
@@ -158,6 +160,42 @@ internal static class NodeVitalsCases
             "an invalid node name or a history of zero days writes nothing");
     }
 
+    private static void HistoryKeepsTheWorstValueOfEachInterval(Checks checks, string state)
+    {
+        var settings = new NodeVitalsSettings { PollSeconds = 30, HistoryIntervalSeconds = 600, HistoryDays = 1 };
+        var history = new NodeVitalsHistory(state);
+        var start = new DateTimeOffset(2026, 10, 1, 12, 0, 0, TimeSpan.Zero);
+        history.Record("office-pc", Sample(), NodeAlerts.None, settings, start);
+        NodeVitals spike = Sample() with
+        {
+            CpuLoadPercent = 99,
+            MemoryAvailableBytes = Gigabyte / 4
+        };
+        history.Record("office-pc", spike, NodeAlerts.CpuHigh | NodeAlerts.MemoryLow, settings, start.AddMinutes(4));
+        history.Record("office-pc", Sample() with
+        {
+            DiskFreeBytes = 9 * Gigabyte
+        }, NodeAlerts.None, settings, start.AddMinutes(7));
+        history.Record("office-pc", Sample(), NodeAlerts.None, settings, start.AddMinutes(10));
+
+        JsonObject summary = history.Summary("office-pc", TimeSpan.FromHours(1), start.AddMinutes(11));
+        checks.That(summary["samples"]!.GetValue<int>() == 2 && summary["cpu_load_percent"]!["max"]!.GetValue<double>() == 99
+            && summary["memory_available_bytes"]!["min"]!.GetValue<long>() == Gigabyte / 4
+            && summary["disk_free_bytes"]!["min"]!.GetValue<long>() == 9 * Gigabyte,
+            "a spike between two written samples is kept as the worst value of its interval");
+        checks.That(summary["alerts"]!["cpu_high"]!.GetValue<int>() == 1 && summary["alerts"]!["memory_low"]!.GetValue<int>() == 1,
+            "an alert raised between two written samples is kept with the interval");
+    }
+
+    private static void HistoryFailureDoesNotEscape(Checks checks, string state)
+    {
+        Directory.CreateDirectory(state);
+        File.WriteAllText(Path.Combine(state, NodeVitalsHistory.DirectoryName), "a file where the history directory belongs");
+        var history = new NodeVitalsHistory(state);
+        history.Record("office-pc", Sample(), NodeAlerts.None, new NodeVitalsSettings(), DateTimeOffset.UtcNow);
+        checks.Reached();
+    }
+
     private static void HistorySummaryNamesThePeaks(Checks checks, string state)
     {
         var settings = new NodeVitalsSettings { PollSeconds = 30, HistoryIntervalSeconds = 60, HistoryDays = 7 };
@@ -201,6 +239,9 @@ internal static class NodeVitalsCases
             "{\"poll_seconds\": 120, \"history_interval_seconds\": 60, \"history_days\": 30}");
         checks.That(history is { PollSeconds: 120, HistoryDays: 30 } && history.HistoryInterval == TimeSpan.FromMinutes(2),
             "history is never written more often than the master asks the node");
+        checks.That(NodeVitalsSettings.TryParse("{\"history_interval_seconds\": 10, \"history_days\": 366}") == null
+            && NodeVitalsSettings.TryParse("{\"history_interval_seconds\": 60, \"history_days\": 30}") != null,
+            "a history of more than 100000 samples per node is refused, a month of minutes is not");
         checks.That(NodeVitalsSettings.TryParse("{\"poll_seconds\": 1}") == null && NodeVitalsSettings.TryParse("{\"limit\": 1}") == null,
             "a poll faster than ten seconds or an unknown name is refused");
         checks.That(NodeVitalsSettings.TryParse("{\"memory_free_percent\": \"low\"}") == null

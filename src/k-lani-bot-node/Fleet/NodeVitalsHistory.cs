@@ -9,8 +9,9 @@ namespace KLaniBot.Fleet;
 
 // Use case: the operator looks back at how a node was doing, to see when its load shot up or its disk ran full. The master
 // writes one sample per history interval to a private JSON-lines file per node in its state directory (vitals-history/),
-// drops samples older than the kept period and answers the vitals-history command with the peaks of a period. Only the
-// operator reads it; AI clients get alerts, never history.
+// drops samples older than the kept period and answers the vitals-history command with the peaks of a period. A sample
+// holds the worst values of the polls in its interval (highest load, least free memory and disk, every alert raised), so a
+// spike between two written samples is not lost. Only the operator reads it; AI clients get alerts, never history.
 internal sealed class NodeVitalsHistory(string stateDirectory)
 {
     public const string DirectoryName = "vitals-history";
@@ -20,13 +21,16 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
     private readonly object _gate = new();
     private readonly Dictionary<string, DateTimeOffset> _recorded = new(StringComparer.Ordinal);
     private readonly Dictionary<string, DateTimeOffset> _pruned = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Sample> _pending = new(StringComparer.Ordinal);
+    private bool _failureReported;
 
     public string FileOf(string node)
     {
         return Path.Combine(stateDirectory, DirectoryName, node + ".jsonl");
     }
 
-    // Polls arrive a little early or late, so a sample is due shortly before a full interval has passed.
+    // Polls arrive a little early or late, so a sample is due shortly before a full interval has passed. A history that
+    // cannot be written (disk full, no permission) is reported once on the console and never stops the polls.
     public void Record(string node, NodeVitals vitals, NodeAlerts alerts, NodeVitalsSettings settings, DateTimeOffset now)
     {
         if (settings.HistoryDays == 0 || !NodeName.IsValid(node))
@@ -35,18 +39,61 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         }
         lock (_gate)
         {
+            Sample merged = _pending.TryGetValue(node, out Sample? pending)
+                ? Worst(pending, vitals, alerts, now)
+                : new Sample(now, vitals, alerts);
             if (_recorded.TryGetValue(node, out DateTimeOffset last) && now - last < settings.HistoryInterval - TimeSpan.FromSeconds(2))
             {
+                _pending[node] = merged;
                 return;
             }
+            _pending.Remove(node);
             _recorded[node] = now;
-            Append(node, vitals, alerts, now);
-            if (!_pruned.TryGetValue(node, out DateTimeOffset pruned) || now - pruned >= PruneInterval)
+            Write(node, merged, now - TimeSpan.FromDays(settings.HistoryDays));
+        }
+    }
+
+    private void Write(string node, Sample sample, DateTimeOffset oldest)
+    {
+        try
+        {
+            Append(node, sample);
+            if (!_pruned.TryGetValue(node, out DateTimeOffset pruned) || sample.At - pruned >= PruneInterval)
             {
-                _pruned[node] = now;
-                Prune(node, now - TimeSpan.FromDays(settings.HistoryDays));
+                _pruned[node] = sample.At;
+                Prune(node, oldest);
+            }
+            _failureReported = false;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            if (!_failureReported)
+            {
+                Console.Error.WriteLine("The vitals history cannot be written: " + exception.GetType().Name + ".");
+                _failureReported = true;
             }
         }
+    }
+
+    private static Sample Worst(Sample pending, NodeVitals vitals, NodeAlerts alerts, DateTimeOffset now)
+    {
+        NodeVitals worst = vitals with
+        {
+            CpuLoadPercent = Highest(pending.Vitals.CpuLoadPercent, vitals.CpuLoadPercent),
+            MemoryAvailableBytes = Lowest(pending.Vitals.MemoryAvailableBytes, vitals.MemoryAvailableBytes),
+            DiskFreeBytes = Lowest(pending.Vitals.DiskFreeBytes, vitals.DiskFreeBytes)
+        };
+        return new Sample(now, worst, pending.Alerts | alerts);
+    }
+
+    private static double? Highest(double? first, double? second)
+    {
+        return first is { } a && second is { } b ? Math.Max(a, b) : first ?? second;
+    }
+
+    private static long? Lowest(long? first, long? second)
+    {
+        return first is { } a && second is { } b ? Math.Min(a, b) : first ?? second;
     }
 
     // The highest load, the least free memory and disk of the period, each with its time, and how often each limit was crossed.
@@ -77,29 +124,32 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
     // One sample as a line of the history file.
     private sealed record Sample(DateTimeOffset At, NodeVitals Vitals, NodeAlerts Alerts);
 
-    private void Append(string node, NodeVitals vitals, NodeAlerts alerts, DateTimeOffset now)
+    private void Append(string node, Sample sample)
     {
         PrivateFile.CreateDirectory(Path.Combine(stateDirectory, DirectoryName));
-        var line = new JsonObject { ["at"] = Time(now), ["vitals"] = vitals.ToJson(), ["alerts"] = NodeVitalsSettings.ToJson(alerts) };
         using FileStream stream = PrivateFile.OpenWrite(FileOf(node), FileMode.Append);
-        stream.Write(Encoding.UTF8.GetBytes(line.ToJsonString() + "\n"));
+        stream.Write(Encoding.UTF8.GetBytes(Line(sample) + "\n"));
     }
 
     private void Prune(string node, DateTimeOffset oldest)
     {
-        List<Sample> kept = Read(node).Where(sample => sample.At >= oldest).ToList();
         var content = new StringBuilder();
-        foreach (Sample sample in kept)
+        foreach (Sample sample in Read(node).Where(sample => sample.At >= oldest))
         {
-            var line = new JsonObject
-            {
-                ["at"] = Time(sample.At),
-                ["vitals"] = sample.Vitals.ToJson(),
-                ["alerts"] = NodeVitalsSettings.ToJson(sample.Alerts)
-            };
-            content.Append(line.ToJsonString()).Append('\n');
+            content.Append(Line(sample)).Append('\n');
         }
         PrivateFile.WriteAllBytesAtomically(FileOf(node), Encoding.UTF8.GetBytes(content.ToString()));
+    }
+
+    private static string Line(Sample sample)
+    {
+        var line = new JsonObject
+        {
+            ["at"] = Time(sample.At),
+            ["vitals"] = sample.Vitals.ToJson(),
+            ["alerts"] = NodeVitalsSettings.ToJson(sample.Alerts)
+        };
+        return line.ToJsonString();
     }
 
     // A line that cannot be read (a write cut by a crash) is skipped, not fatal.

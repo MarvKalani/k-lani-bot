@@ -81,7 +81,11 @@ The values shown are the defaults. Memory is low below `memory_free_percent` of 
 `disk_free_percent` of its size or below `disk_free_gb`, so small and large disks both warn in time; the processor is
 busy above `cpu_load_percent` on average since the previous poll. `poll_seconds` (10 to 3600) is how often each node
 measures; a slower poll spares the nodes. `history_interval_seconds` (10 to 86400, never faster than the poll) is how
-often a sample is kept, for example 60, 600 or 3600; `history_days` (0 to 366, 0 keeps none) is how long. Samples go
+often a sample is kept, for example 60, 600 or 3600; `history_days` (0 to 366, 0 keeps none) is how long, at most
+100000 samples per node (a month of minutes fits, a year of ten-second samples does not). Each sample holds the worst
+values of the polls in its interval, the highest load, the least free memory and disk and every alert raised, so a spike
+between two kept samples is not lost. A history that cannot be written is reported once on the console; polling goes on.
+Samples go
 to `vitals-history/NODE.jsonl` in the state directory, private to the master's user, one JSON line per sample with time,
 vitals and alerts; older samples are removed about once an hour. A node removed from the master keeps its file until the
 operator deletes it.

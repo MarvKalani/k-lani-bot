@@ -23,6 +23,10 @@ public enum NodeAlerts
 public sealed record NodeVitalsSettings
 {
     public const string FileName = "vitals.json";
+    // A longer history per node would make every summary and every hourly clean-up read a file of hundreds of megabytes.
+    private const double MaximumSamples = 100_000;
+    private static readonly object WarningGate = new();
+    private static string? _warnedContent;
     private const double Gigabyte = 1024.0 * 1024 * 1024;
 
     public double MemoryFreePercent { get; init; } = 10;
@@ -138,9 +142,23 @@ public sealed record NodeVitalsSettings
         NodeVitalsSettings? limits = content == null ? null : TryParse(content);
         if (limits == null)
         {
-            Console.Error.WriteLine(FileName + " is unreadable or invalid; the default vitals settings apply.");
+            WarnOnce(content ?? "");
         }
         return limits ?? new NodeVitalsSettings();
+    }
+
+    // The tray asks every two seconds; the same broken file is reported once, a changed one again.
+    private static void WarnOnce(string content)
+    {
+        lock (WarningGate)
+        {
+            if (_warnedContent == content)
+            {
+                return;
+            }
+            _warnedContent = content;
+        }
+        Console.Error.WriteLine(FileName + " is unreadable or invalid; the default vitals settings apply.");
     }
 
     // Null for anything but an object of known names with numbers in range.
@@ -172,7 +190,12 @@ public sealed record NodeVitalsSettings
             Value(document, "history_interval_seconds", 10, 86400, defaults.HistoryIntervalSeconds),
             Value(document, "history_days", 0, 366, defaults.HistoryDays)
         ];
-        return values.Any(value => value == null) ? null : FromValues(values);
+        if (values.Any(value => value == null))
+        {
+            return null;
+        }
+        NodeVitalsSettings settings = FromValues(values);
+        return settings.HistoryDays * 86400.0 / settings.HistoryInterval.TotalSeconds > MaximumSamples ? null : settings;
     }
 
     private static NodeVitalsSettings FromValues(double?[] values)
