@@ -214,8 +214,9 @@ public sealed class PairingMaster
         Task rotation = RotateAsync(certificates, address, lifetime.Token);
         Task administration = MasterAdministration.ServeAsync(directory, ExecuteCommand, lifetime.Token);
         Task distribution = DistributeUpdatesAsync(lifetime.Token);
+        // Not in the stop set: a dead vitals loop only leaves vitals stale, it does not make a broken master look healthy.
         Task vitals = CollectVitalsAsync(lifetime.Token);
-        _ = StopOnBackgroundFailureAsync(app, [rotation, administration, distribution, vitals], lifetime.Token);
+        _ = StopOnBackgroundFailureAsync(app, [rotation, administration, distribution], lifetime.Token);
         Console.WriteLine($"k-lani-bot Master {ProductIdentity.DisplayVersion}: {_origin}");
         Console.WriteLine(CommandHelp);
         Console.WriteLine("MCP registry: " + Path.Combine(directory, "nodes.json"));
@@ -808,7 +809,7 @@ public sealed class PairingMaster
         }
         if (capable)
         {
-            await _nodeVitals.PollAsync(node, relay, cancellation);
+            await _nodeVitals.PollOnConnectAsync(node, relay, cancellation);
         }
     }
 

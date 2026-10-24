@@ -30,10 +30,10 @@ internal static partial class Program
         await observer.CloseAsync();
     }
 
-    // The master asks right after the node connects; the answer may still be on its way when the test first looks.
+    // The master asks right after the node connects, long before this step; only the answer may still be on its way.
     private static async Task<ControllerNodeRow> ConnectedNodeWithVitalsAsync(string masterState)
     {
-        DateTimeOffset deadline = DateTimeOffset.UtcNow.AddSeconds(15);
+        DateTimeOffset deadline = DateTimeOffset.UtcNow.AddSeconds(5);
         while (true)
         {
             JsonObject status = await MasterAdministration.CallAsync(masterState, "controller-status", CancellationToken.None);

@@ -47,7 +47,8 @@ public sealed class NodeTransportClient : IDisposable
     private SessionPresentation _presentation = SessionPresentation.Create(null, null);
 
     // Only the certificate callback knows whether the peer was refused for the pin or for the name.
-    // Calls are serialised by _serial, so one field per client is enough.
+    // Calls are serialised by _serial, so one field per client is enough. ReadStatusAsync runs beside them and may set it
+    // too; that can at worst mislabel a concurrent TLS failure, and the status read itself ignores the label.
     private TransportFailure? _certificateRejection;
 
     // Throws ArgumentException for an invalid registry, an unregistered or insecure node or no credential source, and

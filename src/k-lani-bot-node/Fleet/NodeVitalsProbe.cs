@@ -218,6 +218,8 @@ internal sealed class NodeVitalsProbe
     private static class Mac
     {
         private const int HostCpuLoadInfo = 3;
+        // Each mach_host_self call adds a send right; asking once keeps the count from growing with every poll.
+        private static readonly Lazy<uint> Host = new(MachHostSelf);
 
         [DllImport("libc", EntryPoint = "sysctlbyname")]
         private static extern int SysctlByName(string name, out long value, ref nint size, nint newValue, nint newSize);
@@ -251,7 +253,7 @@ internal sealed class NodeVitalsProbe
         {
             uint[] ticks = new uint[4];
             uint count = 4;
-            if (HostStatistics(MachHostSelf(), HostCpuLoadInfo, ticks, ref count) != 0)
+            if (HostStatistics(Host.Value, HostCpuLoadInfo, ticks, ref count) != 0)
             {
                 return null;
             }

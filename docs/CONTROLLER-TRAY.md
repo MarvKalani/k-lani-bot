@@ -48,7 +48,9 @@ nodes keep it but lose their vitals, and after a master restart a node that has 
 the master started". The tray shows two indented lines under a connected node, for example
 `Windows 11 (Build 22621), läuft seit 3 T 4 h` and `CPU 12 % · RAM 3,1 von 8,0 GB frei · C:\ 41 von 237 GB frei`, plus
 the last contact under every node. Contact under a minute reads "gerade eben" and sizes of 10 GB or more lose their
-decimal, so the menu does not redraw on every poll.
+decimal, but load and memory still change, so the menu text changes about every poll. The Windows tray therefore
+replaces an open menu only after it closes. The Linux tray hands the new menu to the indicator at once; whether a panel
+keeps an open menu then is not yet checked on a real desktop.
 
 `list_nodes` asks the master's authenticated `GET /node/{node}/status` for every node in parallel, with a three-second
 limit. The route answers from the master's cache: it reaches no node, holds no desktop lease and does not make the

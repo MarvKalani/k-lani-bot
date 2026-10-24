@@ -16,17 +16,43 @@ internal sealed class MasterNodeVitals
     private readonly Dictionary<string, NodeVitals> _vitals = new(StringComparer.Ordinal);
     private readonly Dictionary<string, DateTimeOffset> _contacts = new(StringComparer.Ordinal);
 
-    public async Task PollAsync(string node, ReverseRelay relay, CancellationToken cancellation)
+    // Right after a connection the relay may still carry the master's first message to the node, so the first poll retries
+    // briefly instead of leaving the node without vitals until the next round.
+    public async Task PollOnConnectAsync(string node, ReverseRelay relay, CancellationToken cancellation)
     {
-        JsonObject? reply = await relay.CallIfIdleAsync(new JsonObject { ["kind"] = "vitals" }, cancellation, AnswerTimeout);
-        bool answered = reply?["success"] is JsonValue success && success.TryGetValue(out bool succeeded) && succeeded;
-        if (answered && NodeVitals.TryRead(reply!["vitals"]) is { } vitals)
+        for (int attempt = 0; attempt < 10 && !await PollAsync(node, relay, cancellation); attempt++)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1), cancellation);
+        }
+    }
+
+    // Returns whether the request was sent. A failed poll only leaves the last vitals in place: a node that disconnects
+    // mid-poll has its relay disposed, and that must not end the master's poll loop.
+    public async Task<bool> PollAsync(string node, ReverseRelay relay, CancellationToken cancellation)
+    {
+        JsonObject? reply;
+        try
+        {
+            reply = await relay.CallIfIdleAsync(new JsonObject { ["kind"] = "vitals" }, cancellation, AnswerTimeout);
+        }
+        catch (Exception exception) when (exception is ObjectDisposedException or InvalidOperationException or IOException
+            or System.Net.WebSockets.WebSocketException or System.Text.Json.JsonException)
+        {
+            return true;
+        }
+        if (reply == null)
+        {
+            return false;
+        }
+        bool answered = reply["success"] is JsonValue success && success.TryGetValue(out bool succeeded) && succeeded;
+        if (answered && NodeVitals.TryRead(reply["vitals"]) is { } vitals)
         {
             lock (_gate)
             {
                 _vitals[node] = vitals;
             }
         }
+        return true;
     }
 
     // Offline nodes keep their last contact time but no vitals, which would be stale.

@@ -16,6 +16,7 @@ internal sealed class WindowsControllerTray : ControllerTrayHost
     private readonly Dispatcher _dispatcher;
     private readonly WindowsNativeTray _tray;
     private ContextMenu? _menu;
+    private ControllerTrayView? _pending;
 
     // Throws InvalidOperationException when Windows refuses the tray icon.
     public WindowsControllerTray()
@@ -45,14 +46,26 @@ internal sealed class WindowsControllerTray : ControllerTrayHost
         _dispatcher.BeginInvoke(() => Draw(view));
     }
 
+    // An open menu is left alone and replaced when it closes: node vitals change every poll, and closing the menu each
+    // time would take it away while the person reads it.
     private void Draw(ControllerTrayView view)
     {
         _tray.Update(StatusOf(view.Icon), view.Tooltip);
         if (_menu?.IsOpen == true)
         {
-            _menu.IsOpen = false;
+            _pending = view;
+            return;
         }
         _menu = BuildMenu(view);
+    }
+
+    private void DrawPending(object sender, RoutedEventArgs arguments)
+    {
+        if (_pending is { } view)
+        {
+            _pending = null;
+            _menu = BuildMenu(view);
+        }
     }
 
     private ContextMenu BuildMenu(ControllerTrayView view)
@@ -66,6 +79,7 @@ internal sealed class WindowsControllerTray : ControllerTrayHost
             Padding = new Thickness(8)
         };
         WindowsWpfTheme.ApplyResources(menu);
+        menu.Closed += DrawPending;
         foreach (ControllerTrayEntry entry in view.Entries)
         {
             menu.Items.Add(CreateItem(entry));
