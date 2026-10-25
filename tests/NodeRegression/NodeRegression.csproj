@@ -87,6 +87,7 @@
     <Compile Include="../../src/k-lani-bot-node/Fleet/NodeVitalsProbe.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/NodeVitalsSettings.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/NodeVitalsHistory.cs" />
+    <Compile Include="../../src/k-lani-bot-node/Fleet/NodeVitalsReport.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/MasterAdministration.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/MasterBackupRequirements.cs" />
     <Compile Include="../../src/k-lani-bot-node/Fleet/PairingProtocol.cs" />

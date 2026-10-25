@@ -121,6 +121,7 @@ public static class NodeRegression
         count += ControllerAccessCases.Run(temp);
         count += ControllerTrayMenuCases.Run();
         count += NodeVitalsCases.Run(temp);
+        count += NodeVitalsReportCases.Run();
         return count;
     }
 

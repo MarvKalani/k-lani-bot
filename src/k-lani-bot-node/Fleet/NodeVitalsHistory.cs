@@ -7,6 +7,9 @@ using KLaniBot.Startup;
 
 namespace KLaniBot.Fleet;
 
+// One sample as a line of a node's history file: the worst values of the polls in its interval, stamped with its end.
+internal sealed record VitalsSample(DateTimeOffset At, NodeVitals Vitals, NodeAlerts Alerts);
+
 // Use case: the operator looks back at how a node was doing, to see when its load shot up or its disk ran full. The master
 // writes one sample per history interval to a private JSON-lines file per node in its state directory (vitals-history/),
 // drops samples older than the kept period and answers the vitals-history command with the peaks of a period. A sample
@@ -21,7 +24,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
     private readonly object _gate = new();
     private readonly Dictionary<string, DateTimeOffset> _recorded = new(StringComparer.Ordinal);
     private readonly Dictionary<string, DateTimeOffset> _pruned = new(StringComparer.Ordinal);
-    private readonly Dictionary<string, Sample> _pending = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, VitalsSample> _pending = new(StringComparer.Ordinal);
     private bool _failureReported;
 
     public string FileOf(string node)
@@ -39,9 +42,9 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         }
         lock (_gate)
         {
-            Sample merged = _pending.TryGetValue(node, out Sample? pending)
+            VitalsSample merged = _pending.TryGetValue(node, out VitalsSample? pending)
                 ? Worst(pending, vitals, alerts, now)
-                : new Sample(now, vitals, alerts);
+                : new VitalsSample(now, vitals, alerts);
             if (_recorded.TryGetValue(node, out DateTimeOffset last) && now - last < settings.HistoryInterval - TimeSpan.FromSeconds(2))
             {
                 _pending[node] = merged;
@@ -53,7 +56,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         }
     }
 
-    private void Write(string node, Sample sample, DateTimeOffset oldest)
+    private void Write(string node, VitalsSample sample, DateTimeOffset oldest)
     {
         try
         {
@@ -75,7 +78,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         }
     }
 
-    private static Sample Worst(Sample pending, NodeVitals vitals, NodeAlerts alerts, DateTimeOffset now)
+    private static VitalsSample Worst(VitalsSample pending, NodeVitals vitals, NodeAlerts alerts, DateTimeOffset now)
     {
         NodeVitals worst = vitals with
         {
@@ -83,7 +86,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
             MemoryAvailableBytes = Lowest(pending.Vitals.MemoryAvailableBytes, vitals.MemoryAvailableBytes),
             DiskFreeBytes = Lowest(pending.Vitals.DiskFreeBytes, vitals.DiskFreeBytes)
         };
-        return new Sample(now, worst, pending.Alerts | alerts);
+        return new VitalsSample(now, worst, pending.Alerts | alerts);
     }
 
     private static double? Highest(double? first, double? second)
@@ -96,14 +99,19 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         return first is { } a && second is { } b ? Math.Min(a, b) : first ?? second;
     }
 
+    // The samples of the period, oldest first, for the operator's report.
+    public IReadOnlyList<VitalsSample> Samples(string node, TimeSpan period, DateTimeOffset now)
+    {
+        lock (_gate)
+        {
+            return NodeName.IsValid(node) ? Read(node).Where(sample => sample.At >= now - period).ToList() : [];
+        }
+    }
+
     // The highest load, the least free memory and disk of the period, each with its time, and how often each limit was crossed.
     public JsonObject Summary(string node, TimeSpan period, DateTimeOffset now)
     {
-        List<Sample> samples;
-        lock (_gate)
-        {
-            samples = NodeName.IsValid(node) ? Read(node).Where(sample => sample.At >= now - period).ToList() : [];
-        }
+        IReadOnlyList<VitalsSample> samples = Samples(node, period, now);
         var summary = new JsonObject
         {
             ["success"] = true,
@@ -121,10 +129,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         return summary;
     }
 
-    // One sample as a line of the history file.
-    private sealed record Sample(DateTimeOffset At, NodeVitals Vitals, NodeAlerts Alerts);
-
-    private void Append(string node, Sample sample)
+    private void Append(string node, VitalsSample sample)
     {
         PrivateFile.CreateDirectory(Path.Combine(stateDirectory, DirectoryName));
         using FileStream stream = PrivateFile.OpenWrite(FileOf(node), FileMode.Append);
@@ -134,14 +139,14 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
     private void Prune(string node, DateTimeOffset oldest)
     {
         var content = new StringBuilder();
-        foreach (Sample sample in Read(node).Where(sample => sample.At >= oldest))
+        foreach (VitalsSample sample in Read(node).Where(sample => sample.At >= oldest))
         {
             content.Append(Line(sample)).Append('\n');
         }
         PrivateFile.WriteAllBytesAtomically(FileOf(node), Encoding.UTF8.GetBytes(content.ToString()));
     }
 
-    private static string Line(Sample sample)
+    private static string Line(VitalsSample sample)
     {
         var line = new JsonObject
         {
@@ -153,14 +158,14 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
     }
 
     // A line that cannot be read (a write cut by a crash) is skipped, not fatal.
-    private List<Sample> Read(string node)
+    private List<VitalsSample> Read(string node)
     {
         string file = FileOf(node);
         if (!File.Exists(file))
         {
             return [];
         }
-        var samples = new List<Sample>();
+        var samples = new List<VitalsSample>();
         foreach (string line in File.ReadLines(file))
         {
             if (TryParse(line) is { } sample)
@@ -171,7 +176,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         return samples;
     }
 
-    private static Sample? TryParse(string line)
+    private static VitalsSample? TryParse(string line)
     {
         try
         {
@@ -182,7 +187,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
             {
                 return null;
             }
-            return new Sample(at, vitals, NodeVitalsSettings.FromJson(entry["alerts"]));
+            return new VitalsSample(at, vitals, NodeVitalsSettings.FromJson(entry["alerts"]));
         }
         catch (JsonException)
         {
@@ -190,11 +195,12 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         }
     }
 
-    private static JsonObject? Peak<T>(List<Sample> samples, Func<Sample, T?> value, bool highest) where T : struct, IComparable<T>
+    private static JsonObject? Peak<T>(IReadOnlyList<VitalsSample> samples, Func<VitalsSample, T?> value, bool highest)
+        where T : struct, IComparable<T>
     {
-        Sample? best = null;
+        VitalsSample? best = null;
         T bestValue = default;
-        foreach (Sample sample in samples)
+        foreach (VitalsSample sample in samples)
         {
             if (value(sample) is not { } current)
             {
@@ -211,7 +217,7 @@ internal sealed class NodeVitalsHistory(string stateDirectory)
         return best == null ? null : new JsonObject { [key] = JsonValue.Create(bestValue), ["at"] = Time(best.At) };
     }
 
-    private static JsonObject AlertCounts(List<Sample> samples)
+    private static JsonObject AlertCounts(IReadOnlyList<VitalsSample> samples)
     {
         var counts = new JsonObject();
         foreach (NodeAlerts alert in new[] { NodeAlerts.MemoryLow, NodeAlerts.DiskLow, NodeAlerts.CpuHigh })

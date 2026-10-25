@@ -136,8 +136,34 @@ internal sealed class ControllerTrayService
             return;
         }
 
-        _lastFailure = await SendAsync(masterCommand);
+        _lastFailure = command.Action == ControllerTrayAction.OpenVitalsReport
+            ? await OpenReportAsync(masterCommand)
+            : await SendAsync(masterCommand);
         await RefreshAsync();
+    }
+
+    // The master writes the report into its state directory; only a regular file there is handed to the default browser.
+    // Returns the reason it could not be opened, or an empty text.
+    private async Task<string> OpenReportAsync(string masterCommand)
+    {
+        try
+        {
+            JsonObject reply = await MasterAdministration.CallAsync(_stateDirectory, masterCommand, _cancellation);
+            string? path = reply["path"]?.ToString();
+            string expected = Path.Combine(_stateDirectory, NodeVitalsReport.FileName);
+            if (path != expected || !File.Exists(path) || (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0)
+            {
+                return reply["error"]?.ToString() ?? masterCommand;
+            }
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = path, UseShellExecute = true });
+            return "";
+        }
+        catch (Exception failure) when (failure is IOException or OperationCanceledException or TimeoutException
+            or UnauthorizedAccessException or JsonException or InvalidOperationException
+            or System.ComponentModel.Win32Exception)
+        {
+            return failure.Message;
+        }
     }
 
     // Returns the master's reason for a refusal, or an empty text on success.

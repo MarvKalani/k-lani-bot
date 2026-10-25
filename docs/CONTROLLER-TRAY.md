@@ -90,11 +90,20 @@ to `vitals-history/NODE.jsonl` in the state directory, private to the master's u
 vitals and alerts; older samples are removed about once an hour. A node removed from the master keeps its file until the
 operator deletes it.
 
+**Report.** "Verlauf der Vitalwerte öffnen" in the tray asks the master for `vitals-report [DAYS]` (default: the kept
+history) and opens the answer in the default browser. The master writes `vitals-report.html` privately into its state
+directory: one section per registered node with the system, the period's peaks with their time, how many samples
+crossed a limit, and inline SVG charts of CPU load, free memory and free disk over the period, red dots where a limit
+was crossed. The page has no script and loads nothing (`default-src 'none'`); everything a node reported is escaped.
+Each chart draws at most 300 points, each the worst value of its stretch of time, so a week of minute samples still
+shows its spikes; the peaks are taken from every sample. The tray opens only the regular file at that path in the
+master's state directory.
+
 `vitals-history NODE [HOURS]` (default 24) answers with the period's sample count, the highest CPU load and the least
 free memory and disk, each with its time, how often each limit was crossed and the path of the full file. AI clients get
 no history.
 
-**Commands.** The master's local administration pipe (current user, this state directory) gets five commands, usable
+**Commands.** The master's local administration pipe (current user, this state directory) gets six commands, usable
 from the console and through `--master-admin --state DIR --command "..."`:
 
 | Command | Effect |
@@ -104,6 +113,7 @@ from the console and through `--master-admin --state DIR --command "..."`:
 | `client-resume INSTANCE` | Admit them again |
 | `bot on` / `bot off` | Admit or refuse every client's calls |
 | `vitals-history NODE [HOURS]` | Peaks and crossed limits of a node's vitals in the last hours (default 24) |
+| `vitals-report [DAYS]` | Writes the HTML report of every node's history (default: the kept period) and answers with its path |
 
 The status reply stays below the pipe's 16 KiB frame: node rows take at most 8 KiB (about 18 nodes with vitals), client
 rows the rest, purposes cut to 120 characters, and entries beyond the budget are counted as "more".

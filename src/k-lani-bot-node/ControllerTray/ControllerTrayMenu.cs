@@ -21,6 +21,7 @@ internal enum ControllerTrayAction
     ResumeClient,
     SwitchBotOn,
     SwitchBotOff,
+    OpenVitalsReport,
     CloseTray
 }
 
@@ -45,6 +46,7 @@ internal sealed record ControllerTrayCommand(ControllerTrayAction Action, string
             ControllerTrayAction.ResumeClient => "client-resume " + Instance,
             ControllerTrayAction.SwitchBotOn => "bot on",
             ControllerTrayAction.SwitchBotOff => "bot off",
+            ControllerTrayAction.OpenVitalsReport => "vitals-report",
             ControllerTrayAction.CloseTray => null,
             _ => throw new UnreachableException()
         };
@@ -159,6 +161,8 @@ internal static class ControllerTrayMenu
         {
             entries.Add(Information(UiTexts.Format(UiText.ControllerMoreEntries, status.MoreNodes)));
         }
+        var report = new ControllerTrayCommand(ControllerTrayAction.OpenVitalsReport, "");
+        entries.Add(CommandLine(UiText.ControllerOpenVitalsReport, report, false));
         entries.Add(Separator());
     }
 

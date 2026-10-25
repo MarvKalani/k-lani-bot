@@ -91,7 +91,7 @@ internal static class NodeVitalsText
 
     // One decimal below 10 GB, where it still tells something apart, whole gigabytes above. The German comma is written
     // directly, because a node without ICU data has no German culture to ask.
-    private static string Gigabytes(long bytes)
+    public static string Gigabytes(long bytes)
     {
         double value = bytes / Gigabyte;
         string text = value.ToString(value < 10 ? "0.0" : "0", CultureInfo.InvariantCulture);

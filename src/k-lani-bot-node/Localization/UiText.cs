@@ -281,5 +281,17 @@ public enum UiText
     DurationSeconds,
     DurationMinutes,
     DurationHoursMinutes,
-    DurationDaysHours
+    DurationDaysHours,
+    ControllerOpenVitalsReport,
+    VitalsReportTitle,
+    VitalsReportPeriod,
+    VitalsReportLegend,
+    VitalsReportNoSamples,
+    VitalsReportCpu,
+    VitalsReportMemory,
+    VitalsReportDisk,
+    VitalsReportPeakCpu,
+    VitalsReportPeakMemory,
+    VitalsReportPeakDisk,
+    VitalsReportAlerts
 }

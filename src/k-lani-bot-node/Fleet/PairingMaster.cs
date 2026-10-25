@@ -88,7 +88,8 @@ public sealed class PairingMaster
     private const string BearerPrefix = "Bearer ";
     private const string CommandHelp = "Commands: approve TICKET | deny TICKET | revoke NODE | digits 0..6 | pending | "
         + "backup-requirement NODE[,NODE]|all required|off | backup-requirement-status | "
-        + "controller-status | client-pause INSTANCE | client-resume INSTANCE | bot on|off | vitals-history NODE [HOURS]";
+        + "controller-status | client-pause INSTANCE | client-resume INSTANCE | bot on|off | vitals-history NODE [HOURS] | "
+        + "vitals-report [DAYS]";
 
     // One master owns registry updates and approval state; a second process must not race them.
     private static readonly string[] StateFileNames =
@@ -772,6 +773,8 @@ public sealed class PairingMaster
     private JsonObject? ExecuteControllerCommand(string[] words)
     {
         string command = words.Length == 0 ? "" : words[0];
+        if (words.Length is 1 or 2 && command == "vitals-report")
+            return VitalsReport(words);
         if (words.Length is 2 or 3 && command == "vitals-history")
             return VitalsHistory(words);
         if (words.Length == 1 && command == "controller-status")
@@ -797,6 +800,21 @@ public sealed class PairingMaster
         DateTimeOffset now = DateTimeOffset.UtcNow;
         NodeVitalsSettings limits = NodeVitalsSettings.Read(_stateDirectory);
         return _devices.Select(device => device.Key).Order(StringComparer.Ordinal).Select(node => NodeRow(node, limits, now)).ToList();
+    }
+
+    // Every registered node over the given days, by default the kept history. Throws ArgumentException for days outside 1 to
+    // 366 and IOException when the report cannot be written.
+    private JsonObject VitalsReport(string[] words)
+    {
+        int days = Math.Max(1, NodeVitalsSettings.Read(_stateDirectory).HistoryDays);
+        if (words.Length == 2 && (!int.TryParse(words[1], System.Globalization.CultureInfo.InvariantCulture, out days)
+            || days is < 1 or > 366))
+        {
+            throw new ArgumentException("Days must be a whole number from 1 to 366.");
+        }
+        List<string> nodes = _devices.Select(device => device.Key).Order(StringComparer.Ordinal).ToList();
+        string path = _nodeVitals.WriteReport(nodes, TimeSpan.FromDays(days));
+        return new JsonObject { ["success"] = true, ["path"] = path, ["nodes"] = nodes.Count, ["days"] = days };
     }
 
     // Throws ArgumentException for an unregistered node or hours outside 1 to 8784 (a leap year).

@@ -325,7 +325,19 @@ public static class UiTexts
         [UiText.DurationSeconds] = "{0} s",
         [UiText.DurationMinutes] = "{0} min",
         [UiText.DurationHoursMinutes] = "{0} h {1} min",
-        [UiText.DurationDaysHours] = "{0} d {1} h"
+        [UiText.DurationDaysHours] = "{0} d {1} h",
+        [UiText.ControllerOpenVitalsReport] = "Open the vital signs history",
+        [UiText.VitalsReportTitle] = "Vital signs of the computers",
+        [UiText.VitalsReportPeriod] = "{0} to {1} · created {2}",
+        [UiText.VitalsReportLegend] = "Each point is the worst value of its stretch of time; red points crossed a limit.",
+        [UiText.VitalsReportNoSamples] = "No values in this period",
+        [UiText.VitalsReportCpu] = "CPU load in %",
+        [UiText.VitalsReportMemory] = "Free memory in GB",
+        [UiText.VitalsReportDisk] = "Free space on {0} in GB",
+        [UiText.VitalsReportPeakCpu] = "highest CPU load {0} % ({1})",
+        [UiText.VitalsReportPeakMemory] = "least free RAM {0} GB ({1})",
+        [UiText.VitalsReportPeakDisk] = "least free space {0} GB ({1})",
+        [UiText.VitalsReportAlerts] = "limits crossed in {0} samples"
     };
 
     private static readonly Dictionary<UiText, string> German = new()
@@ -621,6 +633,18 @@ public static class UiTexts
         [UiText.DurationSeconds] = "{0} s",
         [UiText.DurationMinutes] = "{0} min",
         [UiText.DurationHoursMinutes] = "{0} h {1} min",
-        [UiText.DurationDaysHours] = "{0} T {1} h"
+        [UiText.DurationDaysHours] = "{0} T {1} h",
+        [UiText.ControllerOpenVitalsReport] = "Verlauf der Vitalwerte öffnen",
+        [UiText.VitalsReportTitle] = "Vitalwerte der Computer",
+        [UiText.VitalsReportPeriod] = "{0} bis {1} · erzeugt {2}",
+        [UiText.VitalsReportLegend] = "Jeder Punkt ist der schlechteste Wert seines Abschnitts; rote Punkte überschritten eine Grenze.",
+        [UiText.VitalsReportNoSamples] = "Keine Werte in diesem Zeitraum",
+        [UiText.VitalsReportCpu] = "CPU-Last in %",
+        [UiText.VitalsReportMemory] = "Freier Arbeitsspeicher in GB",
+        [UiText.VitalsReportDisk] = "Freier Platz auf {0} in GB",
+        [UiText.VitalsReportPeakCpu] = "höchste CPU-Last {0} % ({1})",
+        [UiText.VitalsReportPeakMemory] = "wenigster freier RAM {0} GB ({1})",
+        [UiText.VitalsReportPeakDisk] = "wenigster freier Platz {0} GB ({1})",
+        [UiText.VitalsReportAlerts] = "Grenzen überschritten in {0} Werten"
     };
 }

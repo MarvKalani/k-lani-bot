@@ -34,6 +34,12 @@ internal static partial class Program
         Check(history["samples"]?.GetValue<int>() >= 1 && history["disk_free_bytes"]?["min"] != null
             && File.Exists(Path.Combine(masterState, "vitals-history", "managed.jsonl")),
             "the master wrote the node's vitals to its history and names the period's peaks: " + history.ToJsonString());
+        JsonObject report = await MasterAdministration.CallAsync(masterState, "vitals-report 1", CancellationToken.None);
+        string reportPath = report["path"]?.ToString() ?? "";
+        string page = File.Exists(reportPath) ? File.ReadAllText(reportPath) : "";
+        Check(reportPath == Path.Combine(masterState, "vitals-report.html") && page.Contains("<h2>managed</h2>")
+            && page.Contains("<svg ") && !page.Contains("<script", StringComparison.OrdinalIgnoreCase),
+            "the master writes the report the tray opens, with charts of the node and no script: " + report.ToJsonString());
 
         JsonObject status = await MasterAdministration.CallAsync(masterState, "controller-status", CancellationToken.None);
         Check(ControllerStatus.TryRead(status, out ControllerStatus after) && after.Clients.All(client => client.Client != ObserverName),

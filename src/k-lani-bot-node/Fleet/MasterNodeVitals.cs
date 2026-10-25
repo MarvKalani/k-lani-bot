@@ -1,4 +1,5 @@
 using System.Text.Json.Nodes;
+using KLaniBot.Common;
 using KLaniBot.Transport;
 
 namespace KLaniBot.Fleet;
@@ -20,6 +21,16 @@ internal sealed class MasterNodeVitals(string stateDirectory)
     public JsonObject HistorySummary(string node, TimeSpan period)
     {
         return _history.Summary(node, period, DateTimeOffset.UtcNow);
+    }
+
+    // Writes the operator's report of these nodes privately into the state directory and returns its path.
+    public string WriteReport(IEnumerable<string> nodes, TimeSpan period)
+    {
+        DateTimeOffset now = DateTimeOffset.UtcNow;
+        var histories = nodes.Select(node => new NodeHistory(node, _history.Samples(node, period, now))).ToList();
+        string path = Path.Combine(stateDirectory, NodeVitalsReport.FileName);
+        PrivateFile.WriteAllBytesAtomically(path, System.Text.Encoding.UTF8.GetBytes(NodeVitalsReport.Build(histories, period, now)));
+        return path;
     }
 
     // Right after a connection the relay may still carry the master's first message to the node, so the first poll retries
